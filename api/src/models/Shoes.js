@@ -15,6 +15,13 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
     },
+    stock:{
+        type:DataTypes.INTEGER,
+        allowNull: false,
+        validate:{
+            min: 0
+        }
+    },
     // size: {
     //   type: DataTypes.STRING,
     //   allowNull: false,
