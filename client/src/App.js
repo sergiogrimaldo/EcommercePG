@@ -37,7 +37,7 @@ function App() {
 		{modal === 'signUp' && <SignUp/> }
 			<div className='App'>
 				<Header data={data} />
-				{data && data.length > 0 && data.map(shoe => <Card shoe={shoe} />)}
+				<Cards data={data}/>
 			</div>
 		</BrowserRouter>
 	);
