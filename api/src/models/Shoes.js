@@ -2,48 +2,49 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('shoes', {
-    _id:{
+    id:{
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement:true,
     },
     description:{
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
+        defaultValue:'No description'
         //allowNull: false
     },
-    colorway:{
-        type: DataTypes.STRING,
+    colorWay:{
+        type: DataTypes.STRING(),
         //allowNull: false
     },
     stock:{
         type:DataTypes.INTEGER,
-        default: 0,
+        defaultValue: 0,
         // validate:{
         //     min: 0
         // }
     },
     // size: {
-    //   type: DataTypes.STRING,
+    //   type: DataTypes.STRING(1000),
     //   allowNull: false,
     // },
     shoeName:{
-        type:DataTypes.STRING,
+        type:DataTypes.STRING(1000),
         //allowNull: false,
     },
     retailPrice: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         //allowNull: false,
       },
     thumbnail: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1000),
     //allowNull: false,
     },
     brand: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         //allowNull: false,
         },
     urlKey: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(1000),
         //allowNull:false,
     },
   },{timestamps:false});
