@@ -11,6 +11,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
     password:DataTypes.INTEGER,
     /// confirmado / autorizado:
   },{timestamps:false});
