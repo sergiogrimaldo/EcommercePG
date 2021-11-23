@@ -1,6 +1,6 @@
 import { BrowserRouter} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Card from './components/Card/Card';
+import Cards from './components/Cards/Cards';
 import Header from './components/Header/Header';
 
 
@@ -34,7 +34,8 @@ const [data, setData] = useState([])
      
       <Header/>
   
-       { data && data.length > 0 && data.map((shoe) => <Card shoe={shoe}/>) }
+       <Cards data={data}/>
+
     </div>
     </BrowserRouter>
   );
