@@ -1,8 +1,7 @@
 import React from "react";
 
-
-export default function Card ({shoeName, brand, retailPrice, thumbnail, releaseDate}) {
-    
+export default function Card ({shoe}) {
+    const {shoeName, brand, retailPrice, thumbnail, releaseDate} = shoe
     return (
         <div>
             <img src={thumbnail}/>
