@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Card from './components/Card/Card';
+import Cards from './components/Cards/Cards';
 import Header from './components/Header/Header';
 import { useSelector } from 'react-redux';
 import SignUp from './components/Modals/SignUp';
@@ -30,6 +30,7 @@ function App() {
 		getData();
 	}, []);
 
+
 	return (
 		<BrowserRouter>
       	{modal === 'login' && <Login/> }
@@ -40,6 +41,7 @@ function App() {
 			</div>
 		</BrowserRouter>
 	);
+
 }
 
 export default App;
