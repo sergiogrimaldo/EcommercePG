@@ -1,6 +1,12 @@
 import Searchbar from '../Searchbar/Searchbar.jsx'
+import { GoogleLogin } from 'react-google-login';
 
 export default function Header(){
+
+    const responseGoogle = (response) => {
+        console.log(response)
+      }
+
     return(
         <header style={{
             zIndex:0,
@@ -25,6 +31,15 @@ export default function Header(){
                     <li className='selected' style={{margin:10}}>Home</li>
                     <li style={{margin:10}}> Login </li>
                     <li style={{margin:10}}> Carrito </li>
+                        {/* inserto el login con el usuario de google extraido de la documentacion de react-google-login */}
+                        <br /> <br />
+                        <GoogleLogin 
+                        clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />, 
                 </ul>
             </div>
         </header>

@@ -4,6 +4,7 @@ import Card from './components/Card/Card';
 import Header from './components/Header/Header';
 
 
+
 function App() {
 const [data, setData] = useState([])
 
@@ -28,10 +29,11 @@ const [data, setData] = useState([])
     getData()
   },[])
 
+  
+
   return (
     <BrowserRouter>
-    <div className="App">
-     
+    <div className="App">    
       <Header/>
   
        { data && data.length > 0 && data.map((shoe) => <Card shoe={shoe}/>) }
