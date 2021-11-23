@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Card from './components/Card/Card';
+import Header from './components/Header/Header';
 
 function App() {
+const [data, setData] = useState([])
+
+  const getData=()=>{
+    fetch('shoes.json'
+    ,{
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    }
+    )
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(myJson) {
+        console.log(myJson)
+        setData(myJson);
+      });
+  }
+  useEffect(()=>{
+    getData()
+  },[])
+
   return (
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header/>
+       { data && data.length > 0 && data.map((shoe) => <Card shoe={shoe}/>) }
     </div>
+    </BrowserRouter>
   );
 }
 
