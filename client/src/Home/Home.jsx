@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {useSelector} from 'react-redux'
 import Paging from '../../components/Paging/Paging.jsx'
-
-
+ 
 function Home() {
     let stateShoes = useSelector( state => state.shoes)
 
@@ -16,7 +15,6 @@ function Home() {
         setCurrentPage(pageNumber)
     }
 
-
     return (
         <div>
             <div>
@@ -27,9 +25,7 @@ function Home() {
                  page={page}
                 />
                 <div>
-                    {
-                        // renderizar las card de los zapatos
-                    }
+               
                 </div>
                 
             </div>

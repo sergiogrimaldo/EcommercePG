@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
+
 
 function App() {
 const [data, setData] = useState([])
@@ -30,7 +31,9 @@ const [data, setData] = useState([])
   return (
     <BrowserRouter>
     <div className="App">
+     
       <Header/>
+  
        { data && data.length > 0 && data.map((shoe) => <Card shoe={shoe}/>) }
     </div>
     </BrowserRouter>

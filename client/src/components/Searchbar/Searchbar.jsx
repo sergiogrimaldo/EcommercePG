@@ -14,14 +14,12 @@ export default function Searchbar({ onSearch }) {
 	}
 
 	return (
-		<div>
-			Searchbar
 			<div>
 				<form onSubmit={onSubmitHandler}>
 					<input type='text' value={input} onChange={onChangeHandler} />
 					<button type='submit'>Search</button>
 				</form>
 			</div>
-		</div>
+		
 	);
 }

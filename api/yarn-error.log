@@ -1,0 +1,72 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\CHECHO\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\CHECHO\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\CHECHO\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn;C:\Program Files\nodejs;C:\Users\CHECHO\AppData\Local\Microsoft\WindowsApps;C:\Users\CHECHO\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\CHECHO\.dotnet\tools;C:\Users\CHECHO\AppData\Local\GitHubDesktop\bin;C:\Users\CHECHO\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  14.17.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\CHECHO\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141390:19)
+      at Object.onceWrapper (events.js:481:28)
+      at ClientRequest.emit (events.js:375:28)
+      at TLSSocket.emitRequestTimeout (_http_client.js:790:9)
+      at Object.onceWrapper (events.js:481:28)
+      at TLSSocket.emit (events.js:387:35)
+      at TLSSocket.Socket._onTimeout (net.js:484:8)
+      at listOnTimeout (internal/timers.js:557:17)
+      at processTimers (internal/timers.js:500:7)
+
+npm manifest: 
+  {
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "nodemon -L",
+      "test": "mocha -w ./tests/**/*.spec.js "
+    },
+    "author": "Henry",
+    "license": "ISC",
+    "engines": {
+      "node": ">=12.18.3",
+      "npm": ">=6.14.6"
+    },
+    "dependencies": {
+      "axios": "^0.24.0",
+      "body-parser": "^1.19.0",
+      "chai-as-promised": "^7.1.1",
+      "concurrently": "^6.3.0",
+      "cookie-parser": "^1.4.5",
+      "cors": "^2.8.5",
+      "dotenv": "^8.2.0",
+      "express": "^4.17.1",
+      "ioredis": "^4.19.2",
+      "jsonwebtoken": "^8.5.1",
+      "morgan": "^1.10.0",
+      "pg": "^8.5.1",
+      "sequelize": "^6.3.5"
+    },
+    "devDependencies": {
+      "supertest-session": "^4.1.0",
+      "mocha": "^8.2.1",
+      "chai": "^4.2.0",
+      "nodemon": "^2.0.6",
+      "supertest": "^6.0.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
