@@ -1,7 +1,13 @@
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../redux/actions/index.js';
+
+
 
 export default function Header({ data }) {
+	const dispatch = useDispatch()
+
 	return (
 		<header
 			style={{
@@ -29,7 +35,8 @@ export default function Header({ data }) {
 					<li className='selected' style={{ margin: 10 }}>
 						Home
 					</li>
-					<li style={{ margin: 10 }}> Login </li>
+					<li style={{ margin: 10 }} onClick={() => dispatch(openModal('signUp'))}> Register </li>
+					<li style={{ margin: 10 }} onClick={() => dispatch(openModal('login'))} > Login </li>
 					<li style={{ margin: 10 }}> Carrito </li>
 				</ul>
 			</div>
