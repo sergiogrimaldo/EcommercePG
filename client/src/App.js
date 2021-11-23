@@ -1,9 +1,14 @@
+import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
+import { useSelector } from 'react-redux';
+import SignUp from './components/Modals/SignUp';
+import Login from './components/Modals/Login';
 
 function App() {
+	const modal = useSelector((state) => state.modal)
 	const [data, setData] = useState([]);
 
 	const getData = () => {
@@ -27,6 +32,8 @@ function App() {
 
 	return (
 		<BrowserRouter>
+      	{modal === 'login' && <Login/> }
+		{modal === 'signUp' && <SignUp/> }
 			<div className='App'>
 				<Header data={data} />
 				{data && data.length > 0 && data.map(shoe => <Card shoe={shoe} />)}
