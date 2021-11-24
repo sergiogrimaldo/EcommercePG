@@ -29,7 +29,7 @@ const FilterColor = ({ colors }) => {
 
   return (
     <div>
-      <select onChange={onChangeHandler}></select>
+      <select onChange={onChangeHandler}>
         <option value="">---Filter Color---</option>
         {clean.map(
           (elem, index) =>
