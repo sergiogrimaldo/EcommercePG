@@ -1,0 +1,7 @@
+.label {
+	display: inline-flex;
+}
+
+.labelHide {
+	display: none;
+}

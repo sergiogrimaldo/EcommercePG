@@ -1,6 +1,7 @@
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
+import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { GoogleLogin } from 'react-google-login';
@@ -37,6 +38,7 @@ export default function Header({ data }) {
 					<Searchbar />
 					<FilterBrand data={data} />
 					<FilterSize data={data} />
+					<FilterPrice data={data} />
 					<li className='selected' style={{ margin: 10 }}>
 						Home
 					</li>

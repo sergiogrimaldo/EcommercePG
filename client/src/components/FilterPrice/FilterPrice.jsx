@@ -1,11 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import styles from './FilterPrice.module.css';
 
-export default function FilterPrice() {
-	let prices = [0, 45, 32, 199, 344, 21, 8, 76];
-	let maxPrice = Math.max(...prices);
+export default function FilterPrice({ data }) {
+	let maxPriceArr = data
+		.map(elem => elem.lowestResellPrice)
+		.filter(elem => elem)
+		.map(elem => Object.values(elem))
+		.flat();
+
+	let maxPrice = Math.max(...maxPriceArr);
+	console.log(maxPriceArr);
+
 	let roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
 
-	let [value, setValue] = useState(roundUpMax);
+	let [value, setValue] = useState(0);
+
+	useEffect(() => {
+		if (!value || value === -Infinity) {
+			setValue(roundUpMax);
+		}
+	});
 
 	function onChangeHandler(e) {
 		setValue(e.target.value);
@@ -14,15 +28,19 @@ export default function FilterPrice() {
 
 	return (
 		<div>
-			<div>Price</div>
+			<label>Price</label>
 			<input
 				type='range'
 				min='0'
 				max={roundUpMax}
-				step='50'
+				step='100'
 				value={value}
 				onChange={onChangeHandler}
 			/>
+			<label
+				className={`${value !== -Infinity ? styles.label : styles.labelHide}`}>
+				{value}
+			</label>
 		</div>
 	);
 }
