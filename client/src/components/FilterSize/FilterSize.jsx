@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 export default function FilterSize({ data }) {
-	let [value, setValue] = useState(0);
+	let [value, setValue] = useState(0); // set value in case we want to make this filter dynamic later
 	let sizeFilter = data
-		.map(elem => elem.resellPrices)
-		.filter(elem => elem)
-		.map(elem => Object.keys(elem.flightClub))
-		.flat(Infinity);
+		.map(elem => elem.resellPrices) // mapping data's resellPrices properties
+		.filter(elem => elem) // filtering undefined ones out
+		.map(elem => Object.keys(elem.flightClub)) // taking all sizes
+		.flat(Infinity); // flattening out the array
 	let sizes = [...new Set(Object.values(sizeFilter))].sort((a, b) => {
-		return a - b;
+		return a - b; // storing the array as a set in another array and sorting it
 	});
 
 	function onChangeHandler(e) {
