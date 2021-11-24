@@ -1,30 +1,33 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
-import { GoogleLogin } from 'react-google-login';
+
 import './Navbar.css';
 
+
 function Navbar() {
+  
     const [click, setClick] = useState(false);
     const dispatch = useDispatch();
     const handleClick = () => setClick(!click);
 
-    const responseGoogle = (response) => {
-        console.log(response)
-      }
+
     
     return (
         <>
       <nav className='navbar'>
         <div className='navbar_container'>
             <div className='navbar_icon'>
-            <h1>ZapAPP<i class="fas fa-shoe-prints"></i></h1>
+            <h1>CACTUS <i class="fas fa-shoe-prints"></i> SHOES</h1>
             </div>
           <div className='menu_icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>			
 
+            <li 
+             className='nav_links'
+            >Catalogue</li>
             <li 
              className='nav_links' 
              onClick={() => dispatch(openModal('signUp'))}
@@ -35,7 +38,7 @@ function Navbar() {
              onClick={() => dispatch(openModal('login'))}
             > Login 
             </li>
-            <li className='nav_links'>
+            {/*<li className='nav_links'>
                 <GoogleLogin 
                     clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
                     buttonText="Login"
@@ -43,10 +46,13 @@ function Navbar() {
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
                     />
-            </li>
+    </li>*/}
             <li 
              className='nav_links'
-            > Carrito </li>
+            >About us</li>
+            <li 
+             className='nav_links'
+            >Carrito</li>
           </ul>
         </div>
       </nav>
