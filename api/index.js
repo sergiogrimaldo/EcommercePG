@@ -1,4 +1,3 @@
-const fetch =require
 //                       _oo0oo_
 //                      o8888888o
 //                      88" . "88
@@ -18,6 +17,7 @@ const fetch =require
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fetch =require
 const server = require('./src/app.js');
 const { conn, Shoes } = require('./src/db.js');
 
@@ -25,33 +25,34 @@ const { conn, Shoes } = require('./src/db.js');
 'use strict';
 
 const peticionApi = async function (){
-  try{ //si no le ponía try and catch la promesa quedaba como unhandled
+  try{ 
   const Api = fetch('./allShoes.json')
   
-  const datosBd = Api.map(el =>{ //llamo una sola vez a la API y dejo toda la info en mi DB
+  //Recorro el archivo AllShoes y dejo solo las propiedades que me interesan
+  const datosBd = Api.map(el =>{ 
     return {
-      _id: el._id,
-      description: el.description,
-      colorWay: el.colorway || null,
-      stock: el.stock || null,
+      description: el.description || undefined,
+      colorWay: el.colorway || undefined,
+      stock: Math.random()*15,
       shoeName: el.shoeName,
-      retailPrice: el.retailPrice || null,
+      retailPrice: el.retailPrice || undefined,
       thumbnail: el.thumbnail,
       brand: el.brand,
       urlKey: el.urlKey
     }})
-    //console.log(datosBd, 'hola2')
-    const aux = await Shoes.bulkCreate(datosBd[1]) //guardando en la base de datos
-    console.log(datosBd, 'hola2')
+    
+
+    // guardando en la base de datos
+    await Shoes.bulkCreate(datosBd) 
+    
   }
   catch(error){ //aca agarro el error si existe
     console.log(error)
   }
 } 
 
-conn.sync({ force: false }).then(() => {
-  //peticionApi()
-
+conn.sync({ force: true }).then(() => {
+// conn.sync().then(() => {
   server.listen(3001, () => {
       console.log('%s listening at 3001'); // eslint-disable-line no-console
     });
