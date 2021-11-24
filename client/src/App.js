@@ -7,13 +7,12 @@ import { useSelector } from 'react-redux';
 import SignUp from './components/Modals/SignUp';
 import Login from './components/Modals/Login';
 
-
 function App() {
-	const modal = useSelector((state) => state.modal)
+	const modal = useSelector(state => state.modal);
 	const [data, setData] = useState([]);
 
 	const getData = () => {
-		fetch('shoes.json', {
+		fetch('allShoes.json', {
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
@@ -31,19 +30,16 @@ function App() {
 		getData();
 	}, []);
 
-
 	return (
 		<BrowserRouter>
-      	{modal === 'login' && <Login/> }
-		{modal === 'signUp' && <SignUp/> }
+			{modal === 'login' && <Login />}
+			{modal === 'signUp' && <SignUp />}
 			<div className='App'>
 				<Header data={data} />
-				<Cards data={data}/>
+				<Cards data={data} />
 			</div>
 		</BrowserRouter>
 	);
-
-
 }
 
 export default App;
