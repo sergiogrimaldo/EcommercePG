@@ -2,7 +2,7 @@ import React from 'react';
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import Navbar from '../Navbar/Navbar.jsx';
-import FilterColor from '../FilterColor/FilterColor.jsx';
+//import FilterColor from '../FilterColor/FilterColor.jsx';
 //import { GoogleLogin } from 'react-google-login';
 
 
@@ -37,7 +37,7 @@ export default function Header({ data }) {
 						}}>
 						<Searchbar />
 						<FilterBrand data={data} />
-						<FilterColor colors={data} />
+						
 						{/* <li className='selected' style={{ margin: 10 }}>
 							Home
 						</li>
