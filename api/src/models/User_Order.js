@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     },
     state:{
         type: DataTypes.ENUM('Pending','On Dispatch','Received'),
+        defaultValue:'Pending',
         allowNull: false,
       },
   });
