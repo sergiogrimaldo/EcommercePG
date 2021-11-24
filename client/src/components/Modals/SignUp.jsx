@@ -25,7 +25,7 @@ export default function SignUp(){
                 justifyItems:'center',
                 padding:40, }}>
 
-    <h1 style={{marginTop:0}}>Register</h1>
+    <h1 style={{marginTop:0}}>REGISTER</h1>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',}}>            
                 <label style={{textAlign:"center"}} for='username'>Username:</label><input id='username' placeholder='type your username'></input>
                 <label style={{textAlign:"center"}} for='password'>Password:</label><input type='password' id='password' placeholder="type your password"></input>

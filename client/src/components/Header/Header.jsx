@@ -4,13 +4,9 @@ import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import Navbar from '../Navbar/Navbar.jsx';
-//import FilterColor from '../FilterColor/FilterColor.jsx';
-//import { GoogleLogin } from 'react-google-login';
+
 
 export default function Header({ data }) {
-	//const responseGoogle = (response) => {
-	//  console.log(response)
-	//}
 
 	return (
 		<>
@@ -39,20 +35,7 @@ export default function Header({ data }) {
 						<FilterBrand data={data} />
 						<FilterSize data={data} />
 						<FilterPrice data={data} />
-						{/* <li className='selected' style={{ margin: 10 }}>
-							Home
-						</li>
-						<li style={{ margin: 10 }} onClick={() => dispatch(openModal('signUp'))}> Register </li>
-						<li style={{ margin: 10 }} onClick={() => dispatch(openModal('login'))} > Login </li>
-						<li style={{ margin: 10 }}> Carrito </li> */}
-						{/* inserto el login con el usuario de google extraido de la documentacion de react-google-login */}
-						{/* <GoogleLogin 
-				clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
-				buttonText="Login"
-				onSuccess={responseGoogle}
-				onFailure={responseGoogle}
-				cookiePolicy={'single_host_origin'}
-				/>,  */}
+						
 					</ul>
 				</div>
 			</header>
