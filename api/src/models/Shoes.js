@@ -8,43 +8,44 @@ module.exports = (sequelize) => {
       autoIncrement:true,
     },
     description:{
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(1000),
+        defaultValue:'No description'
+        //allowNull: false
     },
     colorWay:{
-        type: DataTypes.STRING,
-        allowNull: false
+        type: DataTypes.STRING(),
+        //allowNull: false
     },
     stock:{
         type:DataTypes.INTEGER,
-        allowNull: false,
-        validate:{
-            min: 0
-        }
+        defaultValue: 0,
+        // validate:{
+        //     min: 0
+        // }
     },
     // size: {
-    //   type: DataTypes.STRING,
+    //   type: DataTypes.STRING(1000),
     //   allowNull: false,
     // },
     shoeName:{
-        type:DataTypes.STRING,
-        allowNull: false,
+        type:DataTypes.STRING(1000),
+        //allowNull: false,
     },
     retailPrice: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.STRING(1000),
+        //allowNull: false,
       },
     thumbnail: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.STRING(1000),
+    //allowNull: false,
     },
     brand: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.STRING(1000),
+        //allowNull: false,
         },
     urlKey: {
-        type: DataTypes.STRING,
-        allowNull:false,
+        type: DataTypes.STRING(1000),
+        //allowNull:false,
     },
   },{timestamps:false});
 };

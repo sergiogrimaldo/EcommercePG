@@ -1,0 +1,19 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 370px;
+    height: 450px;
+    border: solid 2px;
+    border-color: rgb(65, 168, 236);
+    border-radius: 15px;
+    margin: 15px;
+    background-color: rgb(113, 165, 199);
+    cursor: pointer;
+}
+
+.img{
+    width: 270px;
+    height: 350px;
+    border-radius: 30px;
+    margin: 1px;
+}
