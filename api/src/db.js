@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+
 const {
   DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT,
 } = process.env;
@@ -32,7 +33,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Shoes, User, User_Order } = sequelize.models;
+const { Order, Shoes, User, User_Order, Rol, Color,AvaiableSizes } = sequelize.models;
 
 // One user can have many orders
 User.belongsToMany(Order,{through:User_Order})
@@ -40,9 +41,21 @@ User.belongsToMany(Order,{through:User_Order})
 // An order only belongs to one user
 Order.belongsTo(User)
 
+//user has one and only one rol
+Rol.belongsTo(User)
+User.hasOne(Rol)
+
+
 // Order can contain many shoes, and the same shoe can be in many different orders
-Order.belongsToMany(Shoes,{through:'order_Shoes'})
-Shoes.belongsToMany(Order,{through:'order_Shoes'})
+Order.belongsToMany(Shoes,{through:'Order_Shoes'})
+Shoes.belongsToMany(Order,{through:'Order_Shoes'})
+
+/////// Shoes can have many colors, one color can be on many shoes
+Color.belongsToMany(Shoes,{through:'Shoe_Colors'})
+Shoes.belongsToMany(Color,{through:'Shoe_Colors'})
+
+Shoes.belongsTo(AvaiableSizes)
+AvaiableSizes.hasOne(Shoes)
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

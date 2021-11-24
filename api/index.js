@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fetch =require
 const server = require('./src/app.js');
-const { conn, Shoes } = require('./src/db.js');
+const { conn, Shoes, Color, Brand } = require('./src/db.js');
 
 // Syncing all the models at once.
 'use strict';
@@ -29,16 +29,28 @@ const peticionApi = async function (){
   const Api = fetch('./allShoes.json')
   
   //Recorro el archivo AllShoes y dejo solo las propiedades que me interesan
-  const datosBd = Api.map(el =>{ 
+  const datosBd = Api.map(async (el) =>{ 
+    
+    const {description, colorway, shoeName, retailPrice, thumbnail, brand, urlKey} = el
+    for (color of Array.from(new Set(colorway.split('/')))){
+      await Color.findOrCreate({where:{'name':color}})
+    }
+    //console.log(brand)
+
+    console.log(await Brand.findAll({where:{name:brand}}) )
+    if ((await Brand.findAll({where:{name:brand}}).length == 0) ) {
+      await Brand.create({name:brand}) 
+    } 
+
     return {
-      description: el.description || undefined,
-      colorWay: el.colorway || undefined,
+      description: description || undefined,
+      colorWay: colorway || undefined,
       stock: Math.random()*15,
-      shoeName: el.shoeName,
-      retailPrice: el.retailPrice || undefined,
-      thumbnail: el.thumbnail,
-      brand: el.brand,
-      urlKey: el.urlKey
+      shoeName: shoeName,
+      retailPrice: retailPrice || undefined,
+      thumbnail: thumbnail,
+//      brand: brand,
+      urlKey: urlKey
     }})
     
 
@@ -56,6 +68,7 @@ conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
       console.log('%s listening at 3001'); // eslint-disable-line no-console
     });
-  }).then(()=>peticionApi())
+  }).catch((e) => console.log(e))
+   .then(()=>peticionApi()).catch(e => (console.log(e)))
   
   
