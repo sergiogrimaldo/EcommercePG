@@ -1,0 +1,23 @@
+{
+  "name": "ecommercepg",
+  "version": "1.0.0",
+  "description": "E-commerce final henry's bootcamp group project",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \" cd ./api && npm run start\"  \"cd ./client && npm run start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergiogrimaldo/EcommercePG.git"
+  },
+  "author": "grupo 2 henry ft18a 2021",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergiogrimaldo/EcommercePG/issues"
+  },
+  "homepage": "https://github.com/sergiogrimaldo/EcommercePG#readme",
+  "dependencies": {
+    "concurrently": "^6.4.0"
+  }
+}
