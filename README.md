@@ -14,6 +14,7 @@
 - Utilizar Metodologías Ágiles.
 - Trabajar en equipo.
 - Usar y practicar testing.
+
 ## Trabajo en Equipo
 
 En este proyecto, van a trabajar en equipo de 4 a 6 personas. Van a trabajar siempre en pares, al terminar una tarea, van a cambiar de pareja para llegar a trabajar con todos los compañeros.
