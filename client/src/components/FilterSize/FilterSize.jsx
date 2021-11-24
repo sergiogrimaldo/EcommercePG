@@ -1,8 +1,15 @@
 import { useState } from 'react';
 
-export default function FilterSize() {
-	const sizes = [4, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5];
+export default function FilterSize({ data }) {
 	let [value, setValue] = useState(0);
+	let sizeFilter = data
+		.map(elem => elem.resellPrices)
+		.filter(elem => elem)
+		.map(elem => Object.keys(elem.flightClub))
+		.flat(Infinity);
+	let sizes = [...new Set(Object.values(sizeFilter))].sort((a, b) => {
+		return a - b;
+	});
 
 	function onChangeHandler(e) {
 		setValue(e.target.value);
@@ -11,7 +18,6 @@ export default function FilterSize() {
 
 	return (
 		<div>
-			<div>Filter By Size</div>
 			<select onChange={onChangeHandler}>
 				<option>---Filter By Size---</option>
 				{sizes.map((elem, index) => (
