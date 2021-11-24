@@ -5,23 +5,17 @@ import { deleteAllRepited } from "./colors";
 import { useState } from "react";
 import { filter } from "./colors";
 
-const FilterColor = ({ colors }) => {
+const FilterColor = ({ data }) => {
   const [value, setValue] = useState("");
-  console.log(colors);
 
-  let array = splitAll(colors);
+  let array = splitAll(data);
   //console.log(array);
   let clean = deleteAllRepited(array);
   let shoes = filter(array, value);
 
-
-
-  shoes.forEach(e => {
+  shoes.forEach((e) => {
     console.log(e._id);
-  }); // esto es para traer las zapatillas que coinciden con el filtro por id 
-  
-
-
+  }); // esto es para traer las zapatillas que coinciden con el filtro por id
 
   const onChangeHandler = (e) => {
     setValue(e.target.value);
