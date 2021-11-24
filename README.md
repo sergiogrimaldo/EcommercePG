@@ -7,7 +7,7 @@
 
 ## Objetivos del Proyecto
 
-- Construir una App JavaScript desde cero.
+- Construir una App JavaScript (React) desde cero.
 - Afirmar y conectar los conceptos aprendidos en la carrera.
 - Aprender mejores prácticas.
 - Aprender y practicar el workflow de GIT.
