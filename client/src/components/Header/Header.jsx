@@ -3,6 +3,7 @@ import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
+import FilterColor from '../FilterColor/FilterColor.jsx';
 import Navbar from '../Navbar/Navbar.jsx';
 
 
@@ -34,8 +35,8 @@ export default function Header({ data }) {
 						<Searchbar />
 						<FilterBrand data={data} />
 						<FilterSize data={data} />
+						<FilterColor colors={data} />
 						<FilterPrice data={data} />
-						
 					</ul>
 				</div>
 			</header>

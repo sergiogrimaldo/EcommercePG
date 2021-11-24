@@ -7,7 +7,6 @@ import { filter } from "./colors";
 
 const FilterColor = ({ colors }) => {
   const [value, setValue] = useState("");
-  console.log(colors);
 
   let array = splitAll(colors);
   //console.log(array);
@@ -30,8 +29,8 @@ const FilterColor = ({ colors }) => {
 
   return (
     <div>
-      <select onChange={onChangeHandler}>
-        <option value="">Filter Color</option>
+      <select onChange={onChangeHandler}></select>
+        <option value="">---Filter Color---</option>
         {clean.map(
           (elem, index) =>
             !deleteWord.includes(elem) && (
