@@ -1,5 +1,6 @@
 import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
+import FilterColor from '../FilterColor/FilterColor.jsx';
 
 export default function Header({ data }) {
 	return (
@@ -26,6 +27,7 @@ export default function Header({ data }) {
 					}}>
 					<Searchbar />
 					<FilterBrand data={data} />
+          <FilterColor colors={data} />
 					<li className='selected' style={{ margin: 10 }}>
 						Home
 					</li>
