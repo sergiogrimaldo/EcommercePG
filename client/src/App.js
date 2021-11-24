@@ -3,40 +3,32 @@ import { BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cards from './components/Cards/Cards';
 import Header from './components/Header/Header';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SignUp from './components/Modals/SignUp';
 import Login from './components/Modals/Login';
+import { getShoes } from './redux/actions';
 
 function App() {
 	const modal = useSelector(state => state.modal);
-	const [data, setData] = useState([]);
+	const data = useSelector(state => state.shoes);
+	const dispatch = useDispatch()
 
-	const getData = () => {
-		fetch('allShoes.json', {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			},
-		})
-			.then(function (response) {
-				return response.json();
-			})
-			.then(function (myJson) {
-				console.log(myJson);
-				setData(myJson);
-			});
-	};
 	useEffect(() => {
-		getData();
+		dispatch(getShoes());
+		console.log(data)
 	}, []);
 
 	return (
 		<BrowserRouter>
 			{modal === 'login' && <Login />}
 			{modal === 'signUp' && <SignUp />}
+
 			<div className='App'>
+				{ data && data.length>0 && <>
 				<Header data={data} />
 				<Cards data={data} />
+				</>
+				}
 			</div>
 		</BrowserRouter>
 	);
