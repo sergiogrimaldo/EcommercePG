@@ -18,20 +18,16 @@ function Navbar() {
         <>
       <nav className='navbar'>
         <div className='navbar_container'>
-            <div className='navbar_icon'>
-            <h1>CACTUS <i class="fas fa-shoe-prints"></i> SHOES</h1>
+            <div className='navbar_icon' >
+            <Link to='/'> <h1>CACTUS <i class="fas fa-shoe-prints"></i>SHOES</h1></Link >
+            
             </div>
           <div className='menu_icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>			
 
-            <li 
-            ><Link
-              className='nav_links'
-              to='/catalogue'
-            >Catalogue
-            </Link ></li>
+            <li><Link className='nav_links' to='/catalogue'>Catalogue</Link ></li>
             <li 
              className='nav_links' 
              onClick={() => dispatch(openModal('signUp'))}
@@ -42,15 +38,7 @@ function Navbar() {
              onClick={() => dispatch(openModal('login'))}
             > Login 
             </li>
-            {/*<li className='nav_links'>
-                <GoogleLogin 
-                    clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                    />
-    </li>*/}
+            
             <li >
               <Link
               to='/about'
