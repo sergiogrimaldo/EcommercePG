@@ -5,7 +5,7 @@ import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import FilterColor from '../FilterColor/FilterColor.jsx';
 
-export default function Header({ data, onFilter }) {
+export default function Header({ data, onFilter, onSize }) {
 	return (
 		<>
 			<header
@@ -29,10 +29,10 @@ export default function Header({ data, onFilter }) {
 							display: 'flex',
 						}}>
 						<Searchbar />
-						{/* <FilterBrand data={data} onFilter={onFilter} /> */}
-	  					{/* <FilterSize data={data} /> */}
-						<FilterColor data={data} />
-						{/* <FilterPrice data={data} /> */}
+						<FilterBrand data={data} onFilter={onFilter} />
+						<FilterSize data={data} onSize={onSize} />
+						{/* <FilterColor data={data} /> */}
+						<FilterPrice data={data} />
 					</ul>
 				</div>
 			</header>

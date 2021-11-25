@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import styles from './FilterPrice.module.css';
 
 export default function FilterPrice({ data }) {
-	let maxPriceArr = data
-		.map(elem => elem.lowestResellPrice)
-		.filter(elem => elem)
-		.map(elem => Object.values(elem))
-		.flat();
+	if (data) {
+		let maxPriceArr = data
+			.map(elem => elem.lowestResellPrice)
+			.filter(elem => elem)
+			.map(elem => Object.values(elem))
+			.flat();
 
-	let maxPrice = Math.max(...maxPriceArr);
+		let maxPrice = Math.max(...maxPriceArr);
 
-	let roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
+		var roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
+	}
 
 	let [value, setValue] = useState(0);
 

@@ -16,13 +16,10 @@ export function getShoes() {
 	};
 }
 
-export function getBrands() {
-	return async function (dispatch) {
-		await fetch('http://localhost:3000/allShoes.json')
-			.then(res => res.json())
-			.then(response => {
-				dispatch({ type: 'GET_BRANDS', payload: response });
-			});
+export function filterSize(size) {
+	return {
+		type: 'FILTER_SIZE',
+		payload: size,
 	};
 }
 
