@@ -37,34 +37,17 @@ function Catalogue() {
 	// };
 	useEffect(() => {
 		// getData();
-		if (!brand && !size) {
-			dispatch(getShoes());
-		}
-		if (brand) {
-			dispatch(filterBrand(brand));
-		}
-		if (size > 0) {
-			dispatch(filterSize(size));
-		}
-	}, [dispatch, brand, size]);
 
-	function onFilter(value) {
-		setBrand(value);
-	}
-
-	function onSize(value) {
-		setSize(value);
-	}
-
-	console.log(size);
+		dispatch(getShoes());
+	}, []);
 
 	return (
 		<BrowserRouter>
 			{modal === 'login' && <Login />}
 			{modal === 'signUp' && <SignUp />}
 			<div className='App'>
-				<Header data={data} onFilter={onFilter} onSize={onSize} />
-				<Cards data={data} />
+				<Header data={data} />
+				<Cards />
 			</div>
 		</BrowserRouter>
 	);

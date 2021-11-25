@@ -29,10 +29,10 @@ export default function Header({ data, onFilter, onSize }) {
 							display: 'flex',
 						}}>
 						<Searchbar />
-						<FilterBrand data={data} onFilter={onFilter} />
-						<FilterSize data={data} onSize={onSize} />
+						<FilterBrand data={data} />
+						{/* <FilterSize data={data} onSize={onSize} /> */}
 						{/* <FilterColor data={data} /> */}
-						<FilterPrice data={data} />
+						{/* <FilterPrice data={data} /> */}
 					</ul>
 				</div>
 			</header>
