@@ -26,7 +26,8 @@ const FilterColor = ({ data }) => {
     <div>
       <select onChange={onChangeHandler}>
         <option value="">---Filter Color---</option>
-        {clean.map(
+        {brands ? (
+          clean.map(
           (elem, index) =>
             !deleteWord.includes(elem) && (
               <option
@@ -38,8 +39,10 @@ const FilterColor = ({ data }) => {
               >
                 {elem[0].toUpperCase() + elem.slice(1)}
               </option>
-            )
-        )}
+              ))
+	          ) : (
+		          <option></option>
+         )}
       </select>
     </div>
   );
