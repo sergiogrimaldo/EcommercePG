@@ -1,44 +1,28 @@
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Cards from './components/Cards/Cards';
-import Header from './components/Header/Header';
-import { useSelector } from 'react-redux';
-import SignUp from './components/Modals/SignUp';
-import Login from './components/Modals/Login';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import HeroSection from './components/HeroSection/HeroSection.jsx';
+import Catalogue from './components/Catalogue/Catalogue.jsx';
+import About from './components/About/About.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+
 
 function App() {
-	const modal = useSelector(state => state.modal);
-	const [data, setData] = useState([]);
-
-	const getData = () => {
-		fetch('allShoes.json', {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			},
-		})
-			.then(function (response) {
-				return response.json();
-			})
-			.then(function (myJson) {
-				console.log(myJson);
-				setData(myJson);
-			});
-	};
-	useEffect(() => {
-		getData();
-	}, []);
 
 	return (
 		<BrowserRouter>
-			{modal === 'login' && <Login />}
-			{modal === 'signUp' && <SignUp />}
-			<div className='App'>
-				<Header data={data} />
-				<Cards data={data} />
-			</div>
+			<Navbar />
+			<Switch>
+				<Route exact path='/'>
+					<HeroSection />
+				</Route>
+				<Route exact path='/catalogue'>
+					<Catalogue/>
+				</Route>
+				<Route exact path='/about'>
+					<About/>
+				</Route>
+			</Switch>
 		</BrowserRouter>
+		
 	);
 }
 

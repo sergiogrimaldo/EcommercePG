@@ -3,14 +3,11 @@ import Searchbar from '../Searchbar/Searchbar.jsx';
 import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
-import Navbar from '../Navbar/Navbar.jsx';
-
 
 export default function Header({ data }) {
 
 	return (
 		<>
-			<Navbar />
 			<header
 				style={{
 					zIndex: 0,
