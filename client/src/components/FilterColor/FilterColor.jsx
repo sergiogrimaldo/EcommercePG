@@ -6,16 +6,19 @@ import { useState } from "react";
 import { filter } from "./colors";
 
 const FilterColor = ({ data }) => {
+  let clean = [], shoes = [];
+  if (data) {
   const [value, setValue] = useState("");
 
   let array = splitAll(data);
   //console.log(array);
-  let clean = deleteAllRepited(array);
-  let shoes = filter(array, value);
+  clean = deleteAllRepited(array);
+  shoes = filter(array, value);
 
   shoes.forEach((e) => {
     console.log(e._id);
   }); // esto es para traer las zapatillas que coinciden con el filtro por id
+  }
 
   const onChangeHandler = (e) => {
     setValue(e.target.value);
@@ -26,7 +29,7 @@ const FilterColor = ({ data }) => {
     <div>
       <select onChange={onChangeHandler}>
         <option value="">---Filter Color---</option>
-        {brands ? (
+        {clean ? (
           clean.map(
           (elem, index) =>
             !deleteWord.includes(elem) && (
