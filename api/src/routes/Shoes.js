@@ -1,14 +1,19 @@
 const { Router } = require("express");
-const { Shoes, User } = require('../db');
+const { Shoe, User, Brand, AvailableSizes, Color } = require('../db');
 const { Op } = require('sequelize');
 
 const router = Router();
 
 router.get('/', async (req, res, next) =>{
     let Name = req.query.shoeName
-        if (Name) {    //ACA ME TRAIGO TODOS LOS PAISES
+        if (Name) {    
             try{
-                let paQuery = await Shoes.findAll({
+                let paQuery = await Shoe.findAll({
+                    include: {
+                        Brand: Brand,
+                        Color: Color,
+                        AvailableSizes: AvailableSizes
+                    },
                     where:{
                         shoeName:{
                             [Op.iLike]: '%' + Name + '%'}}})
@@ -23,7 +28,7 @@ router.get('/', async (req, res, next) =>{
             }
         }
     try{
-        const shoesBD = await Shoes.findAll({})
+        const shoesBD = await Shoe.findAll({})
         return res.json(shoesBD)
     }
     catch(error){
@@ -34,7 +39,7 @@ router.get('/', async (req, res, next) =>{
     router.get('/:id', async (req, res, next)=>{   
     try{
         const {id} = req.params;
-        let ap = await Shoes.findByPk(id)
+        let ap = await Shoe.findByPk(id)
         return res.send(ap)
         }
     catch(error){
@@ -42,4 +47,38 @@ router.get('/', async (req, res, next) =>{
     }
     })
 
-    module.exports = router;
+    router.post('/', async (req,res,next) =>{
+        const {
+            id, 
+            description, 
+            stock, 
+            shoeName, 
+            retailPrice, 
+            thumbnail, 
+            urlKey
+        } = req.body;
+
+            if(description && stock && shoeName && retailPrice){
+                try{
+                    const newShoe = await Shoe.create({
+                        id: id,
+                        description: description,
+                        stock: stock,
+                        shoeName: shoeName,
+                        retailPrice: retailPrice,
+                        thumbnail: thumbnail,
+                        urlKey: urlKey,
+                    });      
+                    console.log(newShoe,'Antes')           
+                    res.send(newShoe);
+                }
+                catch(error){
+                    next(error)
+                }
+            }
+            else{
+                res.status(404).send({msg: "Faltan los valores basicos"})
+            }
+    }   );
+
+module.exports = router;
