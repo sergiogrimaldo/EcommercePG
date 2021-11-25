@@ -25,7 +25,7 @@ const FilterColor = ({ data }) => {
   return (
     <div>
       <select onChange={onChangeHandler}>
-        <option value="">Filter Color</option>
+        <option value="">---Filter Color---</option>
         {clean.map(
           (elem, index) =>
             !deleteWord.includes(elem) && (
