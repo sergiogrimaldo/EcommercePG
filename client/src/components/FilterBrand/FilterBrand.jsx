@@ -10,10 +10,6 @@ export default function FilterBrand({ onFilter }) {
 	let brandSet = new Set(data);
 	var brands = [...brandSet];
 
-	useEffect(() => {
-		dispatch(getBrands());
-	});
-
 	function onChangeHandler(e) {
 		setValue(e.target.value);
 		onFilter(e.target.value);
