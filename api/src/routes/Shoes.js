@@ -49,7 +49,7 @@ router.get('/', async (req, res, next) =>{
         let ap = await Shoe.findByPk(id,{
             include: [{model:Brand},{model:Color}]
         })
-        return res.send(ap)
+        return res.send(ap) 
         }
     catch(error){
         next(error)
