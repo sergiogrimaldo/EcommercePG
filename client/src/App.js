@@ -1,36 +1,28 @@
-import './App.css';
-import { BrowserRouter } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Cards from './components/Cards/Cards';
-import Header from './components/Header/Header';
-import { useDispatch, useSelector } from 'react-redux';
-import SignUp from './components/Modals/SignUp';
-import Login from './components/Modals/Login';
-import { getShoes } from './redux/actions';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import HeroSection from './components/HeroSection/HeroSection.jsx';
+import Catalogue from './components/Catalogue/Catalogue.jsx';
+import About from './components/About/About.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+
 
 function App() {
-	const modal = useSelector(state => state.modal);
-	const data = useSelector(state => state.shoes);
-	const dispatch = useDispatch()
-
-	useEffect(() => {
-		dispatch(getShoes());
-		console.log(data)
-	}, []);
 
 	return (
 		<BrowserRouter>
-			{modal === 'login' && <Login />}
-			{modal === 'signUp' && <SignUp />}
-
-			<div className='App'>
-				{ data && data.length>0 && <>
-				<Header data={data} />
-				<Cards data={data} />
-				</>
-				}
-			</div>
+			<Navbar />
+			<Switch>
+				<Route exact path='/'>
+					<HeroSection />
+				</Route>
+				<Route exact path='/catalogue'>
+					<Catalogue/>
+				</Route>
+				<Route exact path='/about'>
+					<About/>
+				</Route>
+			</Switch>
 		</BrowserRouter>
+		
 	);
 }
 

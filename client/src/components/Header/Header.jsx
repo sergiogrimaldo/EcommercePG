@@ -6,12 +6,10 @@ import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import FilterColor from '../FilterColor/FilterColor.jsx';
 import Navbar from '../Navbar/Navbar.jsx';
 
-
 export default function Header({ data }) {
 
 	return (
 		<>
-			<Navbar />
 			<header
 				style={{
 					zIndex: 0,

@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
+import { Link } from 'react-router-dom';
 
 import './Navbar.css';
 
@@ -26,8 +27,11 @@ function Navbar() {
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>			
 
             <li 
-             className='nav_links'
-            >Catalogue</li>
+            ><Link
+              className='nav_links'
+              to='/catalogue'
+            >Catalogue
+            </Link ></li>
             <li 
              className='nav_links' 
              onClick={() => dispatch(openModal('signUp'))}
@@ -47,9 +51,14 @@ function Navbar() {
                     cookiePolicy={'single_host_origin'}
                     />
     </li>*/}
-            <li 
-             className='nav_links'
-            >About us</li>
+            <li >
+              <Link
+              to='/about'
+              className='nav_links'
+              >
+                About us
+              </Link>
+            </li>
             <li 
              className='nav_links'
             >Carrito</li>
