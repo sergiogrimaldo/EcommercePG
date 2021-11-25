@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import HeroSection from './components/HeroSection/HeroSection.jsx';
+import Home from './components/Home/Home.jsx';
 import Catalogue from './components/Catalogue/Catalogue.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
@@ -12,7 +12,7 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path='/'>
-					<HeroSection />
+					<Home/>
 				</Route>
 				<Route exact path='/catalogue'>
 					<Catalogue/>
