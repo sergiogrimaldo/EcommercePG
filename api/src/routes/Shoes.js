@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Shoe, User, Brand, AvailableSizes, Color } = require('../db');
+const { Shoe, User, Brand, AvaiableSizes, Color } = require('../db');
 const { Op } = require('sequelize');
 
 const router = Router();
@@ -9,11 +9,7 @@ router.get('/', async (req, res, next) =>{
         if (Name) {    
             try{
                 let paQuery = await Shoe.findAll({
-                    include: {
-                        Brand: Brand,
-                        Color: Color,
-                        AvailableSizes: AvailableSizes
-                    },
+                    include: [{model:Brand},{model:Color}],
                     where:{
                         shoeName:{
                             [Op.iLike]: '%' + Name + '%'}}})
@@ -28,7 +24,18 @@ router.get('/', async (req, res, next) =>{
             }
         }
     try{
-        const shoesBD = await Shoe.findAll({})
+        const shoesBD = await Shoe.findAll({
+            include: [{model:Brand},{model:Color}],
+        })
+        // const shoesColor = await Shoe.findAll({
+        //     include: [{model:Color}],
+        // })
+        // const shoesSizes = await Shoe.findAll({
+        //     include: [{model:AvailableSizes}],
+        // })
+        // console.log(shoesBrand)
+        // console.log(shoesColor)
+        // console.log(shoesSizes)
         return res.json(shoesBD)
     }
     catch(error){
@@ -39,7 +46,9 @@ router.get('/', async (req, res, next) =>{
     router.get('/:id', async (req, res, next)=>{   
     try{
         const {id} = req.params;
-        let ap = await Shoe.findByPk(id)
+        let ap = await Shoe.findByPk(id,{
+            include: [{model:Brand},{model:Color}]
+        })
         return res.send(ap)
         }
     catch(error){
