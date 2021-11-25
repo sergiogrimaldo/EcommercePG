@@ -4,7 +4,6 @@
 
 # Henry Group Programming 
 
-
 ## Objetivos del Proyecto
 
 - Construir una App JavaScript (React) desde cero.
