@@ -17,11 +17,15 @@ function rootReducer(state = initialState, action) {
 				shoes: action.payload,
 				filteredShoes: action.payload,
 				brands: action.payload.map(elem => elem.brand),
-				sizes: action.payload
-					.map(elem => elem.resellPrices) // mapping data's resellPrices properties
-					.filter(elem => elem) // filtering undefined ones out
-					.map(elem => Object.keys(elem.flightClub)) // taking all sizes
-					.flat(Infinity),
+				sizes: [
+					...new Set(
+						action.payload
+							.map(elem => elem.resellPrices) // mapping data's resellPrices properties
+							.filter(elem => elem) // filtering undefined ones out
+							.map(elem => Object.keys(elem.flightClub)) // taking all sizes
+							.flat(Infinity)
+					),
+				].sort((a, b) => a - b),
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':
@@ -57,12 +61,8 @@ function rootReducer(state = initialState, action) {
 					...state,
 					shoes: filterSize,
 				};
-			} else {
-				return {
-					...state,
-					shoes: auxBrands,
-				};
 			}
+			break;
 		}
 		default:
 			return state;
