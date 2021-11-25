@@ -23,9 +23,9 @@ export function filterSize(size) {
 	};
 }
 
-export function filterBrand(brand) {
+export function setFilterBrands(brand) {
 	return {
-		type: 'FILTER_BRAND',
+		type: 'SET_FILTER_BRANDS',
 		payload: brand,
 	};
 }

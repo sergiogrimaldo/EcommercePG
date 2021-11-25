@@ -1,24 +1,24 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { getBrands } from '../../redux/actions/index.js';
+import { setFilterBrands } from '../../redux/actions/index.js';
 
-export default function FilterBrand({ onFilter }) {
+export default function FilterBrand() {
 	const dispatch = useDispatch();
 	const data = useSelector(state => state.brands);
-	let [value, setValue] = useState('');
+	let [value, setValue] = useState([]);
 
 	let brandSet = new Set(data);
 	var brands = [...brandSet];
 
 	function onChangeHandler(e) {
 		setValue(e.target.value);
-		onFilter(e.target.value);
+		dispatch(setFilterBrands(e.target.value));
 	}
 
 	return (
 		<div>
 			<select onChange={onChangeHandler}>
-				<option value=''>---Filter By Brand---</option>
+				<option value=''>All Brands</option>
 				{brands ? (
 					brands.map((elem, index) => (
 						<option key={elem + index} value={elem}>
