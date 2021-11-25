@@ -43,7 +43,7 @@ function Catalogue() {
 		if (brand) {
 			dispatch(filterBrand(brand));
 		}
-		if (size) {
+		if (size > 0) {
 			dispatch(filterSize(size));
 		}
 	}, [dispatch, brand, size]);
@@ -56,7 +56,7 @@ function Catalogue() {
 		setSize(value);
 	}
 
-	console.log(data);
+	console.log(size);
 
 	return (
 		<BrowserRouter>

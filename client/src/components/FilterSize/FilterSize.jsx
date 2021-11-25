@@ -21,7 +21,7 @@ export default function FilterSize({ data, onSize }) {
 	return (
 		<div>
 			<select onChange={onChangeHandler}>
-				<option>---Filter By Size---</option>
+				<option value={0}>---Filter By Size---</option>
 				{sizes ? (
 					sizes.map((elem, index) => (
 						<option key={elem + index} value={elem}>

@@ -47,18 +47,22 @@ function rootReducer(state = initialState, action) {
 			break;
 		}
 		case 'FILTER_SIZE': {
-			if (action.payload) {
-				let auxBrands = state.filteredShoes;
-				auxBrands = auxBrands.filter(elem =>
+			var auxBrands = state.filteredShoes;
+			if (action.payload > 0) {
+				let filterSize = auxBrands.filter(elem =>
 					elem.resellPrices?.flightClub?.hasOwnProperty(action.payload)
 				); // mapping data's resellPrices properties
 
 				return {
 					...state,
+					shoes: filterSize,
+				};
+			} else {
+				return {
+					...state,
 					shoes: auxBrands,
 				};
 			}
-			break;
 		}
 		default:
 			return state;
