@@ -1,39 +1,53 @@
 // import {
-    
+
 // } from "../constants";
 
 const initialState = {
-    shoes: [],
-    modal: '',
-}
+	shoes: [],
+	filteredShoes: [],
+	brands: [],
+	modal: '',
+};
 
-function rootReducer (state = initialState, action) {
+function rootReducer(state = initialState, action) {
+	switch (action.type) {
+		case 'GET_SHOES':
+			return {
+				shoes: action.payload,
+				filteredShoes: action.payload,
+			};
 
-    
-    switch (action.type) {
-        case "GET_SHOES":
-            return{
-               
-                shoes: action.payload
-            }
+		case 'OPEN_MODAL':
+			return {
+				...state,
+				modal: action.payload,
+			};
 
+		case 'CLOSE_MODAL':
+			return {
+				...state,
+				modal: '',
+			};
+		case 'GET_BRANDS':
+			return {
+				...state,
+				brands: action.payload.map(elem => elem.brand),
+			};
+		case 'FILTER_BRAND': {
+			if (action.payload) {
+				var aux = state.filteredShoes;
+				var filter = aux.filter(elem => elem.brand === action.payload);
+				return {
+					...state,
+					shoes: filter,
+				};
+			}
+			break;
+		}
 
-        case "OPEN_MODAL":
-            return{
-                ...state,
-                modal: action.payload
-            }
-
-        case "CLOSE_MODAL":
-            return{
-                ...state,
-                modal: ''
-            }
-
-        default:
-            return state;
-    } 
-    
+		default:
+			return state;
+	}
 }
 
 export default rootReducer;
