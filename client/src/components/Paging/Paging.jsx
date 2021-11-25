@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import style from './Paging.module.css';
 
 function Paging(props) {
     const pageNumber = [];
@@ -8,19 +9,21 @@ function Paging(props) {
     }
 
     return (
-        <div>
-            {
-                pageNumber && pageNumber.map(e => {
-                    return (
-                        <div key={e}>
-                            <button onClick={()=> props.page(e)}>{e}</button>
-                        </div>
-                        
-                    )
-                }) 
-            }
-            
-        </div>
+        <nav>
+            <div className={style.containerPage}>
+                {
+                    pageNumber && pageNumber.map(e => {
+                        return (
+                            <div key={e}>
+                                <button className={style.containerBTN} onClick={()=> props.page(e)}>{e}</button>
+                            </div>
+                            
+                        )
+                    }) 
+                }
+                
+            </div>
+        </nav>
     )
 }
 
