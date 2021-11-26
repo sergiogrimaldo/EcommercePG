@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPage, filterSize } from '../../redux/actions/index.js';
+import styles from './FilterSize.module.css';
 
 export default function FilterSize() {
 	const dispatch = useDispatch();
@@ -14,19 +15,29 @@ export default function FilterSize() {
 	}
 
 	return (
-		<div>
-			<select onChange={onChangeHandler}>
-				<option value={0}>{sizes > 0 ? value : '---Filter By Size---'}</option>
+		<div className={`${styles.drop}`}>
+			<button
+				className={`${!value && sizes ? styles.menu : styles.menu_active}`}>
+				{value && sizes ? value : 'Size'}
+			</button>
+			<div className={`${styles.select}`}>
+				<button className={`${styles.btn}`} value='' onClick={onChangeHandler}>
+					All
+				</button>
 				{sizes ? (
 					sizes.map((elem, index) => (
-						<option key={elem + index} value={elem}>
+						<button
+							className={`${styles.btn}`}
+							key={elem + index}
+							value={elem}
+							onClick={onChangeHandler}>
 							{elem}
-						</option>
+						</button>
 					))
 				) : (
-					<option> </option>
+					<button className={styles.menu}></button>
 				)}
-			</select>
+			</div>
 		</div>
 	);
 }
