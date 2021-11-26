@@ -11,6 +11,7 @@ const initialState = {
 	filters: [],
 	currentPage: 0,
 	filterBrands: [],
+	filterSizes: [],
 	user: {},
 };
 
@@ -47,8 +48,6 @@ function rootReducer(state = initialState, action) {
 			};
 		case 'SET_FILTER_BRANDS': {
 			if (action.payload) {
-				let aux = state.filteredShoes;
-				let filter = aux.filter(elem => elem.brand === action.payload);
 				return {
 					...state,
 					filters: Array.from(new Set([...state.filters, 'brands'])),
@@ -68,22 +67,31 @@ function rootReducer(state = initialState, action) {
 		case 'FILTER_SIZE': {
 			var auxBrands = state.filteredShoes;
 			if (action.payload > 0) {
-				let filterSize = auxBrands.filter(elem =>
-					elem.resellPrices?.flightClub?.hasOwnProperty(action.payload)
-				); // mapping data's resellPrices properties
+				// let filterSize = auxBrands.filter(elem =>
+				// 	elem.resellPrices?.flightClub?.hasOwnProperty(action.payload)
+				// ); // mapping data's resellPrices properties
 
 				return {
 					...state,
-					shoes: filterSize,
+					filters: Array.from(new Set([...state.filters, 'sizes'])),
+					filterSizes: action.payload,
+					currentPage: 0,
+				};
+			} else {
+				return {
+					...state,
+					filters: state.filters.filter(elem => elem !== 'sizes'),
+					filterSizes: [],
+					currentPage: 0,
 				};
 			}
 			break;
 		}
-		case 'SET_PAGE' : {
-			return{
+		case 'SET_PAGE': {
+			return {
 				...state,
 				currentPage: action.payload,
-			}
+			};
 		}
 		default:
 			return state;
