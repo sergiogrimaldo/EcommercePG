@@ -1,0 +1,13 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	z-index: 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+	padding: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+	align-content: center;
+	align-items: center;
+	flex-direction: row;
+}
