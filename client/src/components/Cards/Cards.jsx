@@ -9,6 +9,7 @@ export default function Cards() {
 	const filters = useSelector(state => state.filters); //brands
 	const filterBrands = useSelector(state => state.filterBrands);
 	const filterSizes = useSelector(state => state.filterSizes);
+	const filterPrice = useSelector(state => state.filterPrice);
 	const page = useSelector(state => state.currentPage);
 	const SHOES_PER_PAGE = 10;
 	const data = useSelector(state => state.shoes);
@@ -35,10 +36,13 @@ export default function Cards() {
 					)
 				);
 			}
+			if (filters.includes('price') && filterPrice < 400) {
+				setShownCards(data.filter(elem => elem['retailPrice'] <= filterPrice));
+			}
 		} else {
 			setShownCards(data);
 		}
-	}, [data, filters, filterBrands, page]);
+	}, [data, filters, filterBrands, filterSizes, filterPrice, page]);
 
 	return (
 		<>

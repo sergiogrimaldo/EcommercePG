@@ -30,9 +30,16 @@ export function setFilterBrands(brand) {
 	};
 }
 
-export function setPage(payload){
+export function filterPrice(price) {
+	return {
+		type: 'FILTER_PRICE',
+		payload: price,
+	};
+}
+
+export function setPage(payload) {
 	return {
 		type: 'SET_PAGE',
 		payload: payload,
-	}
+	};
 }

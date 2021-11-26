@@ -7,11 +7,13 @@ const initialState = {
 	filteredShoes: [],
 	brands: [],
 	sizes: [],
+	prices: [],
 	modal: '',
 	filters: [],
 	currentPage: 0,
 	filterBrands: [],
 	filterSizes: [],
+	filterPrice: 0,
 	user: {},
 };
 
@@ -31,6 +33,9 @@ function rootReducer(state = initialState, action) {
 							.flat(Infinity)
 					),
 				].sort((a, b) => a - b),
+				prices: action.payload
+					.map(elem => elem.retailPrice)
+					.filter(elem => elem),
 				filters: [],
 				currentPage: 0,
 			}; // flattening out the array
@@ -81,8 +86,23 @@ function rootReducer(state = initialState, action) {
 					currentPage: 0,
 				};
 			}
-			break;
 		}
+		case 'FILTER_PRICE':
+			if (action.payload) {
+				return {
+					...state,
+					filters: Array.from(new Set([...state.filters, 'price'])),
+					filterPrice: action.payload,
+					currentPage: 0,
+				};
+			} else {
+				return {
+					...state,
+					filters: state.filters.filter(elem => elem !== 'price'),
+					filterPrice: [],
+					currentPage: 0,
+				};
+			}
 		case 'SET_PAGE': {
 			return {
 				...state,
