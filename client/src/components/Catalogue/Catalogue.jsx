@@ -15,7 +15,7 @@ import {
 
 function Catalogue() {
 	const dispatch = useDispatch();
-	const modal = useSelector(state => state.modal);
+	// const modal = useSelector(state => state.modal);
 	const data = useSelector(state => state.shoes);
 	const [brand, setBrand] = useState('');
 	const [size, setSize] = useState(0);
@@ -43,8 +43,7 @@ function Catalogue() {
 
 	return (
 		<BrowserRouter>
-			{modal === 'login' && <Login />}
-			{modal === 'signUp' && <SignUp />}
+	
 			<div className='App'>
 				<Header data={data} />
 				<Cards />
