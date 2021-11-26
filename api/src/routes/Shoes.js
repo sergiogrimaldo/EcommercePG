@@ -72,8 +72,7 @@ router.get('/', async (req, res, next) =>{
                         urlKey: urlKey,
                         avaiableSizeId:avaiableSizeId,
                         brandId:brandId,
-                    });      
-                    console.log(newShoe,'Antes')           
+                    });               
                     res.send(newShoe);
                 }
                 catch(error){

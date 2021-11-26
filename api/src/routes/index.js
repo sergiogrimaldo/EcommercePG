@@ -3,7 +3,8 @@ const { Router } = require('express');
 // Ejemplo: const authRouter = require('./auth.js');
 const ShoesRoutes = require('./Shoes');
 const BrandRoutes = require('./Brands');
-//const ActivityRoutes = require('./activity.js');
+const UserRoutes = require('./Users')
+
 //Acá tengo las constantes de rutas creadas que requieren 
 //los archivos de ruta que cree antes
 const router = Router();
@@ -11,8 +12,8 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.use('/shoes', ShoesRoutes); // http://localhost:3001/shoes
-router.use('/brands', BrandRoutes);
-//router.use('/actividades', ActivityRoutes); // http://localhost:3001/actividades
+router.use('/brands', BrandRoutes); // http://localhost:3001/brands
+router.use('/users', UserRoutes); // http://localhost:3001/users
 
 module.exports = router;
 
