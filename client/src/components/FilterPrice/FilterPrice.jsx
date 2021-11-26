@@ -25,7 +25,6 @@ export default function FilterPrice() {
 
 	return (
 		<div>
-			<label>Price</label>
 			<input
 				type='range'
 				min='0'

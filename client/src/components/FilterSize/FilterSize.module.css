@@ -22,8 +22,10 @@
 }
 
 .drop:hover .select {
-	display: block;
+	display: flex;
+	flex-wrap: wrap;
 	transition: display 1s;
+	width: 350px;
 }
 
 .menu {
@@ -52,7 +54,7 @@
 .btn {
 	border: none;
 	background-color: lightgrey;
-	min-width: 130px;
+	width: 50px;
 	height: 40px;
 	z-index: 1;
 	cursor: pointer;
