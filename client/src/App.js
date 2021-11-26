@@ -3,7 +3,6 @@ import Home from './components/Home/Home.jsx';
 import Catalogue from './components/Catalogue/Catalogue.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
-import Cart from './components/Cart/Cart.jsx';
 
 
 function App() {
@@ -20,9 +19,6 @@ function App() {
 				</Route>
 				<Route exact path='/about'>
 					<About/>
-				</Route>
-				<Route exact path='/cart'>
-					<Cart/>
 				</Route>
 			</Switch>
 		</BrowserRouter>
