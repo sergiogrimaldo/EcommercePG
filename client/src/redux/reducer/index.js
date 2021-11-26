@@ -67,10 +67,6 @@ function rootReducer(state = initialState, action) {
 		case 'FILTER_SIZE': {
 			var auxBrands = state.filteredShoes;
 			if (action.payload > 0) {
-				// let filterSize = auxBrands.filter(elem =>
-				// 	elem.resellPrices?.flightClub?.hasOwnProperty(action.payload)
-				// ); // mapping data's resellPrices properties
-
 				return {
 					...state,
 					filters: Array.from(new Set([...state.filters, 'sizes'])),

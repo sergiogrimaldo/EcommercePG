@@ -3,11 +3,7 @@ import styles from './FilterPrice.module.css';
 
 export default function FilterPrice({ data }) {
 	if (data) {
-		let maxPriceArr = data
-			.map(elem => elem.lowestResellPrice)
-			.filter(elem => elem)
-			.map(elem => Object.values(elem))
-			.flat();
+		let maxPriceArr = data.map(elem => elem.retailPrice).filter(elem => elem);
 
 		let maxPrice = Math.max(...maxPriceArr);
 
@@ -34,7 +30,7 @@ export default function FilterPrice({ data }) {
 				type='range'
 				min='0'
 				max={roundUpMax}
-				step='100'
+				step='50'
 				value={value}
 				onChange={onChangeHandler}
 			/>

@@ -32,7 +32,7 @@ export default function Header({ data }) {
 						<FilterBrand data={data} />
 						<FilterSize data={data} />
 						{/* <FilterColor data={data} /> */}
-						{/* <FilterPrice data={data} /> */}
+						<FilterPrice data={data} />
 					</ul>
 				</div>
 			</header>
