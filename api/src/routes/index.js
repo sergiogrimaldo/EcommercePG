@@ -4,7 +4,7 @@ const { Router } = require('express');
 const ShoesRoutes = require('./Shoes');
 const BrandRoutes = require('./Brands');
 const UserRoutes = require('./Users')
-
+const LoginRoutes = require('./Login')
 //Acá tengo las constantes de rutas creadas que requieren 
 //los archivos de ruta que cree antes
 const router = Router();
@@ -14,6 +14,7 @@ const router = Router();
 router.use('/shoes', ShoesRoutes); // http://localhost:3001/shoes
 router.use('/brands', BrandRoutes); // http://localhost:3001/brands
 router.use('/users', UserRoutes); // http://localhost:3001/users
+router.use('/login', LoginRoutes) // http://localhost:3001/login
 
 module.exports = router;
 
