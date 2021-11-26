@@ -49,6 +49,7 @@ router.get('/:id', async (req, res, next)=>{
 
     router.post('/', async (req,res,next) =>{
         const {
+            name,
             email,
             password,
         } = req.body;
@@ -56,8 +57,9 @@ router.get('/:id', async (req, res, next)=>{
             if(email && password){
                 try{
                     const newUser = await User.create({
-                       email: email, //aca creo un nuevo user con las propiedades que necesito
-                       password: password,
+                        name: name,
+                        email: email, //aca creo un nuevo user con las propiedades que necesito
+                        password: password,
                     });
                     const rol = await Role.findOne({
                         where:{ //aca busco en la base de datos donde uno tenga la propiedad client 
@@ -74,6 +76,28 @@ router.get('/:id', async (req, res, next)=>{
             else{
                 res.status(404).send({msg: "Faltan los valores basicos"})
             }
+    });
+
+    router.delete('/:id', async function (req, res, next) {
+        const {id} = req.params;
+        try {
+            let existsInDB = await User.findOne({
+                where: {
+                    id,
+                }
+            });
+            if (existsInDB) {
+                User.destroy({
+                    where: {
+                        id,
+                    }
+                });
+                return res.status(200).send('User has been deleted from database successfully')  
+            }																																										
+            else throw new Error('ERROR 500: User with given name does not exist in database')
+        } catch (err) {
+            next(err)
+        }
     });
 
 module.exports = router;
