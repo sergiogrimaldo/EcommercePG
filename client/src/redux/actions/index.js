@@ -16,6 +16,20 @@ export function getShoes() {
 	};
 }
 
+export function addToCart(payload) {
+	return {
+		type: 'ADD_TO_CART',
+		payload: payload,
+	};
+}
+export function removeFromCart(payload) {
+	return {
+		type: 'REMOVE_FROM_CART',
+		payload: payload,
+	};
+}
+
+
 export function filterSize(size) {
 	return {
 		type: 'FILTER_SIZE',
@@ -42,4 +56,17 @@ export function setPage(payload) {
 		type: 'SET_PAGE',
 		payload: payload,
 	};
+}
+
+export function login(payload){
+	return {
+		type: 'LOGIN',
+		payload: payload,
+	}
+}
+
+export function logout(){
+	return {
+		type: 'LOGOUT',
+	}
 }
