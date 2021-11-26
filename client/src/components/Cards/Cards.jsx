@@ -8,16 +8,17 @@ import s from './Cards.module.css';
 export default function Cards() {
 	const filters = useSelector(state => state.filters); //brands
 	const filterBrands = useSelector(state => state.filterBrands);
+	const page = useSelector(state => state.currentPage);
+	const SHOES_PER_PAGE = 10;
 	const data = useSelector(state => state.shoes);
 	const [shownCards, setShownCards] = useState('');
-	const [currentPage, setCurrentPage] = useState(1);
-	const [shoes, setShoes] = useState(20);
-	const indexLastShoes = currentPage * shoes;
-	const indexFirstShoes = indexLastShoes - shoes;
-	console.log('Soy data', data);
-	const currentShoes = data?.slice(indexFirstShoes, indexLastShoes);
+	// const [shoes, setShoes] = useState(20);
+	// const indexLastShoes = currentPage * shoes;
+	// const indexFirstShoes = indexLastShoes - shoes;
+	// console.log('Soy data', data);
+	// const currentShoes = data?.slice(indexFirstShoes, indexLastShoes);
 
-	console.log('soy data', currentShoes);
+	// console.log('soy data', currentShoes);
 
 	useEffect(() => {
 		if (filters && filters.length > 0) {
@@ -25,20 +26,21 @@ export default function Cards() {
 		} else {
 			setShownCards(data);
 		}
-	}, [data, filters, filterBrands]);
+	}, [data, filters, filterBrands, page]);
 
-	function page(pageNumber) {
-		setCurrentPage(pageNumber);
-	}
+	
 	return (
 		<>
-			<Paging allShoes={data?.length} shoesForPage={shoes} page={page} />
+			<Paging 
+				shoesPerPage= {SHOES_PER_PAGE}
+				shoes = {shownCards}
+			/>
 			<br />
 			<br />
 			<div className={s.cards}>
 				{shownCards &&
 					shownCards.length > 0 &&
-					shownCards.map(shoe => (
+					shownCards.slice(page * SHOES_PER_PAGE, SHOES_PER_PAGE * (1 + page)).map(shoe => (
 						<Link className={s.links}>
 							<Card
 								shoeName={shoe.shoeName}

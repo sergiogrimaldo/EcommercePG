@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setFilterBrands } from '../../redux/actions/index.js';
+import { setPage } from '../../redux/actions/index.js';
 
 export default function FilterBrand() {
 	const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export default function FilterBrand() {
 	function onChangeHandler(e) {
 		setValue(e.target.value);
 		dispatch(setFilterBrands(e.target.value));
+		dispatch(setPage(0))
 	}
 
 	return (
