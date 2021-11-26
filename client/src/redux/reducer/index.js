@@ -9,8 +9,9 @@ const initialState = {
 	sizes: [],
 	modal: '',
 	filters: [],
-	currPage: 0,
+	currentPage: 0,
 	filterBrands: [],
+	user: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -30,6 +31,7 @@ function rootReducer(state = initialState, action) {
 					),
 				].sort((a, b) => a - b),
 				filters: [],
+				currentPage: 0,
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':
@@ -51,12 +53,14 @@ function rootReducer(state = initialState, action) {
 					...state,
 					filters: Array.from(new Set([...state.filters, 'brands'])),
 					filterBrands: action.payload,
+					currentPage: 0,
 				};
 			} else {
 				return {
 					...state,
 					filters: state.filters.filter(elem => elem !== 'brands'),
 					filterBrands: [],
+					currentPage: 0,
 				};
 			}
 			break;
@@ -74,6 +78,12 @@ function rootReducer(state = initialState, action) {
 				};
 			}
 			break;
+		}
+		case 'SET_PAGE' : {
+			return{
+				...state,
+				currentPage: action.payload,
+			}
 		}
 		default:
 			return state;

@@ -29,3 +29,10 @@ export function setFilterBrands(brand) {
 		payload: brand,
 	};
 }
+
+export function setPage(payload){
+	return {
+		type: 'SET_PAGE',
+		payload: payload,
+	}
+}
