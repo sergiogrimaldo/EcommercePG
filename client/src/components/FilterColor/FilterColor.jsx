@@ -6,9 +6,9 @@ import { useState } from "react";
 import { filter } from "./colors";
 
 const FilterColor = ({ data }) => {
+const [value, setValue] = useState("");
   let clean = [], shoes = [];
   if (data) {
-  const [value, setValue] = useState("");
 
   let array = splitAll(data);
   //console.log(array);

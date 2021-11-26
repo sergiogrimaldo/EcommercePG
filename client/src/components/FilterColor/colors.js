@@ -1747,3 +1747,10 @@ export const filter = (array, value) => {
   }
   return arre;
 }
+
+export const onlyThreeColorGrid = (data, silhoutte, _id) => {
+    let allIdem = data.filter((item) => item.silhoutte === silhoutte &&  item._id !== _id);
+    let threeColorGrid = allIdem.map((item) => findGrid(item.colorway));
+    threeColorGrid.length > 3 && threeColorGrid.splice(3, threeColorGrid.length - 3);
+    return threeColorGrid;
+}

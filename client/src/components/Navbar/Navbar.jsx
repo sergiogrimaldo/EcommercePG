@@ -19,7 +19,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar_container'>
             <div className='navbar_icon'>
-            <h1>CACTUS <i class="fas fa-shoe-prints"></i> SHOES</h1>
+            <h1>CACTUS <i className="fas fa-shoe-prints"></i> SHOES</h1>
             </div>
           <div className='menu_icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

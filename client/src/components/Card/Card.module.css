@@ -1,19 +1,147 @@
-.card {
+/* .container__card{
+    max-width: 1200px;
+    padding: 20px;
+    padding-bottom: 40px;
+    margin: auto;
+    margin-top: 60px;
     display: flex;
-    flex-direction: column;
-    width: 370px;
-    height: 450px;
-    border: solid 2px;
-    border-color: rgb(65, 168, 236);
-    border-radius: 15px;
-    margin: 15px;
-    background-color: rgb(113, 165, 199);
-    cursor: pointer;
+    flex-wrap: wrap;
+    justify-content: center
+} */
+
+.card {
+    width: 300px;
+    position: relative;
+    margin: 20px;
+    padding: 20px;
+    font-family: "Poppins", sans-serif;
+    transition: all 300ms;
+    border-radius: 20px;
 }
 
-.img{
-    width: 270px;
-    height: 350px;
-    border-radius: 30px;
-    margin: 1px;
+.card:hover {
+    box-shadow: 1px 1px 20px -10px #20202049;
 }
+
+.card:hover .info__description {
+    margin-top: 0;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.card:hover .icon {
+    margin-top: -110px;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.icon {
+    width: 100%;
+    height: 300px;
+    background: #eff3f5;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
+    border-radius: 20px;
+    background-color: peachpuff;
+}
+
+.icon i {
+    font-size: 150px;
+    color: #fff;
+    transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
+}
+
+.info__description {
+    display: block;
+    width: 100%;
+    height: 250px;
+    color: #474747;
+    background: #00ce78;
+    padding: 20px;
+    margin-top: -310px;
+    transition: all 380ms cubic-bezier(0.5, 0, 0, 1);
+    border-radius: 20px;
+}
+
+.info__description h6 {
+    margin-right: 0%;
+}
+
+.info__description input {
+    margin-top: 20px;
+    padding: 10px 40px;
+    background: #2196f3;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 1px 1px 30px -5px #75008ada;
+    transition: box-shadow 300ms;
+}
+
+.info__description input:hover {
+    box-shadow: 1px 1px 200px -5px #20202070;
+}
+
+/*COLOR DE LAS CARD*/
+
+.c1:hover .icon {
+    background: #dd4b25;
+}
+
+.c1 .icon i {
+    color: #dd4b25;
+}
+
+.c1:hover .icon i {
+    color: #fff;
+}
+
+.c2:hover .icon {
+    background: #146eb0;
+}
+
+.c2 .icon i {
+    color: #146eb0;
+}
+
+.c2:hover .icon i {
+    color: #fff;
+}
+
+.c3:hover .icon {
+    background: #e8b600;
+}
+
+.c3 .icon i {
+    color: #e8b600;
+}
+
+.c3:hover .icon i {
+    color: #fff;
+}
+.img {
+    width: 300px;
+    height: 250px;
+}
+
+/* 
+.card img {
+    height: 80px;
+    width: 120px;
+} */
+
+/* .inDiv li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    margin: 0   3px;
+} */

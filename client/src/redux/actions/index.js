@@ -8,7 +8,7 @@ export function closeModal() {
 
 export function getShoes() {
 	return async function (dispatch) {
-		await fetch('http://localhost:3000/allShoes.json')
+		await fetch('http://localhost:3000/data.json')
 			.then(res => res.json())
 			.then(response => {
 				dispatch({ type: 'GET_SHOES', payload: response });
@@ -18,7 +18,7 @@ export function getShoes() {
 
 export function getBrands() {
 	return async function (dispatch) {
-		await fetch('http://localhost:3000/allShoes.json')
+		await fetch('http://localhost:3000/data.json')
 			.then(res => res.json())
 			.then(response => {
 				dispatch({ type: 'GET_BRANDS', payload: response });

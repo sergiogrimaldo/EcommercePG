@@ -1,9 +1,13 @@
-.cards {
+.container__card{
+    max-width: 1200px;
+    padding: 20px;
+    padding-bottom: 40px;
+    margin: auto;
+    margin-top: 60px;
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    justify-content: center
 }
-
 .links{
     text-decoration: none;
 }
