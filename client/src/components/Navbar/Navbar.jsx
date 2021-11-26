@@ -47,9 +47,15 @@ function Navbar() {
                 About us
               </Link>
             </li>
-            <li 
-             className='nav_links'
-            >Carrito</li>
+            <li >
+              <Link
+              to='/cart'
+              className='nav_links'
+              >
+                Cart
+              </Link>
+            
+            </li>
           </ul>
         </div>
       </nav>

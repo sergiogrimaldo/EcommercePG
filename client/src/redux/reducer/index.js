@@ -15,12 +15,42 @@ const initialState = {
 	filterSizes: [],
 	filterPrice: 0,
 	user: {},
+	cart: [],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+		
+		case 'ADD_TO_CART':
+			state.cart && state.cart.map((item) => {
+				 if (item.name == action.payload.name){
+					return (item.cuantity = item.cuantity + 1 || 1)	
+				} else {
+					return item.cuantity = item.cuantity
+				}}) 
+			
+			state.cart.push({image:action.payload.image, name: action.payload.name, cuantity:action.payload.cuantity,price:action.payload.price,subtotal:(action.payload.price*action.payload.cuantity)})
+			return{
+				...state,
+			}
+		case 'REMOVE_FROM_CART':
+			state.cart.map((item) => {
+				if (item.name == action.payload.name){
+						return item.cuantity = item.cuantity -1
+					} else {
+						return item.cuantity = item.cuantity
+					}
+			})
+
+			return{
+				...state,
+				cart : state.cart.filter(item => item.cuantity > 0)	
+			}
+
+
 		case 'GET_SHOES':
 			return {
+				...state,
 				shoes: action.payload,
 				filteredShoes: action.payload,
 				brands: action.payload.map(elem => elem.brand),
@@ -38,6 +68,7 @@ function rootReducer(state = initialState, action) {
 					.filter(elem => elem),
 				filters: [],
 				currentPage: 0,
+				cart : []
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':
