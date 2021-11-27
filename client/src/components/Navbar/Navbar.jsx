@@ -13,14 +13,14 @@ function Navbar() {
     const dispatch = useDispatch();
     const handleClick = () => setClick(!click);
     const user = useSelector(state => state.user)
-    const usuario = JSON.parse(JSON.stringify(user)) || ''
+    // const usuario = JSON.parse(JSON.stringify(user)) || ''
     const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
 
     ///// TO FIX 
-    useEffect(() => {
-      setCartItemsNumber(JSON.stringify(cart.length).length)
-    }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
+    // useEffect(() => {
+    //   setCartItemsNumber(JSON.stringify(cart.length).length)
+    // }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
 
 
     return (
