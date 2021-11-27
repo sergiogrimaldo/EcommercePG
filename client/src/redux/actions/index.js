@@ -70,3 +70,10 @@ export function logout(){
 		type: 'LOGOUT',
 	}
 }
+
+export function search(payload){
+	return {
+		type: 'SEARCH',
+		payload: payload
+	}
+}
