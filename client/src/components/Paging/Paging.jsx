@@ -11,11 +11,30 @@ function Paging({shoes, shoesPerPage}) {
     
     const dispach = useDispatch();
 
-    const pageNumber = [];
+    const pageNumber = ['<<'];
 
     for(let i=1; i<= Math.ceil(shoes.length/shoesPerPage);i++){
         pageNumber.push(i)
     }
+    pageNumber.push(['>>'])
+
+    const handleButton = function changePage(e) {
+        console.log(e)
+        if (e == '<<'){
+            if (page > 0){
+                dispach(setPage(page-1))
+            }
+        }
+        else if (e == '>>'){
+            if (page < Math.ceil(shoes.length/shoesPerPage)-1){
+                dispach(setPage(page+1))
+            }
+        }
+         else {
+            dispach(setPage(e-1))
+        }
+    
+}
     
     return (
         <nav>
@@ -23,10 +42,9 @@ function Paging({shoes, shoesPerPage}) {
                 {
                     pageNumber && pageNumber.map(e => {
                         return (
-                            <div key={e}>
-                                <button className={style.containerBTN} onClick={()=> dispach(setPage(e-1))}>{e}</button>
+                            <div key={e} >
+                                <button key={'button'+ e} className={style.containerBTN}  onClick={()=> handleButton(e)} >{e}</button>
                             </div>
-                            
                         )
                     }) 
                 }
