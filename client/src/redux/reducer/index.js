@@ -6,6 +6,7 @@ const initialState = {
 	shoes: [],
 	filteredShoes: [],
 	brands: [],
+    modalBuyDetails: {},
 	modal: '',
 };
 
@@ -21,6 +22,12 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				modal: action.payload,
+			};
+
+            case 'OPEN_BUY_DETAILS_MODAL':
+			return {
+				...state,
+				modalBuyDetails: action.payload,
 			};
 
 		case 'CLOSE_MODAL':

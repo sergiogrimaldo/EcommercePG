@@ -2,6 +2,10 @@ export function openModal(payload) {
 	return { type: 'OPEN_MODAL', payload };
 }
 
+export function openBuyDetailsModal(payload) {
+	return { type: 'OPEN_BUY_DETAILS_MODAL', payload };
+}
+
 export function closeModal() {
 	return { type: 'CLOSE_MODAL' };
 }

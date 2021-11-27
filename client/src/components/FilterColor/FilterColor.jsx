@@ -13,6 +13,7 @@ const [value, setValue] = useState("");
   let array = splitAll(data);
   //console.log(array);
   clean = deleteAllRepited(array);
+  //console.log(shoes);
   shoes = filter(array, value);
 
   shoes.forEach((e) => {

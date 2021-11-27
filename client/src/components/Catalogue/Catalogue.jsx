@@ -5,12 +5,14 @@ import Cards from '../Cards/Cards.jsx';
 import Header from '../Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import SignUp from '../Modals/SignUp';
+import BuyDetailsModal from '../Modals/BuyDetailsModal';
 import Login from '../Modals/Login';
 import { filterBrand, getShoes, getBrands } from '../../redux/actions/index.js';
 
 function Catalogue() {
 	const dispatch = useDispatch();
 	const modal = useSelector(state => state.modal);
+    const modalData = useSelector(state => state.modalBuyDetails);
 	const data = useSelector(state => state.shoes);
 	const [brand, setBrand] = useState('');
 
@@ -47,6 +49,7 @@ function Catalogue() {
 		<BrowserRouter>
 			{modal === 'login' && <Login />}
 			{modal === 'signUp' && <SignUp />}
+            {modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 			<div className='App'>
 				<Header data={data} onFilter={onFilter} />
 				<Cards data={data} />
