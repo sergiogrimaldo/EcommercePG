@@ -3,7 +3,7 @@ import Home from './components/Home/Home.jsx';
 import Catalogue from './components/Catalogue/Catalogue.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
-
+import './App.css'
 
 function App() {
 
