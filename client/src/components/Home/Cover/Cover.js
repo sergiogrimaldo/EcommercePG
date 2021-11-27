@@ -5,7 +5,7 @@ import coverVideo from "./media/videos.mp4";
 const Cover = () => {
   return (
     <div className="cover-container">
-      <video className="video" src={coverVideo} autoPlay loop />
+      <video className="video" src={coverVideo} autoPlay loop muted/>
       <h1>JamStack Eccommerce</h1>
       <p>Sneakers | Modern | Shop | Youth </p>
     </div>
