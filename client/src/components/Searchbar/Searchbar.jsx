@@ -1,7 +1,9 @@
 import { useState } from 'react';
-
-export default function Searchbar({ onSearch }) {
+import {useDispatch} from 'react-redux'
+import { search } from '../../redux/actions';
+export default function Searchbar() {
 	let [input, setInput] = useState('');
+	let dispatch = useDispatch()
 
 	function onChangeHandler(e) {
 		setInput(e.target.value);
@@ -9,8 +11,9 @@ export default function Searchbar({ onSearch }) {
 
 	function onSubmitHandler(e) {
 		e.preventDefault();
-		onSearch(input);
-		setInput('');
+		dispatch(search(input))
+		console.log(input)
+		//setInput('');
 	}
 
 	return (

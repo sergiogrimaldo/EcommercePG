@@ -15,10 +15,18 @@ const initialState = {
 	filterSizes: [],
 	filterPrice: 0,
 	user: {},
+	textToSearch:'',
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case 'SEARCH':
+			return {
+                ...state,
+                textToSearch: action.payload
+			}; 
+
 		case 'LOGIN':
 			return {
                 ...state,
