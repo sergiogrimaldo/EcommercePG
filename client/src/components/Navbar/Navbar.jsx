@@ -37,7 +37,7 @@ function Navbar() {
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>		
           
       {console.log(user && JSON.stringify(user).length>2 )}
-        { (user && JSON.stringify(user).length>2 && user.Au.VX && user.Au.VX.length>0) ? <>
+        { (user && !user.error && JSON.stringify(user).length>2 && user.Au.VX && user.Au.VX.length>0) ? <>
          <li> Hola {`${user.Au.VX}`} 😀! </li>
         <li 
         className='nav_links' 

@@ -16,6 +16,7 @@ const initialState = {
 	filterPrice: 0,
 	user: {},
 	textToSearch:'',
+	cart: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -65,6 +66,9 @@ function rootReducer(state = initialState, action) {
 			}
 
 		case 'GET_SHOES':
+
+		
+
 			return {
 				...state,
 				shoes: action.payload,
@@ -84,6 +88,7 @@ function rootReducer(state = initialState, action) {
 					.filter(elem => elem),
 				filters: [],
 				currentPage: 0,
+				cart: state.cart || [],
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':
