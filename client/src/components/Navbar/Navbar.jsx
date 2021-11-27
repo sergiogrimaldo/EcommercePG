@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
+import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
 import './Navbar.css';
 
@@ -27,7 +28,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar_container'>
             <div className='navbar_icon' >
-            <Link to='/'> <h1>CACTUS <i class="fas fa-shoe-prints"></i>SHOES</h1></Link >
+            <Link to='/'><img src={marca} alt=""/></Link >
             
             </div>
           <div className='menu_icon' onClick={handleClick}>
