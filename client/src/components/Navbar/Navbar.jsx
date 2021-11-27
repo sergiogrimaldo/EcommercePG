@@ -36,9 +36,8 @@ function Navbar() {
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>		
           
-      {console.log(user && JSON.stringify(user).length>2 )}
-        { (user && !user.error && JSON.stringify(user).length>2 && user.Au.VX && user.Au.VX.length>0) ? <>
-         <li> Hola {`${user.Au.VX}`} 😀! </li>
+        { (user && !user.error && JSON.stringify(user).length>2 && user.profileObj.givenName && user.profileObj.givenName.length>0) ? <>
+         <li> Hola {`${user.profileObj.givenName}`} 😀! </li>
         <li 
         className='nav_links' 
         onClick={() => dispatch(logout())}
