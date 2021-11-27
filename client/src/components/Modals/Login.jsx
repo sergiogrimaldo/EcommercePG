@@ -1,11 +1,17 @@
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../redux/actions";
 import { GoogleLogin } from 'react-google-login';
-
+import { useHistory } from "react-router";
+import { login } from "../../redux/actions";
 export default function Login(){
     const dispatch = useDispatch()
-    const responseGoogle = (response) => {
-        console.log(response)
+    const history = useHistory()
+    const responseGoogle = async (response) => {
+        await dispatch(login(response))
+        dispatch(closeModal())
+        setTimeout(() => {
+            history.go(0)
+        }, 500);
       }
     return(
         <div style={{
