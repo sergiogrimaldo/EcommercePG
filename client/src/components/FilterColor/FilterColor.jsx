@@ -6,14 +6,13 @@ import { useState } from "react";
 import { filter } from "./colors";
 
 const FilterColor = ({ data }) => {
-const [value, setValue] = useState("");
+  const [value, setValue] = useState("");
   let clean = [], shoes = [];
   if (data) {
-
+  
   let array = splitAll(data);
   //console.log(array);
   clean = deleteAllRepited(array);
-  //console.log(shoes);
   shoes = filter(array, value);
 
   shoes.forEach((e) => {

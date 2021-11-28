@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterPrice } from '../../redux/actions/index.js';
 import styles from './FilterPrice.module.css';
 
-export default function FilterPrice({ data }) {
-	let maxPriceArr = data
-		.map(elem => elem.lowestResellPrice)
-		.filter(elem => elem)
-		.map(elem => Object.values(elem))
-		.flat();
-
-	let maxPrice = Math.max(...maxPriceArr);
-
-	let roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
-
+export default function FilterPrice() {
+	const dispatch = useDispatch();
 	let [value, setValue] = useState(0);
+	let data = useSelector(state => state.prices);
+	if (data) {
+		let maxPrice = Math.max(...data);
+		var roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
+	}
 
 	useEffect(() => {
 		if (!value || value === -Infinity) {
@@ -22,17 +20,16 @@ export default function FilterPrice({ data }) {
 
 	function onChangeHandler(e) {
 		setValue(e.target.value);
-		console.log(e.target.value);
+		dispatch(filterPrice(e.target.value));
 	}
 
 	return (
 		<div>
-			<label>Price</label>
 			<input
 				type='range'
 				min='0'
 				max={roundUpMax}
-				step='100'
+				step='50'
 				value={value}
 				onChange={onChangeHandler}
 			/>

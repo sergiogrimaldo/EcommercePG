@@ -4,38 +4,16 @@ import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import FilterColor from '../FilterColor/FilterColor.jsx';
+import styles from './Header.module.css';
 
-export default function Header({ data, onFilter }) {
+export default function Header({ data }) {
 	return (
-		<>
-			<header
-				style={{
-					zIndex: 0,
-					borderBottom: '1px solid rgba(0,0,0,0.05)',
-					padding: '20px',
-					paddingTop: 0,
-					paddingBottom: 0,
-					display: 'flex',
-					backgroundColor: 'white',
-					alignContent: 'center',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				}}>
-				<div>
-					<ul
-						style={{
-							cursor: 'pointer',
-							listStyle: 'none',
-							display: 'flex',
-						}}>
-						<Searchbar />
-						{/* <FilterBrand data={data} onFilter={onFilter} /> */}
-						{/* <FilterSize data={data} /> */}
-						<FilterColor data={data} />
-						{/* <FilterPrice data={data} /> */}
-					</ul>
-				</div>
-			</header>
-		</>
+		<div className={`${styles.container}`}>
+			<FilterBrand data={data} />
+			<FilterSize data={data} />
+			<Searchbar />
+			{/* <FilterColor data={data} /> */}
+			<FilterPrice data={data} />
+		</div>
 	);
 }

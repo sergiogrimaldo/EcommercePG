@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../redux/actions";
+import { addToCart } from "../../redux/actions";
 import s from "./BuyDetailsModal.module.css";
 
 export default function BuyDetailsModal({ data }) {
@@ -24,8 +25,8 @@ export default function BuyDetailsModal({ data }) {
                 style={{
                     backgroundColor: "white",
                     display: "flex",
-                    height: "auto",
-                    width: "80%",
+                    height: "75%",
+                    width: "70%",
                     flexDirection: "column",
                     borderRadius: 15,
                     alignItems: "center",
@@ -34,41 +35,54 @@ export default function BuyDetailsModal({ data }) {
                     padding: "10px",
                 }}
             >
+                <h1>{data.foundFromAll.shoeName}</h1>
+                <img
+                    src={data.foundFromAll.thumbnail}
+                    alt="lol"
+                    className={s.img}
+                />
                 <div className={s.card}>
-                    <img
-                        src={data.foundFromAll.thumbnail}
-                        alt="lol"
-                        className={s.img}
-                    />
-                    <h2>{data.foundFromAll.shoeName}</h2>
                     <div className={s.info__description}>
                         <div
                             style={{
                                 width: "100%",
-                                height: "110px",
+                                height: "70px",
                                 overflowY: "scroll",
                             }}
                         >
                             {data.foundFromAll.description}
                         </div>
-                        <h6>
-                            Release Date {data.foundFromAll.releaseDate} Price=$
-                            {data.foundFromAll.retailPrice},00 USD
-                        </h6>
-                        <input
-                            type="button"
-                            value="Add to Cart"
-                            onClick={() => {
-                                dispatch(closeModal());
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                width: "100%",
                             }}
-                        />
-                        <input
-                            type="button"
-                            value="Buy Now"
-                            onClick={() => {
-                                dispatch(closeModal());
-                            }}
-                        />
+                        >
+                            <h6>
+                                Release Date {data.foundFromAll.releaseDate}{" "}
+                                Price=$
+                                {data.foundFromAll.retailPrice},00 USD
+                            </h6>
+                            <div>
+                            <input
+                                type="button"
+                                value="Add to Cart"
+                                onClick={() => {
+                                    dispatch(addToCart({ image: data.foundFromAll.thumbnail, name: data.foundFromAll.shoeName, price: data.foundFromAll.retailPrice, cuantity: 1 }))
+                                    dispatch(closeModal())
+                                }}
+                            />
+                            <input
+                                type="button"
+                                value="Buy Now"
+                                onClick={() => {
+                                    dispatch(closeModal());
+                                }}
+                            />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

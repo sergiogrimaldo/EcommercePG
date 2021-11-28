@@ -376,7 +376,7 @@ const names = [
     ["C73943", "University"],
     ["71eeb8", "Seafoam"],
     ["C1C4BC", "Healing"],
-    ["ffe4c1", "Pollen"],
+    ["ffe668", "Pollen"],
     ["F5F5F7", "Varsity"],
     ["D5E2EA", "Mono"],
     ["222526", "Tech"],
@@ -1664,7 +1664,6 @@ export const deleteWord = [
     "Volt",
 ];
 
-
 const findColors = (name) => {
     const color = names.find((item) => item[1] === name);
     if (color) {
@@ -1777,37 +1776,19 @@ export const filter = (array, value) => {
     return arre;
 };
 
-export const onlyThreeColorGrid = (
-    data,
-    silhoutte,
-    _id,
-    Question_OnlyThree = true
-) => {
+export const onlyThreeColorGrid = (data, silhoutte, _id) => {
     let allIdem = data.filter(
         (item) => item.silhoutte === silhoutte && item._id !== _id
-    );
-    let nameAnd_id = [],
-        all = {};
-    if (!Question_OnlyThree) {
-        nameAnd_id = allIdem.map((item) => {
-            return {
-                colorway: item.colorway && item.colorway,
-                _id: item._id && item._id,
-                thumbnail: item.thumbnail && item.thumbnail,
-                threeColorGrid: findGrid(item.colorway),
-            };
-        });
-    } else if (Question_OnlyThree) {
-        allIdem.length > 3 && allIdem.splice(3, allIdem.length - 3);
-        nameAnd_id = allIdem.map((item) => {
-            return {
-                colorway: item.colorway && item.colorway,
-                _id: item._id && item._id,
-                thumbnail: item.thumbnail && item.thumbnail,
-                threeColorGrid: findGrid(item.colorway),
-            };
-        });
-    }
+    ),
+    all = {},
+    nameAnd_id = allIdem.map((item) => {
+        return {
+            colorway: item.colorway && item.colorway,
+            _id: item._id && item._id,
+            thumbnail: item.thumbnail && item.thumbnail,
+            threeColorGrid: findGrid(item.colorway),
+        };
+    });
     all = {
         colorNameThumbnailAnd_id: nameAnd_id,
     };

@@ -9,7 +9,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    box-shadow: 2px 4px 12px #084d8d;
+    box-shadow: 2px 4px 12px #a19e9a;
   }
   
   .navbar_container {
@@ -22,7 +22,8 @@
   
   
   .nav_menu {
-    display: grid;
+    display: flex;
+    align-items: center;
     grid-template-columns: repeat(6, auto);
     grid-gap: 10px;
     list-style: none;
@@ -140,5 +141,6 @@
       color: #242424;
       transition: 250ms;
     }
+  
   }
   

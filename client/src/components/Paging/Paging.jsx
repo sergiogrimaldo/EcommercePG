@@ -1,26 +1,56 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPage } from '../../redux/actions';
+import style from './Paging.module.css';
 
-function Paging(props) {
-    const pageNumber = [];
+function Paging({shoes, shoesPerPage}) {
 
-    for(let i=1; i<= Math.ceil(props.allShoes/props.shoesForPage);i++){
+    shoes = shoes || [];
+
+    const page = useSelector(state => state.currentPage);
+    
+    const dispach = useDispatch();
+
+    const pageNumber = ['<<'];
+
+    for(let i=1; i<= Math.ceil(shoes.length/shoesPerPage);i++){
         pageNumber.push(i)
     }
+    pageNumber.push(['>>'])
 
-    return (
-        <div>
-            {
-                pageNumber && pageNumber.map(e => {
-                    return (
-                        <div key={e}>
-                            <button onClick={()=> props.page(e)}>{e}</button>
-                        </div>
-                        
-                    )
-                }) 
+    const handleButton = function changePage(e) {
+        console.log(e)
+        if (e == '<<'){
+            if (page > 0){
+                dispach(setPage(page-1))
             }
-            
-        </div>
+        }
+        else if (e == '>>'){
+            if (page < Math.ceil(shoes.length/shoesPerPage)-1){
+                dispach(setPage(page+1))
+            }
+        }
+         else {
+            dispach(setPage(e-1))
+        }
+    
+}
+    
+    return (
+        <nav>
+            <div className={style.containerPage}>
+                {
+                    pageNumber && pageNumber.map(e => {
+                        return (
+                            <div key={e} >
+                                <button key={'button'+ e} className={style.containerBTN}  onClick={()=> handleButton(e)} >{e}</button>
+                            </div>
+                        )
+                    }) 
+                }
+                
+            </div>
+        </nav>
     )
 }
 
