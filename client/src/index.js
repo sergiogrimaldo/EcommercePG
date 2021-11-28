@@ -5,6 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import {store} from './redux/store.js'
+import setAuthorizationToken from './utils/setAutToken';
+import jwt from 'jsonwebtoken';
+import { setCurrentUser } from './redux/actions';
+
+// if (localStorage.jwtToken) {
+//   setAuthorizationToken(localStorage.jwtToken);
+//   store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+// }
+
+// setAuthorizationToken(localStorage.jwtToken);
+// store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
 store.subscribe(()=>{
   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
