@@ -15,10 +15,19 @@ const initialState = {
 	filterSizes: [],
 	filterPrice: 0,
 	user: {},
+	textToSearch:'',
+	cart: [],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case 'SEARCH':
+			return {
+                ...state,
+                textToSearch: action.payload
+			}; 
+
 		case 'LOGIN':
 			return {
                 ...state,
@@ -57,6 +66,9 @@ function rootReducer(state = initialState, action) {
 			}
 
 		case 'GET_SHOES':
+
+		
+
 			return {
 				...state,
 				shoes: action.payload,
@@ -76,6 +88,7 @@ function rootReducer(state = initialState, action) {
 					.filter(elem => elem),
 				filters: [],
 				currentPage: 0,
+				cart: state.cart || [],
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':
@@ -147,6 +160,8 @@ function rootReducer(state = initialState, action) {
 				currentPage: action.payload,
 			};
 		}
+
+		
 		default:
 			return state;
 	}

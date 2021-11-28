@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-body, html {
-    margin:0;
-    
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
 
-@font-face {
-    font-family: 'Comforter Brush', cursive;
-    src: url();
+body {
+	font-family: 'Poppins', sans-serif;	
 }

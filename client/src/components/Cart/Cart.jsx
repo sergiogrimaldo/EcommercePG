@@ -5,7 +5,7 @@ export default function Cart() {
     let nombreItems = []
     let cantidadTotal = 0
     /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
-    cart.forEach(item => {
+    cart?.forEach(item => {
         if (!nombreItems.includes(item.name)){
             nombreItems.push(item.name)
         }

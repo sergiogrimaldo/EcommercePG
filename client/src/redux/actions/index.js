@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function openModal(payload) {
 	return { type: 'OPEN_MODAL', payload };
 }
@@ -69,4 +71,18 @@ export function logout(){
 	return {
 		type: 'LOGOUT',
 	}
+}
+
+export function search(payload){
+	return {
+		type: 'SEARCH',
+		payload: payload
+	}
+}
+
+export function postUser(payload){
+    return async function () {
+        const res = await axios.post('http://localhost:3001/users', payload);
+        return res;
+    }
 }
