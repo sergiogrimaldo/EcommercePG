@@ -5,17 +5,11 @@ import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import './App.css'
 import Cart from './components/Cart/Cart.jsx';
-import Login from './components/Modals/Login.jsx';
-import SignUp from './components/Modals/SignUp.jsx';
 import BuyDetailsModal from './components/Modals/BuyDetailsModal.jsx';
 import { useSelector } from 'react-redux';
-
 import './App.css'
-
-import Cart from './components/Cart/Cart.jsx';
 import Login from './components/Modals/Login.jsx';
 import SignUp from './components/Modals/SignUp.jsx';
-import { useSelector } from 'react-redux';
 
 
 function App() {
