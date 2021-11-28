@@ -28,10 +28,10 @@ router.get('/', function(req, res) {
 
 router.post('/autenticar', async (req, res) => {
   const { name, email, password } = req.body
-  let user = await User.findOne({where:{email:email}} )
+
   // if(req.body.name === "asfo" && req.body.password === "holamundo") {
   let user = await User.findOne({where:{email:email}} )
-  if ( user && user.length > 0 && user.password === password  ){
+  if ( user && user.name && user.password === password  ){
 
 
 		const payload = {
