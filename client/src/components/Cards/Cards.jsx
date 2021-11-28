@@ -12,7 +12,6 @@ export default function Cards() {
 	const filterPrice = useSelector(state => state.filterPrice);
 	const page = useSelector(state => state.currentPage);
 	const data = useSelector(state => state.shoes);
-	const searchText = useSelector(state => state.textToSearch);
 	const [shownCards, setShownCards] = useState([]);
 	const SHOES_PER_PAGE = 10;
 
@@ -100,18 +99,6 @@ export default function Cards() {
 			setShownCards(data);
 		}
 	}, [data, filters, filterBrands, filterSizes, filterPrice, page]);
-
-	useEffect(() => {
-		if (searchText?.length > 0) {
-			setShownCards(
-				data.filter(elem =>
-					elem.shoeName.toLowerCase().includes(searchText.toLowerCase())
-				)
-			);
-		} else {
-			setShownCards(data);
-		}
-	}, [searchText]);
 
 	return (
 		<>

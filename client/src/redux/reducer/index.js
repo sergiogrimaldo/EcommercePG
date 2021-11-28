@@ -22,10 +22,20 @@ const initialState = {
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
 		case 'SEARCH':
-			return {
-				...state,
-				textToSearch: action.payload,
-			};
+			var aux = state.filteredShoes;
+			if (action.payload.length > 0) {
+				return {
+					...state,
+					shoes: aux.filter(elem =>
+						elem.shoeName.toLowerCase().includes(action.payload.toLowerCase())
+					),
+				};
+			} else {
+				return {
+					...state,
+					shoes: aux,
+				};
+			}
 
 		case 'LOGIN':
 			return {
