@@ -1,12 +1,18 @@
 import React from 'react'
-import HeroSection from '../HeroSection/HeroSection.jsx';
+import AboutHome from './AboutHome/AboutHome';
+import Cover from './Cover/Cover';
+
+import Info from './Info/Info';
+import Slider from './Slider/Slider';
 
 
 function Home() {
     return (
         <div>
-            <HeroSection/>
-            <h1>Aca esta el Home</h1>
+            <Cover/>
+            <AboutHome/>
+            <Slider/>            
+            <Info/>
         </div>
     )
 }

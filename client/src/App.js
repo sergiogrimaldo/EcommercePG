@@ -3,6 +3,9 @@ import Home from './components/Home/Home.jsx';
 import Catalogue from './components/Catalogue/Catalogue.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
+
+import './App.css'
+
 import Cart from './components/Cart/Cart.jsx';
 import Login from './components/Modals/Login.jsx';
 import SignUp from './components/Modals/SignUp.jsx';
