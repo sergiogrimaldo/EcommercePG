@@ -41,9 +41,12 @@ function Catalogue() {
 		dispatch(getShoes());
 	}, []);
 
+	function prova() {
+		dispatch(getShoes());
+	}
+
 	return (
 		<BrowserRouter>
-	
 			<div className='App'>
 				<Header data={data} />
 				<Cards />
