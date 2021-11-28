@@ -6,6 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import {store} from './redux/store.js'
 
+store.subscribe(()=>{
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
+
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

@@ -3,45 +3,53 @@ import { BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cards from '../Cards/Cards.jsx';
 import Header from '../Header/Header';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import SignUp from '../Modals/SignUp';
 import Login from '../Modals/Login';
-
+import {
+	filterBrand,
+	getShoes,
+	getBrands,
+	filterSize,
+} from '../../redux/actions/index.js';
 
 function Catalogue() {
+	const dispatch = useDispatch();
+	// const modal = useSelector(state => state.modal);
+	const data = useSelector(state => state.shoes);
+	const [brand, setBrand] = useState('');
+	const [size, setSize] = useState(0);
 
-    const modal = useSelector(state => state.modal);
-	const [data, setData] = useState([]);
-
-	const getData = () => {
-		fetch('allShoes.json', {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-			},
-		})
-			.then(function (response) {
-				return response.json();
-			})
-			.then(function (myJson) {
-				console.log(myJson);
-				setData(myJson);
-			});
-	};
+	// const getData = () => {
+	// 	fetch('allShoes.json', {
+	// 		headers: {
+	// 			'Content-Type': 'application/json',
+	// 			Accept: 'application/json',
+	// 		},
+	// 	})
+	// 		.then(function (response) {
+	// 			return response.json();
+	// 		})
+	// 		.then(function (myJson) {
+	// 			console.log(myJson);
+	// 			setData(myJson);
+	// 		});
+	// };
 	useEffect(() => {
-		getData();
+		// getData();
+
+		dispatch(getShoes());
 	}, []);
 
-    return (
-        <BrowserRouter>
-			{modal === 'login' && <Login />}
-			{modal === 'signUp' && <SignUp />}
+	return (
+		<BrowserRouter>
+	
 			<div className='App'>
 				<Header data={data} />
-				<Cards data={data} />
+				<Cards />
 			</div>
 		</BrowserRouter>
-    )
+	);
 }
 
-export default Catalogue
+export default Catalogue;

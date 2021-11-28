@@ -4,11 +4,15 @@ import FilterBrand from '../FilterBrand/FilterBrand.jsx';
 import FilterSize from '../FilterSize/FilterSize.jsx';
 import FilterPrice from '../FilterPrice/FilterPrice.jsx';
 import FilterColor from '../FilterColor/FilterColor.jsx';
+<<<<<<< HEAD
 import Navbar from '../Navbar/Navbar.jsx';
+=======
+import styles from './Header.module.css';
+>>>>>>> 03dd0f498a5710aebd717a258219a698962eded4
 
 export default function Header({ data }) {
-
 	return (
+<<<<<<< HEAD
 		<>
 			<header
 				style={{
@@ -39,5 +43,14 @@ export default function Header({ data }) {
 				</div>
 			</header>
 		</>
+=======
+		<div className={`${styles.container}`}>
+			<FilterBrand data={data} />
+			<FilterSize data={data} />
+			<Searchbar />
+			{/* <FilterColor data={data} /> */}
+			<FilterPrice data={data} />
+		</div>
+>>>>>>> 03dd0f498a5710aebd717a258219a698962eded4
 	);
 }

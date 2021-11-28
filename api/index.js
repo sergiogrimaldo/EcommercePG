@@ -98,8 +98,8 @@ const peticionApi = async function (){
     console.log(error)
   }
 } 
-
-conn.sync({ force: true }).then(() => {
+//{ force: true }
+conn.sync().then(() => {
 // conn.sync().then(() => {
   server.listen(3001, () => {
       console.log('%s listening at 3001'); // eslint-disable-line no-console
