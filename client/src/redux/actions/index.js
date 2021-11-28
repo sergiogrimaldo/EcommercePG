@@ -8,6 +8,10 @@ export function closeModal() {
 	return { type: 'CLOSE_MODAL' };
 }
 
+export function openBuyDetailsModal(payload) {
+	return { type: 'OPEN_BUY_DETAILS_MODAL', payload };
+}
+
 export function getShoes() {
 	return async function (dispatch) {
 		await fetch('http://localhost:3000/data.json')

@@ -1,10 +1,13 @@
 // import {
 
+// import {
+
 // } from "../constants";
 
 const initialState = {
 	shoes: [],
 	filteredShoes: [],
+    modalBuyDetails: {},
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -33,20 +36,26 @@ function rootReducer(state = initialState, action) {
 				user: action.payload,
 			};
 
-		case 'LOGOUT':
+
+            case 'OPEN_BUY_DETAILS_MODAL':
 			return {
 				...state,
-				user: {},
+				modalBuyDetails: action.payload,
 			};
+            
+        case 'LOGOUT':
+            return {
+                ...state,
+                user: {}
+			}; 
 		case 'ADD_TO_CART':
-			state.cart &&
-				state.cart.map(item => {
-					if (item.name == action.payload.name) {
-						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
-					}
-				});
+			state.cart && state.cart.map((item) => {
+				 if (item.name == action.payload.name){
+					return (item.cuantity = item.cuantity + 1 || 1)	
+				} else {
+					return item.cuantity = item.cuantity
+				}}) 
+
 
 			state.cart.push({
 				image: action.payload.image,
