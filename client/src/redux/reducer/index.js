@@ -1,5 +1,7 @@
 // import {
 
+// import {
+
 // } from "../constants";
 
 const initialState = {
@@ -16,24 +18,24 @@ const initialState = {
 	filterSizes: [],
 	filterPrice: 0,
 	user: {},
-	textToSearch:'',
+	textToSearch: '',
 	cart: [],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
-
 		case 'SEARCH':
 			return {
-                ...state,
-                textToSearch: action.payload
-			}; 
+				...state,
+				textToSearch: action.payload,
+			};
 
 		case 'LOGIN':
 			return {
-                ...state,
-                user: action.payload
-			}; 
+				...state,
+				user: action.payload,
+			};
+
 
             case 'OPEN_BUY_DETAILS_MODAL':
 			return {
@@ -54,28 +56,32 @@ function rootReducer(state = initialState, action) {
 					return item.cuantity = item.cuantity
 				}}) 
 
-			state.cart.push({image:action.payload.image, name: action.payload.name, cuantity:action.payload.cuantity,price:action.payload.price,subtotal:(action.payload.price*action.payload.cuantity)})
-			return{
-				...state,
-			}
-		case 'REMOVE_FROM_CART':
-			state.cart.map((item) => {
-				if (item.name == action.payload.name){
-						return item.cuantity = item.cuantity -1
-					} else {
-						return item.cuantity = item.cuantity
-					}
-			})
 
-			return{
+			state.cart.push({
+				image: action.payload.image,
+				name: action.payload.name,
+				cuantity: action.payload.cuantity,
+				price: action.payload.price,
+				subtotal: action.payload.price * action.payload.cuantity,
+			});
+			return {
 				...state,
-				cart : state.cart.filter(item => item.cuantity > 0)	
-			}
+			};
+		case 'REMOVE_FROM_CART':
+			state.cart.map(item => {
+				if (item.name == action.payload.name) {
+					return (item.cuantity = item.cuantity - 1);
+				} else {
+					return (item.cuantity = item.cuantity);
+				}
+			});
+
+			return {
+				...state,
+				cart: state.cart.filter(item => item.cuantity > 0),
+			};
 
 		case 'GET_SHOES':
-
-		
-
 			return {
 				...state,
 				shoes: action.payload,
@@ -168,7 +174,6 @@ function rootReducer(state = initialState, action) {
 			};
 		}
 
-		
 		default:
 			return state;
 	}
