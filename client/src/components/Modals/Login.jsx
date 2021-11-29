@@ -111,16 +111,24 @@ export default function Login(){
                 ></input>
             </div>
 
-            <div style={{marginTop:25, display:'flex', width:'50%',justifyContent:'space-around'  }}>
+            <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
             
+            <GoogleLogin 
+                    clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                    />
+
             <button 
-            style={{backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
+            style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
             className='primaryButton' 
             type='submit'
             >Login</button>
 
             <button 
-            style={{backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} 
+            style={{padding:10,backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} 
             className='secondaryButton' 
             onClick={() => dispatch(closeModal())} 
             >Close</button>
@@ -129,13 +137,7 @@ export default function Login(){
 
         </form>    
                 
-                <GoogleLogin 
-                    clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
-                    buttonText="Login"
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                    />
+               
             
         </div>
     </div>

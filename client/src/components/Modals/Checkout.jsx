@@ -61,8 +61,8 @@ export default function Checkout (){
                 <label style={{textAlign:"center"}} for='adress'>Adress:</label><input style={{width:'100%'}} type='adress' id='adress' placeholder="Shipping adress" onChange={(e) => handleAdressChange(e)}></input>
             </div>
             <div style={{marginTop:25, display:'flex', width:'50%',justifyContent:'space-around'  }}>
-                <button style={{backgroundColor:'black',color:'white',borderRadius:5, padding:10 ,border:'1px solid black'}} className='primaryButton' type='submit' onClick={() => dispatch(sendOrderDetails({name:user.profileObj.givenName,email,adress,cart}))}>Buy</button>
-                <button style={{backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} className='secondaryButton' onClick={() => dispatch(closeModal())} >Close</button>
+                <button style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5, padding:10 ,border:'1px solid black'}} className='primaryButton' type='submit' onClick={() => dispatch(sendOrderDetails({name:user.profileObj.givenName,email,adress,cart}))}>Buy</button>
+                <button style={{padding:10,backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} className='secondaryButton' onClick={() => dispatch(closeModal())} >Close</button>
             </div>
         </div>
     </div>
