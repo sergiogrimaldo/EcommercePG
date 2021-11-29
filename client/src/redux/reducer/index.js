@@ -28,12 +28,23 @@ const initialState = {
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
 
+		case 'SEND_ORDER_DETAILS':
+			return{
+				...state,
+			}
+
 		case 'SET_CURRENT_USER':
 			return{
 				...state,
 				isAuthenticaded: !isEmpty(action.user),
 				user: action.user,
 			}
+
+		case 'DELETE_FROM_CART':
+			return {
+				...state,
+				cart: state.cart.filter((item) => item.name != action.payload),
+			};
 
 		case 'SEARCH':
 			return {

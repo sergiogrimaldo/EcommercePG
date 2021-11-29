@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/Home/Home.jsx';
 import Catalogue from './components/Catalogue/Catalogue.jsx';
+import Checkout from './components/Modals/Checkout.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import './App.css'
@@ -20,6 +21,7 @@ function App() {
 	return (
 		
 		<BrowserRouter>
+		{modal === 'checkout' && <Checkout />}
 		{modal === 'login' && <Login />}
 		{modal === 'signUp' && <SignUp />}
         {modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}

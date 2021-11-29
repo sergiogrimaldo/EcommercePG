@@ -14,13 +14,21 @@ export function logIn(payload){
 		dispatch(setCurrentUser({profileObj:{
 			email: email,
 			givenName: name,
-		}}))
+		}
+		}))
+		return({email})
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	}
 }
 //el decode token es el user
 
+export function sendOrderDetails(payload){
+	return async dispatch => {
+		const res = await axios.post('http://localhost:3001/sendmail', payload);
+		return res
+	}
+}
 export function setCurrentUser(user){
 	return {
 		type: 'SET_CURRENT_USER',
@@ -38,6 +46,13 @@ export function login(payload){
 export function logout(){
 	return {
 		type: 'LOGOUT',
+	}
+}
+
+export function deleteFromCart(payload){
+	return {
+		type:'DELETE_FROM_CART',
+		payload: payload,
 	}
 }
 

@@ -49,7 +49,7 @@ export default function SignUp(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch(postUser(input));
-        alert('Welcome');
+        alert('User created successfully');
         setInput({
             name: "",
             email: "",
