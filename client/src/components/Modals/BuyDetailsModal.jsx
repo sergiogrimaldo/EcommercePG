@@ -1,7 +1,7 @@
-import { useDispatch } from "react-redux";
 import { closeModal } from "../../redux/actions";
 import { addToCart } from "../../redux/actions";
 import s from "./BuyDetailsModal.module.css";
+import { useDispatch } from 'react-redux';
 
 export default function BuyDetailsModal({ data }) {
     const dispatch = useDispatch();
@@ -34,7 +34,7 @@ export default function BuyDetailsModal({ data }) {
                     justifyItems: "center",
                     padding: "10px",
                 }}
-       
+            >
                 <h1>{data.foundFromAll.shoeName}</h1>
                 <img
                     src={data.foundFromAll.thumbnail}
