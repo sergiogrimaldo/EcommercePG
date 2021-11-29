@@ -14,7 +14,7 @@ export default function Cards() {
 	const data = useSelector(state => state.shoes);
 	const searchText = useSelector(state => state.textToSearch);
 	const [shownCards, setShownCards] = useState([]);
-	const SHOES_PER_PAGE = 10;
+	const SHOES_PER_PAGE = 9;
 
 	useEffect(() => {
 		if (filters && filters.length > 0) {

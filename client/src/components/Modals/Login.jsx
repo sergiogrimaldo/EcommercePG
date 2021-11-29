@@ -38,11 +38,18 @@ export default function Login(){
 
 
 
-    function handleSubmit(e){
+    async function handleSubmit (e){
         e.preventDefault();
         // dispatch(setCurrentUser(input));
-        dispatch(logIn({email: input.email, password: input.password}));
-        alert('Welcome');
+      
+            let res = await dispatch(logIn({email: input.email, password: input.password}));
+            console.log(typeof res.email  != "undefined" )
+            if (typeof res.email  != "undefined" ){
+                alert('Welcome');
+            } else {
+                alert('Invalid user please try again')
+            }
+       
         setInput({
             // profileObj:{
                 // givenName:"",
