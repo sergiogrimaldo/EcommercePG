@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 const initialState = {
 	shoes: [],
 	filteredShoes: [],
+    modalBuyDetails: {},
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -43,6 +44,12 @@ function rootReducer(state = initialState, action) {
                 ...state,
                 user: action.payload
 			}; 
+
+            case 'OPEN_BUY_DETAILS_MODAL':
+			return {
+				...state,
+				modalBuyDetails: action.payload,
+			};
             
         case 'LOGOUT':
             return {
