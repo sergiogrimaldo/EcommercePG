@@ -51,7 +51,7 @@ const peticionApi = async function (){
        //colorWay: colorway || undefined,
        stock: Math.round(Math.random()*15),
        shoeName: shoeName,
-       retailPrice: retailPrice || undefined,
+       retailPrice: retailPrice || Math.round(Math.random()*400),
        thumbnail: thumbnail,
       //brand: brand,
       urlKey: urlKey
