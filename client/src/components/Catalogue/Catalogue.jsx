@@ -12,6 +12,7 @@ import {
 	getBrands,
 	filterSize,
 } from '../../redux/actions/index.js';
+import styles from './Catalogue.module.css';
 
 function Catalogue() {
 	const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function Catalogue() {
 
 	return (
 		<BrowserRouter>
-			<div className='App'>
+			<div className={`${styles.container}`}>
 				<Header data={data} />
 				<Cards />
 			</div>
