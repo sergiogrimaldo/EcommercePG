@@ -5,16 +5,16 @@ import jwt from 'jsonwebtoken'
 export function logIn(payload){
 	return async dispatch => {
 		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
-		console.log(res)
+		// console.log(res)
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
-		dispatch(setCurrentUser({
+		dispatch(setCurrentUser({profileObj:{
 			email: email,
-			name: name,
-		}))
+			givenName: name,
+		}}))
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	}

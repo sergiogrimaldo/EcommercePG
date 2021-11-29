@@ -20,11 +20,11 @@ export default function Login(){
 
     const [input, setInput] = useState(
         {
-            profileObj:{
+            // profileObj:{
                 // givenName:"",
                 email:"",
                 password:"",
-            }
+            // }
         }
     )
     
@@ -41,14 +41,14 @@ export default function Login(){
     function handleSubmit(e){
         e.preventDefault();
         // dispatch(setCurrentUser(input));
-        dispatch(logIn({email: input.profileObj.email, password: input.profileObj.password}));
+        dispatch(logIn({email: input.email, password: input.password}));
         alert('Welcome');
         setInput({
-            profileObj:{
+            // profileObj:{
                 // givenName:"",
                 email:"",
                 password:"",
-            }
+            // }
         })
         dispatch(closeModal())
     }
