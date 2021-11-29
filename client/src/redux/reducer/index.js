@@ -3,6 +3,7 @@
 // import {
 
 // } from "../constants";
+import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
 	shoes: [],
@@ -17,13 +18,23 @@ const initialState = {
 	filterBrands: [],
 	filterSizes: [],
 	filterPrice: 0,
-	user: {},
-	textToSearch: '',
+	textToSearch:'',
 	cart: [],
+	user: {},
+	isAuthenticaded: false,
+
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case 'SET_CURRENT_USER':
+			return{
+				...state,
+				isAuthenticaded: !isEmpty(action.user),
+				user: action.user,
+			}
+
 		case 'SEARCH':
 			return {
 				...state,
@@ -67,6 +78,7 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 			};
+			
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
 				if (item.name == action.payload.name) {
@@ -102,6 +114,8 @@ function rootReducer(state = initialState, action) {
 				filters: [],
 				currentPage: 0,
 				cart: state.cart || [],
+				isAuthenticaded: state.isAuthenticaded || true,
+				user: state.user || {},
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':

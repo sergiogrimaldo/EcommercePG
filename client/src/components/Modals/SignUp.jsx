@@ -58,7 +58,7 @@ export default function SignUp(){
         dispatch(closeModal())
     }
 
-    console.log(input)
+    // console.log(input)
 
     return(
         <div style={{
