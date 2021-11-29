@@ -5,10 +5,6 @@ export default function Searchbar() {
 	let [input, setInput] = useState('');
 	let dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(search(''));
-	});
-
 	function onChangeHandler(e) {
 		setInput(e.target.value);
 	}
@@ -16,7 +12,6 @@ export default function Searchbar() {
 	function onSubmitHandler(e) {
 		e.preventDefault();
 		dispatch(search(input));
-		//setInput('');
 	}
 
 	return (
