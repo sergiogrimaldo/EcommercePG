@@ -29,7 +29,7 @@ function rootReducer(state = initialState, action) {
 			return{
 				...state,
 				isAuthenticaded: !isEmpty(action.user),
-				user: {profileObj: action.user},
+				user: action.user,
 			}
 
 		case 'SEARCH':

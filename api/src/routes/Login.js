@@ -47,7 +47,9 @@ router.post('/autenticar', async (req, res) => {
 		});
 		res.json({
 			mensaje: 'Autenticación correcta',
-			token: token
+			token: token,
+      name: user.name,
+      email: email,
 		});
     } else {
         res.json({ mensaje: "Usuario o contraseña incorrectos"})
