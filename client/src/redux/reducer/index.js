@@ -1,10 +1,14 @@
 // import {
 
+// import {
+
 // } from "../constants";
+import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
 	shoes: [],
 	filteredShoes: [],
+    modalBuyDetails: {},
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -14,13 +18,23 @@ const initialState = {
 	filterBrands: [],
 	filterSizes: [],
 	filterPrice: 0,
-	user: {},
-	textToSearch: '',
+	textToSearch:'',
 	cart: [],
+	user: {},
+	isAuthenticaded: false,
+
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case 'SET_CURRENT_USER':
+			return{
+				...state,
+				isAuthenticaded: !isEmpty(action.user),
+				user: action.user,
+			}
+
 		case 'SEARCH':
 			var aux = state.filteredShoes;
 			if (action.payload.length > 0) {
@@ -43,20 +57,26 @@ function rootReducer(state = initialState, action) {
 				user: action.payload,
 			};
 
-		case 'LOGOUT':
+
+            case 'OPEN_BUY_DETAILS_MODAL':
 			return {
 				...state,
-				user: {},
+				modalBuyDetails: action.payload,
 			};
+            
+        case 'LOGOUT':
+            return {
+                ...state,
+                user: {}
+			}; 
 		case 'ADD_TO_CART':
-			state.cart &&
-				state.cart.map(item => {
-					if (item.name == action.payload.name) {
-						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
-					}
-				});
+			state.cart && state.cart.map((item) => {
+				 if (item.name == action.payload.name){
+					return (item.cuantity = item.cuantity + 1 || 1)	
+				} else {
+					return item.cuantity = item.cuantity
+				}}) 
+
 
 			state.cart.push({
 				image: action.payload.image,
@@ -68,6 +88,7 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 			};
+			
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
 				if (item.name == action.payload.name) {
@@ -103,6 +124,8 @@ function rootReducer(state = initialState, action) {
 				filters: [],
 				currentPage: 0,
 				cart: state.cart || [],
+				isAuthenticaded: state.isAuthenticaded || true,
+				user: state.user || {},
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':

@@ -1,4 +1,45 @@
 import axios from 'axios';
+import setAuthorizationToken from '../../utils/setAutToken';
+import jwt from 'jsonwebtoken'
+
+export function logIn(payload){
+	return async dispatch => {
+		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
+		// console.log(res)
+		const name = res.data.name;
+		const email = res.data.email;
+		const token = res.data.token;
+		localStorage.setItem('jwtToken', token);
+		setAuthorizationToken(token);
+		dispatch(setCurrentUser({profileObj:{
+			email: email,
+			givenName: name,
+		}}))
+
+		// dispatch(setCurrentUser(jwt.decode(token)))
+	}
+}
+//el decode token es el user
+
+export function setCurrentUser(user){
+	return {
+		type: 'SET_CURRENT_USER',
+		user: user,
+	}
+}
+
+export function login(payload){
+	return {
+		type: 'LOGIN',
+		payload: payload,
+	}
+}
+
+export function logout(){
+	return {
+		type: 'LOGOUT',
+	}
+}
 
 export function openModal(payload) {
 	return { type: 'OPEN_MODAL', payload };
@@ -6,6 +47,10 @@ export function openModal(payload) {
 
 export function closeModal() {
 	return { type: 'CLOSE_MODAL' };
+}
+
+export function openBuyDetailsModal(payload) {
+	return { type: 'OPEN_BUY_DETAILS_MODAL', payload };
 }
 
 export function getShoes() {
@@ -60,18 +105,7 @@ export function setPage(payload) {
 	};
 }
 
-export function login(payload){
-	return {
-		type: 'LOGIN',
-		payload: payload,
-	}
-}
 
-export function logout(){
-	return {
-		type: 'LOGOUT',
-	}
-}
 
 export function search(payload){
 	return {
@@ -83,6 +117,7 @@ export function search(payload){
 export function postUser(payload){
     return async function () {
         const res = await axios.post('http://localhost:3001/users', payload);
+		console.log(payload)
         return res;
     }
 }

@@ -110,17 +110,7 @@ export default function Cards() {
 					shownCards.length > 0 &&
 					shownCards
 						.slice(page * SHOES_PER_PAGE, SHOES_PER_PAGE * (1 + page))
-						.map(shoe => (
-							<Link className={s.links}>
-								<Card
-									shoeName={shoe.shoeName}
-									brand={shoe.brand}
-									retailPrice={shoe.retailPrice}
-									thumbnail={shoe.thumbnail}
-									releaseDate={shoe.releaseDate}
-								/>
-							</Link>
-						))}
+						.map((shoe, i) => <Card key={i} shoe={shoe} />)}
 			</div>
 		</>
 	);
