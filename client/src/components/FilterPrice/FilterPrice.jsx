@@ -8,8 +8,10 @@ export default function FilterPrice() {
 	let [value, setValue] = useState(0);
 	let data = useSelector(state => state.prices);
 
-	let maxPrice = Math.max(...data);
-	var roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
+	if (data) {
+		let maxPrice = Math.max(...data);
+		var roundUpMax = (Math.trunc(maxPrice / 100) + 1) * 100;
+	}
 
 	useEffect(() => {
 		if (!value || value === -Infinity) {

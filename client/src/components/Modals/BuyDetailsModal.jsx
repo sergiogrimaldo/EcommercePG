@@ -34,17 +34,7 @@ export default function BuyDetailsModal({ data }) {
                     justifyItems: "center",
                     padding: "10px",
                 }}
-            >
-
-            <input
-                className={s.close}
-                    type="button"
-                    value="X"
-                    onClick={() => {
-                        dispatch(closeModal());
-                    }}
-                />
-
+       
                 <h1>{data.foundFromAll.shoeName}</h1>
                 <img
                     src={data.foundFromAll.thumbnail}
