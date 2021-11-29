@@ -30,6 +30,10 @@ const createRoles = async function(){
 }
 
 const peticionApi = async function (){
+
+  if ((await Shoe.findAll()).length > 0 ){
+    return (console.log('Shoes already in Database'))
+  } else {
   try{ 
   // const Api = fetch('./allShoes.json').then(res=> res.json()).catch((e) => console.log(e))
     let allShoes = require('./allShoes.json')
@@ -47,7 +51,7 @@ const peticionApi = async function (){
        //colorWay: colorway || undefined,
        stock: Math.round(Math.random()*15),
        shoeName: shoeName,
-       retailPrice: retailPrice || undefined,
+       retailPrice: retailPrice || Math.round(Math.random()*400),
        thumbnail: thumbnail,
       //brand: brand,
       urlKey: urlKey
@@ -94,10 +98,13 @@ const peticionApi = async function (){
   }
 
 }
+
   catch(error){ //aca agarro el error si existe
     console.log(error)
   }
+}
 } 
+
 //{ force: true }
 conn.sync().then(() => {
 // conn.sync().then(() => {
