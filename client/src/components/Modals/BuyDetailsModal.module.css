@@ -71,3 +71,9 @@
     width: 300px;
     height: 250px;
 }
+
+.close {
+    background: #2196f3;
+    color: white;
+    cursor: pointer;
+}
