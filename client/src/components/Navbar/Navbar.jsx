@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
+import {ShoppingCart} from '@material-ui/icons';
+import {Badge} from '@material-ui/core';
 import './Navbar.css';
 
 
@@ -72,7 +74,9 @@ function Navbar() {
               to='/cart'
               className='nav_links'
               >
-                Cart { cartItemsNumber && `${cartItemsNumber}`}
+                <Badge badgeContent={cart?.length} color='secondary'>
+                  <ShoppingCart fontSize='large' color='primary' />
+                </Badge>
               </Link>
               </li></ul>
         </div>

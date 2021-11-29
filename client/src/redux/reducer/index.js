@@ -202,6 +202,13 @@ function rootReducer(state = initialState, action) {
 					currentPage: 0,
 				};
 			}
+
+		case 'UPDATE':{
+			return {
+				...state,
+				cart:[...state.cart]
+			}
+		}
 		case 'SET_PAGE': {
 			return {
 				...state,
