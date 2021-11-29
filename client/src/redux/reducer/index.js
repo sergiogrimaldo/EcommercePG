@@ -1,11 +1,14 @@
 // import {
 
+// import {
+
 // } from "../constants";
 import isEmpty from 'lodash/isEmpty'
 
 const initialState = {
 	shoes: [],
 	filteredShoes: [],
+    modalBuyDetails: {},
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -34,15 +37,22 @@ function rootReducer(state = initialState, action) {
 
 		case 'SEARCH':
 			return {
-                ...state,
-                textToSearch: action.payload
-			}; 
+				...state,
+				textToSearch: action.payload,
+			};
 
 		case 'LOGIN':
 			return {
-                ...state,
-                user: action.payload
-			}; 
+				...state,
+				user: action.payload,
+			};
+
+
+            case 'OPEN_BUY_DETAILS_MODAL':
+			return {
+				...state,
+				modalBuyDetails: action.payload,
+			};
             
         case 'LOGOUT':
             return {
@@ -57,28 +67,33 @@ function rootReducer(state = initialState, action) {
 					return item.cuantity = item.cuantity
 				}}) 
 
-			state.cart.push({image:action.payload.image, name: action.payload.name, cuantity:action.payload.cuantity,price:action.payload.price,subtotal:(action.payload.price*action.payload.cuantity)})
-			return{
-				...state,
-			}
-		case 'REMOVE_FROM_CART':
-			state.cart.map((item) => {
-				if (item.name == action.payload.name){
-						return item.cuantity = item.cuantity -1
-					} else {
-						return item.cuantity = item.cuantity
-					}
-			})
 
-			return{
+			state.cart.push({
+				image: action.payload.image,
+				name: action.payload.name,
+				cuantity: action.payload.cuantity,
+				price: action.payload.price,
+				subtotal: action.payload.price * action.payload.cuantity,
+			});
+			return {
 				...state,
-				cart : state.cart.filter(item => item.cuantity > 0)	
-			}
+			};
+			
+		case 'REMOVE_FROM_CART':
+			state.cart.map(item => {
+				if (item.name == action.payload.name) {
+					return (item.cuantity = item.cuantity - 1);
+				} else {
+					return (item.cuantity = item.cuantity);
+				}
+			});
+
+			return {
+				...state,
+				cart: state.cart.filter(item => item.cuantity > 0),
+			};
 
 		case 'GET_SHOES':
-
-		
-
 			return {
 				...state,
 				shoes: action.payload,
@@ -173,7 +188,6 @@ function rootReducer(state = initialState, action) {
 			};
 		}
 
-		
 		default:
 			return state;
 	}
