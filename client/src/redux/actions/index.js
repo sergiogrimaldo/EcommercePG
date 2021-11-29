@@ -84,6 +84,12 @@ export function search(payload){
 	}
 }
 
+export function update(){
+	return {
+		type: 'UPDATE',
+	}
+}
+
 export function postUser(payload){
     return async function () {
         const res = await axios.post('http://localhost:3001/users', payload);

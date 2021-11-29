@@ -1,11 +1,12 @@
 import { useState } from "react";
 import s from "./Card.module.css";
 import { useSelector } from "react-redux";
-import { addToCart } from "../../redux/actions";
+import { addToCart, update } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/actions/index.js";
 import { openBuyDetailsModal } from "../../redux/actions/index.js";
 import { onlyThreeColorGrid } from "../FilterColor/colors.js";
+
 
 export default function Card({ shoe }) {
     const dispatch = useDispatch();
@@ -153,7 +154,9 @@ export default function Card({ shoe }) {
                     </h6>{" "}
                     <input
                         type="button"
-                        onClick={() => dispatch(addToCart({ image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }))}
+                        onClick={() => {dispatch(addToCart({ image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }))
+                        dispatch(update())}
+                    }
                         value="Add to Cart"
                     />
                     <input type="button" value="Buy Now" />

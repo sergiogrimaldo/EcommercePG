@@ -1,26 +1,33 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
+import {ShoppingCart} from '@material-ui/icons';
+import {Badge} from '@material-ui/core';
+
+
 import './Navbar.css';
 
 
 function Navbar() {
     const cart = useSelector(state => state.cart)
+    
     const [click, setClick] = useState(false);
     const dispatch = useDispatch();
     const handleClick = () => setClick(!click);
     const user = useSelector(state => state.user)
     // const usuario = JSON.parse(JSON.stringify(user)) || ''
-    const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
+
+    //utilizo material-UI para el icono del carrito y el delete de cada item
 
     ///// TO FIX 
     // useEffect(() => {
     //   setCartItemsNumber(JSON.stringify(cart.length).length)
     // }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
+    
 
 
     return (
@@ -72,9 +79,12 @@ function Navbar() {
               to='/cart'
               className='nav_links'
               >
-                Cart { cartItemsNumber && `${cartItemsNumber}`}
-              </Link>
-              </li></ul>
+                <Badge badgeContent={cart?.length} color='secondary'>
+                  <ShoppingCart fontSize='large' color='primary' />
+                </Badge>
+            </Link>
+            </li>
+          </ul>
         </div>
         
       </nav>

@@ -69,7 +69,8 @@ function rootReducer(state = initialState, action) {
 
 			return{
 				...state,
-				cart : state.cart.filter(item => item.cuantity > 0)	
+				cart : state.cart.filter(item => item.cuantity > 0)	,
+				
 			}
 
 		case 'GET_SHOES':
@@ -166,6 +167,12 @@ function rootReducer(state = initialState, action) {
 				...state,
 				currentPage: action.payload,
 			};
+		}
+		case 'UPDATE':{
+			return {
+				...state,
+				cart:[...state.cart]
+			}
 		}
 
 		
