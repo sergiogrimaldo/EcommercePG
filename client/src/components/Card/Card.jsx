@@ -14,14 +14,13 @@ export default function Card({ shoe }) {
     const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState("");
     const [plusOrMinus, setPlusOrMinus] = useState("+");
     var shoes = useSelector((state) => state.shoes);
-
     let found,
         foundFromAll,
-        allColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe._id), //cuarto parametro = false ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
-        restOfColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe._id, false); //cuarto parametro = true ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
+        allColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe.id), //cuarto parametro = false ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
+        restOfColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe.id, false); //cuarto parametro = true ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
     if (shoeOnHover) {
-        found = shoeOnHoverImg.find((el) => el._id === shoeOnHover);
-        foundFromAll = shoes.find((el) => el._id === shoeOnHover);
+        found = shoeOnHoverImg.find((el) => el.id === shoeOnHover);
+        foundFromAll = shoes.find((el) => el.id === shoeOnHover);
     }
     return (
         <div className={s.card__father}>
@@ -44,7 +43,7 @@ export default function Card({ shoe }) {
                             return (
                                 <div
                                     onMouseEnter={() => {
-                                        setShoeOnHover(item._id);
+                                        setShoeOnHover(item.id);
                                         setShoeOnHoverColor(restOfColors.colorNameThumbnailAnd_id);
                                     }}
                                     onMouseLeave={() => {
@@ -113,7 +112,7 @@ export default function Card({ shoe }) {
                             return (
                                 <div
                                     onMouseEnter={() => {
-                                        setShoeOnHover(item._id);
+                                        setShoeOnHover(item.id);
                                         setShoeOnHoverColor(allColors.colorNameThumbnailAnd_id);
                                     }}
                                     onMouseLeave={() => {
@@ -153,9 +152,10 @@ export default function Card({ shoe }) {
                     </h6>{" "}
                     <input
                         type="button"
-                        onClick={() => {dispatch(addToCart({ image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }))
-                        dispatch(update())}
-                    }
+                        onClick={() => {
+                            dispatch(addToCart({ image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }));
+                            dispatch(update());
+                        }}
                         value="Add to Cart"
                     />
                     <input type="button" value="Buy Now" />
