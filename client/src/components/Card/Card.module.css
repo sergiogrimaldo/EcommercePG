@@ -1,12 +1,13 @@
 .card {
-    width: 300px;
+    width: 330px;
     position: relative;
     margin: 30px;
-    padding: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
     font-family: "Poppins", sans-serif;
     transition: all 300ms;
     border-radius: 20px;
-    overflow:hidden;
+
 }
 
 .card:hover {
@@ -19,8 +20,9 @@
 }
 
 .card:hover .icon {
-    margin-top: -110px;
+    margin-top: -50px;
     border-radius: 20px 20px 0px 0px;
+    
 }
 
 .icon {
@@ -37,6 +39,7 @@
     transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
     border-radius: 20px;
     background-color:#fff;
+    
 }
 
 .icon i {
@@ -55,7 +58,7 @@
     margin-top: -300px;
     transition: all 380ms cubic-bezier(0.5, 0, 0, 1);
     border-radius: 20px;
-    
+    overflow:hidden;
 }
 
 .info__description h6 {
@@ -90,11 +93,11 @@
 
 .displayImgTrue {
     display: block;
-    width: 300px;
+    width: 330px;
     height: 250px;
     position: absolute;
     right: 0px;
-    top: 0px;
+    top: -10px;
     z-index: 1;
     border: 1px solid black;
 }
@@ -115,6 +118,7 @@
     top: 290px;
     z-index: 1;
     border: 1px solid black;
+    
 }
 
 .displaySecundLineOfColorsFalse {
@@ -132,10 +136,11 @@
 }
 
 .plusOrMinus {
-    width: 57px;
-    height: 20px;
+    width: 70px;
+    height:30px;
     cursor: pointer;
     border: 1px solid black;
+    
 }
 
 .gridOfFirstThreeColors {
