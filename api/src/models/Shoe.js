@@ -21,22 +21,6 @@ module.exports = (sequelize) => {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-        /*  stock: {
-                type: DataTypes.INTEGER,
-                defaultValue: 0,
-            },
-            resellPrices: {
-                type: DataTypes.JSON,
-                defaultValue: {},
-            },
-            avaiableSizes: {
-                type: DataTypes.JSON,
-                defaultValue: {},
-            },
-            lowestResellPrice: {
-                type: DataTypes.JSON,
-                defaultValue: {}, 
-            },*/
             shoeName: {
                 type: DataTypes.STRING(1000),
             },
