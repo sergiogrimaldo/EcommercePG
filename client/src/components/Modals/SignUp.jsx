@@ -49,7 +49,7 @@ export default function SignUp(){
     function handleSubmit(e){
         e.preventDefault();
         dispatch(postUser(input));
-        alert('Welcome');
+        alert('User created successfully');
         setInput({
             name: "",
             email: "",
@@ -58,7 +58,7 @@ export default function SignUp(){
         dispatch(closeModal())
     }
 
-    console.log(input)
+    // console.log(input)
 
     return(
         <div style={{
@@ -116,11 +116,11 @@ export default function SignUp(){
                         }</p>
                     )}
             </div>
-            <div style={{marginTop:25, display:'flex', width:'50%',justifyContent:'space-around'  }}>
-                <button style={{backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
+            <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
+                <button style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
                 className='primaryButton' type='submit' 
                 disabled={errors.name || errors.password || errors.email}>Register</button>
-                <button style={{backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} 
+                <button style={{padding:10,backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} 
                 className='secondaryButton' onClick={() => dispatch(closeModal())} >Close</button>
             </div>
         

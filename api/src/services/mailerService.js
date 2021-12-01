@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer')
 var smtpTransport = require('nodemailer-smtp-transport');
+const { 
+    v1: uuidv1,
+    v4: uuidv4,
+  } = require('uuid');
 
 const transporter = nodemailer.createTransport(smtpTransport({
     host: 'smtp.gmail.com',
@@ -10,12 +14,40 @@ const transporter = nodemailer.createTransport(smtpTransport({
 }))
 
  const sendMail = async function ({template, payload}){
+    console.log(payload)
+    let total = 0
+    let id = uuidv4().slice(0,7)
+
+    let nombreItems = []
+    /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
+    payload.cart.forEach(item => {
+        if (!nombreItems.includes(item.name)){
+            nombreItems.push(item.name)
+        }})
+
+    payload.cart.forEach(item => {
+        total = total+item.price
+        }
+    )
+
+    
+
      //console.log(payload)
-    transporter.sendMail({
-        from: 'zapApp zapapp@zapapp.com',
+    await transporter.sendMail({
+        from: 'JSEC Store zapapp@zapapp.com',
         to: payload.email,
-        subject: 'Detalles de tu compra (Pedido numero #ID pedido)',
-        html: `Hola! ${payload.name} estos son los detalles de tu compra realizada en tal fecha ${payload.purchaseInfo}`
+        subject: `Order details #${id}`,
+        html: `Hi ${payload.name}! These are the details of your purchase, have a nice day! :
+        <br> 
+        <ul>
+        <li>
+        Shipping Adress: ${payload.adress}
+        </li>
+        <li>items: <ul>${payload.cart.map(item => (nombreItems.includes(item.name) ? '<br>'+nombreItems.splice(nombreItems.indexOf(item.name),1) +' x '+ item.cuantity+' at US$ '+ item.price+' each' : ''))}</ul></li>
+        <br>
+        <li>TOTAL: US$ ${total}</li>
+        </ul>
+        `
     }
     ).then( () =>{ return 'mail mandado con exito'}).catch(err => console.log(err))
     

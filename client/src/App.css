@@ -9,3 +9,12 @@
 body {
 	font-family: 'Poppins', sans-serif;	
 }
+
+nav {
+	background-color: white;
+}
+
+a {
+	text-decoration: none;
+	color:black
+}

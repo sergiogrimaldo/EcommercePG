@@ -1,32 +1,44 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define('shoe', {
-    id:{
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement:true,
-    },
-    description:{
-        type: DataTypes.STRING(1000),
-        defaultValue:'No description'
-    },
-
-    stock:{
-        type:DataTypes.INTEGER,
-        defaultValue: 0,
-    },
-     shoeName:{
-        type:DataTypes.STRING(1000),
-    },
-    retailPrice: {
-        type: DataTypes.STRING(1000),
-      },
-    thumbnail: {
-    type: DataTypes.STRING(1000),
-    },
-    urlKey: {
-        type: DataTypes.STRING(1000),
-    },
-  },{timestamps:false});
+    // defino el modelo
+    sequelize.define(
+        "shoe",
+        {
+            id: {
+                type: DataTypes.INTEGER,
+                primaryKey: true,
+                autoIncrement: true,
+            },
+            description: {
+                type: DataTypes.STRING(1000),
+                defaultValue: "No description",
+            },
+            _id: {
+                type: DataTypes.STRING(1000),
+                unique: true,
+            },
+            stock: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            shoeName: {
+                type: DataTypes.STRING(1000),
+            },
+            colorway: {
+                type: DataTypes.STRING(1000),
+                defaultValue: "No color",
+            },
+            silhoutte: {
+                type: DataTypes.STRING(1000),
+                defaultValue: "No color",
+            },
+            thumbnail: {
+                type: DataTypes.STRING(1000),
+            },
+            urlKey: {
+                type: DataTypes.STRING(1000),
+            },
+        },
+        { timestamps: false }
+    );
 };

@@ -1652,17 +1652,7 @@ const names = [
     ["FFFFFF", "White"],
 ];
 
-export const deleteWord = [
-    "Total",
-    "Multi",
-    "Color",
-    "Ink",
-    "Ruby",
-    "Army",
-    "Photo",
-    "Football",
-    "Volt",
-];
+export const deleteWord = ["Total", "Multi", "Color", "Ink", "Ruby", "Army", "Photo", "Football", "Volt"];
 
 const findColors = (name) => {
     const color = names.find((item) => item[1] === name);
@@ -1677,9 +1667,7 @@ const findColors = (name) => {
             if (color) {
                 return color[0];
             } else {
-                const color = names.find(
-                    (item) => item[1].split(" ")[2] === name
-                );
+                const color = names.find((item) => item[1].split(" ")[2] === name);
                 if (color) {
                     return color[0];
                 }
@@ -1693,7 +1681,6 @@ export const findGrid = (string) => {
     let colorName = string,
         colors = colorName.split(" ").join("-").split("/").join("-").split("-"),
         colorGrid = [];
-    //console.log(colors);
     colors.forEach((color) => {
         let hex = findColors(color);
         if (hex) {
@@ -1706,22 +1693,12 @@ export const findGrid = (string) => {
 export const splitAll = (colors) => {
     let array = [];
     colors.forEach((elem) => {
-        let color = elem.colorway
-            .split(" ")
-            .join("-")
-            .split("/")
-            .join("-")
-            .split("-");
+        let color = elem.colorway.split(" ").join("-").split("/").join("-").split("-");
         let clores = color.map((color) => findGrid(color));
         array.push({
-            names: elem.colorway
-                .split(" ")
-                .join("-")
-                .split("/")
-                .join("-")
-                .split("-"),
+            names: elem.colorway.split(" ").join("-").split("/").join("-").split("-"),
             hex: clores.flat(),
-            _id: elem._id,
+            id: elem.id,
         });
     });
     return array;
@@ -1729,17 +1706,12 @@ export const splitAll = (colors) => {
 
 export const splitColorsNamesToGether = (shoe) => {
     let array = [];
-    let color = shoe.colorway
-        .split(" ")
-        .join("-")
-        .split("/")
-        .join("-")
-        .split("-");
+    let color = shoe.colorway.split(" ").join("-").split("/").join("-").split("-");
     let clores = color.map((color) => findGrid(color));
     array.push({
         name: shoe.colorway,
         hex: clores.flat(),
-        _id: shoe._id,
+        id: shoe.id,
     });
     return array;
 };
@@ -1776,19 +1748,17 @@ export const filter = (array, value) => {
     return arre;
 };
 
-export const onlyThreeColorGrid = (data, silhoutte, _id) => {
-    let allIdem = data.filter(
-        (item) => item.silhoutte === silhoutte && item._id !== _id
-    ),
-    all = {},
-    nameAnd_id = allIdem.map((item) => {
-        return {
-            colorway: item.colorway && item.colorway,
-            _id: item._id && item._id,
-            thumbnail: item.thumbnail && item.thumbnail,
-            threeColorGrid: findGrid(item.colorway),
-        };
-    });
+export const onlyThreeColorGrid = (data, silhoutte, id) => {
+    let allIdem = data.filter((item) => item.silhoutte === silhoutte && item.id !== id),
+        all = {},
+        nameAnd_id = allIdem.map((item) => {
+            return {
+                colorway: item.colorway && item.colorway,
+                id: item.id && item.id,
+                thumbnail: item.thumbnail && item.thumbnail,
+                threeColorGrid: findGrid(item.colorway),
+            };
+        });
     all = {
         colorNameThumbnailAnd_id: nameAnd_id,
     };
