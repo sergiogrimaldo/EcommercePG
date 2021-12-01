@@ -5,13 +5,13 @@ import Card from "../Card/Card";
 import Paging from "../Paging/Paging.jsx";
 import s from "./Cards.module.css";
 
-export default function Cards() {
+export default function Cards({data}) {
     const filters = useSelector((state) => state.filters); //brands
     const filterBrands = useSelector((state) => state.filterBrands);
     const filterSizes = useSelector((state) => state.filterSizes);
     const filterPrice = useSelector((state) => state.filterPrice);
     const page = useSelector((state) => state.currentPage);
-    const data = useSelector((state) => state.shoes);
+    //const data = useSelector((state) => state.shoes);
     const [shownCards, setShownCards] = useState([]);
     const SHOES_PER_PAGE = 9;
 

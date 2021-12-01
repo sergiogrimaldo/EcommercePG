@@ -3,8 +3,12 @@ module.exports = (sequelize) => {
     // defino el modelo
     ///Buscar una forma de hacerlo mas corto
     sequelize.define(
-        "avaiableSizes",
+        "price",
         {
+            retailPrice: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             3.5: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
@@ -65,11 +69,43 @@ module.exports = (sequelize) => {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
+            11: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             11.5: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
+            12: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             12.5: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            13: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            14: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            15: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            16: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            17: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            18: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },

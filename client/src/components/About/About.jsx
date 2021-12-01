@@ -1,7 +1,6 @@
 import React from 'react'
 import s from './About.module.css'
 
-
 function About() {
     return (
        
@@ -38,7 +37,7 @@ function About() {
 
                 <div>
                     <img className={s.imgBox} alt="team" 
-                    src="imgs/alan.jpeg"/>
+                    src="https://media-exp1.licdn.com/dms/image/D4D35AQF6LqgZbf89EA/profile-framedphoto-shrink_800_800/0/1636570124483?e=1638039600&v=beta&t=e4iL5PeuZ7w08VbG2IP9PmvgubxCU5_1P9GZawU767s"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Alan Castillo</h3>
@@ -66,10 +65,8 @@ function About() {
             <div className={s.box}>
 
                 <div>
-                    <img className={s.imgBox}
-                    src="imgs/fran.jpg"
-                    alt="team"  
-                    />
+                    <img className={s.imgBox} alt="team" 
+                    src="https://media-exp1.licdn.com/dms/image/D4E35AQG2Q2k1ulE90g/profile-framedphoto-shrink_800_800/0/1637213863692?e=1638039600&v=beta&t=x9e7vOQFUaxDT-EC00rCt03YMVBKaIVvf4gShYhnZ6A"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Francisco Berthet</h3>
@@ -94,7 +91,7 @@ function About() {
 
                 <div>
                     <img className={s.imgBox} alt="team" 
-                    src="imgs/sergio.jpg"/>
+                    src="https://media-exp1.licdn.com/dms/image/D4E35AQGhpKjMbkBH0Q/profile-framedphoto-shrink_800_800/0/1631331160885?e=1638043200&v=beta&t=vPpQ0oQ6MLD-uz21dEa_E4c8sBIvW2kTBnTAXwVwt-o"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Sergio Grimaldo</h3>
@@ -119,7 +116,7 @@ function About() {
 
                 <div>
                     <img className={s.imgBox} alt="team" 
-                    src="imgs/fer.jpg"/>
+                    src="https://media-exp1.licdn.com/dms/image/D4D35AQHhOZ1OOnbq1A/profile-framedphoto-shrink_800_800/0/1627405840576?e=1638039600&v=beta&t=cWd8RTbCWSMSpCREPYI4iwreq7bCoJZGA9fWxPBVHyI"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Fernando Ruiz</h3>
@@ -169,7 +166,7 @@ function About() {
 
                 <div>
                     <img className={s.imgBox} alt="team" 
-                    src="imgs/flor.jpg"/>
+                    src="https://media-exp1.licdn.com/dms/image/D4E35AQGjyqk7I_W7Hg/profile-framedphoto-shrink_200_200/0/1637954819745?e=1638043200&v=beta&t=NiOodJ2flNeASPLTDrGDnlaXIIBVeAT6mWMZQW4MGYs"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Florencia Lodosa</h3>
@@ -194,7 +191,7 @@ function About() {
 
                 <div>
                     <img className={s.imgBox} alt="team" 
-                    src="imgs/joaco.jpg"/>
+                    src="https://media-exp1.licdn.com/dms/image/D5635AQGduhJzTsSkQA/profile-framedphoto-shrink_800_800/0/1637332293828?e=1638043200&v=beta&t=q4U2H8qvqpWwei8yJnssgr4XZXSOTOb4vV2PpzeQcdI"/>
                 </div>
                 <div className={s.infoBox}>   
                     <h3>Joaquín Trovato</h3>

@@ -13,8 +13,15 @@ module.exports = (sequelize) => {
                 type: DataTypes.STRING(1000),
                 defaultValue: "No description",
             },
-
+            _id: {
+                type: DataTypes.STRING(1000),
+                unique: true,
+            },
             stock: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+        /*  stock: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
@@ -28,8 +35,8 @@ module.exports = (sequelize) => {
             },
             lowestResellPrice: {
                 type: DataTypes.JSON,
-                defaultValue: {},
-            },
+                defaultValue: {}, 
+            },*/
             shoeName: {
                 type: DataTypes.STRING(1000),
             },
@@ -40,9 +47,6 @@ module.exports = (sequelize) => {
             silhoutte: {
                 type: DataTypes.STRING(1000),
                 defaultValue: "No color",
-            },
-            retailPrice: {
-                type: DataTypes.STRING(1000),
             },
             thumbnail: {
                 type: DataTypes.STRING(1000),
