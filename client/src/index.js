@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux'
-import {store} from './redux/store.js'
+import { Provider } from 'react-redux';
+import { store } from './redux/store.js';
 import setAuthorizationToken from './utils/setAutToken';
 import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './redux/actions';
@@ -17,17 +17,17 @@ import { setCurrentUser } from './redux/actions';
 // setAuthorizationToken(localStorage.jwtToken);
 // store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
-store.subscribe(()=>{
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
+// store.subscribe(()=>{
+//   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+// })
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>  ,
-  document.getElementById('root')
+	<Provider store={store}>
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	</Provider>,
+	document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
