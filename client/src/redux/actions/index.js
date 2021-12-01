@@ -83,6 +83,30 @@ export function getShoes() {
             });
     };
 }
+export function getPrices() {
+    return function (dispatch) {
+        fetch("http://localhost:3001/prices")
+            .then((res) => res.json())
+            .then((respons) => {
+                dispatch({
+                    type: "GET_PRICES",
+                    payload: respons,
+                });
+            });
+    };
+}
+export function getAvailableSizes() {
+    return function (dispatch) {
+        fetch("http://localhost:3001/availableSizes")
+            .then((res) => res.json())
+            .then((respons) => {
+                dispatch({
+                    type: "GET_AVAILABLE_SIZES",
+                    payload: respons,
+                });
+            });
+    };
+}
 /* fetch('http://localhost:3001/Shoes')
 			.then(res =>  res.json())
                 .then(response => {

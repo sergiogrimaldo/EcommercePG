@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { Shoe, User, Brand, AvaiableSizes, Color } = require("../db");
+const { Shoe, User, Brand, AvailableSizes, Color } = require("../db");
 const { Op } = require("sequelize");
 
 const router = Router();
@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
     if (Name) {
         try {
             let paQuery = await Shoe.findAll({
-                include: [{ model: Brand }, { model: Color }],
+                include: { model: Brand },
                 where: {
                     shoeName: {
                         [Op.iLike]: "%" + Name + "%",
@@ -18,7 +18,7 @@ router.get("/", async (req, res, next) => {
                 },
             });
             if (!paQuery.length) {
-                return res.status(404).json("No se encontro el pais que estas buscando");
+                return res.status(404).json("Error, recall");
             } else {
                 return res.json(paQuery);
             }
@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
     }
     try {
         const shoesBD = await Shoe.findAll({
-            include: [{ model: Brand }, { model: Color }],
+            include: { model: Brand },
         });
         return res.json(shoesBD);
     } catch (error) {

@@ -12,12 +12,6 @@
     border-radius: 20px;
 }
 
-.close {
-    background: #2196f3;
-    color: white;
-    cursor: pointer;
-}
-
 
 /* .card:hover .info__description {
     margin-top: 0;
@@ -76,10 +70,4 @@
 .img {
     width: 300px;
     height: 250px;
-}
-
-.close {
-    background: #2196f3;
-    color: white;
-    cursor: pointer;
 }

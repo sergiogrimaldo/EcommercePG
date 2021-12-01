@@ -111,21 +111,20 @@ function rootReducer(state = initialState, action) {
             };
 
         case "GET_SHOES":
+            let array = state.shoes.map(e => e._id);
+            let notRepited = action.payload.filter(e => !array.includes(e._id));
             return {
                 ...state,
-                shoes: action.payload,
+                shoes: notRepited,
                 filteredShoes: action.payload,
                 brands: action.payload.map((elem) => elem.brand.name),
-                sizes: [
-                    ...new Set(
-                        action.payload
-                            .map((elem) => elem.resellPrices) // mapping data's resellPrices properties
-                            .filter((elem) => elem) // filtering undefined ones out
-                            .map((elem) => Object.keys(elem.flightClub)) // taking all sizes
-                            .flat(Infinity)
-                    ),
-                ].sort((a, b) => a - b),
-                prices: action.payload.map((elem) => elem.retailPrice).filter((elem) => elem),
+                /* sizes: [...new Set(action.payload
+                    .map((elem) => elem.resellPrices) // mapping data's resellPrices properties
+                    .filter((elem) => elem) // filtering undefined ones out
+                    .map((elem) => Object.keys(elem.flightClub)) // taking all sizes
+                    .flat(Infinity)
+                    ), 
+                ].sort((a, b) => a - b),*/
                 filters: [],
                 currentPage: 0,
                 cart: state.cart || [],
@@ -137,6 +136,18 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 modal: action.payload,
+            };
+
+            case "GET_PRICES":
+            return {
+                ...state,
+                prices: action.payload,
+            };
+
+            case "GET_AVAILABLE_SIZES":
+            return {
+                ...state,
+                sizes: action.payload,
             };
 
         case "CLOSE_MODAL":

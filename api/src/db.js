@@ -31,7 +31,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Brand, Shoe, User, User_Order, Role, Color, AvaiableSizes } = sequelize.models;
+const { Order, Brand, Shoe, User, User_Order, Role, Color, AvailableSizes, Price } = sequelize.models;
 
 // One user can have many orders
 User.belongsToMany(Order, { through: User_Order });
@@ -54,27 +54,31 @@ const Shoe_Colors = sequelize.define("Shoe_Colors", { colorId: DataTypes.INTEGER
 Color.belongsToMany(Shoe, { through: "Shoe_Colors" });
 Shoe.belongsToMany(Color, { through: "Shoe_Colors" });
 
-Shoe.belongsTo(AvaiableSizes);
-AvaiableSizes.hasOne(Shoe);
+Shoe.belongsTo(AvailableSizes);
+AvailableSizes.hasOne(Shoe);
 
 Brand.hasMany(Shoe);
 Shoe.belongsTo(Brand);
 
+
+Shoe.belongsTo(Price);
+Price.hasOne(Shoe);
+
 ////// HOOKS
 
 // este hook actualiza el stock como el total de las cantidades individuales disponibles por tamaño
-try {
+/* try {
     Shoe.addHook("afterSave", async (shoe) => {
         let shoes = await Shoe.findOne({ where: { id: shoe.id } });
         if (shoes.avaiableSizeId != null) {
-            let sizes = await AvaiableSizes.findAll({ where: { id: shoes.avaiableSizeId }, attributes: { exclude: ["id"] }, raw: true });
+            let sizes = await AvailableSizes.findAll({ where: { id: shoes.avaiableSizeId }, attributes: { exclude: ["id"] }, raw: true });
             let acc = 0;
             Object.keys(sizes[0]).forEach((key) => (acc = acc + sizes[0][key]));
         }
     });
 } catch (error) {
     console.log(error);
-}
+} */
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
