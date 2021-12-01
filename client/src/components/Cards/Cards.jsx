@@ -14,6 +14,7 @@ export default function Cards({ data }) {
 	//const data = useSelector((state) => state.shoes);
 	const [shownCards, setShownCards] = useState([]);
 	const SHOES_PER_PAGE = 9;
+	// console.log(data);
 	useEffect(() => {
 		if (filters && filters.length > 0) {
 			if (

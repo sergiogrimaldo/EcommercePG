@@ -113,11 +113,9 @@ function rootReducer(state = initialState, action) {
 			};
 
 		case 'GET_SHOES':
-			let array = state.shoes && state.shoes.map(e => e._id);
-			let notRepited = action.payload.filter(e => !array?.includes(e._id));
 			return {
 				...state,
-				shoes: notRepited,
+				shoes: action.payload,
 				filteredShoes: action.payload,
 				brands: action.payload.map(elem => elem.brand.name),
 				/* sizes: [...new Set(action.payload

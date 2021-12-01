@@ -28,16 +28,9 @@ function Catalogue() {
 	const [size, setSize] = useState(0);
 	let data = [];
 
-	if (
-		dataShoes &&
-		dataSizes &&
-		dataPrices &&
-		dataShoes.length > 100 &&
-		dataSizes.length > 100 &&
-		dataPrices.length > 100
-	) {
+	if (dataShoes && dataSizes && dataPrices) {
 		data = compileData(dataShoes, dataSizes, dataPrices);
-		console.log('data', dataShoes);
+		console.log(dataShoes, dataSizes, dataPrices);
 	}
 	useEffect(() => {
 		dispatch(getShoes());
