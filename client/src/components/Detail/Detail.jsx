@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getShoeDetails } from '../../redux/actions/index.js';
 import s from './Detail.module.css';
+import Review from "../Review/Review.jsx";
 import { addToCart, update } from '../../redux/actions';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js';
 import { openModal } from '../../redux/actions/index.js';
@@ -36,6 +37,7 @@ export default function Detail({ id }) {
 			<div className={`${s.macro}`}>
 				<br />
 				<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
+                <Review shoe={details} currentComponent="Detail" />
 				<div className={`${s.container}`}>
 					<h1>{details && details.shoeName}</h1>
 					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
@@ -163,6 +165,7 @@ export default function Detail({ id }) {
 					})}{' '}
 			</div>{' '}
 			<div>
+            
 				<input
 					type='button'
 					onClick={() => {
@@ -173,6 +176,7 @@ export default function Detail({ id }) {
 				/>
 				<input type='button' value='Buy Now' />
 			</div>
+                
 		</div>
 	);
 }
