@@ -23,17 +23,16 @@ const initialState = {
 	user: {},
 	isAuthenticaded: false,
 	allUsers: [],
-	shoeDetails :[],
+	shoeDetails: [],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
-
-		case "GET_ALL_USERS":
-            return {
-                ...state,
-                allUsers: action.payload,
-            }
+		case 'GET_ALL_USERS':
+			return {
+				...state,
+				allUsers: action.payload,
+			};
 
 		case 'SEND_ORDER_DETAILS':
 			return {
@@ -58,9 +57,7 @@ function rootReducer(state = initialState, action) {
 			if (action.payload.length > 0) {
 				return {
 					...state,
-					shoes: aux.filter(elem =>
-						elem.shoeName.toLowerCase().includes(action.payload.toLowerCase())
-					),
+					shoes: aux.filter(elem => elem.shoeName.toLowerCase().includes(action.payload.toLowerCase())),
 				};
 			} else {
 				return {
@@ -141,12 +138,12 @@ function rootReducer(state = initialState, action) {
 				user: state.user || {},
 				allUsers: state.allUsers || [],
 			}; // flattening out the array
-			
-		case 'GET_SHOE_DETAIL':
-            return {
-                ...state,
-                shoeDetails: action.payload
-            };	
+
+		case 'GET_DETAILS':
+			return {
+				...state,
+				shoeDetails: action.payload,
+			};
 
 		case 'OPEN_MODAL':
 			return {
