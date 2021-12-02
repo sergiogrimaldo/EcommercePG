@@ -1,11 +1,19 @@
 .container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: row;
+	display: block;
+	position: relative;
+	top: 120px;
+	left: 300px;
 	width: 500px;
 	height: 500px;
 	padding-bottom: 100px;
+}
+
+.instock {
+	color: green;
+}
+
+.outstock {
+	color: red;
 }
 
 .img_detail {

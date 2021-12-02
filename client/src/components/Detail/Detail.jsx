@@ -16,7 +16,7 @@ export default function Detail({ id }) {
 	const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
 	const [plusOrMinus, setPlusOrMinus] = useState('+');
 	const shoes = useSelector(state => state.shoes);
-	if (details) {
+	if (details && shoes) {
 		var found,
 			foundFromAll,
 			allColors = onlyThreeColorGrid(shoes, details.silhoutte, details.id), //cuarto parametro = false ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
@@ -33,14 +33,24 @@ export default function Detail({ id }) {
 
 	return (
 		<div>
-			<div className={`${s.container}`}>
+			<div>
 				<br />
-				<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
-				<div>
+				<div className={`${s.container}`}>
+					<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
 					<h1>{details && details.shoeName}</h1>
-					<h2 className={`${s.stock}`}>Stock: {details && details.stock} un</h2>
+					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
+					<h2 className={`${s.brand}`}>Brand: {details && details.brand.name}</h2>
 					<h2 className={`${s.color}`}>Color: {details && details.colorway}</h2>
-					<h3 className={`${s.price}`}>Price: u$d XX</h3>
+					<h2 className={`${s.price}`}>Price: ${details && details.price.retailPrice}</h2>
+					<h2 className={`${s.size}`}>
+						Available Sizes:{' '}
+						{details &&
+							Object.entries(details.availableSize)
+								.filter(elem => elem[1] !== 0)
+								.filter(elem => elem[0] !== 'id')
+								.map(elem => elem[0])
+								.join(' ')}
+					</h2>
 					<div className={`${s.description}`}>Product Description: {details && details.description}</div>
 				</div>
 			</div>
