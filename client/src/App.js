@@ -40,6 +40,7 @@ function App() {
 				<Route exact path='/cart'>
 					<Cart/>
 				</Route>
+				<Route exact path ='/shoe/:id'  render ={({match}) => <Detail id = {match.params.id}/>}/>
 			</Switch>
 		</BrowserRouter>
 		

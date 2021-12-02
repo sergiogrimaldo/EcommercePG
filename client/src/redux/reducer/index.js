@@ -23,6 +23,7 @@ const initialState = {
 	user: {},
 	isAuthenticaded: false,
 	allUsers: [],
+	shoeDetails :[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -140,6 +141,12 @@ function rootReducer(state = initialState, action) {
 				user: state.user || {},
 				allUsers: state.allUsers || [],
 			}; // flattening out the array
+			
+		case 'GET_SHOE_DETAIL':
+            return {
+                ...state,
+                shoeDetails: action.payload
+            };	
 
 		case 'OPEN_MODAL':
 			return {
