@@ -39,9 +39,9 @@ export default function Card({ shoe }) {
                      <h2> {shoe.shoeName} </h2>{" "}
                      </Link>
                 </div>{" "}
-                <img src={found && found.thumbnail} alt="lol" className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{" "}
-                <div className={s.info__description}>
-                    {" "}
+                {/* <img src={found && found.thumbnail} alt="lol" className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{" "} */}
+                {/* <div className={s.info__description}> */}
+                    {/* {" "}
                     {restOfColors &&
                         restOfColors.colorNameThumbnailAnd_id.slice(3, 15).map((item, i) => {
                             let pos = i * 20;
@@ -83,8 +83,8 @@ export default function Card({ shoe }) {
                                     })}{" "}
                                 </div>
                             );
-                        })}
-                    {restOfColors && restOfColors.colorNameThumbnailAnd_id.length > 3 && (
+                        })} */}
+                    {/* {restOfColors && restOfColors.colorNameThumbnailAnd_id.length > 3 && (
                         <div>
                             <div
                                 className={s.plusOrMinus}
@@ -111,8 +111,8 @@ export default function Card({ shoe }) {
                                 -Colors{" "}
                             </div>{" "}
                         </div>
-                    )}{" "}
-                    {allColors &&
+                    )}{" "} */}
+                    {/* {allColors &&
                         allColors.colorNameThumbnailAnd_id.slice(0, 3).map((item, i) => {
                             return (
                                 <div
@@ -149,13 +149,13 @@ export default function Card({ shoe }) {
                                     })}{" "}
                                 </div>
                             );
-                        })}{" "}
-                    <div className={s.shoesDescription}> {shoe.description} </div>{" "}
-                    <h6>
+                        })}{" "} */}
+                    {/* <div className={s.shoesDescription}> {shoe.description} </div>{" "} */}
+                    {/* <h6>
                         Release Date {shoe.releaseDate}
                         Price = $ {shoe.retailPrice}, 00 USD{" "}
-                    </h6>{" "}
-                    <input
+                    </h6>{" "} */}
+                    {/* <input
                         type="button"
                         onClick={() => {
                             dispatch(addToCart({ image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }));
@@ -163,8 +163,8 @@ export default function Card({ shoe }) {
                         }}
                         value="Add to Cart"
                     />
-                    <input type="button" value="Buy Now" />
-                </div>{" "}
+                    <input type="button" value="Buy Now" /> */}
+                {/* </div>{" "} */}
             </div>{" "}
         </div>
     );

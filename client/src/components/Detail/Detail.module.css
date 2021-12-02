@@ -125,7 +125,7 @@
 	height: 250px;
 	position: absolute;
 	right: 0px;
-	top: -10px;
+	top: 50px;
 	z-index: 1;
 	border: 1px solid black;
 }
