@@ -38,8 +38,9 @@ function Navbar() {
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>		
           
-        { (user && !user.error && JSON.stringify(user).length>2 && user.profileObj.givenName && user.profileObj.givenName.length>0) ? <>
-         <li> Hola {`${user.profileObj.givenName}`} 😀! </li>
+        { 
+          (user && !user.error && JSON.stringify(user).length>2) ? <>
+         <li> Hola {`${user.name?.split(' ')[0]}`} 😀! </li>
         <li 
         className='nav_links' 
         onClick={() => dispatch(logout())}
