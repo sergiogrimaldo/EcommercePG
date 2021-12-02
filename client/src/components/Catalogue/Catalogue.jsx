@@ -8,14 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import SignUp from '../Modals/SignUp';
 import { compileData } from './dataSupport';
 import Login from '../Modals/Login';
-import {
-	filterBrand,
-	getShoes,
-	getPrices,
-	getAvailableSizes,
-	getBrands,
-	filterSize,
-} from '../../redux/actions/index.js';
+import { filterBrand, getShoes, getPrices, getAvailableSizes, getBrands, filterSize } from '../../redux/actions/index.js';
 import styles from './Catalogue.module.css';
 
 function Catalogue() {
@@ -30,7 +23,6 @@ function Catalogue() {
 
 	if (dataShoes && dataSizes && dataPrices) {
 		data = compileData(dataShoes, dataSizes, dataPrices);
-		console.log(dataShoes, dataSizes, dataPrices);
 	}
 	useEffect(() => {
 		dispatch(getShoes());
@@ -38,17 +30,11 @@ function Catalogue() {
 		dispatch(getAvailableSizes());
 	}, []);
 
-	function prova() {
-		dispatch(getShoes());
-	}
-
 	return (
-		<BrowserRouter>
-			<div className={`${styles.container}`}>
-				<Header data={data && data} />
-				<Cards data={data && data} />
-			</div>
-		</BrowserRouter>
+		<div className={`${styles.container}`}>
+			<Header data={data && data} />
+			<Cards data={data && data} />
+		</div>
 	);
 }
 

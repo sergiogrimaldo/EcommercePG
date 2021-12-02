@@ -19,14 +19,21 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var fs = require("fs");
 const server = require("./src/app.js");
-const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price } = require("./src/db.js");
+const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price, User } = require("./src/db.js");
 
 // Syncing all the models at once.
 ("use strict");
 
+
 const createRoles = async function () {
+    if ((await Role.findAll()).length == 0){
     await Role.create();
-    await Role.create({ name: "admin" });
+    let admin = await Role.create({ name: "admin" });
+    await admin.addUser(await User.create({name:'admin',email:'admin@admin.com',password:'admin',activated:true}))
+    return console.log('roles created succesfully')
+    } else {
+        return(console.log('Roles already in database'))
+    }
 };
 
 const peticionApi = async function () {
@@ -43,7 +50,7 @@ const peticionApi = async function () {
                 await Brand.findOrCreate({ where: { name: brand || "none" } });
                 let brandeses = await Brand.findOne({ where: { name: brand } });
 
-                await AvailableSizes.create({
+                const talles = await AvailableSizes.create({
                     retailPrice: retailPrice,
                     3.5: resellPrices.flightClub[3.5] ? Math.floor(Math.random() * 15) + 1 : 0,
                     4: resellPrices.flightClub[4] ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -69,7 +76,7 @@ const peticionApi = async function () {
                     17: resellPrices.flightClub[17] ? Math.floor(Math.random() * 15) + 1 : 0,
                     18: resellPrices.flightClub[18] ? Math.floor(Math.random() * 15) + 1 : 0,
                 });
-                await Price.create({
+                const prices = await Price.create({
                     retailPrice: retailPrice,
                     3.5: resellPrices.flightClub[3.5],
                     4: resellPrices.flightClub[4],
@@ -143,6 +150,8 @@ const peticionApi = async function () {
 
                 //console.log(brandeses)
                 await shoe.setBrand(brandeses);
+                await shoe.setAvailableSize(talles)   /// ESTA LINEA ESTABA COMENTADA, LA DESCOMENTE PARA PODER CREAR ORDENES
+                await shoe.setPrice(prices) /// ESTA LINEA ESTABA COMENTADA, LA DESCOMENTE PARA PODER CREAR ORDENES
 
                 // 4, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5
                 //avaiableSize.save()
@@ -154,7 +163,7 @@ const peticionApi = async function () {
     }
 };
 //{ force: true }
-conn.sync()
+conn.sync({ force: true })
     .then(() => {
         // conn.sync().then(() => {
         server.listen(3001, () => {
@@ -164,4 +173,7 @@ conn.sync()
     .catch((e) => console.log(e))
     .then(() => peticionApi())
     .catch((e) => console.log(e))
-    .then(() => createRoles());
+    .then(() => createRoles())
+    .catch((e) => console.log(e))
+    .then(() => console.log('base de datos creada exitosamente'))
+    
