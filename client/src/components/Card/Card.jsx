@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/actions/index.js";
 import { openBuyDetailsModal } from "../../redux/actions/index.js";
 import { onlyThreeColorGrid } from "../FilterColor/colors.js";
+import { Link } from "react-router-dom"
 
 export default function Card({ shoe }) {
     const dispatch = useDispatch();
@@ -32,7 +33,11 @@ export default function Card({ shoe }) {
                 }}
             >
                 <div className={s.icon}>
-                    <img src={shoe.thumbnail} alt="lol" className={s.img} /> <h2> {shoe.shoeName} </h2>{" "}
+                    <img src={shoe.thumbnail} alt="lol" className={s.img} />
+                    <Link to={`/shoe/${shoe.id}`}>
+                        {' '}
+                     <h2> {shoe.shoeName} </h2>{" "}
+                     </Link>
                 </div>{" "}
                 <img src={found && found.thumbnail} alt="lol" className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{" "}
                 <div className={s.info__description}>

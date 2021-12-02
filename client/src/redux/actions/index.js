@@ -4,11 +4,8 @@ import jwt from 'jsonwebtoken';
 
 export function logIn(payload) {
 	return async dispatch => {
-		const res = await axios.post(
-			'http://localhost:3001/login/autenticar',
-			payload
-		);
-		
+		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
+
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
@@ -16,10 +13,9 @@ export function logIn(payload) {
 		setAuthorizationToken(token);
 		dispatch(
 			setCurrentUser({
-					token: token,
-					email: jwt.decode(token).email,
-					name: jwt.decode(token).name,
-				
+				token: token,
+				email: jwt.decode(token).email,
+				name: jwt.decode(token).name,
 			})
 		);
 
@@ -32,21 +28,18 @@ export function logIn(payload) {
 
 export function googleLogIn(payload) {
 	return async dispatch => {
-		const res = await axios.post(
-			'http://localhost:3001/login/googleAutenticar',
-			payload
-		);
-		
+		const res = await axios.post('http://localhost:3001/login/googleAutenticar', payload);
+
 		const name = res.data.name;
 		const email = res.data.email;
-		
+
 		const token = res.data.token;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
 			setCurrentUser({
-					email: email,
-					name: name,
+				email: email,
+				name: name,
 			})
 		);
 		return { email: email, name: name };
@@ -193,28 +186,40 @@ export function update() {
 
 export function postUser(payload) {
 	return async function () {
-
 		try {
 			const res = await axios.post('http://localhost:3001/users', payload);
 			return res;
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-
 	};
 }
 
-export function getUsers (payload) {
-    return async function (dispach){
+export function getUsers(payload) {
+	return async function (dispach) {
 		try {
 			var res = await axios.get('http://localhost:3001/users');
 
-        	return dispach({
-            type: "GET_ALL_USERS",
-            payload: res.data
-        })
+			return dispach({
+				type: 'GET_ALL_USERS',
+				payload: res.data,
+			});
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-    }
+	};
+}
+
+export function getShoeDetails(id) {
+	return async function (dispatch) {
+		try {
+			var ShoeDetails = await axios.get(`http://localhost:3001/shoes/${id}`);
+			return dispatch({
+				type: 'GET_DETAILS',
+				payload: ShoeDetails.data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 }
