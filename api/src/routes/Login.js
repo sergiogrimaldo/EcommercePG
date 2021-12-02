@@ -1,4 +1,6 @@
 const { Router } = require("express");
+const { OAuth2Client } = require('google-auth-library');
+
 // const { UPSERT } = require("sequelize/types/lib/query-types");
 /// ??????
 const {User} = require('../db')
@@ -54,6 +56,44 @@ router.post('/autenticar', async (req, res) => {
     } else {
         res.json({ mensaje: "Usuario o contraseña incorrectos"})
     }
+})
+
+router.post('/googleAutenticar', async (req, res) => {
+
+  console.log(req.body)
+  
+  const googleId='535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com';
+
+  const googleClient = new OAuth2Client({
+    clientId: `${googleId}`,
+  }); 
+
+  const { token } = req.body;
+
+  const ticket = await googleClient.verifyIdToken({idToken: token, audience: `${googleId}`})
+
+  const payload = ticket.getPayload()
+
+  console.log(payload)
+  
+  const user = await User.findOrCreate({where: {email: payload.email}, defaults: {
+    password: payload.at_hash,
+    name: payload.name,
+  }})
+
+  const jtoken = jwt.sign({email: user[0].email, name: user[0].name}, process.env.TOKENSECRET, {
+    expiresIn: 1440
+  });
+  
+  res.json({
+    mensaje: 'Autenticación correcta',
+    token: jtoken,
+    name: user[0].name,
+    email: user[0].email,
+  });
+
+
+  
 })
 
 // esto todavia no lo mire y por el momento no lo usamos, capaz para las rutas de admin mas adelante

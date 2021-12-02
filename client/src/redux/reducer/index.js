@@ -22,10 +22,18 @@ const initialState = {
 	cart: [],
 	user: {},
 	isAuthenticaded: false,
+	allUsers: [],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case "GET_ALL_USERS":
+            return {
+                ...state,
+                allUsers: action.payload,
+            }
+
 		case 'SEND_ORDER_DETAILS':
 			return {
 				...state,
@@ -130,6 +138,7 @@ function rootReducer(state = initialState, action) {
 				cart: state.cart || [],
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
+				allUsers: state.allUsers || [],
 			}; // flattening out the array
 
 		case 'OPEN_MODAL':

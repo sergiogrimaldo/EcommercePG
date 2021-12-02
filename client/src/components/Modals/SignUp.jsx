@@ -1,29 +1,16 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { closeModal } from "../../redux/actions";
-import { postUser } from "../../redux/actions";
+import { postUser, getUsers } from "../../redux/actions";
 import s from './SignUp.module.css'
-
-
-function validate(input){
-    let errors= {};
-    
-    if(!input.name){
-        errors.name = 'Please enter an Username'
-    }
-    if(!input.email){
-        errors.email = 'Please enter an email'
-    }
-    if(!input.password){
-        errors.password = 'Please enter a password'
-    }
-    
-    return errors;
-}
 
 
 export default function SignUp(){
     const dispatch = useDispatch()
+
+    const allUsers = useSelector(state => state.allUsers)
+
+    useEffect(()=>dispatch(getUsers()),[])   
 
     const [errors, setErrors] = useState({});
 
@@ -40,15 +27,76 @@ export default function SignUp(){
             ...input,
             [e.target.id]: e.target.value,
         })
-        setErrors(validate({
-            ...input,
-            [e.target.id]: e.target.value,
-        }));
+        // setErrors(validate({
+        //     ...input,
+        //     [e.target.id]: e.target.value,
+        // }));
+        if(e.target.id==="password"){
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    password : 'Please enter a password',
+                    }
+
+                )
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    password: "",
+                }
+                )
+            }
+        }
+        if(e.target.id==="name"){
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    name : 'Please enter a name',
+                    }
+
+                )
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    name: "",
+                }
+                )
+            }
+        }
+        if(e.target.id==="email"){
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    email : 'Please enter an email',
+                    }
+
+                )
+            }
+            if(allUsers.some(user => user.email === e.target.value)){
+                console.log(errors)
+                setErrors(
+                    {...errors,
+                    email : 'You already got an account with this email',
+                    }
+
+                )
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    email: "",
+                }
+                )
+            }
+        }
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        dispatch(postUser(input));
+        await dispatch(postUser(input));
+        console.log(input)
         alert('User created successfully');
         setInput({
             name: "",
@@ -119,7 +167,7 @@ export default function SignUp(){
             <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
                 <button style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
                 className='primaryButton' type='submit' 
-                disabled={errors.name || errors.password || errors.email}>Register</button>
+                disabled={ errors.name || errors.email || errors.password }>Register</button>
                 <button style={{padding:10,backgroundColor:'white',color:'black',borderRadius:5 ,border:'1px solid black'}} 
                 className='secondaryButton' onClick={() => dispatch(closeModal())} >Close</button>
             </div>
