@@ -35,7 +35,7 @@ export default function Card({ shoe }) {
 					<div className={s.icon}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} /> <h2> {shoe.shoeName} </h2>{' '}
 					</div>{' '}
-					<img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{' '}
+					{/* <img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{' '}
 					<div className={s.info__description}>
 						{' '}
 						{restOfColors &&
@@ -156,7 +156,7 @@ export default function Card({ shoe }) {
 							value='Add to Cart'
 						/>
 						<input type='button' value='Buy Now' />
-					</div>{' '}
+					</div>{' '} */}
 				</div>{' '}
 			</Link>
 		</div>
