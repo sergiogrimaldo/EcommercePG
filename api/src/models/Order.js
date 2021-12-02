@@ -8,8 +8,8 @@ module.exports = (sequelize) => {
       autoIncrement:true,
     },
     status:{
-      type: DataTypes.STRING,
-      defaultValue:'pending',
+      type: DataTypes.ENUM('Pending', 'In Progress', 'Cancelled', 'Completed'),
+      defaultValue:'Pending',
     },
     total:{
       type:DataTypes.INTEGER,

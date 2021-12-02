@@ -46,4 +46,61 @@ const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe 
     return('orden creada') // por si quiero devolver un mensaje en algun lado
 }
 
-module.exports = {addOrderToDB}
+const getOrdersFromDB = async function ({email="", id=""}){
+
+    const user = await User.findOne({where: { email:email }})
+    //encuentro al usuario 
+
+    if(!user){
+        return "Invalid User"
+    }
+    //si no esxite 
+
+    if(id){
+        let order = await Order.findByPk(id);
+        if(user.roleId === 2){
+            return order;
+        } else {
+            if(user.id === order.userId){
+                return order;
+            } else {
+                return "You don´t have access to this server"
+            }
+        }
+    }
+    //si te pide una orden en especifico: si es admi la devulvo 
+    //sino verifico que sea del usuario y si es la devuelvo
+
+
+    if(user.roleId === 2){
+        return ( await Order.findAll({
+            include: { model: Shoe },}) )
+    } else {
+        return ( await Order.findAll({include: { model: Shoe }, where: {userId: user.id}}))
+    }
+    //si me piden todas las ordenes: si es admi devuelvo todas 
+    //sino verifico y devuelvo solo las del usuario que las solicita
+
+}
+
+const updateStatusOrderFromDB = async function({email="", status="", id=""}){
+
+
+    const user = await User.findOne({where: { email:email }})
+
+    console.log(user)
+
+    if(user.roleId === 2){
+        let order = await Order.findByPk(id);
+        order.status = status;
+        await order.save();
+        return order;
+    }else{
+        return "You don´t have access to this action"
+    }
+
+    //si es admi puede modificar el estado de la orden solicitada
+}
+
+
+module.exports = {addOrderToDB, getOrdersFromDB, updateStatusOrderFromDB}
