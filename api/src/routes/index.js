@@ -8,6 +8,7 @@ const PricesRoutes = require('./prices');
 const UserRoutes = require('./Users')
 const LoginRoutes = require('./Login')
 const mailRoutes = require('./mailRoutes')
+const ordersRoutes = require('./orders')
 //Acá tengo las constantes de rutas creadas que requieren 
 //los archivos de ruta que cree antes
 const router = Router();
@@ -21,6 +22,7 @@ router.use('/brands', BrandRoutes); // http://localhost:3001/brands
 router.use('/users', UserRoutes); // http://localhost:3001/users
 router.use('/login', LoginRoutes) // http://localhost:3001/login
 router.use('/sendmail', mailRoutes())  // http://localhost:3001/sendmail
+router.use('/orders', ordersRoutes)  // http://localhost:3001/sendmail
 
 module.exports = router;
 
