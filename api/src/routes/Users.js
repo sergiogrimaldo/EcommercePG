@@ -100,4 +100,30 @@ router.get('/:id', async (req, res, next)=>{
         }
     });
 
+    router.patch('/:id', async function (req, res, next){
+        const { email } = req.body;
+
+        const user = await User.findByPk(req.params.id)
+
+        if(!user){
+            return res.status(400).json("Invalid User")
+        }
+
+        const admi = await User.findOne({ where: {email: email}});
+
+        if( admi.roleId === 2 ){
+            if(user.roleId === 1){
+                user.setRole(2)
+                user.save();
+            } else {
+                user.setRole(1)
+                user.save();
+            }
+            return res.json(user);
+        } else {
+            return res.status(401).json("You are not allowed to do this action")
+        }
+
+    })
+
 module.exports = router;
