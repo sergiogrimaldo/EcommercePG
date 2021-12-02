@@ -9,103 +9,103 @@ module.exports = (sequelize) => {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            3.5: {
+            '3,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            4: {
+            '4': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            4.5: {
+            '4,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            5: {
+            '5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            5.5: {
+            '5.5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            6: {
+            '6': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            6.5: {
+            '6.5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            7: {
+            '7': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            7.5: {
+            '7.5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            8: {
+            '8': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            8.5: {
+            '8,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            9: {
+            '9': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            9.5: {
+            '9,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            10: {
+            '10': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            10.5: {
+            '10,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            11: {
+            '11': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            11.5: {
+            '11,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            12: {
+            '12': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            12.5: {
+            '12,5': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            13: {
+            '13': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            14: {
+            '14': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            15: {
+            '15': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            16: {
+            '16': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            17: {
+            '17': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            18: {
+            '18': {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
