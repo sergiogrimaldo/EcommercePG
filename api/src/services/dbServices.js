@@ -46,4 +46,54 @@ const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe 
     return('orden creada') // por si quiero devolver un mensaje en algun lado
 }
 
-module.exports = {addOrderToDB}
+const getOrdersFromDB = async function ({email="", id=""}){
+
+    const user = await User.findOne({where: { email:email }})
+
+    if(!user){
+        return "Invalid User"
+    }
+
+    if(id){
+        let order = await Order.findByPk(id);
+        if(user.roleId === 2){
+            return order;
+        } else {
+            if(user.id === order.userId){
+                return order;
+            } else {
+                return "You don´t have access to this server"
+            }
+        }
+    }
+
+
+    if(user.roleId === 2){
+        return ( await Order.findAll({
+            include: { model: Shoe },}) )
+    } else {
+        return ( await Order.findAll({include: { model: Shoe }, where: {userId: user.id}}))
+    }
+    
+
+}
+
+const updateStatusOrderFromDB = async function({email="", status="", id=""}){
+
+
+    const user = await User.findOne({where: { email:email }})
+
+    console.log(user)
+
+    if(user.roleId === 2){
+        let order = await Order.findByPk(id);
+        order.status = status;
+        await order.save();
+        return order;
+    }else{
+        return "You don´t have access to this action"
+    }
+}
+
+
+module.exports = {addOrderToDB, getOrdersFromDB, updateStatusOrderFromDB}
