@@ -218,3 +218,14 @@ export function getUsers (payload) {
 		}
     }
 }
+
+export function getShoeDetails(id){
+    return async function(dispatch){
+        var ShoeDetails = await axios.get(`http://localhost:3001/shoes/${id}`,{});
+        return dispatch ({
+            type: 'GET_SHOE_DETAIL',
+            payload: ShoeDetails.data
+        });
+     };
+ 
+};
