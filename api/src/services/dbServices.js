@@ -49,10 +49,12 @@ const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe 
 const getOrdersFromDB = async function ({email="", id=""}){
 
     const user = await User.findOne({where: { email:email }})
+    //encuentro al usuario 
 
     if(!user){
         return "Invalid User"
     }
+    //si no esxite 
 
     if(id){
         let order = await Order.findByPk(id);
@@ -66,6 +68,8 @@ const getOrdersFromDB = async function ({email="", id=""}){
             }
         }
     }
+    //si te pide una orden en especifico: si es admi la devulvo 
+    //sino verifico que sea del usuario y si es la devuelvo
 
 
     if(user.roleId === 2){
@@ -74,7 +78,8 @@ const getOrdersFromDB = async function ({email="", id=""}){
     } else {
         return ( await Order.findAll({include: { model: Shoe }, where: {userId: user.id}}))
     }
-    
+    //si me piden todas las ordenes: si es admi devuelvo todas 
+    //sino verifico y devuelvo solo las del usuario que las solicita
 
 }
 
@@ -93,6 +98,8 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
     }else{
         return "You don´t have access to this action"
     }
+
+    //si es admi puede modificar el estado de la orden solicitada
 }
 
 

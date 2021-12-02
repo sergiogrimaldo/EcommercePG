@@ -22,6 +22,8 @@ router.get("/:id", async (req, res, next) => {
 })
 
 router.put("/:id", async (req, res, next) => {
+    //los estados solo pueden ser los nombrados en el modelo order ('Pending', 'In Progress', 'Cancelled', 'Completed')
+    //desde el front trabajar solo con esas opciones
     res.json( await updateStatusOrderFromDB({email: req.body.email, status: req.body.status, id: req.params.id}))
 })
 
