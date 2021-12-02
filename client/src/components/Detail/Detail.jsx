@@ -33,10 +33,10 @@ export default function Detail({ id }) {
 
 	return (
 		<div>
-			<div>
+			<div className={`${s.macro}`}>
 				<br />
+				<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
 				<div className={`${s.container}`}>
-					<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
 					<h1>{details && details.shoeName}</h1>
 					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
 					<h2 className={`${s.brand}`}>Brand: {details && details.brand.name}</h2>
@@ -51,8 +51,8 @@ export default function Detail({ id }) {
 								.map(elem => elem[0])
 								.join(' ')}
 					</h2>
-					<div className={`${s.description}`}>Product Description: {details && details.description}</div>
 				</div>
+				<div className={`${s.description}`}>Product Description: {details && details.description}</div>
 			</div>
 			<img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />
 			<div className={s.info__description}>
