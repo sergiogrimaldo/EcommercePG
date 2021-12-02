@@ -27,18 +27,13 @@ function App() {
 
 			<Navbar />
 			<Switch>
-				<Route exact path='/'>
-					<Home />
-				</Route>
-				<Route exact path='/catalogue'>
-					<Catalogue />
-				</Route>
-				<Route exact path='/about'>
-					<About />
-				</Route>
-				<Route exact path='/cart'>
-					<Cart />
-				</Route>
+				<Route  path='/' exact component={Home}/>
+					
+				<Route exact path='/catalogue' component={Catalogue}/>
+					
+				<Route exact path='/about' components={About} />
+				<Route exact path='/cart' component={Cart} />
+		
 				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
 			</Switch>
 		</BrowserRouter>
