@@ -1,22 +1,31 @@
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { closeModal } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from "react-router";
-import { login, logIn, setCurrentUser } from "../../redux/actions";
+import { logIn, setCurrentUser, getUsers, postUser } from "../../redux/actions";
 
 
 export default function Login(){
+
     const dispatch = useDispatch()
+
+    const allUsers = useSelector(state => state.allUsers)
+
     const history = useHistory()
+
     const responseGoogle = async (response) => {
-        await dispatch(login(response))
+        const user = await dispatch(googleLogIn({token: response.tokenId}))
+        console.log(user)
+        await dispatch(setCurrentUser(user))
         dispatch(closeModal())
-        setTimeout(() => {
-            history.go(0)
-        }, 500);
+        // setTimeout(() => {
+        //     history.go(0)
+        // }, 500);
       }
 
+    useEffect(() => dispatch(getUsers()),[] )
+    
 
     const [input, setInput] = useState(
         {

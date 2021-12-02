@@ -8,7 +8,7 @@ export function logIn(payload) {
 			'http://localhost:3001/login/autenticar',
 			payload
 		);
-		// console.log(res)
+		
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
@@ -16,18 +16,44 @@ export function logIn(payload) {
 		setAuthorizationToken(token);
 		dispatch(
 			setCurrentUser({
-				profileObj: {
-					email: email,
-					givenName: name,
-				},
+					token: token,
+					email: jwt.decode(token).email,
+					name: jwt.decode(token).name,
+				
 			})
 		);
-		return { email };
+
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name };
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	};
 }
 //el decode token es el user
+
+export function googleLogIn(payload) {
+	return async dispatch => {
+		const res = await axios.post(
+			'http://localhost:3001/login/googleAutenticar',
+			payload
+		);
+		
+		const name = res.data.name;
+		const email = res.data.email;
+		
+		const token = res.data.token;
+		localStorage.setItem('jwtToken', token);
+		setAuthorizationToken(token);
+		dispatch(
+			setCurrentUser({
+					email: email,
+					name: name,
+			})
+		);
+		return { email: email, name: name };
+
+		// dispatch(setCurrentUser(jwt.decode(token)))
+	};
+}
 
 export function sendOrderDetails(payload) {
 	return async dispatch => {
@@ -39,13 +65,6 @@ export function setCurrentUser(user) {
 	return {
 		type: 'SET_CURRENT_USER',
 		user: user,
-	};
-}
-
-export function login(payload) {
-	return {
-		type: 'LOGIN',
-		payload: payload,
 	};
 }
 
@@ -174,7 +193,28 @@ export function update() {
 
 export function postUser(payload) {
 	return async function () {
-		const res = await axios.post('http://localhost:3001/users', payload);
-		return res;
+
+		try {
+			const res = await axios.post('http://localhost:3001/users', payload);
+			return res;
+		} catch (error) {
+			console.log(error)
+		}
+
 	};
+}
+
+export function getUsers (payload) {
+    return async function (dispach){
+		try {
+			var res = await axios.get('http://localhost:3001/users');
+
+        	return dispach({
+            type: "GET_ALL_USERS",
+            payload: res.data
+        })
+		} catch (error) {
+			console.log(error)
+		}
+    }
 }
