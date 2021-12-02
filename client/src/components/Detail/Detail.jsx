@@ -5,8 +5,10 @@ import { getShoeDetails } from '../../redux/actions/index.js';
 import s from './Detail.module.css';
 import { addToCart, update } from '../../redux/actions';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js';
-import { openModal } from '../../redux/actions/index.js';
-import { openBuyDetailsModal } from '../../redux/actions/index.js';
+import { Link, useHistory } from 'react-router-dom'
+
+//import { openModal } from '../../redux/actions/index.js';
+//import { openBuyDetailsModal } from '../../redux/actions/index.js';
 
 export default function Detail({ id }) {
 	const dispatch = useDispatch();
@@ -30,6 +32,10 @@ export default function Detail({ id }) {
 	useEffect(() => {
 		dispatch(getShoeDetails(id));
 	}, [dispatch]);
+
+	// const Foo = () => {
+	// 	const history = useHistory();
+	
 
 	return (
 		<div>
@@ -69,15 +75,6 @@ export default function Detail({ id }) {
 								onMouseLeave={() => {
 									setShoeOnHover('');
 									setShoeOnHoverColor('');
-								}}
-								onClick={() => {
-									dispatch(
-										openBuyDetailsModal({
-											foundFromAll,
-											restOfColors,
-										})
-									);
-									dispatch(openModal('BuyDetailsModal'));
 								}}
 								key={i}
 								className={restOfShoeOnHoverImg ? s.displaySecundLineOfColorsTrue : s.displaySecundLineOfColorsFalse}
@@ -136,15 +133,6 @@ export default function Detail({ id }) {
 									setShoeOnHover('');
 									setShoeOnHoverColor('');
 								}}
-								onClick={() => {
-									dispatch(
-										openBuyDetailsModal({
-											foundFromAll,
-											restOfColors,
-										})
-									);
-									dispatch(openModal('BuyDetailsModal'));
-								}}
 								key={i}
 								className={s.gridOfFirstThreeColors}>
 								{item.threeColorGrid.map((items, ind) => {
@@ -172,7 +160,13 @@ export default function Detail({ id }) {
 					value='Add to Cart'
 				/>
 				<input type='button' value='Buy Now' />
+				<div className={s.CatalogeButton}>
+        		<Link to= '/catalogue'>
+            	<button className={s.button}>Back</button>
+        		</Link>
+        		</div>
 			</div>
 		</div>
 	);
+		
 }
