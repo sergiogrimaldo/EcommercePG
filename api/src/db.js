@@ -44,13 +44,14 @@ User.belongsTo(Role);
 Role.hasMany(User);
 
 // Order can contain many shoe, and the same shoe can be in many different orders
-Order.belongsToMany(Shoe, { through: "Order_Shoes" });
-Shoe.belongsToMany(Order, { through: "Order_Shoes" });
+const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });
+Order.belongsToMany(Shoe, { through: Order_Shoes });
+Shoe.belongsToMany(Order, { through: Order_Shoes });
 
 /////// Shoe can have many colors, one color can be on many shoe
 
 // defino el modelo para poder sacarle timestamps
-const Shoe_Colors = sequelize.define("Shoe_Colors", { colorId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER }, { timestamps: false });
+const Shoe_Colors = sequelize.define("Shoe_Colors", { colorId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, size:DataTypes.STRING }, { timestamps: false });
 Color.belongsToMany(Shoe, { through: "Shoe_Colors" });
 Shoe.belongsToMany(Color, { through: "Shoe_Colors" });
 

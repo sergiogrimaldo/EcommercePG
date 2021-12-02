@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { Shoe, User, Brand, AvailableSizes, Color } = require("../db");
+const { Shoe, User,Price, Brand, AvailableSizes, Color } = require("../db");
 const { Op } = require("sequelize");
 
 const router = Router();
@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
     if (Name) {
         try {
             let paQuery = await Shoe.findAll({
-                include: { model: Brand },
+                include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
                 where: {
                     shoeName: {
                         [Op.iLike]: "%" + Name + "%",
@@ -20,6 +20,7 @@ router.get("/", async (req, res, next) => {
             if (!paQuery.length) {
                 return res.status(404).json("Error, recall");
             } else {
+                console.log(paQuery.getAvaiableSizes())
                 return res.json(paQuery);
             }
         } catch (errro) {
@@ -28,7 +29,7 @@ router.get("/", async (req, res, next) => {
     }
     try {
         const shoesBD = await Shoe.findAll({
-            include: { model: Brand },
+            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
         });
         return res.json(shoesBD);
     } catch (error) {
@@ -40,7 +41,7 @@ router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         let ap = await Shoe.findByPk(id, {
-            include: [{ model: Brand }, { model: Color }],
+            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
         });
         return res.send(ap);
     } catch (error) {
