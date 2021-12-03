@@ -9,7 +9,7 @@ export function logIn(payload) {
 		const name = res.data.name;
 		//const email = res.data.email;
 		const token = res.data.token;
-        const id = res.data.id;
+		const id = res.data.id;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
@@ -17,7 +17,7 @@ export function logIn(payload) {
 				token: token,
 				email: jwt.decode(token).email,
 				name,
-                id
+				id,
 			})
 		);
 
@@ -34,7 +34,7 @@ export function googleLogIn(payload) {
 
 		const name = res.data.name;
 		const email = res.data.email;
-        const id = res.data.id;
+		const id = res.data.id;
 
 		const token = res.data.token;
 		localStorage.setItem('jwtToken', token);
@@ -43,7 +43,7 @@ export function googleLogIn(payload) {
 			setCurrentUser({
 				email: email,
 				name: name,
-                id: id,
+				id: id,
 			})
 		);
 		return { email: email, name: name, id: id };
@@ -128,9 +128,21 @@ export function getAvailableSizes() {
 	};
 }
 
+export function getReviews() {
+	return function (dispatch) {
+		fetch("http://localhost:3001/reviews")
+			.then(res => res.json())
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS',
+					payload: respons,
+				});
+			});
+	};
+}
 export function getReviewsFromUser(userId) {
 	return function (dispatch) {
-		fetch(`http://localhost:3001/reviews/user/${userId}`)
+		fetch(`http://localhost:3001/reviews/${userId}`)
 			.then(res => res.json())
 			.then(respons => {
 				dispatch({
@@ -140,6 +152,29 @@ export function getReviewsFromUser(userId) {
 			});
 	};
 }
+export function postReview(payload) {
+	return function (dispatch) {
+		axios.post(`http://localhost:3001/reviews`, payload)
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS_FROM_USER',
+					payload: respons.data,
+				});
+			});
+	};
+}
+/* export function deleteReviews(reviewId) {
+	return function (dispatch) {
+		fetch(`http://localhost:3001/reviews/user/${reviewId}`)
+			.then(res => res.json())
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS_FROM_USER',
+					payload: respons,
+				});
+			});
+	};
+} */
 /* fetch('http://localhost:3001/Shoes')
 			.then(res =>  res.json())
                 .then(response => {
@@ -241,10 +276,18 @@ export function getShoeDetails(id) {
 	};
 }
 
-export function postNewShoe(payload){
-    return async function(){
-        var newShoe = await axios.post('http://localhost:3001/shoes',payload);
-        return newShoe
-    };
- 
-};
+export function postNewShoe(payload) {
+	return async function (dispatch) {
+		axios.post(`http://localhost:3001/shoes`, payload).then(r => {
+			dispatch({ type: 'POST_NEW_SHOE', payload: r.data });
+		});
+	};
+}
+
+export function getBrands() {
+	return async function (dispatch) {
+		axios.get(`http://localhost:3001/brands`).then(r => {
+			dispatch({ type: 'GET_BRANDS', payload: r.data });
+		});
+	};
+}

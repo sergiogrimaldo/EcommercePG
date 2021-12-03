@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { useHistory } from "react-router";
-import { getReviewsFromUser } from "../../redux/actions/index.js";
-import { useParams } from "react-router-dom";
+//import { useHistory } from "react-router";
+/* import { getReviews } from "../../redux/actions/index.js";
+import { getReviewsFromUser } from "../../redux/actions/index.js"; */
+import { postReview } from "../../redux/actions/index.js";
 import style from "./review.module.css";
-import { useSelector } from "react-redux";
-const Review = ({ shoe, currentComponent }) => {
-    const history = useHistory();
-    const [stars, setStars] = useState("");
-    const [isAUser, setIsAUser] = useState(false);
-    const [text, setText] = useState("");
-    const [textArea, setTextArea] = useState(false);
-    const [opinion, setOpinion] = useState("");
-    const [error, setError] = useState("");
-    const user = useSelector((state) => state.user);
-    const userReview = useSelector((state) => state.reviewsFromUser);
+import { useDispatch, useSelector } from "react-redux";
 
-    //console.log(isAUser);
-    console.log(user);
+const Review = ({ shoe, currentComponent }) => {
+    const dispatch = useDispatch();
+    //const history = useHistory();
+    const [stars, setStars] = useState("");
+    const [showMassage, setShowMassage] = useState(false);
+    const [isAUser, setIsAUser] = useState(false);
+    const [textArea, setTextArea] = useState(false);
+    const user = useSelector((state) => state.user);
+    const reviews = useSelector((state) => state.reviews);
+    const myReviews = useSelector((state) => state.reviewsFromUser);
+
+    myReviews && console.log(myReviews);
+    reviews && console.log(reviews);
+    //console.log(user);
     //console.log(shoe)
     const reviewStar = (number) => {
         setStars(number);
@@ -34,7 +37,6 @@ const Review = ({ shoe, currentComponent }) => {
         if (!isAUser) {
             setStars(Math.floor(Math.random() * 5) + 0);
         }
-        getReviewsFromUser(user.id);
     }, []);
 
     useEffect(() => {
@@ -45,23 +47,23 @@ const Review = ({ shoe, currentComponent }) => {
         }
     }, [user]);
 
-    const handleOpinionChange = (e) => {
-        setOpinion(e.target.value);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (stars !== "") {
+            setShowMassage(true);
+            dispatch(
+                postReview({
+                    userId: user.id,
+                    shoeId: shoe.id,
+                    rating: stars,
+                    comment: e.target[0].value || "",
+                })
+            );
+        }
+        setStars("");
+        e.target.reset();
     };
-
-    const handleChange = (e) => {
-        setText(e.target.value);
-    };
-    /* const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createReviews(user.username, productid, stars, text, opinion);
-      history.push(`/product/${productid}`);
-    } catch (err) {
-      setError("Usted no tiene permisos para crear la reseña");
-    }
-  }; */
-    console.log(textArea);
+    console.log(showMassage);
     return (
         <div>
             <div
@@ -71,16 +73,17 @@ const Review = ({ shoe, currentComponent }) => {
                 }}
             >
                 <div className="container">
-                    <level
+                    <span
                         style={{
                             display: (currentComponent === "Card" || currentComponent === "Detail") && "none",
                         }}
                     >
                         Create a Review
-                    </level>
+                    </span>
                     <form
                         onSubmit={(e) => {
-                            //handleSubmit(e);
+                            e.preventDefault();
+                            handleSubmit(e);
                         }}
                     >
                         <AiFillStar className={stars >= 1 ? style.gold : style.dark} />
@@ -99,7 +102,6 @@ const Review = ({ shoe, currentComponent }) => {
                                 Send
                             </button>
                         </div>
-                        <div className={style.errors}>{error ? error : ""}</div>
                     </form>
                 </div>
             </div>
@@ -120,7 +122,8 @@ const Review = ({ shoe, currentComponent }) => {
                     </level>
                     <form
                         onSubmit={(e) => {
-                            //handleSubmit(e);
+                            e.preventDefault();
+                            handleSubmit(e);
                         }}
                     >
                         <AiFillStar className={stars >= 1 ? style.gold : style.dark} onClick={() => reviewStar(1)} />
@@ -129,10 +132,12 @@ const Review = ({ shoe, currentComponent }) => {
                         <AiFillStar className={stars >= 4 ? style.gold : style.dark} onClick={() => reviewStar(4)} />
                         <AiFillStar className={stars >= 5 ? style.gold : style.dark} onClick={() => reviewStar(5)} />
                         <textarea
+                            name="text"
                             style={{
                                 display: textArea === true ? "" : "none",
                             }}
                         ></textarea>
+
                         <div>
                             <button
                                 variant="dark"
@@ -143,8 +148,14 @@ const Review = ({ shoe, currentComponent }) => {
                             >
                                 Send
                             </button>
+                            <span
+                                style={{
+                                    display: showMassage === true ? "" : "none",
+                                }}
+                            >
+                                your review was sended, thanks!{" "}
+                            </span>
                         </div>
-                        <div className={style.errors}>{error ? error : ""}</div>
                     </form>
                 </div>
             </div>
