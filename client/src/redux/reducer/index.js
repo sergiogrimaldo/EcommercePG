@@ -233,6 +233,11 @@ function rootReducer(state = initialState, action) {
 				currentPage: action.payload,
 			};
 		}
+		case 'POST_NEW_SHOE': {
+            return {
+                ...state,
+                };   
+		}		
 
 		default:
 			return state;
