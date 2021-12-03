@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { Shoe, User,Price, Brand, AvailableSizes, Color } = require("../db");
+const { Shoe, User,Price, Brand, AvailableSizes, Color ,Reviews} = require("../db");
 const { Op } = require("sequelize");
+
 
 const router = Router();
 
@@ -10,7 +11,7 @@ router.get("/", async (req, res, next) => {
     if (Name) {
         try {
             let paQuery = await Shoe.findAll({
-                include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
+                include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}, { model: Reviews }],
                 where: {
                     shoeName: {
                         [Op.iLike]: "%" + Name + "%",
@@ -29,7 +30,7 @@ router.get("/", async (req, res, next) => {
     }
     try {
         const shoesBD = await Shoe.findAll({
-            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
+            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}, { model: Reviews }],
         });
         return res.json(shoesBD);
     } catch (error) {
@@ -41,7 +42,7 @@ router.get("/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
         let ap = await Shoe.findByPk(id, {
-            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}],
+            include: [{ model: Brand }, {model: AvailableSizes}, { model: Color }, {model:Price}, { model: Reviews }],
         });
         return res.send(ap);
     } catch (error) {
@@ -55,18 +56,19 @@ router.post("/", async (req, res, next) => {
         description,
         stock,
         silhoutte,
-        resellPrices,
-        lowestResellPrice,
         colorway,
         shoeName,
-        retailPrice,
+        price,
+        priceId,
         thumbnail,
         urlKey,
-        avaiableSizeId,
+        availableSizeId,
+        availableSize,
         brandId,
+        Reviews,
     } = req.body;
 
-    if (description && stock && shoeName && retailPrice) {
+    if (description && stock && shoeName && price) {
         try {
             const newShoe = await Shoe.create({
                 id: id,
@@ -74,14 +76,15 @@ router.post("/", async (req, res, next) => {
                 stock: stock,
                 shoeName: shoeName,
                 silhoutte: silhoutte,
-                retailPrice: retailPrice,
+                price: price,
+                priceId:priceId,
                 thumbnail: thumbnail,
-                resellPrices: resellPrices,
-                lowestResellPrice: lowestResellPrice,
                 colorway: colorway,
                 urlKey: urlKey,
-                avaiableSizeId: avaiableSizeId,
+                availableSizeId: availableSizeId,
+                availableSize:availableSize,
                 brandId: brandId,
+                Reviews:Reviews
             });
             res.send(newShoe);
         } catch (error) {
