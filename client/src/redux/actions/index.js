@@ -240,3 +240,11 @@ export function getShoeDetails(id) {
 		}
 	};
 }
+
+export function postNewShoe(payload){
+    return async function(){
+        var newShoe = await axios.post('http://localhost:3001/shoes',payload);
+        return newShoe
+    };
+ 
+};
