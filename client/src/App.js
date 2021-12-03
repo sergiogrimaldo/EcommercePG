@@ -12,6 +12,7 @@ import './App.css';
 import Login from './components/Modals/Login.jsx';
 import SignUp from './components/Modals/SignUp.jsx';
 import Detail from './components/Detail/Detail.jsx';
+import AddShoe from './components/AddShoe/AddShoe.jsx';
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
@@ -27,13 +28,14 @@ function App() {
 
 			<Navbar />
 			<Switch>
-				<Route  path='/' exact component={Home}/>
-					
-				<Route exact path='/catalogue' component={Catalogue}/>
-					
+				<Route path='/' exact component={Home} />
+
+				<Route exact path='/catalogue' component={Catalogue} />
+
 				<Route exact path='/about' components={About} />
 				<Route exact path='/cart' component={Cart} />
-		
+				<Route exact path='/addShoe' component={AddShoe} />
+
 				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
 			</Switch>
 		</BrowserRouter>

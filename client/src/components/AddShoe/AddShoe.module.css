@@ -1,0 +1,16 @@
+.main {
+	display: flex;
+	justify-content: center;
+}
+
+.form {
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+.divvy {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+}
