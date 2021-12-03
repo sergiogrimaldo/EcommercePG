@@ -9,7 +9,7 @@ export function logIn(payload) {
 		const name = res.data.name;
 		//const email = res.data.email;
 		const token = res.data.token;
-        const id = res.data.id;
+		const id = res.data.id;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
@@ -17,7 +17,7 @@ export function logIn(payload) {
 				token: token,
 				email: jwt.decode(token).email,
 				name,
-                id
+				id,
 			})
 		);
 
@@ -34,7 +34,7 @@ export function googleLogIn(payload) {
 
 		const name = res.data.name;
 		const email = res.data.email;
-        const id = res.data.id;
+		const id = res.data.id;
 
 		const token = res.data.token;
 		localStorage.setItem('jwtToken', token);
@@ -43,7 +43,7 @@ export function googleLogIn(payload) {
 			setCurrentUser({
 				email: email,
 				name: name,
-                id: id,
+				id: id,
 			})
 		);
 		return { email: email, name: name, id: id };
@@ -241,10 +241,18 @@ export function getShoeDetails(id) {
 	};
 }
 
-export function postNewShoe(payload){
-    return async function(){
-        var newShoe = await axios.post('http://localhost:3001/shoes',payload);
-        return newShoe
-    };
- 
-};
+export function postNewShoe(payload) {
+	return async function (dispatch) {
+		axios.post(`http://localhost:3001/shoes`, payload).then(r => {
+			dispatch({ type: 'POST_NEW_SHOE', payload: r.data });
+		});
+	};
+}
+
+export function getBrands() {
+	return async function (dispatch) {
+		axios.get(`http://localhost:3001/brands`).then(r => {
+			dispatch({ type: 'GET_BRANDS', payload: r.data });
+		});
+	};
+}
