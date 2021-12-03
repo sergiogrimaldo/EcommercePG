@@ -5,11 +5,14 @@ import { getShoeDetails } from '../../redux/actions/index.js';
 import s from './Detail.module.css';
 import { addToCart, update } from '../../redux/actions';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js';
-import { openModal } from '../../redux/actions/index.js';
-import { openBuyDetailsModal } from '../../redux/actions/index.js';
+import { Link, useHistory } from 'react-router-dom';
+
+//import { openModal } from '../../redux/actions/index.js';
+//import { openBuyDetailsModal } from '../../redux/actions/index.js';
 
 export default function Detail({ id }) {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const details = useSelector(state => state.shoeDetails);
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
@@ -20,7 +23,7 @@ export default function Detail({ id }) {
 		var found,
 			foundFromAll,
 			allColors = onlyThreeColorGrid(shoes, details.silhoutte, details.id), //cuarto parametro = false ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
-			restOfColors = onlyThreeColorGrid(shoes, details.silhoutte, details.id, false); //cuarto parametro = true ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
+			restOfColors = onlyThreeColorGrid(shoes, details.silhoutte, details.id, true); //cuarto parametro = true ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
 	}
 	if (shoeOnHover) {
 		found = shoeOnHoverImg.find(el => el.id === shoeOnHover);
@@ -54,78 +57,11 @@ export default function Detail({ id }) {
 				</div>
 				<div className={`${s.description}`}>Product Description: {details && details.description}</div>
 			</div>
-			<img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />
 			<div className={s.info__description}>
 				{' '}
-				{restOfColors &&
-					restOfColors.colorNameThumbnailAnd_id.slice(3, 15).map((item, i) => {
-						let pos = i * 20;
-						return (
-							<div
-								onMouseEnter={() => {
-									setShoeOnHover(item.id);
-									setShoeOnHoverColor(restOfColors.colorNameThumbnailAnd_id);
-								}}
-								onMouseLeave={() => {
-									setShoeOnHover('');
-									setShoeOnHoverColor('');
-								}}
-								onClick={() => {
-									dispatch(
-										openBuyDetailsModal({
-											foundFromAll,
-											restOfColors,
-										})
-									);
-									dispatch(openModal('BuyDetailsModal'));
-								}}
-								key={i}
-								className={restOfShoeOnHoverImg ? s.displaySecundLineOfColorsTrue : s.displaySecundLineOfColorsFalse}
-								style={{
-									marginLeft: `${60 + pos}px`,
-								}}>
-								{item.threeColorGrid.map((items, ind) => {
-									return (
-										<div
-											key={ind + 400}
-											className={s.gridOfColors}
-											style={{
-												backgroundColor: items,
-											}}
-										/>
-									);
-								})}{' '}
-							</div>
-						);
-					})}
-				{restOfColors && restOfColors.colorNameThumbnailAnd_id.length > 3 && (
-					<div>
-						<div
-							className={s.plusOrMinus}
-							style={{
-								display: plusOrMinus === '+' ? 'block' : 'none',
-							}}
-							onClick={() => {
-								setRestOfShoeOnHoverImg(restOfColors);
-								setPlusOrMinus('-');
-							}}>
-							+Colors{' '}
-						</div>{' '}
-						<div
-							className={s.plusOrMinus}
-							style={{
-								display: plusOrMinus === '-' ? 'block' : 'none',
-							}}
-							onClick={() => {
-								setRestOfShoeOnHoverImg('');
-								setPlusOrMinus('+');
-							}}>
-							-Colors{' '}
-						</div>{' '}
-					</div>
-				)}{' '}
+				Colors
 				{allColors &&
-					allColors.colorNameThumbnailAnd_id.slice(0, 3).map((item, i) => {
+					allColors.colorNameThumbnailAnd_id.slice(0, 100).map((item, i) => {
 						return (
 							<div
 								onMouseEnter={() => {
@@ -135,15 +71,6 @@ export default function Detail({ id }) {
 								onMouseLeave={() => {
 									setShoeOnHover('');
 									setShoeOnHoverColor('');
-								}}
-								onClick={() => {
-									dispatch(
-										openBuyDetailsModal({
-											foundFromAll,
-											restOfColors,
-										})
-									);
-									dispatch(openModal('BuyDetailsModal'));
 								}}
 								key={i}
 								className={s.gridOfFirstThreeColors}>
@@ -162,17 +89,21 @@ export default function Detail({ id }) {
 						);
 					})}{' '}
 			</div>{' '}
-			<div>
-				<input
-					type='button'
-					onClick={() => {
-						dispatch(addToCart({ image: details.thumbnail, name: details.shoeName, price: details.retailPrice, cuantity: 1 }));
-						dispatch(update());
-					}}
-					value='Add to Cart'
-				/>
-				<input type='button' value='Buy Now' />
+			<input
+				type='button'
+				onClick={() => {
+					dispatch(addToCart({ image: details.thumbnail, name: details.shoeName, price: details.retailPrice, cuantity: 1 }));
+					dispatch(update());
+				}}
+				value='Add to Cart'
+			/>
+			<input type='button' value='Buy Now' />
+			<div className={s.CatalogeButton}>
+				<button className={s.button} onClick={() => history.push('/catalogue')}>
+					Back
+				</button>
 			</div>
+			<img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />
 		</div>
 	);
 }
