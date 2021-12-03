@@ -1,0 +1,16 @@
+.dark {
+  color: gray;
+}
+.gold {
+  color: goldenrod;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.errors {
+  color: red;
+}
