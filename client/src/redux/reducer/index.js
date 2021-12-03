@@ -22,6 +22,7 @@ const initialState = {
 	cart: [],
 	user: {},
 	isAuthenticaded: false,
+	ordenShipingShoes:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -219,6 +220,13 @@ function rootReducer(state = initialState, action) {
 				...state,
 				currentPage: action.payload,
 			};
+		}
+
+		case 'SHOPING_SHOES':{
+			return {
+				...state,
+				ordenShipingShoes:action.payload,
+			}
 		}
 
 		default:

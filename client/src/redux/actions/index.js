@@ -172,6 +172,15 @@ export function update() {
 	};
 }
 
+export function shopingShoes(data){
+	console.log('HOLA SOY DADA',data)
+	return {
+		type:'SHOPING_SHOES',
+		payload:data
+
+	}
+}
+
 export function postUser(payload) {
 	return async function () {
 		const res = await axios.post('http://localhost:3001/users', payload);

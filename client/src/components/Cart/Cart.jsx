@@ -44,7 +44,7 @@ export default function Cart() {
                     <div
                         style={{
                             gridColumn: 2,
-                            display: JSON.stringify(cart).length > 2 ? "flex" : "none",
+                            display: JSON.stringify(cart)?.length > 2 ? "flex" : "none",
                             alignContent: "center",
                             alignItems: "center",
                             justifyContent: "center",
@@ -148,13 +148,15 @@ export default function Cart() {
                 }}
             >
                 <h1>Total: US$ {total} </h1>
-                <button
-                    style={{ padding: 15, border: "none", backgroundColor: "black", color: "white", borderRadius: 5 }}
-                    disabled={!total}
-                    onClick={() => handleOpenCheckOut()}
-                >
-                    <h1>Checkout</h1>
-                </button>
+                <Link to='/checkout'>
+                    <button
+                        style={{ padding: 15, border: "none", backgroundColor: "black", color: "white", borderRadius: 5,cursor:"pointer" }}
+                        disabled={!total}
+                        onClick={() => handleOpenCheckOut()}
+                    >
+                        <h1>Checkout</h1>
+                    </button>
+                </Link>
             </div>
         </>
     );

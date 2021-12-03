@@ -4,6 +4,7 @@ import Catalogue from './components/Catalogue/Catalogue.jsx';
 import Checkout from './components/Modals/Checkout.jsx';
 import About from './components/About/About.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
+import CheckoutForm from './components/CheckoutForm/CheckoutForm.jsx';
 import './App.css'
 import Cart from './components/Cart/Cart.jsx';
 import BuyDetailsModal from './components/Modals/BuyDetailsModal.jsx';
@@ -39,6 +40,9 @@ function App() {
 				</Route>
 				<Route exact path='/cart'>
 					<Cart/>
+				</Route>
+				<Route exact path='/checkout'>
+					<CheckoutForm/>
 				</Route>
 			</Switch>
 		</BrowserRouter>
