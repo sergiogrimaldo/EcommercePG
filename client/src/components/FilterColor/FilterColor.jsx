@@ -1,4 +1,4 @@
-import { /* useEffect, */  useState } from "react";
+import { /* useEffect, */ useState } from "react";
 import { deleteAllRepited, splitAll, deleteWord, findGrid, filter } from "./colors";
 
 const FilterColor = ({ data }) => {
