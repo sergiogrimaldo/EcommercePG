@@ -9,7 +9,8 @@ const initialState = {
 	shoes: [],
 	filteredShoes: [],
 	modalBuyDetails: {},
-    reviewsFromUser: {},
+    reviews: [],
+    reviewsFromUser: [],
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -158,6 +159,13 @@ function rootReducer(state = initialState, action) {
 				prices: action.payload,
 			};
 
+            case 'GET_REVIEWS':
+			return {
+				...state,
+				reviews: action.payload,
+			};
+
+            
             case 'GET_REVIEWS_FROM_USER':
 			return {
 				...state,
