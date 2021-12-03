@@ -2,6 +2,7 @@ import { useState } from 'react';
 import s from './Card.module.css';
 import { useSelector } from 'react-redux';
 import { addToCart, update } from '../../redux/actions';
+import Review from "../Review/Review.jsx";
 import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
@@ -35,6 +36,7 @@ export default function Card({ shoe }) {
 					<div className={s.icon}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} /> <h2> {shoe.shoeName} </h2>{' '}
 					</div>{' '}
+                    <Review shoe={shoe} currentComponent="Card" />
 					{/* <img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />{' '}
 					<div className={s.info__description}>
 						{' '}

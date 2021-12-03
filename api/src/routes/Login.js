@@ -1,119 +1,116 @@
 const { Router } = require("express");
-const { OAuth2Client } = require('google-auth-library');
+const { OAuth2Client } = require("google-auth-library");
 
 // const { UPSERT } = require("sequelize/types/lib/query-types");
 /// ??????
-const {User} = require('../db')
+const { User } = require("../db");
 // require('dotenv').config();
 
 // const express = require('express'),
 //       bodyParser = require('body-parser'),
-const jwt = require('jsonwebtoken')
-const router = Router();	  
-
+const jwt = require("jsonwebtoken");
+const router = Router();
 
 //console.log(process.env)
 // // 1
 // app.set('llave', config.llave); /// ESTO en .env
 
-// // 2 
+// // 2
 // router.use(bodyParser.urlencoded({ extended: true }));
 
 // // 3
 // router.use(bodyParser.json());
 
 // 4
-router.get('/', function(req, res) {
-    res.json({ message: 'recurso de entrada' });
+router.get("/", function (req, res) {
+    res.json({ message: "recurso de entrada" });
 });
 
+router.post("/autenticar", async (req, res) => {
+    const { email, password } = req.body;
 
-router.post('/autenticar', async (req, res) => {
-  const {  email, password } = req.body
+    console.log(req.body);
 
-  console.log(req.body)
+    // if(req.body.name === "asfo" && req.body.password === "holamundo") {
+    let user = await User.findOne({ where: { email: email } });
+    if (user && user.password === password) {
+        const payload = {
+            email,
+        };
 
-  // if(req.body.name === "asfo" && req.body.password === "holamundo") {
-  let user = await User.findOne({where:{email:email}} )
-  if ( user && user.password === password  ){
-
-
-		const payload = {
-      email
-		};
-
-    /// uso el secreto del .env
-    console.log(process.env.TOKENSECRET)
-		const token = jwt.sign(payload, process.env.TOKENSECRET, {
-			expiresIn: 1440
-		});
-		res.json({
-			mensaje: 'Autenticación correcta',
-			token: token,
-      name: user.name,
-      email: email,
-		});
+        /// uso el secreto del .env
+        console.log(process.env.TOKENSECRET);
+        const token = jwt.sign(payload, process.env.TOKENSECRET, {
+            expiresIn: 1440,
+        });
+        res.json({
+            mensaje: "Autenticación correcta",
+            token: token,
+            name: user.name,
+            email: email,
+            id: user.id,
+        });
     } else {
-        res.json({ mensaje: "Usuario o contraseña incorrectos"})
+        res.json({ mensaje: "Usuario o contraseña incorrectos" });
     }
-})
+});
 
-router.post('/googleAutenticar', async (req, res) => {
+router.post("/googleAutenticar", async (req, res) => {
+    console.log(req.body);
 
-  console.log(req.body)
-  
-  const googleId='535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com';
+    const googleId = "535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com";
 
-  const googleClient = new OAuth2Client({
-    clientId: `${googleId}`,
-  }); 
+    const googleClient = new OAuth2Client({
+        clientId: `${googleId}`,
+    });
 
-  const { token } = req.body;
+    const { token } = req.body;
 
-  const ticket = await googleClient.verifyIdToken({idToken: token, audience: `${googleId}`})
+    const ticket = await googleClient.verifyIdToken({ idToken: token, audience: `${googleId}` });
 
-  const payload = ticket.getPayload()
+    const payload = ticket.getPayload();
 
-  console.log(payload)
-  
-  const user = await User.findOrCreate({where: {email: payload.email}, defaults: {
-    password: payload.at_hash,
-    name: payload.name,
-  }})
+    console.log(payload);
 
-  const jtoken = jwt.sign({email: user[0].email, name: user[0].name}, process.env.TOKENSECRET, {
-    expiresIn: 1440
-  });
-  
-  res.json({
-    mensaje: 'Autenticación correcta',
-    token: jtoken,
-    name: user[0].name,
-    email: user[0].email,
-  });
+    const user = await User.findOrCreate({
+        where: { email: payload.email },
+        defaults: {
+            password: payload.at_hash,
+            name: payload.name,
+        },
+    });
 
+    const jtoken = jwt.sign({ email: user[0].email, name: user[0].name }, process.env.TOKENSECRET, {
+        expiresIn: 1440,
+    });
 
-  
-})
+    res.json({
+        mensaje: "Autenticación correcta",
+        token: jtoken,
+        name: user[0].name,
+        email: user[0].email,
+        id: user[0].id,
+    });
+});
 
 // esto todavia no lo mire y por el momento no lo usamos, capaz para las rutas de admin mas adelante
 // // 6
-// const rutasProtegidas = Router(); 
+// const rutasProtegidas = Router();
 // rutasProtegidas.use((req, res, next) => {
 //     const token = req.headers['access-token'];
-	
+
 //     if (token) {
-//       jwt.verify(token, router.get(config.llave), (err, decoded) => {      
+//       jwt.verify(token, router.get(config.llave), (err, decoded) => {
 //         if (err) {
-//           return res.json({ mensaje: 'Token inválida' });    
+//           return res.json({ mensaje: 'Token inválida' });
 //         } else {
-//           req.decoded = decoded;    
+//           req.decoded = decoded;
 //           next();
 //         }
 //       });
 //     } else {
-//       res.send({ 
-//           mensaje: 'Token no proveída.' 
+//       res.send({
+//           mensaje: 'Token no proveída.'
 //       });
 //     }
 //  });
@@ -124,8 +121,8 @@ router.post('/googleAutenticar', async (req, res) => {
 // 		{ id: 2, name: "Denisse" },
 // 		{ id: 3, name: "Carlos" }
 // 	];
-	
+
 // 	res.json(datos);
 // });
 
-module.exports= router
+module.exports = router;

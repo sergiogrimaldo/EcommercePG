@@ -7,15 +7,17 @@ export function logIn(payload) {
 		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
 
 		const name = res.data.name;
-		const email = res.data.email;
+		//const email = res.data.email;
 		const token = res.data.token;
+        const id = res.data.id;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
 			setCurrentUser({
 				token: token,
 				email: jwt.decode(token).email,
-				name: jwt.decode(token).name,
+				name,
+                id
 			})
 		);
 
@@ -32,6 +34,7 @@ export function googleLogIn(payload) {
 
 		const name = res.data.name;
 		const email = res.data.email;
+        const id = res.data.id;
 
 		const token = res.data.token;
 		localStorage.setItem('jwtToken', token);
@@ -40,9 +43,10 @@ export function googleLogIn(payload) {
 			setCurrentUser({
 				email: email,
 				name: name,
+                id: id,
 			})
 		);
-		return { email: email, name: name };
+		return { email: email, name: name, id: id };
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	};
@@ -118,6 +122,19 @@ export function getAvailableSizes() {
 			.then(respons => {
 				dispatch({
 					type: 'GET_AVAILABLE_SIZES',
+					payload: respons,
+				});
+			});
+	};
+}
+
+export function getReviewsFromUser(userId) {
+	return function (dispatch) {
+		fetch(`http://localhost:3001/reviews/user/${userId}`)
+			.then(res => res.json())
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS_FROM_USER',
 					payload: respons,
 				});
 			});
