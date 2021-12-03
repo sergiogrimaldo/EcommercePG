@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Shoe, User, Brand, AvaiableSizes, Color, Role } = require('../db');
+const { Shoe, User, Brand, AvaiableSizes, Color, Role, Reviews } = require('../db');
 const { Op } = require('sequelize');
 
 const router = Router();
@@ -9,7 +9,7 @@ router.get('/', async (req, res, next) =>{
         if (Name) {    
             try{
                 let paQuery = await User.findAll({
-                    include: [{model:Role}],
+                    include: [{model:Role}, { model: Reviews }],
                     where:{
                         userName:{
                             [Op.iLike]: '%' + Name + '%'}}})
@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) =>{
         }
     try{
         const userBD = await User.findAll({
-            include: [{model:Role}],
+            include: [{model:Role}, { model: Reviews }],
         })
         return res.json(userBD)
     }
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res, next)=>{
     try{
         const {id} = req.params;
         let ap = await User.findByPk(id,{
-            include: [{model:Role}]
+            include: [{model:Role}, { model: Reviews }]
         })
         return res.send(ap) 
         }
@@ -57,11 +57,13 @@ router.get('/:id', async (req, res, next)=>{
             if(email && password){
                 try{
                     const newUser = await User.create({
+                        include: [{ model: Reviews }],
                         name: name,
                         email: email, //aca creo un nuevo user con las propiedades que necesito
                         password: password,
                     });
                     const rol = await Role.findOne({
+                        include: [{ model: Reviews }],
                         where:{ //aca busco en la base de datos donde uno tenga la propiedad client 
                             name:"client"
                         }
