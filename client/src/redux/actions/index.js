@@ -128,9 +128,21 @@ export function getAvailableSizes() {
 	};
 }
 
+export function getReviews() {
+	return function (dispatch) {
+		fetch("http://localhost:3001/reviews")
+			.then(res => res.json())
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS',
+					payload: respons,
+				});
+			});
+	};
+}
 export function getReviewsFromUser(userId) {
 	return function (dispatch) {
-		fetch(`http://localhost:3001/reviews/user/${userId}`)
+		fetch(`http://localhost:3001/reviews/${userId}`)
 			.then(res => res.json())
 			.then(respons => {
 				dispatch({
@@ -140,6 +152,29 @@ export function getReviewsFromUser(userId) {
 			});
 	};
 }
+export function postReview(payload) {
+	return function (dispatch) {
+		axios.post(`http://localhost:3001/reviews`, payload)
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS_FROM_USER',
+					payload: respons.data,
+				});
+			});
+	};
+}
+/* export function deleteReviews(reviewId) {
+	return function (dispatch) {
+		fetch(`http://localhost:3001/reviews/user/${reviewId}`)
+			.then(res => res.json())
+			.then(respons => {
+				dispatch({
+					type: 'GET_REVIEWS_FROM_USER',
+					payload: respons,
+				});
+			});
+	};
+} */
 /* fetch('http://localhost:3001/Shoes')
 			.then(res =>  res.json())
                 .then(response => {
