@@ -14,6 +14,7 @@ import SignUp from './components/Modals/SignUp.jsx';
 import Detail from './components/Detail/Detail.jsx';
 import MyAccount from './components/MyAccount/MyAccount.jsx';
 import AdminControlPanel from './components/AdminControlPanel/AdminControlPanel'
+import OrderDetails from './components/OrderDetails/OrderDetails.jsx';
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
@@ -27,7 +28,7 @@ function App() {
 			{modal === 'signUp' && <SignUp />}
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 
-
+			<OrderDetails/>
 			<Navbar />
 			
 			<Switch>

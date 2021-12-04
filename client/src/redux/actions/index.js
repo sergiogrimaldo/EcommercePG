@@ -13,6 +13,20 @@ export function getOrders(payload){
 	}
 }}
 
+export function changeRol(payload){
+	return async dispach => {
+		try {
+			const res = await axios.patch(`http://localhost:3001/users/`+payload.id, {email: payload.email})
+			return dispach({
+				type:'CHANGE_ROL',
+				payload: res.data,
+			})
+		} catch (err) {
+			console.log(err)
+		}
+	}
+}
+
 export function deleteUser(payload){
 	return async dispatch => {
 		try {
@@ -38,7 +52,7 @@ export function setOrderStatus(payload){
 export function getOrderDetails(payload){
 	return async dispatch => {
 		try {
-		const res = await axios.post(`http://localhost:3001/orders/${payload.orderId}`, payload.email);
+		const res = await axios.post(`http://localhost:3001/orders/getorders/${payload.id}`, {email: payload.email});
 		return dispatch({type:'GET_ORDER_DETAILS',payload:res.data})
 	}
 	catch(err){

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {getOrderDetails, getOrders, setOrderStatus, deleteUser} from '../../redux/actions'
+import {getOrderDetails, getOrders, setOrderStatus, deleteUser, changeRol, getUsers} from '../../redux/actions'
 import {useEffect, useState} from 'react'
 import jwt from 'jsonwebtoken';
 
@@ -49,6 +49,11 @@ export default function AdminControlPanel(){
         console.log('accion cambiada')
     }
 
+    const handleClick = function(e){
+        dispatch(changeRol({id: e.target.id, email: user.email}));
+        dispatch(getUsers());
+    }
+
     const handleDelete = function(e){
         console.log(e.target.id)
         dispatch(deleteUser((e.target.id)))
@@ -92,8 +97,15 @@ export default function AdminControlPanel(){
                    </li>
             { 
                 console.log(localOrders)}
-
-                { allUsers && allUsers.length && allUsers.map((users,i) => 
+                {/* function (a, b) {
+                if (a.name > b.name) {
+                    return -1;
+                }
+                if (b.name > a.name) {
+                    return 1;
+                }
+                return 0; */}
+                { allUsers && allUsers.length && allUsers.sort((a,b) => b.createdAt > a.createdAt? -1 : 1).map((users,i) => 
                <li id={users.id} style={{marginTop:10}}>
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>{i+1}</p>
@@ -102,7 +114,18 @@ export default function AdminControlPanel(){
                        <p style={{display:'flex',justifyContent:'center'}}>{users.email}</p>
                        <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p>
                        <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{toDate(users.createdAt)}</p>
-                       {user.email === users.email ? null : <div style={{display:'flex', justifyContent:'center'}}><button id={(users.id)} style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'80%'}} onClick={(e) => dispatch(deleteUser(e.target.id))}>Delete</button></div>}
+                       {user.email === users.email ? null : 
+                       <div style={{display:'flex', justifyContent:'center', gap:10}}>
+                        <button 
+                        id={(users.id)} 
+                        style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}} 
+                        onClick={(e) => dispatch(deleteUser(e.target.id))}>Delete</button>
+                        <button
+                        style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}}
+                        id={(users.id)}
+                        onClick={(e) => handleClick(e)}
+                        >Change role</button>
+                        </div>}
                    </div>
                 </li>
                 ) 

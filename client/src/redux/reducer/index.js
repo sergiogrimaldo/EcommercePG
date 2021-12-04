@@ -30,10 +30,15 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+
+		case 'CHANGE_ROL':
+			return {
+				...state,
+			}
 		case 'DELETE_USER':
 			return {
 				...state,
-				allUsers: state.allUsers.filter( user => user.id !== action.payload)
+				allUsers: state.allUsers.filter( user => user.id != action.payload)
 			}
 			
 		case 'SET_ORDER_STATUS':

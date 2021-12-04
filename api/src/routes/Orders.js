@@ -18,7 +18,7 @@ router.post("/getorders", async (req, res, next) => {
     res.json(await getOrdersFromDB({email: req.body.email}))
 })
 
-router.post("/:id", async (req, res, next) => {
+router.post("/getorders/:id", async (req, res, next) => {
     res.json(await getOrdersFromDB({id: req.params.id, email: req.body.email}))
 })
 
