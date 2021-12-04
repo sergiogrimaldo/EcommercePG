@@ -27,12 +27,13 @@ function Catalogue() {
 	if (dataShoes && dataSizes && dataPrices) {
 		data = compileData(dataShoes, dataSizes, dataPrices);
 	}
+    //console.log(user);
 	useEffect(() => {
 		dispatch(getShoes());
 		dispatch(getPrices());
 		dispatch(getAvailableSizes());
         dispatch(getReviews());
-        if (user.id) {
+        if (user && user.id) {
             dispatch(getReviewsFromUser(user.id));
         }
 	}, []);
