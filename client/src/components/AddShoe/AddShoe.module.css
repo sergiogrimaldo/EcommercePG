@@ -18,7 +18,6 @@
 .sizebox {
 	display: inline-flex;
 	justify-content: space-between;
-
 	flex-direction: column;
 	height: 150px;
 	width: 350px;

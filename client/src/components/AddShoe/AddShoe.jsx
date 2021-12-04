@@ -21,7 +21,6 @@ export default function AddShoe() {
 		shoeName: '',
 		retailPrice: 0,
 		thumbnail: '',
-		urlKey: '',
 		availableSizes: [],
 		brand: '',
 	});
@@ -108,7 +107,7 @@ export default function AddShoe() {
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
 				thumbnail: input.thumbnail,
-				urlKey: input.urlKey,
+				urlKey: input.shoeName.split(' ').join('-'),
 				avaiableSizes: input.availableSizes,
 				brand: input.brand,
 			};
@@ -121,7 +120,7 @@ export default function AddShoe() {
 			<form className={`${styles.form}`} onSubmit={onSubmit}>
 				<div className={`${styles.divvy}`}>
 					<label>Name</label>
-					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} />
+					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} className={`${styles.inputname}`} />
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Description</label>
@@ -176,10 +175,6 @@ export default function AddShoe() {
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
 					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} />
-				</div>
-				<div className={`${styles.divvy}`}>
-					<label>UrlKey</label>
-					<input type='text' name='urlKey' value={input.urlKey} onChange={handleInput} />
 				</div>
 				<button type='submit' className={`${styles.btn}`}>
 					Enter
