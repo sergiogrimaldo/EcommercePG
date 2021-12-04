@@ -2,13 +2,59 @@ import axios from 'axios';
 import setAuthorizationToken from '../../utils/setAutToken';
 import jwt from 'jsonwebtoken';
 
+export function getOrders(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.post('http://localhost:3001/orders/getorders',payload);
+		return dispatch({type:'GET_ALL_ORDERS',payload:res.data})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function deleteUser(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.delete(`http://localhost:3001/users/`+payload);
+		return dispatch({type:'DELETE_USER', payload:payload})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function setOrderStatus(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.patch(`http://localhost:3001/orders/${payload.id}`,{email:payload.email,status:payload.status});
+		return dispatch({type:'SET_ORDER_STATUS'})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function getOrderDetails(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.post(`http://localhost:3001/orders/${payload.orderId}`, payload.email);
+		return dispatch({type:'GET_ORDER_DETAILS',payload:res.data})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+
 export function logIn(payload) {
 	return async dispatch => {
 		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
 
-		const name = res.data.name;
-		const email = res.data.email;
+		//const name = res.data.name;
+		//const email = res.data.email;
 		const token = res.data.token;
+//		const role = res.data.role
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
@@ -16,10 +62,12 @@ export function logIn(payload) {
 				token: token,
 				email: jwt.decode(token).email,
 				name: jwt.decode(token).name,
+				role:  jwt.decode(token).role,
+				id: jwt.decode(token).id,
 			})
 		);
 
-		return { email: jwt.decode(token).email, name: jwt.decode(token).name };
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: jwt.decode(token).role, id:jwt.decode(token).id };
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	};
@@ -32,17 +80,22 @@ export function googleLogIn(payload) {
 
 		const name = res.data.name;
 		const email = res.data.email;
-
 		const token = res.data.token;
+		const role = res.data.role
+		const id = res.data.id
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
 			setCurrentUser({
-				email: email,
-				name: name,
+				token: token,
+				email: jwt.decode(token).email,
+				name: jwt.decode(token).name,
+				role: role,
+				id: id,
 			})
 		);
-		return { email: email, name: name };
+
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: role,id: id, };
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
 	};

@@ -24,10 +24,34 @@ const initialState = {
 	isAuthenticaded: false,
 	allUsers: [],
 	shoeDetails: [],
+	orders: [],
+	orderDetails:[],
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+		case 'DELETE_USER':
+			return {
+				...state,
+				allUsers: state.allUsers.filter( user => user.id !== action.payload)
+			}
+			
+		case 'SET_ORDER_STATUS':
+			return {
+				...state
+			}
+		case 'GET_ALL_ORDERS':
+			return {
+				...state,
+				orders: action.payload
+			}
+
+		case 'GET_ORDER_DETAILS':
+			return {
+				...state,
+				orderDetails: action.payload
+			}
+
 		case 'GET_ALL_USERS':
 			return {
 				...state,

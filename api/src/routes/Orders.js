@@ -13,15 +13,17 @@ router.post("/", async (req, res, next) => {
     res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart})) // al servicio para agregar a la DB se le tiene que pasar un userId y un objeto cart
 })
 
-router.get("/", async (req, res, next) => {
+router.post("/getorders", async (req, res, next) => {
+    console.log(req.body)
     res.json(await getOrdersFromDB({email: req.body.email}))
 })
 
-router.get("/:id", async (req, res, next) => {
+router.post("/:id", async (req, res, next) => {
     res.json(await getOrdersFromDB({id: req.params.id, email: req.body.email}))
 })
 
 router.patch("/:id", async (req, res, next) => {
+    console.log(req.body)
     //los estados solo pueden ser los nombrados en el modelo order ('Pending', 'In Progress', 'Cancelled', 'Completed')
     //desde el front trabajar solo con esas opciones
     res.json( await updateStatusOrderFromDB({email: req.body.email, status: req.body.status, id: req.params.id}))

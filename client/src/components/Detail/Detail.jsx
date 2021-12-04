@@ -8,6 +8,7 @@ import { onlyThreeColorGrid } from '../FilterColor/colors.js';
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
 
+
 export default function Detail({ id }) {
 	const dispatch = useDispatch();
 	const details = useSelector(state => state.shoeDetails);
@@ -16,6 +17,8 @@ export default function Detail({ id }) {
 	const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
 	const [plusOrMinus, setPlusOrMinus] = useState('+');
 	const shoes = useSelector(state => state.shoes);
+	
+	console.log(id)
 	if (details && shoes) {
 		var found,
 			foundFromAll,
@@ -26,22 +29,23 @@ export default function Detail({ id }) {
 		found = shoeOnHoverImg.find(el => el.id === shoeOnHover);
 		foundFromAll = shoes.find(el => el.id === shoeOnHover);
 	}
-
+	
 	useEffect(() => {
 		dispatch(getShoeDetails(id));
+		console.log('despacho')
 	}, [dispatch]);
 
 	return (
 		<div>
 			<div className={`${s.macro}`}>
 				<br />
-				<img className={`${s.img_detail}`} src={details && details.thumbnail} alt='Not found' />
+				<img className={`${s.img_detail}`} src={details && details?.thumbnail} alt='Not found' />
 				<div className={`${s.container}`}>
-					<h1>{details && details.shoeName}</h1>
-					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
-					<h2 className={`${s.brand}`}>Brand: {details && details.brand.name}</h2>
-					<h2 className={`${s.color}`}>Color: {details && details.colorway}</h2>
-					<h2 className={`${s.price}`}>Price: ${details && details.price.retailPrice}</h2>
+					<h1>{details && details?.shoeName}</h1>
+					<h2 className={`${details && details?.stock ? s.instock : s.outstock}`}>{details && details?.stock ? 'In Stock' : 'Out Of Stock'} </h2>
+					<h2 className={`${s.brand}`}>Brand: {details && details?.shoeName}</h2>
+					<h2 className={`${s.color}`}>Color: {details && details?.colorway}</h2>
+					<h2 className={`${s.price}`}>Price: ${details && details?.price.retailPrice}</h2>
 					<h2 className={`${s.size}`}>
 						Available Sizes:{' '}
 						{details &&

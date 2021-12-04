@@ -79,6 +79,7 @@ router.get('/:id', async (req, res, next)=>{
     });
 
     router.delete('/:id', async function (req, res, next) {
+        console.log(req.params)
         const {id} = req.params;
         try {
             let existsInDB = await User.findOne({

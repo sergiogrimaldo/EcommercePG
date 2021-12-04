@@ -17,9 +17,9 @@ import { setCurrentUser } from './redux/actions';
 // setAuthorizationToken(localStorage.jwtToken);
 // store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
-// store.subscribe(()=>{
-//   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-// })
+store.subscribe(()=>{
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
 
 ReactDOM.render(
 	<Provider store={store}>

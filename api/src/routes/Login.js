@@ -39,7 +39,12 @@ router.post('/autenticar', async (req, res) => {
 
 
 		const payload = {
-      email
+      email,
+      id: user.id,
+      role: user.roleId,
+			// token: token,
+      name: user.name,
+      email: email,
 		};
 
     /// uso el secreto del .env
@@ -49,12 +54,13 @@ router.post('/autenticar', async (req, res) => {
 		});
 		res.json({
 			mensaje: 'Autenticación correcta',
+      role: user.roleId,
 			token: token,
       name: user.name,
       email: email,
 		});
     } else {
-        res.json({ mensaje: "Usuario o contraseña incorrectos"})
+        res.status(300).json({ mensaje: "Usuario o contraseña incorrectos"})
     }
 })
 
@@ -81,13 +87,14 @@ router.post('/googleAutenticar', async (req, res) => {
     name: payload.name,
   }})
 
-  const jtoken = jwt.sign({email: user[0].email, name: user[0].name}, process.env.TOKENSECRET, {
+  const jtoken = jwt.sign({email: user[0].email, name: user[0].name, role:user[0].roleId, id:user[0].id}, process.env.TOKENSECRET, {
     expiresIn: 1440
   });
   
   res.json({
     mensaje: 'Autenticación correcta',
     token: jtoken,
+    role: user[0].roleId,
     name: user[0].name,
     email: user[0].email,
   });
