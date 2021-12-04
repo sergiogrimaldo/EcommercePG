@@ -153,7 +153,7 @@ export default function AddShoe() {
 				<div className={`${styles.divvy}`}>
 					<label>Select brand</label>
 					<select name='brand' onChange={onSelectChange}>
-						<option value=''>---Select Brand---</option>
+						<option value=''></option>
 						{brands &&
 							brands.map((elem, index) => (
 								<option key={elem + index + 2} value={elem.name}>
