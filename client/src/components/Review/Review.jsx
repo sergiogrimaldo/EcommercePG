@@ -7,7 +7,7 @@ import { postReview } from "../../redux/actions/index.js";
 import style from "./review.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-const Review = ({ shoe, currentComponent }) => {
+const Review = ({ rating, shoe, currentComponent }) => {
     const dispatch = useDispatch();
     //const history = useHistory();
     const [stars, setStars] = useState("");
@@ -17,9 +17,16 @@ const Review = ({ shoe, currentComponent }) => {
     const user = useSelector((state) => state.user);
     const reviews = useSelector((state) => state.reviews);
     const myReviews = useSelector((state) => state.reviewsFromUser);
+    let arrayOfRatings = [];
+    let avg = 0;
+    let found = false;
 
-    myReviews && console.log(myReviews);
-    reviews && console.log(reviews);
+    if (reviews && reviews.length > 0) {
+        found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
+        arrayOfRatings = found && found.map((review) => review.rating);
+        let sum = arrayOfRatings && arrayOfRatings.length > 0 && arrayOfRatings.reduce((previous, current) => (current += previous));
+        avg = sum / arrayOfRatings.length;
+    }
     //console.log(user);
     //console.log(shoe)
     const reviewStar = (number) => {
@@ -35,12 +42,20 @@ const Review = ({ shoe, currentComponent }) => {
 
     useEffect(() => {
         if (!isAUser) {
-            setStars(Math.floor(Math.random() * 5) + 0);
+            setStars(rating);
         }
-    }, []);
+
+        if (!found) {
+            setStars(rating);
+        }
+
+        if (found && found.length > 0) {
+            setStars(avg);
+        }
+    }, [isAUser, found, avg, rating]);
 
     useEffect(() => {
-        if (user.email !== undefined) {
+        if (user && user.email !== undefined) {
             setIsAUser(true);
         } else {
             setIsAUser(false);
@@ -63,7 +78,7 @@ const Review = ({ shoe, currentComponent }) => {
         setStars("");
         e.target.reset();
     };
-    console.log(showMassage);
+
     return (
         <div>
             <div
@@ -113,13 +128,13 @@ const Review = ({ shoe, currentComponent }) => {
                 }}
             >
                 <div className="container">
-                    <level
+                    <span
                         style={{
                             display: currentComponent === "Card" && currentComponent !== "Detail" ? "none" : "",
                         }}
                     >
                         Create a Review
-                    </level>
+                    </span>
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
