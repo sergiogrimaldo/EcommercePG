@@ -50,23 +50,10 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-	const { description, stock, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
+	const { description, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
 
-	if (description && stock && shoeName && retailPrice) {
+	if (description && shoeName && retailPrice) {
 		try {
-			const newShoe = await Shoe.create({
-				description: description,
-				stock: stock,
-				shoeName: shoeName,
-				silhoutte: silhoutte,
-				thumbnail: thumbnail,
-				resellPrices: resellPrices,
-				lowestResellPrice: lowestResellPrice,
-				colorway: colorway,
-				urlKey: urlKey,
-				brand: brand,
-			});
-
 			await Brand.findOrCreate({ where: { name: brand || 'none' } });
 			const nuBrand = await Brand.findOne({ where: { name: brand } });
 
@@ -121,6 +108,32 @@ router.post('/', async (req, res, next) => {
 				16: avaiableSizes[20] > 0 ? Math.floor(Math.random() * 500) + 1 : 0,
 				17: avaiableSizes[21] > 0 ? Math.floor(Math.random() * 500) + 1 : 0,
 				18: avaiableSizes[22] > 0 ? Math.floor(Math.random() * 500) + 1 : 0,
+			});
+
+			let allSizes = await AvailableSizes.findAll();
+
+			var stock = 0;
+			if (sizes) {
+				for (var i = allSizes.length - 1; i < allSizes.length; i++) {
+					for (j in allSizes[i].dataValues) {
+						if (j !== 'id') {
+							stock = stock + parseInt(allSizes[i].dataValues[j], 10);
+						}
+					}
+				}
+			}
+
+			let newShoe = await Shoe.create({
+				description: description,
+				stock: stock,
+				shoeName: shoeName,
+				silhoutte: silhoutte,
+				thumbnail: thumbnail,
+				resellPrices: resellPrices,
+				lowestResellPrice: lowestResellPrice,
+				colorway: colorway,
+				urlKey: urlKey,
+				brand: brand,
 			});
 
 			await newShoe.setBrand(nuBrand);

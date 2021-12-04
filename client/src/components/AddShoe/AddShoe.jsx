@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBrands, postNewShoe } from '../../redux/actions/index.js';
+import { Link } from 'react-router-dom';
 import styles from './AddShoe.module.css';
 
 export default function AddShoe() {
@@ -15,7 +16,6 @@ export default function AddShoe() {
 	let [input, setInput] = useState({
 		id: 0,
 		description: '',
-		stock: 0,
 		silhoutte: '',
 		colorway: '',
 		shoeName: '',
@@ -27,7 +27,6 @@ export default function AddShoe() {
 	let [error, setError] = useState({
 		name: 'Name required',
 		description: 'Description required',
-		stock: 'Stock required',
 		retailPrice: 'Retail price required',
 	});
 
@@ -45,11 +44,6 @@ export default function AddShoe() {
 			errors.description = '';
 		} else {
 			errors.description = 'Description required';
-		}
-		if (input.stock > 0) {
-			errors.stock = '';
-		} else {
-			errors.stock = 'Stock required';
 		}
 		if (input.retailPrice > 0) {
 			errors.retailPrice = '';
@@ -101,7 +95,6 @@ export default function AddShoe() {
 			let newShoe = {
 				name: input.name,
 				description: input.description,
-				stock: input.stock,
 				silhoutte: input.silhouette,
 				colorway: input.colorway,
 				shoeName: input.shoeName,
@@ -124,8 +117,39 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Description</label>
-					<textarea type='text' name='description' value={input.description} onChange={handleInput} />
+					<textarea className={`${styles.desc}`} type='text' name='description' value={input.description} onChange={handleInput} />
 				</div>
+
+				<div className={`${styles.divvy}`}>
+					<label>Available Sizes</label>
+					<div className={`${styles.sizebox}`}>
+						{sizes &&
+							sizes.map((elem, index) => (
+								<div className={`${styles.sizes}`} key={elem + index}>
+									{elem}
+									<input className={`${styles.checkboxes}`} name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
+								</div>
+							))}
+					</div>
+				</div>
+				<Link to='/catalogue'>
+					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
+				</Link>
+				<button type='submit' className={`${styles.btn_create}`}>
+					Create
+				</button>
+			</form>
+			<div>
+				<div className={`${styles.thumbnail_box}`}>
+					<img className={`${styles.thumbnail}`} src={input.thumbnail} alt='No Thumbnail' />
+				</div>
+				<div className={`${styles.divvy}`}>
+					<label>Thumbnail</label>
+					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} />
+				</div>
+			</div>
+
+			<div className={`${styles.form}`}>
 				<div className={`${styles.divvy}`}>
 					<label>Select brand</label>
 					<select name='brand' onChange={onSelectChange}>
@@ -145,22 +169,6 @@ export default function AddShoe() {
 					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
-					<label>Available Sizes</label>
-					<div className={`${styles.sizebox}`}>
-						{sizes &&
-							sizes.map((elem, index) => (
-								<div className={`${styles.sizes}`} key={elem + index}>
-									{elem}
-									<input className={`${styles.checkboxes}`} name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
-								</div>
-							))}
-					</div>
-				</div>
-				<div className={`${styles.divvy}`}>
-					<label>Stock</label>
-					<input type='number' name='stock' value={input.stock} onChange={handleInput} />
-				</div>
-				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
 					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} />
 				</div>
@@ -172,14 +180,7 @@ export default function AddShoe() {
 					<label>Retail Price</label>
 					<input type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} />
 				</div>
-				<div className={`${styles.divvy}`}>
-					<label>Thumbnail</label>
-					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} />
-				</div>
-				<button type='submit' className={`${styles.btn}`}>
-					Enter
-				</button>
-			</form>
+			</div>
 		</div>
 	);
 }

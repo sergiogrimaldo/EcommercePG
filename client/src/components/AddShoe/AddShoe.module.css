@@ -1,6 +1,7 @@
 .main {
 	display: flex;
-	justify-content: center;
+	margin-top: 70px;
+	justify-content: space-around;
 }
 
 .form {
@@ -35,4 +36,55 @@
 	align-items: center;
 	align-content: center;
 	align-self: center;
+}
+
+.thumbnail_box {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	height: 320px;
+	border-width: 3px;
+	border-style: dotted;
+	border-color: grey;
+	border-radius: 6px;
+	background-color: lightgrey;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.thumbnail {
+	width: 395px;
+	height: 320px;
+	border-radius: 6px;
+}
+
+.desc {
+	height: 80px;
+	width: 380px;
+}
+
+.btn_create {
+	position: relative;
+	margin-top: 5px;
+	bottom: 50px;
+	left: 590px;
+	height: 35px;
+	width: 130px;
+	border: none;
+	background-color: rgb(184, 184, 184);
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn_back {
+	position: relative;
+	margin-top: 5px;
+	left: 10px;
+	height: 35px;
+	width: 130px;
+	border: none;
+	background-color: rgb(184, 184, 184);
+	border-radius: 6px;
+	cursor: pointer;
 }
