@@ -128,7 +128,7 @@ export default function AddShoe() {
 					<textarea type='text' name='description' value={input.description} onChange={handleInput} />
 				</div>
 				<div className={`${styles.divvy}`}>
-					<label>Brand</label>
+					<label>Select brand</label>
 					<select name='brand' onChange={onSelectChange}>
 						<option value=''>---Select Brand---</option>
 						{brands &&
@@ -138,20 +138,24 @@ export default function AddShoe() {
 								</option>
 							))}
 					</select>
-					<div>
-						or
-						<input type='text' name='brand' value={input.brand} onChange={handleInput} />
+					<div className={`${styles.divvy}`}>
+						or add a new one
+						<div className={`${styles.divvy}`}>
+							<input type='text' name='brand' value={input.brand} onChange={handleInput} />
+						</div>
 					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Available Sizes</label>
-					{sizes &&
-						sizes.map((elem, index) => (
-							<div key={elem + index}>
-								{elem}
-								<input name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
-							</div>
-						))}
+					<div className={`${styles.sizebox}`}>
+						{sizes &&
+							sizes.map((elem, index) => (
+								<div className={`${styles.sizes}`} key={elem + index}>
+									{elem}
+									<input className={`${styles.checkboxes}`} name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
+								</div>
+							))}
+					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Stock</label>

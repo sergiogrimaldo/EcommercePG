@@ -5,12 +5,35 @@
 
 .form {
 	display: flex;
-	justify-content: space-around;
 	flex-direction: column;
+	width: 400px;
 }
 
 .divvy {
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
+}
+
+.sizebox {
+	display: inline-flex;
+	justify-content: space-between;
+
+	flex-direction: column;
+	height: 150px;
+	width: 350px;
+	flex-wrap: wrap;
+	margin: 10px;
+}
+
+.sizes {
+	display: block;
+	margin: 5px;
+}
+
+.checkboxes {
+	margin: 5px;
+	align-items: center;
+	align-content: center;
+	align-self: center;
 }
