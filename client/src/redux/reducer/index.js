@@ -85,6 +85,7 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				user: {},
+                reviewsFromUser: [],
 			};
 		case 'ADD_TO_CART':
 			state.cart &&

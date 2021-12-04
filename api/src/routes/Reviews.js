@@ -53,29 +53,9 @@ router.post('/', async (req,res,next) =>{
 });
 
 router.get("/", async (req, res, next) => {
-    let Name = req.query.id;
-    if (Name) {
-        try {
-            let paQuery = await Reviews.findAll({
-                include: [{model:Shoe}, { model: User }],
-                where: {
-                    id: {
-                        [Op.iLike]: "%" + Name + "%",
-                    },
-                },
-            });
-            if (!paQuery.length) {
-                return res.status(404).json("Error, recall");
-            } else {
-                return res.json(paQuery);
-            }
-        } catch (errro) {
-            next(error);
-        }
-    }
     try {
         const reviewsBD = await Reviews.findAll({
-            include: [{model:Shoe}, { model: User }],
+            include: [{model: User}, {model: Shoe}],
         });
         return res.json(reviewsBD);
     } catch (error) {
@@ -86,8 +66,8 @@ router.get("/", async (req, res, next) => {
 router.get('/:id', async (req, res, next)=>{   
     try{
         const {id} = req.params;
-        let reviews = await Reviews.findByPk(id,{
-            include: [{ model:Shoe }, { model:User }]
+        let reviews = await User.findByPk(id,{
+            include: [{model:Reviews , include: {model: Shoe}}]
         })
         return res.send(reviews) 
         }

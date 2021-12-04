@@ -7,7 +7,7 @@ import { postReview } from "../../redux/actions/index.js";
 import style from "./review.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-const Review = ({ shoe, currentComponent }) => {
+const Review = ({ rating, shoe, currentComponent }) => {
     const dispatch = useDispatch();
     //const history = useHistory();
     const [stars, setStars] = useState("");
@@ -16,11 +16,19 @@ const Review = ({ shoe, currentComponent }) => {
     const [textArea, setTextArea] = useState(false);
     const user = useSelector((state) => state.user);
     const reviews = useSelector((state) => state.reviews);
-    const myReviews = useSelector((state) => state.reviewsFromUser);
-
-    myReviews && console.log(myReviews);
+    let arrayOfRatings = [];
+    let avg = 0;
+    let found = false;
+    if (reviews && reviews.length > 0) {
+        found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
+        arrayOfRatings = found && found.map((review) => review.rating);
+        let sum = arrayOfRatings && arrayOfRatings.length > 0 && arrayOfRatings.reduce((previous, current) => (current += previous));
+        sum && console.log(sum);
+        arrayOfRatings && console.log(arrayOfRatings);
+        avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
+        avg && console.log(avg);
+    }
     reviews && console.log(reviews);
-    //console.log(user);
     //console.log(shoe)
     const reviewStar = (number) => {
         setStars(number);
@@ -34,13 +42,18 @@ const Review = ({ shoe, currentComponent }) => {
     }, [currentComponent, isAUser]);
 
     useEffect(() => {
-        if (!isAUser) {
-            setStars(Math.floor(Math.random() * 5) + 0);
+        if (!isAUser || !found) {
+            //console.log("not a user");
+            setStars(rating);
         }
-    }, []);
+        if (found && found.length > 0) {
+            //console.log("found", avg);
+            setStars(avg);
+        }
+    }, [isAUser, found, rating, avg]);
 
     useEffect(() => {
-        if (user.email !== undefined) {
+        if (user && user.email !== undefined) {
             setIsAUser(true);
         } else {
             setIsAUser(false);
@@ -63,7 +76,7 @@ const Review = ({ shoe, currentComponent }) => {
         setStars("");
         e.target.reset();
     };
-    console.log(showMassage);
+
     return (
         <div>
             <div
@@ -113,13 +126,13 @@ const Review = ({ shoe, currentComponent }) => {
                 }}
             >
                 <div className="container">
-                    <level
+                    <span
                         style={{
                             display: currentComponent === "Card" && currentComponent !== "Detail" ? "none" : "",
                         }}
                     >
                         Create a Review
-                    </level>
+                    </span>
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
