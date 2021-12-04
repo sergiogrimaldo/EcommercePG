@@ -77,6 +77,12 @@
 	cursor: pointer;
 }
 
+.btn_create:active {
+	box-shadow: 0 1px #666;
+	transform: translateY(1px);
+	background-color: #666;
+}
+
 .btn_back {
 	position: relative;
 	margin-top: 5px;
@@ -87,4 +93,10 @@
 	background-color: rgb(184, 184, 184);
 	border-radius: 6px;
 	cursor: pointer;
+}
+
+.btn_back:active {
+	box-shadow: 0 1px #666;
+	transform: translateY(1px);
+	background-color: #666;
 }
