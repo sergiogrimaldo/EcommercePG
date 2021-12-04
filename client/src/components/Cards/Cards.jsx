@@ -14,7 +14,6 @@ export default function Cards({ data }) {
     const filterPrice = useSelector((state) => state.filterPrice);
     const page = useSelector((state) => state.currentPage);
     const shoes = useSelector((state) => state.shoes);
-    //const data = useSelector((state) => state.shoes);
     const [shownCards, setShownCards] = useState([]);
     const SHOES_PER_PAGE = 9;
 
@@ -22,8 +21,8 @@ export default function Cards({ data }) {
     if (page === 0) {
         dispach(setPage(1));
     }
-    
-    const countriesToShow = shoes && shoes.length > 1  ?  shoes : data;
+
+    const countriesToShow = shoes && shoes.length > 1 ? shoes : data;
     const total = countriesToShow.length;
     const maxPage = Math.floor(total / 9) + 1;
 
@@ -90,9 +89,8 @@ export default function Cards({ data }) {
             setShownCards(data);
         }
     }, [data, filters, filterBrands, filterSizes, filterPrice, page]);
-    console.log(window.screen.width);
 
-    if (window.screen.width > 400) {
+    if (window.screen.width > 1300) {
         return (
             <>
                 <Paging shoesPerPage={SHOES_PER_PAGE} shoes={shownCards && shownCards} />

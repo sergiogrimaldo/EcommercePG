@@ -41,7 +41,7 @@ function Catalogue() {
     
 
 	return (
-		<div className={`${styles.container}`}>
+		<div className={styles.container}>
 			<Header data={data && data} />
 			<Cards data={data && data} />
 		</div>
