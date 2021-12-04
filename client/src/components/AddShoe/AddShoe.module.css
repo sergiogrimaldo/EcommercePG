@@ -11,6 +11,17 @@
 
 .divvy {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	margin: 10px;
+}
+
+.check {
+	display: flex;
+	flex-direction: row; 
+	justify-content: space-around;
+	
+}
+.inputname {
+	margin-top: 10px;
+	width:auto;
 }

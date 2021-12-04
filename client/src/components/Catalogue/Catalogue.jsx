@@ -32,7 +32,7 @@ function Catalogue() {
 		dispatch(getPrices());
 		dispatch(getAvailableSizes());
         dispatch(getReviews());
-        if (user.id) {
+        if (user && user.id) {
             dispatch(getReviewsFromUser(user.id));
         }
 	}, []);

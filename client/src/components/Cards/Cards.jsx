@@ -17,11 +17,13 @@ export default function Cards({ data }) {
     //const data = useSelector((state) => state.shoes);
     const [shownCards, setShownCards] = useState([]);
     const SHOES_PER_PAGE = 9;
+
     // console.log(data);
     if (page === 0) {
         dispach(setPage(1));
     }
-    const countriesToShow = shoes.length ? shoes : data;
+    
+    const countriesToShow = shoes && shoes.length > 1  ?  shoes : data;
     const total = countriesToShow.length;
     const maxPage = Math.floor(total / 9) + 1;
 
@@ -93,7 +95,7 @@ export default function Cards({ data }) {
     if (window.screen.width > 400) {
         return (
             <>
-                <Paging shoesPerPage={SHOES_PER_PAGE} shoes={shownCards} />
+                <Paging shoesPerPage={SHOES_PER_PAGE} shoes={shownCards && shownCards} />
                 <br />
                 <br />
                 <div className={s.cards}>

@@ -87,6 +87,8 @@ export default function AddShoe() {
 	function handleInput(e) {
 		setInput({ ...input, [e.target.name]: e.target.value });
 		setError(validate({ ...input, [e.target.name]: e.target.value }));
+		// urlkeyGenerator(e);
+		
 	}
 
 	console.log(input);
@@ -116,12 +118,17 @@ export default function AddShoe() {
 		}
 	}
 
+	// function urlkeyGenerator(e){
+	// 	let urlKey = e.target.value.split(' ').join('-') 
+	// 	console.log(urlKey, 'acACACACACACA')
+	// }
+
 	return (
 		<div className={`${styles.main}`}>
 			<form className={`${styles.form}`} onSubmit={onSubmit}>
-				<div className={`${styles.divvy}`}>
+				<div className={`${styles.name}`}>
 					<label>Name</label>
-					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} />
+					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} className={`${styles.inputname}`}/>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Description</label>
@@ -143,13 +150,16 @@ export default function AddShoe() {
 						<input type='text' name='brand' value={input.brand} onChange={handleInput} />
 					</div>
 				</div>
-				<div className={`${styles.divvy}`}>
-					<label>Available Sizes</label>
+				<div className={`${styles.check}`}>
+					<label>Available Sizes:</label>
+					<br />
 					{sizes &&
 						sizes.map((elem, index) => (
 							<div key={elem + index}>
 								{elem}
+								<br />
 								<input name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
+								<br />
 							</div>
 						))}
 				</div>
@@ -175,7 +185,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>UrlKey</label>
-					<input type='text' name='urlKey' value={input.urlKey} onChange={handleInput} />
+					<input type='text' name='urlKey' value={input.shoeName.split(' ').join('-')} onChange={handleInput} />
 				</div>
 				<button type='submit' className={`${styles.btn}`}>
 					Enter
