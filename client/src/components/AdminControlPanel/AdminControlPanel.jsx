@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {getOrderDetails, getOrders, setOrderStatus, deleteUser, changeRol, getUsers} from '../../redux/actions'
 import {useEffect, useState} from 'react'
 import jwt from 'jsonwebtoken';
+import { Link } from 'react-router-dom';
 
 export default function AdminControlPanel(){
     const dispatch = useDispatch()
@@ -12,6 +13,8 @@ export default function AdminControlPanel(){
     const [localOrders, setLocalOrders] = useState('')
     const [allUsers, setAllUsers] = useState('')
     const [allUsersFilter,setAllUsersFilter] = useState('All')
+    const [button, setButton] = useState(false)
+    
 
     useEffect( () =>{ dispatch(getOrders({email:user?.email}))},[])
 
@@ -32,8 +35,10 @@ export default function AdminControlPanel(){
     useEffect( async () => {
         //const response = await dispatch(getOrders({email:user?.email}))
          setAllUsers(users)
+        
          
-     },[users])
+     },[users, button])
+
 
     function toDate(string){
         const date = new Date(string)
@@ -51,13 +56,13 @@ export default function AdminControlPanel(){
 
     const handleClick = function(e){
         dispatch(changeRol({id: e.target.id, email: user.email}));
+        
         dispatch(getUsers());
+        setButton(!button);
+
     }
 
-    const handleDelete = function(e){
-        console.log(e.target.id)
-        dispatch(deleteUser((e.target.id)))
-    }
+
 
     return (
         <div style={{height: '100%',}}>
@@ -167,7 +172,10 @@ export default function AdminControlPanel(){
                <li style={{marginTop:10}} key={order.id}>
                    
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
-                       <p style={{display:'flex',justifyContent:'center'}}>#{order.id.split('-')[0]}</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>
+                       <Link to={`./orders/${order.id}`} 
+                       style={{textDecoration: 'none'}}>
+                       #{order.id.split('-')[0]}</Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{
                             <select id={order.id} onChange={(e) => handleOrderStatusChange(e)}>

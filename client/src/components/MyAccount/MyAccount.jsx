@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {getOrderDetails, getOrders} from '../../redux/actions'
+import {getOrderDetails, getOrders, logIn} from '../../redux/actions'
 import {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
 export default function MyAccount(){
@@ -10,19 +11,22 @@ export default function MyAccount(){
     const [stateFilter,setStateFilter] = useState('All')
     const [localOrders, setLocalOrders] = useState('')
 
-    useEffect( async () => {
-       const response = await dispatch(getOrders({email:user?.email}))
+    // useEffect( async () => {
+    //    const response = await dispatch(getOrders({email:user?.email}))
        
-       if (typeof response.payload == 'object' && response.payload.length > 0){
-        response.payload = 
-            stateFilter != 'All' ? 
-                response.payload.filter(order => order.status == stateFilter) 
-                : response.payload
+    //    if (typeof response.payload == 'object' && response.payload.length > 0){
+    //     response.payload = 
+    //         stateFilter != 'All' ? 
+    //             response.payload.filter(order => order.status == stateFilter) 
+    //             : response.payload
         
-        }
-        setLocalOrders(response.payload)
+    //     }
+    //     setLocalOrders(response.payload)
         
-    },[user,stateFilter])
+    // },[user,stateFilter])
+
+    useEffect( () =>{ dispatch(getOrders({email:user?.email}))},[])
+
 
     function toDate(string){
         const date = new Date(string)
@@ -62,14 +66,17 @@ export default function MyAccount(){
                         <div style={{display:'flex',justifyContent:'center'}}> Last Update </div>
                         </div>
                    </li>
-            { 
-                console.log(localOrders)}
 
-                {typeof localOrders == 'object' && JSON.stringify(localOrders.length) > 2 ? localOrders.map((order,i) => 
+                
+
+                { orders && orders.length ? orders.map((order,i) => 
                <li style={{marginTop:10}}>
                    
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr', columnGap:5}}>
-                       <p style={{display:'flex',justifyContent:'center'}}>#{i+1}</p>
+
+                    <p><Link to={`./orders/${order.id}`} 
+                       style={{textDecoration: 'none'}}>
+                       #{order.id.split('-')[0]}</Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.status}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.createdAt)}</p>

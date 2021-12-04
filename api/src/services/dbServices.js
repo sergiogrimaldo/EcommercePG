@@ -56,10 +56,24 @@ const getOrdersFromDB = async function ({email="", id=""}){
     }
     //si no esxite 
 
+
     if(id){
-        let order = await Order.findByPk(id);
+
+
+        let order
+        try{
+            order = await Order.findByPk(id, {
+            include:[ { model: Shoe }, {model: User}],});
+        }catch(err){
+            console.log(err)
+        }
+                 
+            if(!order){
+                return 
+            }
         if(user.roleId === 2){
             return order;
+
         } else {
             if(user.id === order.userId){
                 return order;
@@ -67,6 +81,7 @@ const getOrdersFromDB = async function ({email="", id=""}){
                 return "You don´t have access to this server"
             }
         }
+        
     }
     //si te pide una orden en especifico: si es admi la devulvo 
     //sino verifico que sea del usuario y si es la devuelvo

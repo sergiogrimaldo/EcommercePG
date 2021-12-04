@@ -129,6 +129,13 @@ function rootReducer(state = initialState, action) {
 				price: action.payload.price,
 				subtotal: action.payload.price * action.payload.cuantity,
 			});
+			// if (state.cart.length){
+            //     state.cart.forEach((shoe) => shoe.id == action.payload.id && shoe.size == action.payload.size ? shoe.cuantity++ :
+            //     state.cart(action.payload)
+            //     )
+            // } else {
+            //     state.cart.push(action.payload)
+            // }
 			return {
 				...state,
 			};
@@ -166,6 +173,7 @@ function rootReducer(state = initialState, action) {
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
 				allUsers: state.allUsers || [],
+				orderDetails: [],
 			}; // flattening out the array
 
 		case 'GET_DETAILS':

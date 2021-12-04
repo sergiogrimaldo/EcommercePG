@@ -28,7 +28,6 @@ function App() {
 			{modal === 'signUp' && <SignUp />}
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 
-			<OrderDetails/>
 			<Navbar />
 			
 			<Switch>
@@ -51,6 +50,8 @@ function App() {
 					<Cart />
 				</Route>
 				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
+				<Route exact path='/orders/:id' render={({ match }) => <OrderDetails id={match.params.id} />} />
+					
 			</Switch>
 		</BrowserRouter>
 	);
