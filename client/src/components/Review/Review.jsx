@@ -16,18 +16,19 @@ const Review = ({ rating, shoe, currentComponent }) => {
     const [textArea, setTextArea] = useState(false);
     const user = useSelector((state) => state.user);
     const reviews = useSelector((state) => state.reviews);
-    const myReviews = useSelector((state) => state.reviewsFromUser);
     let arrayOfRatings = [];
     let avg = 0;
     let found = false;
-
     if (reviews && reviews.length > 0) {
         found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
         arrayOfRatings = found && found.map((review) => review.rating);
         let sum = arrayOfRatings && arrayOfRatings.length > 0 && arrayOfRatings.reduce((previous, current) => (current += previous));
-        avg = sum / arrayOfRatings.length;
+        sum && console.log(sum);
+        arrayOfRatings && console.log(arrayOfRatings);
+        avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
+        avg && console.log(avg);
     }
-    //console.log(user);
+    reviews && console.log(reviews);
     //console.log(shoe)
     const reviewStar = (number) => {
         setStars(number);
@@ -41,18 +42,15 @@ const Review = ({ rating, shoe, currentComponent }) => {
     }, [currentComponent, isAUser]);
 
     useEffect(() => {
-        if (!isAUser) {
+        if (!isAUser || !found) {
+            //console.log("not a user");
             setStars(rating);
         }
-
-        if (!found) {
-            setStars(rating);
-        }
-
         if (found && found.length > 0) {
+            //console.log("found", avg);
             setStars(avg);
         }
-    }, [isAUser, found, avg, rating]);
+    }, [isAUser, found, rating, avg]);
 
     useEffect(() => {
         if (user && user.email !== undefined) {

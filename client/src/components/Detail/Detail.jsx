@@ -115,7 +115,7 @@ export default function Detail({ id }) {
                 </button>
             </div>
             <img src={found && found.thumbnail} alt="lol" className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />
-            <Reviews shoeId={id} reviews={reviews && reviews} />
+            <Reviews shoeId={id} />
         </div>
     );
 }

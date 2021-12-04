@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { AiFillStar } from "react-icons/ai";
 import style from "./review.module.css";
 
-const Reviews = ({ shoeId, reviews }) => {
+const Reviews = ({ shoeId }) => {
     const [starsAndComments, setStarsAndComments] = useState([]);
+    const reviews = useSelector((state) => state.reviews);
 
     useEffect(() => {
         if (reviews) {
@@ -15,8 +17,6 @@ const Reviews = ({ shoeId, reviews }) => {
         }
     }, [shoeId, reviews]);
 
-    starsAndComments && console.log(starsAndComments);
-
     return (
         <div
             style={{
@@ -27,6 +27,7 @@ const Reviews = ({ shoeId, reviews }) => {
             {starsAndComments &&
                 starsAndComments.slice(0, 3).map((review, i) => (
                     <div key={i}>
+                        <h4>{review.user.name}</h4>
                         <div className="container">
                             <AiFillStar className={review.rating >= 1 ? style.gold : style.dark} />
                             <AiFillStar className={review.rating >= 2 ? style.gold : style.dark} />

@@ -54,7 +54,9 @@ router.post('/', async (req,res,next) =>{
 
 router.get("/", async (req, res, next) => {
     try {
-        const reviewsBD = await Reviews.findAll();
+        const reviewsBD = await Reviews.findAll({
+            include: [{model: User}, {model: Shoe}],
+        });
         return res.json(reviewsBD);
     } catch (error) {
         next(error);
