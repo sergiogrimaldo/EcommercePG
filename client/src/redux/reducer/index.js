@@ -9,8 +9,8 @@ const initialState = {
 	shoes: [],
 	filteredShoes: [],
 	modalBuyDetails: {},
-    reviews: [],
-    reviewsFromUser: [],
+	reviews: [],
+	reviewsFromUser: [],
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -26,6 +26,7 @@ const initialState = {
 	isAuthenticaded: false,
 	allUsers: [],
 	shoeDetails: [],
+	getBrands: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -160,14 +161,13 @@ function rootReducer(state = initialState, action) {
 				prices: action.payload,
 			};
 
-            case 'GET_REVIEWS':
+		case 'GET_REVIEWS':
 			return {
 				...state,
 				reviews: action.payload,
 			};
 
-            
-            case 'GET_REVIEWS_FROM_USER':
+		case 'GET_REVIEWS_FROM_USER':
 			return {
 				...state,
 				reviewsFromUser: action.payload,
@@ -249,7 +249,17 @@ function rootReducer(state = initialState, action) {
 				currentPage: action.payload,
 			};
 		}
-
+		case 'POST_NEW_SHOE': {
+			return {
+				...state,
+			};
+		}
+		case 'GET_BRANDS': {
+			return {
+				...state,
+				getBrands: action.payload,
+			};
+		}
 		default:
 			return state;
 	}
