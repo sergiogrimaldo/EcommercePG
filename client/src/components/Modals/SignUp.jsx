@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { closeModal } from "../../redux/actions";
 import { postUser, getUsers } from "../../redux/actions";
+
 import s from './SignUp.module.css'
+import { red } from "@material-ui/core/colors";
 
 
 export default function SignUp(){
@@ -164,6 +166,7 @@ export default function SignUp(){
                         }</p>
                     )}
             </div>
+
             <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
                 <button style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
                 className='primaryButton' type='submit' 

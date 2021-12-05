@@ -127,4 +127,9 @@ router.get('/:id', async (req, res, next)=>{
 
     })
 
+    
+    router.post('/password-reset', async function (req,res,next){
+        
+    })
+
 module.exports = router;

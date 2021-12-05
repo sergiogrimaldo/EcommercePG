@@ -15,6 +15,7 @@ import Detail from './components/Detail/Detail.jsx';
 import MyAccount from './components/MyAccount/MyAccount.jsx';
 import AdminControlPanel from './components/AdminControlPanel/AdminControlPanel'
 import OrderDetails from './components/OrderDetails/OrderDetails.jsx';
+import { ResetPassword } from './components/ResetPassword/ResetPassword.jsx';
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
@@ -51,6 +52,9 @@ function App() {
 				</Route>
 				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
 				<Route exact path='/orders/:id' render={({ match }) => <OrderDetails id={match.params.id} />} />
+				<Route exact path='/password-reset'>
+					<ResetPassword />
+				</Route>
 					
 			</Switch>
 		</BrowserRouter>

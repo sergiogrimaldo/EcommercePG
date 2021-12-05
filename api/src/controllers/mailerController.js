@@ -11,4 +11,15 @@ const sendOrderDetails = async function ( req,res){
     }
 }
 
-module.exports = {sendOrderDetails}
+const resetPassword = async function (req, res, next){
+    const {email, name} = req.body;
+    try{
+        await sendMail({payload:{email, name}})
+        res.json('Email sent')
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+module.exports = {sendOrderDetails, resetPassword}

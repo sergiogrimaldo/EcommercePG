@@ -20,6 +20,7 @@ const transporter = nodemailer.createTransport(smtpTransport({
 
     let nombreItems = []
     /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
+    
     payload.cart.forEach(item => {
         if (!nombreItems.includes(item.name)){
             nombreItems.push(item.name)
@@ -53,4 +54,24 @@ const transporter = nodemailer.createTransport(smtpTransport({
     
 }
 
-module.exports = {sendMail}
+const sendPasswordEmail = async function({payload}){
+
+    //Agregar verificación de que el usuario existe y modificar la 
+    //password del usuario por la pass enviada
+    console.log(payload)
+
+    let pass = 'TemporalPass'
+
+    await transporter.sendPasswordEmail({
+        from: 'JSEC Store zapapp@zapapp.com',
+        to: payload.email,
+        subject: `Password Reset`,
+        html: `Hi ${payload.name}! 
+        This is your new password, remember to change it immediately after logging in.
+        ${pass} 
+        Have a nice day!`
+    }
+    ).then( () =>{ return 'Email sent'}).catch(err => console.log(err))
+}
+
+module.exports = {sendMail, sendPasswordEmail}

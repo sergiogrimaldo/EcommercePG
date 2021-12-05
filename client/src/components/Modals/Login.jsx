@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { logIn, setCurrentUser, getUsers, postUser } from "../../redux/actions";
 
 
@@ -119,6 +120,10 @@ export default function Login(){
                 onChange={e => handleChange(e)}
                 ></input>
             </div>
+            <Link
+            to="/password-reset"
+            style={{color: "red", fontSize:12}}
+            >Forgot your password?</Link>
 
             <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
             
