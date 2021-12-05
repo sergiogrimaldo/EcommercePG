@@ -10,7 +10,7 @@ function About() {
 
                 <div className={s.text}>
                     <p className={s.text}>
-                        Hello! We're <b>CACTUSSHOES</b>. This e-commerce was developed with the combined effort of eight
+                        Hello! We're <b>JamStack EComerce</b>. This e-commerce was developed with the combined effort of eight
                         <a href="https://www.soyhenry.com"> HENRY</a> students and the support of our TL (). In this bootcamp over the last four
                         months, we were intensively taught, over +800 hours of study, the basics of several state-of-the-art technologies such as{" "}
                         <span style={{ color: "#52B9D4", fontWeight: "bold" }}>React</span>,

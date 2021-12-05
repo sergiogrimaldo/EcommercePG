@@ -11,6 +11,19 @@ body {
 	background-color: #1f59668f;
     background-image: radial-gradient(at 47% 33%, hsl(182deg 100% 85% / 74%) 0, #0b64271a 59%), radial-gradient(at 82% 65%, #1f59665c 0, #5a6ecf4a 55%);
 }
+body::-webkit-scrollbar {
+	width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+	background: rgba(2, 87, 140, 0.419);        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+	background-color: #1f5966;;    /* color of the scroll thumb */
+	border-radius: 20px;       /* roundness of the scroll thumb */
+	border: 3px solid rgb(30, 189, 128);  /* creates padding around scroll thumb */
+  }
 
 nav {
 	background-color: #ededf7cd;
