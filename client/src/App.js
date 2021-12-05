@@ -37,8 +37,7 @@ function App() {
 				<Route exact path='/cart' component={Cart} />
 				<Route exact path='/addShoe' component={AddShoe} />
 				<Route exact path='/editShoe' component={EditShoe} />
-				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id}/>} />
-				
+				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
 			</Switch>
 		</BrowserRouter>
 	);

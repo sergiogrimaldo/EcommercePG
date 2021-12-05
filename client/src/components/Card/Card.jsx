@@ -2,12 +2,13 @@
 import s from './Card.module.css';
 /* import { useSelector } from 'react-redux';
 import { addToCart, update } from '../../redux/actions'; */
-import Review from "../Review/Review.jsx";
+import Review from '../Review/Review.jsx';
 /* import { useDispatch } from 'react-redux';
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js'; */
 import { Link } from 'react-router-dom';
+import DeleteShoe from '../DeleteShoe/DeleteShoe.jsx';
 
 export default function Card({ shoe }) {
 	/* const dispatch = useDispatch();
@@ -25,27 +26,24 @@ export default function Card({ shoe }) {
 		foundFromAll = shoes.find(el => el.id === shoeOnHover);
 	} */
 
-    let rating = Math.floor(Math.random() * 5) + 0
+	let rating = Math.floor(Math.random() * 5) + 0;
 
 	return (
 		<div className={s.card__father}>
+			<DeleteShoe id={shoe.id} />
 			<Link to={`/shoe/${shoe.id}`}>
 				<div
 					className={s.card}
 					//onMouseLeave={() => {
-						//setRestOfShoeOnHoverImg('');
-						//setPlusOrMinus('+');
+					//setRestOfShoeOnHoverImg('');
+					//setPlusOrMinus('+');
 					//}}
-                    >
-					
+				>
 					<div className={s.icon}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
 						<h1> {shoe.shoeName} </h1>{' '}
 					</div>{' '}
-                    <Review rating={rating} shoe={shoe} currentComponent="Card" />
-					
-				
-					
+					<Review rating={rating} shoe={shoe} currentComponent='Card' />
 				</div>{' '}
 			</Link>
 		</div>

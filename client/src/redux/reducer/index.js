@@ -85,7 +85,7 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				user: {},
-                reviewsFromUser: [],
+				reviewsFromUser: [],
 			};
 		case 'ADD_TO_CART':
 			state.cart &&
@@ -258,6 +258,11 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				getBrands: action.payload,
+			};
+		}
+		case 'DELETE_SHOE': {
+			return {
+				...state,
 			};
 		}
 		default:
