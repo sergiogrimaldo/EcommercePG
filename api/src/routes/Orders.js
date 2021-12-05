@@ -1,16 +1,36 @@
 const { Router } = require("express");
 const axios = require("axios");
+const Stripe = require("stripe")
 //const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price } = require("./src/db.js");
 const { addOrderToDB, getOrdersFromDB, updateStatusOrderFromDB } = require("../services/dbServices.js");
 
 const router = Router();
 
+// llave privada a stripe
+const stripe = new Stripe("sk_test_51K2dGKJ8rEWDJkMVI4Ppno1uwJVUGB6O0cgvIUACjJt0wzzGB3MgfqXp6FQOXoEXLGo8xVfv0RgjWRsGAdVg3HP600sYbspyXY")
+
 router.post("/", async (req, res, next) => {
-   
+   const {amount,id} = req.body;
     //let cart = [].concat(await JSON.parse(req.body.cart))
+    console.log('soy las props del fron', req.body)
+    try{
+        const paymentCurrent = await stripe.paymentIntents.create({
+            amount,
+            currency:"USD",
+            description:"shoes find all",
+            payment_method:id,
+            confirm:true,
+
+        })
+        console.log('hola', paymentCurrent)
+        return res.status(200).json({message:"Succesfull payment"})
+    }
+    catch(err){
+        return res.json({message:err.raw.message})
+    }
     
-    
-    res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart})) // al servicio para agregar a la DB se le tiene que pasar un userId y un objeto cart
+    //res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart})) 
+    // al servicio para agregar a la DB se le tiene que pasar un userId y un objeto cart
 })
 
 router.get("/", async (req, res, next) => {

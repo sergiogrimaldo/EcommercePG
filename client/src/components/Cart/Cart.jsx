@@ -2,12 +2,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteFromCart, openModal } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import style from "./cart.module.css";
+
+
+
+
 export default function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user);
     let nombreItems = [];
     /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
+
     cart?.forEach((item) => {
         if (!nombreItems.includes(item.name)) {
             nombreItems.push(item.name);
@@ -148,13 +153,15 @@ export default function Cart() {
                 }}
             >
                 <h1>Total: US$ {total} </h1>
-                <button
-                    style={{ padding: 15, border: "none", backgroundColor: "black", color: "white", borderRadius: 5 }}
-                    disabled={!total}
-                    onClick={() => handleOpenCheckOut()}
-                >
-                    <h1>Checkout</h1>
-                </button>
+                <Link to='/checkout'>
+                    <button
+                        style={{ padding: 15, border: "none", backgroundColor: "black", color: "white", borderRadius: 5,cursor:"pointer" }}
+                        disabled={!total}
+                        onClick={() => handleOpenCheckOut()}
+                    >
+                        <h1>Checkout</h1>
+                    </button>
+                </Link>
             </div>
         </>
     );

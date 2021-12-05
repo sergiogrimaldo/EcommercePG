@@ -26,9 +26,12 @@ const initialState = {
 	isAuthenticaded: false,
 	allUsers: [],
 	shoeDetails: [],
+	shipingShoes:[],
+	paymentMessage:"",
 };
 
 function rootReducer(state = initialState, action) {
+
 	switch (action.type) {
 		case 'GET_ALL_USERS':
 			return {
@@ -94,7 +97,7 @@ function rootReducer(state = initialState, action) {
 					} else {
 						return (item.cuantity = item.cuantity);
 					}
-				});
+				})
 
 			state.cart.push({
 				image: action.payload.image,
@@ -103,9 +106,16 @@ function rootReducer(state = initialState, action) {
 				price: action.payload.price,
 				subtotal: action.payload.price * action.payload.cuantity,
 			});
+
 			return {
 				...state,
 			};
+			// state.cart && state.cart.forEach(shoe => shoe.name.toLowerCase() == action.payload.name.toLowerCase() ? state.cart.cuantity + 1 :[...state.cart,action.payload] )
+
+			// return {
+			// 	...state,
+			// 	cart:action.payload
+			// }
 
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
@@ -238,11 +248,27 @@ function rootReducer(state = initialState, action) {
 			}
 
 		case 'UPDATE': {
+			if(state.cart){
+				return {
+					...state,
+					cart: [...state.cart]
+				};
+			}
+		}
+
+		case 'SHOPING_SHOES':{
 			return {
 				...state,
-				cart: [...state.cart],
-			};
+				shipingShoes:action.payload,
+			}
 		}
+
+		case 'PAYMENT_MESSAGE':
+			return {
+				...state,
+				paymentMessage:action.payload
+			}
+
 		case 'SET_PAGE': {
 			return {
 				...state,

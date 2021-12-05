@@ -183,6 +183,7 @@ export function postReview(payload) {
 	}; */
 
 export function addToCart(payload) {
+	console.log('soyy payload de action', payload)
 	return {
 		type: 'ADD_TO_CART',
 		payload: payload,
@@ -234,6 +235,21 @@ export function update() {
 	return {
 		type: 'UPDATE',
 	};
+}
+
+export function shopingShoes(data){
+	return {
+		type:'SHOPING_SHOES',
+		payload:data
+
+	}
+}
+
+export function paymentMessage(data){
+	return {
+		type:'PAYMENT_MESSAGE',
+		payload: data
+	}
 }
 
 export function postUser(payload) {
