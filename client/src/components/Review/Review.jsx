@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-//import { useHistory } from "react-router";
-/* import { getReviews } from "../../redux/actions/index.js";
-import { getReviewsFromUser } from "../../redux/actions/index.js"; */
+import { getReviews } from "../../redux/actions/index.js";
 import { postReview } from "../../redux/actions/index.js";
 import style from "./review.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
 const Review = ({ rating, shoe, currentComponent }) => {
     const dispatch = useDispatch();
-    //const history = useHistory();
     const [stars, setStars] = useState("");
     const [showMassage, setShowMassage] = useState(false);
     const [isAUser, setIsAUser] = useState(false);
@@ -23,17 +20,21 @@ const Review = ({ rating, shoe, currentComponent }) => {
         found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
         arrayOfRatings = found && found.map((review) => review.rating);
         let sum = arrayOfRatings && arrayOfRatings.length > 0 && arrayOfRatings.reduce((previous, current) => (current += previous));
-        sum && console.log(sum);
-        arrayOfRatings && console.log(arrayOfRatings);
         avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
-        avg && console.log(avg);
     }
-    reviews && console.log(reviews);
-    //console.log(shoe)
+
     const reviewStar = (number) => {
         setStars(number);
         setTextArea(true);
     };
+
+    useEffect(() => {
+        if (user && user.email !== undefined) {
+            setIsAUser(true);
+        } else {
+            setIsAUser(false);
+        }
+    }, [user]);
 
     useEffect(() => {
         if (isAUser && currentComponent === "Detail") {
@@ -46,19 +47,11 @@ const Review = ({ rating, shoe, currentComponent }) => {
             //console.log("not a user");
             setStars(rating);
         }
-        if (found && found.length > 0) {
+        if (found && found.length > 0 && !isAUser) {
             //console.log("found", avg);
             setStars(avg);
         }
     }, [isAUser, found, rating, avg]);
-
-    useEffect(() => {
-        if (user && user.email !== undefined) {
-            setIsAUser(true);
-        } else {
-            setIsAUser(false);
-        }
-    }, [user]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -91,7 +84,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
                             display: (currentComponent === "Card" || currentComponent === "Detail") && "none",
                         }}
                     >
-                        Create a Review
+                        Create a new Review
                     </span>
                     <form
                         onSubmit={(e) => {
@@ -106,6 +99,9 @@ const Review = ({ rating, shoe, currentComponent }) => {
                         <AiFillStar className={stars >= 5 ? style.gold : style.dark} />
                         <div>
                             <button
+                                onClick={() => {
+                                    dispatch(getReviews());
+                                }}
                                 variant="dark"
                                 type="submit"
                                 style={{
@@ -131,7 +127,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
                             display: currentComponent === "Card" && currentComponent !== "Detail" ? "none" : "",
                         }}
                     >
-                        Create a Review
+                        Create a new Review
                     </span>
                     <form
                         onSubmit={(e) => {
@@ -153,6 +149,9 @@ const Review = ({ rating, shoe, currentComponent }) => {
 
                         <div>
                             <button
+                                onClick={() => {
+                                    dispatch(getReviews());
+                                }}
                                 variant="dark"
                                 type="submit"
                                 style={{
