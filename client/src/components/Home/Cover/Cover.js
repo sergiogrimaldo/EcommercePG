@@ -8,6 +8,7 @@ const Cover = () => {
       <video className="video" src={coverVideo} autoPlay loop muted/>
       <h1>JamStack Eccommerce</h1>
       <p>Sneakers | Modern | Shop | Youth </p>
+      
     </div>
   );
 };

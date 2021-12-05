@@ -3,13 +3,26 @@ import "./Footer.css";
 import marca from './logo.png';
 
 
+
 const Footer = () => {
   return (
+    
     <footer className="footer">
       <div className="footer-info">
         <h1><img src={marca} alt=""/></h1>
-        <p>NEWSLETTER <br/> Si querés suscribirte a nuestro newsletter semanal con novedades, dejanos tu mail </p>
-      </div>   
+        <p>SNEAKERS</p>
+      </div> 
+      <section className="widget widget_blog_subscription">
+  <form action="#"  accept-charset="utf-8" id="subscribe-blog">
+    <p>Subscribe to our newsletter.</p>
+    <p>
+      <input type="text" name="email" placeholder="Enter your email address"  id="subscribe-field"/>
+    </p>
+    <p>
+      <input type="submit" value="Follow me!"/>
+    </p>
+  </form>
+</section>
       <div className="footer-contact">
         <p>Business Hours<br/>Lu a Vi 9:30-12:30, 13:30-19:30 <br/> Sa 9:30-12:30</p>
       </div>

@@ -1,8 +1,9 @@
 .containerPage {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: 10px;
+    flex-wrap: wrap;
+    background-color: #ffffff00;
 }
 
 .containerBTN {
@@ -14,7 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e7e1e11f;
+    background-color: #ffffff00;
     transition: background-color 0.5s;
     cursor: pointer;
     color: #270606;
