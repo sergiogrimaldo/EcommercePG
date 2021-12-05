@@ -34,6 +34,7 @@ function rootReducer(state = initialState, action) {
 		case 'CHANGE_ROL':
 			return {
 				...state,
+				allUsers: action.payload.sort((a,b) => b.createdAt > a.createdAt? -1 : 1)
 			}
 		case 'DELETE_USER':
 			return {
@@ -113,32 +114,43 @@ function rootReducer(state = initialState, action) {
 				user: {},
 			};
 		case 'ADD_TO_CART':
-			state.cart &&
-				state.cart.map(item => {
-					if (item.name == action.payload.name) {
-						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
-					}
-				});
 
-			state.cart.push({
-				image: action.payload.image,
-				name: action.payload.name,
-				cuantity: action.payload.cuantity,
-				price: action.payload.price,
-				subtotal: action.payload.price * action.payload.cuantity,
-			});
-			// if (state.cart.length){
-            //     state.cart.forEach((shoe) => shoe.id == action.payload.id && shoe.size == action.payload.size ? shoe.cuantity++ :
-            //     state.cart(action.payload)
-            //     )
-            // } else {
-            //     state.cart.push(action.payload)
-            // }
-			return {
-				...state,
-			};
+		 // { cart = []  } 
+		 // let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
+		 		 // let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:2,cuantity:2 , subtotal:225} ,
+				//  {shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:2 , subtotal:225}
+				//]
+
+
+				
+				
+			if (state.cart.length){
+				state.cart.forEach((shoe) => shoe.id == action.payload.id && shoe.size == action.payload.size ? shoe.cuantity++ :
+				state.cart(action.payload)
+				)
+			} else {
+				state.cart.push(action.payload)
+			}
+
+			// state.cart &&
+			// 	state.cart.map(item => {
+			// 		if (item.name == action.payload.name) {
+			// 			return (item.cuantity = item.cuantity + 1 || 1);
+			// 		} else {
+			// 			return (item.cuantity = item.cuantity);
+			// 		}
+			// 	});
+
+			// state.cart.push({
+			// 	image: action.payload.image,
+			// 	name: action.payload.name,
+			// 	cuantity: action.payload.cuantity,
+			// 	price: action.payload.price,
+			// 	subtotal: action.payload.price * action.payload.cuantity,
+			// });
+			// return {
+			// 	...state,
+			// };
 
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
@@ -173,7 +185,6 @@ function rootReducer(state = initialState, action) {
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
 				allUsers: state.allUsers || [],
-				orderDetails: [],
 			}; // flattening out the array
 
 		case 'GET_DETAILS':

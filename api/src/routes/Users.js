@@ -120,7 +120,7 @@ router.get('/:id', async (req, res, next)=>{
                 user.setRole(1)
                 user.save();
             }
-            return res.json(user);
+            return res.json(await User.findAll());
         } else {
             return res.status(401).json("You are not allowed to do this action")
         }

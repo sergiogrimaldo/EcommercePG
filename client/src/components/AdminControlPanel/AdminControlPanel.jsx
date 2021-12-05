@@ -12,7 +12,6 @@ export default function AdminControlPanel(){
     const [stateFilter,setStateFilter] = useState('All')
     const [localOrders, setLocalOrders] = useState('')
     const [allUsers, setAllUsers] = useState('')
-    const [allUsersFilter,setAllUsersFilter] = useState('All')
     const [button, setButton] = useState(false)
     
 
@@ -20,24 +19,16 @@ export default function AdminControlPanel(){
 
     useEffect( async () => {
        let response = [...([].concat(orders))]
-       
-       if (typeof response == 'object' && response.length > 0){
-        response = 
-            stateFilter != 'All' ? 
-                response.filter(order => order.status == stateFilter) 
-                : response
+       if (stateFilter != 'All'){
+           response = response.filter((order) => order.status == stateFilter) 
+       }
+       setLocalOrders(response)
         
-        }
-        setLocalOrders(response)
-        
-    },[user,orders])
+    },[stateFilter])
 
     useEffect( async () => {
-        //const response = await dispatch(getOrders({email:user?.email}))
          setAllUsers(users)
-        
-         
-     },[users, button])
+     },[users,button])
 
 
     function toDate(string){
@@ -50,14 +41,14 @@ export default function AdminControlPanel(){
 
     const handleOrderStatusChange = function(e){
         dispatch(setOrderStatus({email:user?.email ,id:e.target.id,status:e.target.value}))
+        dispatch(getOrders({email:user?.email}))
         console.log({email:user?.email ,id:e.target.id,status:e.target.value},'a')
         console.log('accion cambiada')
     }
 
     const handleClick = function(e){
         dispatch(changeRol({id: e.target.id, email: user.email}));
-        
-        dispatch(getUsers());
+        setAllUsers(users)
         setButton(!button);
 
     }
@@ -74,20 +65,11 @@ export default function AdminControlPanel(){
             <div style={{display:'flex'}}><h3>Email: <input defaultValue={user?.email} placeholder={'Your email adress'}/></h3> <h3>Adress: <input defaultValue={user?.adress} placeholder={'Your shipping adress'}/></h3></div>
             <br/>
 
-            <div style={{display:'flex', width:'100vw', justifyContent:'center', flexDirection:'column', alignItems:'center'}}> <h2>User List</h2> 
-            <div style={{display:'flex'}}><label for='stateFilter'> order By: </label> 
-            <select id='stateFilter' onChange={(e) => setStateFilter(e.target.value)}>
-            {/* ('Pending', 'In Progress', 'Cancelled', 'Completed') */}
-                <option select value='All'> All</option>
-                <option select value='Pending'>Pending</option>
-                <option select value='In Progress'> In Progress</option>
-                <option select value='Cancelled'> Cancelled</option>
-                <option select value='Completed'> Completed</option>
-            </select>
-            </div>
+            <div style={{display:'flex', width:'100vw', justifyContent:'center', flexDirection:'column', alignItems:'center'}}> <h2 style={{marginBottom:0}}>User List</h2> 
+            
             </div>
 
-            <ul style={{marginTop:25, listStyle:'none'}}>
+            <ul style={{listStyle:'none'}}>
             <li>
                         <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> # </div>
@@ -95,21 +77,10 @@ export default function AdminControlPanel(){
                         <div style={{display:'flex',justifyContent:'center'}}> Name </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Email </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Activated? </div>
-                        
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
-                
                         </div>
                    </li>
-            { 
-                console.log(localOrders)}
-                {/* function (a, b) {
-                if (a.name > b.name) {
-                    return -1;
-                }
-                if (b.name > a.name) {
-                    return 1;
-                }
-                return 0; */}
+
                 { allUsers && allUsers.length && allUsers.sort((a,b) => b.createdAt > a.createdAt? -1 : 1).map((users,i) => 
                <li id={users.id} style={{marginTop:10}}>
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}>
@@ -137,9 +108,8 @@ export default function AdminControlPanel(){
             }
             </ul>
 
-
 {/* --------------------- ALL ORDERS ---------------------------- */}
-            <div style={{display:'flex', width:'100vw', justifyContent:'center', flexDirection:'column', alignItems:'center'}}> <h2>All orders</h2> 
+            <div style={{marginTop:20,display:'flex', width:'100vw', justifyContent:'center', flexDirection:'column', alignItems:'center'}}> <h2>All orders</h2> 
             <div style={{display:'flex'}}>
                 <label for='stateFilter'> View by order status: </label> 
             <select id='stateFilter' onChange={(e) => setStateFilter(e.target.value)}>
@@ -168,14 +138,14 @@ export default function AdminControlPanel(){
                 console.log(localOrders)}
 {/* AGREGAR QUE LAS ORDENES MOSTRADAS SEA SEGUN LA FECHA DE CREACION DE LAS ORDENES */}
 
-                {typeof localOrders == 'object' && JSON.stringify(localOrders.length) > 2 ? localOrders.map((order,i) => 
+                {localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
                <li style={{marginTop:10}} key={order.id}>
                    
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>
                        <Link to={`./orders/${order.id}`} 
                        style={{textDecoration: 'none'}}>
-                       #{order.id.split('-')[0]}</Link></p>
+                       <strong>#{order.id.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{
                             <select id={order.id} onChange={(e) => handleOrderStatusChange(e)}>
