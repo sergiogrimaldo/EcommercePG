@@ -19,9 +19,9 @@ export default function Cards({ data }) {
     const SHOES_PER_PAGE = 9;
 
     // console.log(data);
-    if (page === 0) {
-        dispach(setPage(1));
-    }
+    // if (page === 0) {
+    //     dispach(setPage(1));
+    // }
     
     const countriesToShow = shoes && shoes.length > 1  ?  shoes : data;
     const total = countriesToShow.length;

@@ -19,6 +19,7 @@ export default function Login(){
         console.log(user)
         await dispatch(setCurrentUser(user))
         dispatch(closeModal())
+        
         // setTimeout(() => {
         //     history.go(0)
         // }, 500);
@@ -52,7 +53,9 @@ export default function Login(){
         // dispatch(setCurrentUser(input));
       
             let res = await dispatch(logIn({email: input.email, password: input.password}));
-            console.log(typeof res.email  != "undefined" )
+
+            dispatch(closeModal())
+            
             if (typeof res.email  != "undefined" ){
                 alert('Welcome');
             } else {
@@ -60,11 +63,8 @@ export default function Login(){
             }
        
         setInput({
-            // profileObj:{
-                // givenName:"",
                 email:"",
                 password:"",
-            // }
         })
         dispatch(closeModal())
     }

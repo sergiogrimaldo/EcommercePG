@@ -28,6 +28,8 @@ const initialState = {
 	shoeDetails: [],
 	shipingShoes:[],
 	paymentMessage:"",
+	orders: [],
+	orderDetails:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -42,6 +44,33 @@ function rootReducer(state = initialState, action) {
 				...state,
 				cart:[]
 			};
+
+		case 'CHANGE_ROL':
+			return {
+				...state,
+				allUsers: action.payload.sort((a,b) => b.createdAt > a.createdAt? -1 : 1)
+			}
+		case 'DELETE_USER':
+			return {
+				...state,
+				allUsers: state.allUsers.filter( user => user.id != action.payload)
+			}
+			
+		case 'SET_ORDER_STATUS':
+			return {
+				...state
+			}
+		case 'GET_ALL_ORDERS':
+			return {
+				...state,
+				orders: action.payload
+			}
+
+		case 'GET_ORDER_DETAILS':
+			return {
+				...state,
+				orderDetails: action.payload
+			}
 
 		case 'GET_ALL_USERS':
 			return {
@@ -101,23 +130,32 @@ function rootReducer(state = initialState, action) {
 			};
 			
 		case 'ADD_TO_CART':
-			state.cart &&
-				state.cart.map(item => {
-					if (item.name == action.payload.name) {
-						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
-					}
-				})
 
-			state.cart.push({
-				shoeId: action.payload.id,
-				image: action.payload.image,
-				name: action.payload.name,
-				cuantity: action.payload.cuantity,
-				price: action.payload.price,
-				subtotal: action.payload.price * action.payload.cuantity,
-			});
+			if (state.cart.length){
+                state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
+                state.cart(action.payload)
+                )
+            } else {
+                state.cart.push(action.payload)
+            }
+
+			// state.cart &&
+			// 	state.cart.map(item => {
+			// 		if (item.name == action.payload.name) {
+			// 			return (item.cuantity = item.cuantity + 1 || 1);
+			// 		} else {
+			// 			return (item.cuantity = item.cuantity);
+			// 		}
+			// 	})
+
+			// state.cart.push({
+			// 	shoeId: action.payload.id,
+			// 	image: action.payload.image,
+			// 	name: action.payload.name,
+			// 	cuantity: action.payload.cuantity,
+			// 	price: action.payload.price,
+			// 	subtotal: action.payload.price * action.payload.cuantity,
+			// });
 
 			return {
 				...state,

@@ -11,6 +11,7 @@ import { Link, useHistory } from "react-router-dom";
 //import { openModal } from '../../redux/actions/index.js';
 //import { openBuyDetailsModal } from '../../redux/actions/index.js';
 
+
 export default function Detail({ id }) {
     const dispatch = useDispatch();
     const history = useHistory();

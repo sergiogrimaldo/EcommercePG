@@ -37,14 +37,18 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>		
-          
+        
         { 
           (user && !user.error && JSON.stringify(user).length>2) ? <>
          <li> Hola {`${user.name?.split(' ')[0]}`} 😀! </li>
+         { user.role===2 ?
+         <li>    <Link to='/adminCPanel'> AdminControlPanel</Link> </li> : 
+         <li> <Link className='nav_links' to='/myAccount'> My Account </Link> </li>
+         }
         <li 
         className='nav_links' 
         onClick={() => dispatch(logout())}
-        > LOGOUT 
+        > <Link to='/'> Logout</Link>
        </li></>
         :
             <>

@@ -26,32 +26,40 @@ router.get("/", function (req, res) {
     res.json({ message: "recurso de entrada" });
 });
 
-router.post("/autenticar", async (req, res) => {
-    const { email, password } = req.body;
 
-    console.log(req.body);
+router.post('/autenticar', async (req, res) => {
+  const {  email, password } = req.body
 
-    // if(req.body.name === "asfo" && req.body.password === "holamundo") {
-    let user = await User.findOne({ where: { email: email } });
-    if (user && user.password === password) {
-        const payload = {
-            email,
-        };
+  console.log(req.body)
 
-        /// uso el secreto del .env
-        console.log(process.env.TOKENSECRET);
-        const token = jwt.sign(payload, process.env.TOKENSECRET, {
-            expiresIn: 1440,
-        });
-        res.json({
-            mensaje: "Autenticación correcta",
-            token: token,
-            name: user.name,
-            email: email,
-            id: user.id,
-        });
+  // if(req.body.name === "asfo" && req.body.password === "holamundo") {
+  let user = await User.findOne({where:{email:email}} )
+  if ( user && user.password === password  ){
+
+
+		const payload = {
+      email,
+      id: user.id,
+      role: user.roleId,
+			// token: token,
+      name: user.name,
+      email: email,
+		};
+
+    /// uso el secreto del .env
+    console.log(process.env.TOKENSECRET)
+		const token = jwt.sign(payload, process.env.TOKENSECRET, {
+			expiresIn: 1440
+		});
+		res.json({
+			mensaje: 'Autenticación correcta',
+      role: user.roleId,
+			token: token,
+      name: user.name,
+      email: email,
+		});
     } else {
-        res.json({ mensaje: "Usuario o contraseña incorrectos" });
+        res.status(300).json({ mensaje: "Usuario o contraseña incorrectos"})
     }
 });
 
@@ -72,25 +80,29 @@ router.post("/googleAutenticar", async (req, res) => {
 
     console.log(payload);
 
-    const user = await User.findOrCreate({
-        where: { email: payload.email },
-        defaults: {
-            password: payload.at_hash,
-            name: payload.name,
-        },
-    });
+  const jtoken = jwt.sign({email: user[0].email, name: user[0].name, role:user[0].roleId, id:user[0].id}, process.env.TOKENSECRET, {
+    expiresIn: 1440
+  });
+  
+  res.json({
+    mensaje: 'Autenticación correcta',
+    token: jtoken,
+    role: user[0].roleId,
+    name: user[0].name,
+    email: user[0].email,
+  });
 
-    const jtoken = jwt.sign({ email: user[0].email, name: user[0].name }, process.env.TOKENSECRET, {
-        expiresIn: 1440,
-    });
+    // const jtoken = jwt.sign({ email: user[0].email, name: user[0].name }, process.env.TOKENSECRET, {
+    //     expiresIn: 1440,
+    // });
 
-    res.json({
-        mensaje: "Autenticación correcta",
-        token: jtoken,
-        name: user[0].name,
-        email: user[0].email,
-        id: user[0].id,
-    });
+    // res.json({
+    //     mensaje: "Autenticación correcta",
+    //     token: jtoken,
+    //     name: user[0].name,
+    //     email: user[0].email,
+    //     id: user[0].id,
+    // });
 });
 
 // esto todavia no lo mire y por el momento no lo usamos, capaz para las rutas de admin mas adelante
