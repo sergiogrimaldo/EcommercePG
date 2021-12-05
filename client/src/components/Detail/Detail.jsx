@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getShoeDetails } from "../../redux/actions/index.js";
 import s from "./Detail.module.css";
 import Review from "../Review/Review.jsx";
+import Reviews from "../Review/Reviews.jsx";
 import { addToCart, update } from "../../redux/actions";
 import { onlyThreeColorGrid } from "../FilterColor/colors.js";
 import { Link, useHistory } from "react-router-dom";
@@ -15,6 +16,7 @@ export default function Detail({ id }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const details = useSelector((state) => state.shoeDetails);
+    const reviews = useSelector((state) => state.reviews);
     const [shoeOnHover, setShoeOnHover] = useState("");
     const [shoeOnHoverImg, setShoeOnHoverColor] = useState("");
     const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState("");
@@ -31,16 +33,19 @@ export default function Detail({ id }) {
         foundFromAll = shoes.find((el) => el.id === shoeOnHover);
     }
 
+    reviews && console.log(reviews);
+    let rating = Math.floor(Math.random() * 5) + 0
+
     useEffect(() => {
         dispatch(getShoeDetails(id));
     }, [dispatch]);
 
     return (
-        <div>
+        <div style={{waigth: "100%"}}>
             <div className={`${s.macro}`}>
                 <br />
                 <img className={`${s.img_detail}`} src={details && details.thumbnail} alt="Not found" />
-                <Review shoe={details} currentComponent="Detail" />
+                <Review rating={rating} shoe={details} currentComponent="Detail" />
                 <div className={`${s.container}`}>
                     <h1>{details && details.shoeName}</h1>
                     <h2 className={`${details && details.stock ? s.instock : s.outstock}`}>
@@ -61,6 +66,7 @@ export default function Detail({ id }) {
                 </div>
                 <div className={`${s.description}`}>Product Description: {details && details.description}</div>
             </div>
+            
             <div className={s.info__description}>
                 {" "}
                 Colors
@@ -109,7 +115,7 @@ export default function Detail({ id }) {
                 </button>
             </div>
             <img src={found && found.thumbnail} alt="lol" className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} />
+            <Reviews shoeId={id} />
         </div>
     );
 }
-
