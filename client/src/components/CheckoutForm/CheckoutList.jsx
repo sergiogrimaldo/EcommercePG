@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CardElement,useStripe,useElements } from '@stripe/react-stripe-js';
-import {paymentMessage} from '../../redux/actions/index.js';
+import {paymentMessage, clearCart, makeBuyOrder} from '../../redux/actions/index.js';
 import accounting from 'accounting';
 import { Button }from '@material-ui/core';
 import axios from 'axios';
@@ -13,6 +13,7 @@ function CheckoutList({backStep,nextStep}) {
     const elements = useElements();
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
+    const user = useSelector(state => state.user);
     let total = 0;
     cart?.forEach((item) => {
         total = total + item.price;
@@ -29,17 +30,24 @@ function CheckoutList({backStep,nextStep}) {
         if(!error){
             try{
                 const {id} = paymentMethod
-                const  {data} = await axios.post('http://localhost:3001/orders',{id,amount:total})
-            
-                console.log('recibido',data.message)
+                const  {data,status} = await axios.post('http://localhost:3001/orders/payment',{id,amount:total})
+    
+                    /// mando
+                console.log('envio exitoso')
+                dispatch(makeBuyOrder({userId:user.id, cart:cart}))
+                dispatch(clearCart())
+                    // limpi
+                
+                console.log('recibido',data)
                 dispatch(paymentMessage(data.message))
-
-                elements.getElement(CardElement).clear();
+                
                 nextStep();
+                // elements.getElement(CardElement).clear();
 
 
             }catch(err){
                 console.log('cargando...',err)
+                dispatch(paymentMessage('Payment was unsuccesfull please try again with correct card details'))
                 nextStep();
             }             
 

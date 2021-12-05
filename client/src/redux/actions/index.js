@@ -2,6 +2,8 @@ import axios from 'axios';
 import setAuthorizationToken from '../../utils/setAutToken';
 import jwt from 'jsonwebtoken';
 
+
+
 export function logIn(payload) {
 	return async dispatch => {
 		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
@@ -49,6 +51,23 @@ export function googleLogIn(payload) {
 		return { email: email, name: name, id: id };
 
 		// dispatch(setCurrentUser(jwt.decode(token)))
+	};
+}
+
+export function clearCart() {
+	return {
+		type: 'CLEAR_CART',
+	};
+}
+
+
+export function makeBuyOrder(payload) {
+	return async dispatch => {
+		const res = await axios.post('http://localhost:3001/orders', payload);
+		return {
+			type: 'MAKE_BUY_ORDER',
+			payload:res.data,
+		};
 	};
 }
 
@@ -181,6 +200,8 @@ export function postReview(payload) {
 				dispatch({ type: 'GET_SHOES', payload: response });
 			});
 	}; */
+
+
 
 export function addToCart(payload) {
 	console.log('soyy payload de action', payload)

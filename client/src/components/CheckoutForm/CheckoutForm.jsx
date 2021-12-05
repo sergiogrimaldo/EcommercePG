@@ -43,7 +43,7 @@ function CheckoutForm() {
                         }
                     </Stepper>
                     {
-                        state === steps.length ? (<Confirmation message={paymentMessage}/>):(<Form />)
+                        state === steps.length ? (<Confirmation backStep={backStep} message={paymentMessage}/>):(<Form />)
                     }
                 </Paper>
 

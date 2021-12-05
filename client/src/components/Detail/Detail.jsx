@@ -97,7 +97,7 @@ export default function Detail({ id }) {
             <input
                 type="button"
                 onClick={() => {
-                    dispatch(addToCart({ image: details.thumbnail, name: details.shoeName, price: details.price.retailPrice, cuantity: 1 }));
+                    dispatch(addToCart({ id:details.id,image: details.thumbnail, name: details.shoeName, price: details.price.retailPrice, cuantity: 1 }));
                     dispatch(update());
                 }}
                 value="Add to Cart"

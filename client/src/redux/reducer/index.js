@@ -33,6 +33,16 @@ const initialState = {
 function rootReducer(state = initialState, action) {
 
 	switch (action.type) {
+		case 'MAKE_BUY_ORDER':
+			return {
+				...state,
+			};
+		case 'CLEAR_CART':
+			return {
+				...state,
+				cart:[]
+			};
+
 		case 'GET_ALL_USERS':
 			return {
 				...state,
@@ -89,6 +99,7 @@ function rootReducer(state = initialState, action) {
 				user: {},
                 reviewsFromUser: [],
 			};
+			
 		case 'ADD_TO_CART':
 			state.cart &&
 				state.cart.map(item => {
@@ -100,6 +111,7 @@ function rootReducer(state = initialState, action) {
 				})
 
 			state.cart.push({
+				shoeId: action.payload.id,
 				image: action.payload.image,
 				name: action.payload.name,
 				cuantity: action.payload.cuantity,
@@ -150,6 +162,8 @@ function rootReducer(state = initialState, action) {
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
 				allUsers: state.allUsers || [],
+			
+				
 			}; // flattening out the array
 
 		case 'GET_DETAILS':

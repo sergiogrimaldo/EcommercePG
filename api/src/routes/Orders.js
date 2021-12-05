@@ -9,7 +9,7 @@ const router = Router();
 // llave privada a stripe
 const stripe = new Stripe("sk_test_51K2dGKJ8rEWDJkMVI4Ppno1uwJVUGB6O0cgvIUACjJt0wzzGB3MgfqXp6FQOXoEXLGo8xVfv0RgjWRsGAdVg3HP600sYbspyXY")
 
-router.post("/", async (req, res, next) => {
+router.post("/payment", async (req, res, next) => {
    const {amount,id} = req.body;
     //let cart = [].concat(await JSON.parse(req.body.cart))
     console.log('soy las props del fron', req.body)
@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
         return res.status(200).json({message:"Succesfull payment"})
     }
     catch(err){
-        return res.json({message:err.raw.message})
+        return res.status(300).json({message:err.raw.message})
     }
     
     //res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart})) 
@@ -45,6 +45,11 @@ router.patch("/:id", async (req, res, next) => {
     //los estados solo pueden ser los nombrados en el modelo order ('Pending', 'In Progress', 'Cancelled', 'Completed')
     //desde el front trabajar solo con esas opciones
     res.json( await updateStatusOrderFromDB({email: req.body.email, status: req.body.status, id: req.params.id}))
+})
+
+router.post("/", async (req, res, next) => { 
+    console.log(req.body)
+    res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart})) 
 })
 
 module.exports = router;

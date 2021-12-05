@@ -4,18 +4,20 @@ const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require(
 const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe un userID y un carrito (cart)
 
     /// la mockOrder viene a simular un carrito, podria pasarse un carrito pero deberia coincidir con este formato
-    //let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225, color:'Bordeaux'}]
+    //
+    let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
     
     // tendria que pasar id del usuario aca
     let user = await User.findByPk(userId)
-    console.log(user)
-    console.log(cart)
+    //console.log(user)
+    //console.log(cart)
     // acc va a ser el total (suma de subtotales)
     let acc = 0
 
     //mockOrder.forEach(item => acc =+ item.subtotal)
-    cart.forEach(item => acc =+ item.subtotal)
+    cart.forEach(item => acc = acc + item.subtotal)
 
+    
     // creo la orden con el total
     let order = await Order.create({total:acc}) 
     // a la orden le seteo el user
@@ -28,14 +30,21 @@ const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe 
         /// agrego a la orden
         await order.addShoe(shoe, {through:{cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal,color:zapatilla.color}})  
         /// busco talles de zapatilla
-        let sizes = await shoe.getAvailableSize()  
-        console.log(sizes)
+
+        ////let sizes = await shoe.getAvailableSize()  
+        ////console.log(sizes)
+
         // tamaño de zapatilla en el carrito
-        let shoesize=zapatilla.size  
+
+        /////let shoesize=zapatilla.size  
+
         // le resto la cantidad al tamaño de la zapatilla
-        sizes[shoesize] = sizes[shoesize]-(zapatilla.cuantity)  
+
+        /////sizes[shoesize] = sizes[shoesize]-(zapatilla.cuantity)  
         // guardo cambios
-        await sizes.save() 
+
+        ////await sizes.save() 
+
         shoe.stock = shoe.stock - zapatilla.cuantity // le resto cantidad al stock total de zapatillas
         await shoe.save()   
         // update supuestamente guarda los cambios, pero por las dudas guardo todo  
