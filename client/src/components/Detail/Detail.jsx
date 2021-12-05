@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getShoeDetails } from "../../redux/actions/index.js";
+import { getReviews } from "../../redux/actions/index.js";
 import s from "./Detail.module.css";
 import Review from "../Review/Review.jsx";
 import Reviews from "../Review/Reviews.jsx";
@@ -38,6 +39,7 @@ export default function Detail({ id }) {
 
     useEffect(() => {
         dispatch(getShoeDetails(id));
+        dispatch(getReviews());
     }, [dispatch]);
 
     return (
