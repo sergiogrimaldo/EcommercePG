@@ -1,17 +1,11 @@
 /* import { useState } from 'react'; */
 import s from './Card.module.css';
 /* import { useSelector } from 'react-redux';
-<<<<<<< HEAD
  */
 import { addToCart, update } from '../../redux/actions';
 import Review from '../Review/Review.jsx';
 import { useDispatch } from 'react-redux';
 /*
-=======
-import { addToCart, update } from '../../redux/actions'; */
-import Review from '../Review/Review.jsx';
-/* import { useDispatch } from 'react-redux';
->>>>>>> component-deleteShoe-leofer
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js'; */
