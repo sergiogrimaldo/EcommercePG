@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { getReviews } from "../../redux/actions/index.js";
+import { getReviews, getShoeDetails } from "../../redux/actions/index.js";
 import { postReview } from "../../redux/actions/index.js";
 import style from "./review.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +45,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
     useEffect(() => {
         if (!isAUser || !found) {
             //console.log("not a user");
-            setStars(rating);
+            setStars(0);
         }
         if (found && found.length > 0 && !isAUser) {
             //console.log("found", avg);
@@ -53,11 +53,11 @@ const Review = ({ rating, shoe, currentComponent }) => {
         }
     }, [isAUser, found, rating, avg]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (stars !== "") {
             setShowMassage(true);
-            dispatch(
+            await dispatch(
                 postReview({
                     userId: user.id,
                     shoeId: shoe.id,
@@ -65,6 +65,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
                     comment: e.target[0].value || "",
                 })
             );
+            await dispatch(getShoeDetails(shoe.id));
         }
         setStars("");
         e.target.reset();
@@ -99,8 +100,8 @@ const Review = ({ rating, shoe, currentComponent }) => {
                         <AiFillStar className={stars >= 5 ? style.gold : style.dark} />
                         <div>
                             <button
-                                onClick={() => {
-                                    dispatch(getReviews());
+                                onClick={async () => {
+                                    await dispatch(getReviews());
                                 }}
                                 variant="dark"
                                 type="submit"
@@ -149,8 +150,8 @@ const Review = ({ rating, shoe, currentComponent }) => {
 
                         <div>
                             <button
-                                onClick={() => {
-                                    dispatch(getReviews());
+                                onClick={async () => {
+                                    await dispatch(getReviews());
                                 }}
                                 variant="dark"
                                 type="submit"

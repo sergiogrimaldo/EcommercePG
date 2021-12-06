@@ -2,26 +2,87 @@ import axios from "axios";
 import setAuthorizationToken from "../../utils/setAutToken";
 import jwt from "jsonwebtoken";
 
+export function getOrders(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.post('http://localhost:3001/orders/getorders',payload);
+		return dispatch({type:'GET_ALL_ORDERS',payload:res.data})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function changeRol(payload){
+	return async dispach => {
+		try {
+			const res = await axios.patch(`http://localhost:3001/users/`+payload.id, {email: payload.email})
+			return dispach({
+				type:'CHANGE_ROL',
+				payload: res.data,
+			})
+		} catch (err) {
+			console.log(err)
+		}
+	}
+}
+
+export function deleteUser(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.delete(`http://localhost:3001/users/`+payload);
+		return dispatch({type:'DELETE_USER', payload:payload})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function setOrderStatus(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.patch(`http://localhost:3001/orders/${payload.id}`,{email:payload.email,status:payload.status});
+		return dispatch({type:'SET_ORDER_STATUS'})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+export function getOrderDetails(payload){
+	return async dispatch => {
+		try {
+		const res = await axios.post(`http://localhost:3001/orders/getorders/${payload.id}`, {email: payload.email});
+		return dispatch({type:'GET_ORDER_DETAILS',payload:res.data})
+	}
+	catch(err){
+		console.log(err)
+	}
+}}
+
+
 export function logIn(payload) {
     return async (dispatch) => {
-        const res = await axios.post("/login/autenticar", payload);
+        const res = await axios.post("http://localhost:3001/login/autenticar", payload);
 
-        const name = res.data.name;
-        //const email = res.data.email;
-        const token = res.data.token;
-        const id = res.data.id;
-        localStorage.setItem("jwtToken", token);
-        setAuthorizationToken(token);
-        dispatch(
-            setCurrentUser({
-                token: token,
-                email: jwt.decode(token).email,
-                name,
-                id,
-            })
-        );
+		//const name = res.data.name;
+		//const email = res.data.email;
+		const token = res.data.token;
+//		const role = res.data.role
+		const id = res.data.id;
+		localStorage.setItem('jwtToken', token);
+		setAuthorizationToken(token);
+		dispatch(
+			setCurrentUser({
+				token: token,
+				email: jwt.decode(token).email,
+				name: jwt.decode(token).name,
+				role:  jwt.decode(token).role,
+				id: jwt.decode(token).id,
+			})
+		);
 
-        return { email: jwt.decode(token).email, name: jwt.decode(token).name };
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: jwt.decode(token).role, id:jwt.decode(token).id };
 
         // dispatch(setCurrentUser(jwt.decode(token)))
     };
@@ -30,31 +91,51 @@ export function logIn(payload) {
 
 /* export function googleLogIn(payload) {
     return async (dispatch) => {
-        const res = await axios.post("/login/googleAutenticar", payload);
+        const res = await axios.post("http://localhost:3001/login/googleAutenticar", payload);
 
-        const name = res.data.name;
-        const email = res.data.email;
-        const id = res.data.id;
+		const name = res.data.name;
+		const email = res.data.email;
+		const token = res.data.token;
+		const role = res.data.role
+		const id = res.data.id
+		localStorage.setItem('jwtToken', token);
+		setAuthorizationToken(token);
+		dispatch(
+			setCurrentUser({
+				token: token,
+				email: jwt.decode(token).email,
+				name: jwt.decode(token).name,
+				role: role,
+				id: id,
+			})
+		);
 
-        const token = res.data.token;
-        localStorage.setItem("jwtToken", token);
-        setAuthorizationToken(token);
-        dispatch(
-            setCurrentUser({
-                email: email,
-                name: name,
-                id: id,
-            })
-        );
-        return { email: email, name: name, id: id };
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: role,id: id, };
 
         // dispatch(setCurrentUser(jwt.decode(token)))
     };
 } */
 
+export function clearCart() {
+	return {
+		type: 'CLEAR_CART',
+	};
+}
+
+
+export function makeBuyOrder(payload) {
+	return async dispatch => {
+		const res = await axios.post('http://localhost:3001/orders', payload);
+		return {
+			type: 'MAKE_BUY_ORDER',
+			payload:res.data,
+		};
+	};
+}
+
 export function sendOrderDetails(payload) {
     return async (dispatch) => {
-        const res = await axios.post("/sendmail", payload);
+        const res = await axios.post("http://localhost:3001/sendmail", payload);
         return res;
     };
 }
@@ -92,7 +173,7 @@ export function openBuyDetailsModal(payload) {
 
 export function getShoes() {
     return function (dispatch) {
-        axios.get("/shoes").then((respons) => {
+        axios.get("http://localhost:3001/shoes").then((respons) => {
             dispatch({
                 type: "GET_SHOES",
                 payload: respons.data,
@@ -102,7 +183,7 @@ export function getShoes() {
 }
 export function getPrices() {
     return function (dispatch) {
-        axios.get("/prices").then((respons) => {
+        axios.get("http://localhost:3001/prices").then((respons) => {
             dispatch({
                 type: "GET_PRICES",
                 payload: respons.data,
@@ -112,7 +193,7 @@ export function getPrices() {
 }
 export function getAvailableSizes() {
     return function (dispatch) {
-        axios.get("/availableSizes").then((respons) => {
+        axios.get("http://localhost:3001/availableSizes").then((respons) => {
             dispatch({
                 type: "GET_AVAILABLE_SIZES",
                 payload: respons.data,
@@ -123,7 +204,7 @@ export function getAvailableSizes() {
 
 export function getReviews() {
     return function (dispatch) {
-        axios.get("/reviews").then((respons) => {
+        axios.get("http://localhost:3001/reviews").then((respons) => {
             dispatch({
                 type: "GET_REVIEWS",
                 payload: respons.data,
@@ -133,7 +214,7 @@ export function getReviews() {
 }
 export function getReviewsFromUser(userId) {
     return function (dispatch) {
-        axios.get(`/reviews/${userId}`).then((respons) => {
+        axios.get(`http://localhost:3001/reviews/${userId}`).then((respons) => {
             dispatch({
                 type: "GET_REVIEWS_FROM_USER",
                 payload: respons.data,
@@ -143,7 +224,8 @@ export function getReviewsFromUser(userId) {
 }
 export function postReview(payload) {
     return function (dispatch) {
-        axios.post(`/reviews`, payload).then((respons) => {
+		console.log(payload)
+        axios.post(`http://localhost:3001/reviews`, payload).then((respons) => {
             dispatch({
                 type: "GET_REVIEWS_FROM_USER",
                 payload: respons.data,
@@ -170,11 +252,14 @@ export function postReview(payload) {
 			});
 	}; */
 
+
+
 export function addToCart(payload) {
-    return {
-        type: "ADD_TO_CART",
-        payload: payload,
-    };
+	console.log('soyy payload de action', payload)
+	return {
+		type: 'ADD_TO_CART',
+		payload: payload,
+	};
 }
 export function removeFromCart(payload) {
     return {
@@ -224,10 +309,25 @@ export function update() {
     };
 }
 
+export function shopingShoes(data){
+	return {
+		type:'SHOPING_SHOES',
+		payload:data
+
+	}
+}
+
+export function paymentMessage(data){
+	return {
+		type:'PAYMENT_MESSAGE',
+		payload: data
+	}
+}
+
 export function postUser(payload) {
     return async function () {
         try {
-            const res = await axios.post("/users", payload);
+            const res = await axios.post("http://localhost:3001/users", payload);
             return res;
         } catch (error) {
             console.log(error);
@@ -235,11 +335,11 @@ export function postUser(payload) {
     };
 }
 
-export function getUsers(payload) {
+export function getUsers() {
     return async function (dispach) {
         try {
-            var res = await axios.get("/users");
-
+            const res = await axios.get("http://localhost:3001/users");
+			console.log(res)
             return dispach({
                 type: "GET_ALL_USERS",
                 payload: res.data,
@@ -253,7 +353,7 @@ export function getUsers(payload) {
 export function getShoeDetails(id) {
     return async function (dispatch) {
         try {
-            var ShoeDetails = await axios.get(`/shoes/${id}`);
+            var ShoeDetails = await axios.get(`http://localhost:3001/shoes/${id}`);
             return dispatch({
                 type: "GET_DETAILS",
                 payload: ShoeDetails.data,
@@ -264,18 +364,19 @@ export function getShoeDetails(id) {
     };
 }
 
+
 export function postNewShoe(payload) {
-    return async function (dispatch) {
-        axios.post(`/shoes`, payload).then((r) => {
-            dispatch({ type: "POST_NEW_SHOE", payload: r.data });
-        });
-    };
+	return async function (dispatch) {
+		axios.post(`http://localhost:3001/shoes`, payload).then(r => {
+			dispatch({ type: 'POST_NEW_SHOE', payload: r.data });
+		});
+	};
 }
 
 export function getBrands() {
-    return async function (dispatch) {
-        axios.get(`/brands`).then((r) => {
-            dispatch({ type: "GET_BRANDS", payload: r.data });
-        });
-    };
+	return async function (dispatch) {
+		axios.get(`http://localhost:3001/brands`).then(r => {
+			dispatch({ type: 'GET_BRANDS', payload: r.data });
+		});
+	};
 }

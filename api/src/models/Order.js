@@ -3,9 +3,10 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('order', {
     id:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement:true,
+      //autoIncrement:true,
     },
     status:{
       type: DataTypes.ENUM('Pending', 'In Progress', 'Cancelled', 'Completed'),
