@@ -26,6 +26,7 @@
     "ioredis": "^4.19.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "nodemailer": "^6.7.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "pg": "^8.5.1",
@@ -35,7 +36,6 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.15",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   }
