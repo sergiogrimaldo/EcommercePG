@@ -12,7 +12,7 @@ export const compileData = (dataShoes, dataSizes, dataPrices) => {
 		let foundShoes = dataShoes.find(item => item.id === num);
 		let foundSizes = dataSizes.find(item => item.id === num);
 		let foundPrices = dataPrices.find(item => item.id === num);
-		if (foundShoes) {
+		if (foundShoes && foundSizes && foundPrices) {
 			data.push({
 				resellPrices: {
 					flightClub: foundPrices,

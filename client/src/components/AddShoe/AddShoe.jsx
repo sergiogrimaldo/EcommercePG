@@ -21,13 +21,18 @@ export default function AddShoe() {
 		shoeName: '',
 		retailPrice: 0,
 		thumbnail: '',
-		availableSizes: [],
 		brand: '',
+		availableSizes: [],
 	});
 	let [error, setError] = useState({
 		name: 'Name required',
 		description: 'Description required',
 		retailPrice: 'Retail price required',
+		thumbnail: 'Thumbnail required',
+		silhouette: 'Silhouette required',
+		colorway: 'Colorway required',
+		brand: 'Brand required',
+		availableSizes: 'Sizes required',
 	});
 
 	useEffect(() => {
@@ -50,12 +55,38 @@ export default function AddShoe() {
 		} else {
 			errors.retailPrice = 'Retail price required';
 		}
+		if (input.thumbnail) {
+			errors.thumbnail = '';
+		} else {
+			errors.thumbnail = 'Thumbnail required';
+		}
+		if (input.colorway) {
+			errors.colorway = '';
+		} else {
+			errors.colorway = 'Colorway required';
+		}
+		if (input.silhouette) {
+			errors.silhouette = '';
+		} else {
+			errors.silhouette = 'Silhouette required';
+		}
+		if (input.brand) {
+			errors.brand = '';
+		} else {
+			errors.brand = 'Brand required';
+		}
+		if (input.availableSizes.length > 0) {
+			errors.availableSizes = '';
+		} else {
+			errors.availableSizes = 'Sizes required';
+		}
+
 		return errors;
 	}
 
-	function onSelectChange(e) {
-		setInput({ ...input, brand: e.target.value });
-	}
+	// function onSelectChange(e) {
+	// 	setInput({ ...input, brand: e.target.value });
+	// }
 
 	function handleSizes(pos) {
 		let sizeCheckState = checkState.availableSizes.map((elem, index) => {
@@ -74,15 +105,13 @@ export default function AddShoe() {
 			})
 			.filter(elem => typeof elem === 'number');
 		setInput({ ...input, availableSizes: sizeArr });
-		// setError(validate({ ...input, availableSizes: sizeArr }));
+		setError(validate({ ...input, availableSizes: sizeArr.filter(elem => elem !== 0) }));
 	}
 
 	function handleInput(e) {
 		setInput({ ...input, [e.target.name]: e.target.value });
 		setError(validate({ ...input, [e.target.name]: e.target.value }));
 	}
-
-	console.log(input);
 
 	function onSubmit(e) {
 		e.preventDefault();
@@ -105,6 +134,7 @@ export default function AddShoe() {
 				brand: input.brand,
 			};
 			dispatch(postNewShoe(newShoe));
+			alert('New entry created');
 		}
 	}
 
@@ -113,15 +143,17 @@ export default function AddShoe() {
 			<form className={`${styles.form}`} onSubmit={onSubmit}>
 				<div className={`${styles.divvy}`}>
 					<label>Name</label>
-					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} className={`${styles.inputname}`} />
+					<input type='text' name='shoeName' value={input.shoeName} onChange={handleInput} className={`${error.name ? styles.error : styles.inputname}`} />
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Description</label>
-					<textarea className={`${styles.desc}`} type='text' name='description' value={input.description} onChange={handleInput} />
+					<textarea className={`${error.description ? styles.error_desc : styles.desc}`} type='text' name='description' value={input.description} onChange={handleInput} />
 				</div>
 
 				<div className={`${styles.divvy}`}>
-					<label>Available Sizes</label>
+					<label>
+						Available Sizes<label className={`${error.availableSizes ? styles.req : styles.hide}`}>Size Required</label>
+					</label>
 					<div className={`${styles.sizebox}`}>
 						{sizes &&
 							sizes.map((elem, index) => (
@@ -145,14 +177,14 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
-					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} />
+					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 
 			<div className={`${styles.form}`}>
 				<div className={`${styles.divvy}`}>
 					<label>Select brand</label>
-					<select name='brand' onChange={onSelectChange}>
+					<select name='brand' onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`}>
 						<option value=''></option>
 						{brands &&
 							brands.map((elem, index) => (
@@ -164,21 +196,21 @@ export default function AddShoe() {
 					<div className={`${styles.divvy}`}>
 						or add a new one
 						<div className={`${styles.divvy}`}>
-							<input type='text' name='brand' value={input.brand} onChange={handleInput} />
+							<input type='text' name='brand' value={input.brand} onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`} />
 						</div>
 					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
-					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} />
+					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Colorway</label>
-					<input type='text' name='colorway' value={input.colorway} onChange={handleInput} />
+					<input type='text' name='colorway' value={input.colorway} onChange={handleInput} className={`${error.colorway ? styles.error : styles.inputname}`} />
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Retail Price</label>
-					<input type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} />
+					<input type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 		</div>
