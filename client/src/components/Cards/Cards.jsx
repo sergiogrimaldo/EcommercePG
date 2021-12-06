@@ -95,7 +95,7 @@ export default function Cards({ data }) {
 			if (!filters.includes('brands') && filters.includes('sizes') && !filters.includes('price')) {
 				
 				textToSearch ?
-				setShownCards(data.filter(elem => elem.resellPrices?.flightClub?.hasOwnProperty(filterSizes))).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))
+				setShownCards(data.filter(elem => elem.resellPrices?.flightClub?.hasOwnProperty(filterSizes)).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())))
 				: setShownCards(data.filter(elem => elem.resellPrices?.flightClub?.hasOwnProperty(filterSizes)));
 			}
 			if (!filters.includes('brands') && filters.includes('sizes') && filters.includes('price')) {
@@ -118,7 +118,7 @@ export default function Cards({ data }) {
 				setShownCards(data)
 			}
 		}
-	}, [data, filters, filterBrands, filterSizes, filterPrice, page,textToSearch]);
+	}, [data,JSON.stringify(shoes), filters, filterBrands, filterSizes, filterPrice, page,textToSearch]);
 
 	// useEffect( () => {
 	// 	setShownCards(shownCards.filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())))
