@@ -28,7 +28,29 @@ export function logIn(payload) {
 }
 //el decode token es el user
 
+/* export function googleLogIn(payload) {
+    return async (dispatch) => {
+        const res = await axios.post("/login/googleAutenticar", payload);
 
+        const name = res.data.name;
+        const email = res.data.email;
+        const id = res.data.id;
+
+        const token = res.data.token;
+        localStorage.setItem("jwtToken", token);
+        setAuthorizationToken(token);
+        dispatch(
+            setCurrentUser({
+                email: email,
+                name: name,
+                id: id,
+            })
+        );
+        return { email: email, name: name, id: id };
+
+        // dispatch(setCurrentUser(jwt.decode(token)))
+    };
+} */
 
 export function sendOrderDetails(payload) {
     return async (dispatch) => {
