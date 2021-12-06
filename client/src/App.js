@@ -13,7 +13,7 @@ import Login from './components/Modals/Login.jsx';
 import SignUp from './components/Modals/SignUp.jsx';
 import Detail from './components/Detail/Detail.jsx';
 import MyAccount from './components/MyAccount/MyAccount.jsx';
-import AdminControlPanel from './components/AdminControlPanel/AdminControlPanel'
+import AdminControlPanel from './components/AdminControlPanel/AdminControlPanel';
 import OrderDetails from './components/OrderDetails/OrderDetails.jsx';
 import AddShoe from './components/AddShoe/AddShoe.jsx';
 import EditShoe from './components/EditShoe/EditShoe.jsx';
@@ -32,11 +32,10 @@ function App() {
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 
 			<Navbar />
-			
-			<Switch>
 
+			<Switch>
 				<Route exact path='/checkout' component={CheckoutForm} />
-						
+
 				<Route exact path='/home'>
 					<Home />
 				</Route>
@@ -44,10 +43,10 @@ function App() {
 					<Redirect to='home' />
 				</Route>
 				<Route exact path='/adminCPanel'>
-					<AdminControlPanel/>
+					<AdminControlPanel />
 				</Route>
 				<Route exact path='/myAccount'>
-					<MyAccount/>
+					<MyAccount />
 				</Route>
 				<Route exact path='/catalogue'>
 					<Catalogue />
@@ -60,7 +59,7 @@ function App() {
 				</Route>
 				<Route exact path='/shoe/:id' render={({ match }) => <Detail id={match.params.id} />} />
 				<Route exact path='/orders/:id' render={({ match }) => <OrderDetails id={match.params.id} />} />
-					
+
 				<Route path='/' exact component={Home} />
 
 				<Route exact path='/catalogue' component={Catalogue} />
@@ -68,7 +67,6 @@ function App() {
 				<Route exact path='/about' component={About} />
 				<Route exact path='/addShoe' component={AddShoe} />
 				<Route exact path='/editShoe' component={EditShoe} />
-				
 			</Switch>
 		</BrowserRouter>
 	);
