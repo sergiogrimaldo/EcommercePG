@@ -14,7 +14,7 @@ export default function Login(){
 
     const history = useHistory()
 
-    const responseGoogle = async (response) => {
+     /* const responseGoogle = async (response) => {
         const user = await dispatch(googleLogIn({token: response.tokenId}))
         console.log(user)
         await dispatch(setCurrentUser(user))
@@ -22,7 +22,7 @@ export default function Login(){
         // setTimeout(() => {
         //     history.go(0)
         // }, 500);
-      }
+      } */
 
     useEffect(() => dispatch(getUsers()),[] )
     
@@ -122,13 +122,13 @@ export default function Login(){
 
             <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
             
-            <GoogleLogin 
+            {/* <GoogleLogin 
                     clientId="535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
                     buttonText="Login"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
-                    />
+                    /> */}
 
             <button 
             style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 

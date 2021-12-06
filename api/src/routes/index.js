@@ -8,7 +8,7 @@ const PricesRoutes = require('./prices');
 const UserRoutes = require('./Users')
 const LoginRoutes = require('./Login')
 const mailRoutes = require('./mailRoutes')
-const ordersRoutes = require('./orders')
+const ordersRoutes = require('./Orders')
 const reviewsRoutes = require('./Reviews')
 //Acá tengo las constantes de rutas creadas que requieren 
 //los archivos de ruta que cree antes
