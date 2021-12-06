@@ -46,6 +46,7 @@ function Catalogue() {
 	return (
 		<div className={styles.container} style={{position:'relative'}}>
 			{user && user.role == 2 && <Link to='/addshoe' style={{cursor:'pointer',position:'fixed',bottom:25,right:25}}><button style={{border:'none',padding:10,borderRadius:'50%'}}> <h1>+</h1></button></Link> }
+		{/* <div className={styles.container}> */}
 			<Header data={data && data} />
 			<Cards data={data && data} />
 		</div>

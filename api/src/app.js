@@ -10,7 +10,7 @@ require('./db.js');
 const server = express();
 
 server.use(cors())
-
+server.disable('etag')
 server.name = 'API';
 
 server.use(express.urlencoded({ extended: true, limit: '50mb' }));

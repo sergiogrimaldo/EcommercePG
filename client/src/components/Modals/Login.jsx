@@ -21,6 +21,7 @@ export default function Login(){
         console.log(user)
         await dispatch(setCurrentUser(user))
         dispatch(closeModal())
+        await dispatch(getOrders({email:user?.email}))
         
         // setTimeout(() => {
         //     history.go(0)
@@ -53,13 +54,14 @@ export default function Login(){
     async function handleSubmit (e){
         e.preventDefault();
         // dispatch(setCurrentUser(input));
-      
-            let res = await dispatch(logIn({email: input.email, password: input.password}));
-
+            let email = input.email
+            let res = await dispatch(logIn({email: email, password: input.password}));
+            
             dispatch(closeModal())
             
             if (typeof res.email  != "undefined" ){
-                await dispatch(getOrders({email:user?.email}))
+                //await dispatch(setCurrentUser(user))
+                await dispatch(getOrders({email:email}))
                 //alert('Welcome');
             } else {
                 alert('Invalid user please try again')

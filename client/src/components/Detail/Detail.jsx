@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getShoeDetails } from "../../redux/actions/index.js";
+import { getReviews } from "../../redux/actions/index.js";
 import s from "./Detail.module.css";
 import Review from "../Review/Review.jsx";
 import Reviews from "../Review/Reviews.jsx";
@@ -23,6 +24,7 @@ export default function Detail({ id }) {
     const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState("");
     const [plusOrMinus, setPlusOrMinus] = useState("+");
     const shoes = useSelector((state) => state.shoes);
+    const reviewsFromUser = useSelector((state) => state.reviewsFromUser)
     if (details && shoes) {
         var found,
             foundFromAll,
@@ -37,9 +39,10 @@ export default function Detail({ id }) {
     reviews && console.log(reviews);
     let rating = Math.floor(Math.random() * 5) + 0
 
-    useEffect(() => {
-        dispatch(getShoeDetails(id));
-    }, [dispatch]);
+    useEffect(async () => {
+        await dispatch(getShoeDetails(id));
+        await dispatch(getReviews());
+    }, [dispatch,JSON.stringify(reviews),JSON.stringify(reviewsFromUser)]);
 
     return (
         <div style={{waigth: "100%"}}>

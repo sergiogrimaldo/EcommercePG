@@ -24,11 +24,11 @@ export default function AdminControlPanel(){
        }
        setLocalOrders(response)
         
-    },[stateFilter,orders])
+    },[JSON.stringify(orders),stateFilter,orders])
 
     useEffect( async () => {
          setAllUsers(users)
-     },[users,button])
+     },[JSON.stringify(users)])
 
 
     function toDate(string){
@@ -39,16 +39,16 @@ export default function AdminControlPanel(){
     }
 
 
-    const handleOrderStatusChange = function(e){
-        dispatch(setOrderStatus({email:user?.email ,id:e.target.id,status:e.target.value}))
-        dispatch(getOrders({email:user?.email}))
-        console.log({email:user?.email ,id:e.target.id,status:e.target.value},'a')
-        console.log('accion cambiada')
+    const handleOrderStatusChange = async function(e){
+        await dispatch(setOrderStatus({email:user?.email ,id:e.target.id,status:e.target.value}))
+        await dispatch(getOrders({email:user?.email}))
     }
 
-    const handleClick = function(e){
-        dispatch(changeRol({id: e.target.id, email: user.email}));
-        setAllUsers(users)
+    const handleClick = async function(e){
+        await dispatch(changeRol({id: e.target.id, email: user.email}));
+
+        await dispatch(getUsers())
+        //setAllUsers(users)
         setButton(!button);
 
     }
@@ -56,8 +56,8 @@ export default function AdminControlPanel(){
 
 
     return (
-        <div style={{height: '100%',}}>
-        <div style={{marginTop:15,height:'60vh',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
+        <div style={{height: '100%',overflowX:'hidden'}}>
+        <div style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
             <h1>Admin Control Panel</h1>
             <br/>
             <h2>My account</h2>
