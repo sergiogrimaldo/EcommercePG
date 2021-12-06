@@ -110,7 +110,7 @@ export default function SignUp(){
 
     return(
         <div style={{
-            position:'absolute',
+            position:'fixed',
             backgroundColor:'rgba(0,0,0,0.65)',
             zIndex:10000,
             height:'100vh',
