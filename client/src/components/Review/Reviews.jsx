@@ -6,6 +6,7 @@ import style from "./review.module.css";
 const Reviews = ({ shoeId }) => {
     const [starsAndComments, setStarsAndComments] = useState([]);
     const reviews = useSelector((state) => state.reviews);
+    const reviewsFromUser = useSelector((state) => state.reviewsFromUser)
 
     useEffect(() => {
         if (reviews) {
@@ -15,7 +16,7 @@ const Reviews = ({ shoeId }) => {
                 setStarsAndComments(found);
             }
         }
-    }, [shoeId, reviews]);
+    }, [shoeId, reviews,JSON.stringify(reviews),JSON.stringify(reviewsFromUser)]);
 
     return (
         <div

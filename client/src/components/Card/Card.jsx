@@ -1,16 +1,20 @@
 /* import { useState } from 'react'; */
 import s from './Card.module.css';
 /* import { useSelector } from 'react-redux';
-import { addToCart, update } from '../../redux/actions'; */
-import Review from "../Review/Review.jsx";
-/* import { useDispatch } from 'react-redux';
+ */
+import { addToCart, update } from '../../redux/actions';
+import Review from '../Review/Review.jsx';
+import { useDispatch } from 'react-redux';
+/*
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js'; */
 import { Link } from 'react-router-dom';
+import DeleteShoe from '../DeleteShoe/DeleteShoe.jsx';
 
 export default function Card({ shoe }) {
-	/* const dispatch = useDispatch();
+	const dispatch = useDispatch();
+	/* 
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
 	const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
@@ -25,29 +29,33 @@ export default function Card({ shoe }) {
 		foundFromAll = shoes.find(el => el.id === shoeOnHover);
 	} */
 
-    let rating = Math.floor(Math.random() * 5) + 0
+	let rating = Math.floor(Math.random() * 5) + 0;
+
+	const handleClick = function () {
+		dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }));
+		dispatch(update());
+	};
 
 	return (
-		<div className={s.card__father}>
+		<div className={s.card__father} style={{ position: 'relative' }}>
 			<Link to={`/shoe/${shoe.id}`}>
 				<div
 					className={s.card}
 					//onMouseLeave={() => {
-						//setRestOfShoeOnHoverImg('');
-						//setPlusOrMinus('+');
+					//setRestOfShoeOnHoverImg('');
+					//setPlusOrMinus('+');
 					//}}
-                    >
-					
-					<div className={s.icon}>
+				>
+					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
-						<h1> {shoe.shoeName} </h1>{' '}
+						<h3> {shoe.shoeName} </h3> <h2> US$ {shoe?.retailPrice} </h2>
+						<Review rating={rating} shoe={shoe} currentComponent='Card' />
 					</div>{' '}
-                    <Review rating={rating} shoe={shoe} currentComponent="Card" />
-					
-				
-					
 				</div>{' '}
 			</Link>
+			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
+				🛒 add to cart
+			</button>
 		</div>
 	);
 }

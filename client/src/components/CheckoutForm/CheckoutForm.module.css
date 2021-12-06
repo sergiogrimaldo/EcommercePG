@@ -1,0 +1,15 @@
+.layout {
+    width:auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paper{
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding:2px;
+}
+
+.stepper{
+    margin-top: auto;
+}

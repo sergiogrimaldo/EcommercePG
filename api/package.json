@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "google-auth-library": "^7.10.2",
     "ioredis": "^4.19.2",
+    "nodemon": "^2.0.15",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
@@ -31,6 +32,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
+    "stripe": "^8.191.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

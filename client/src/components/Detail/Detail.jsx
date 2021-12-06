@@ -13,6 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 //import { openModal } from '../../redux/actions/index.js';
 //import { openBuyDetailsModal } from '../../redux/actions/index.js';
 
+
 export default function Detail({ id }) {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -23,6 +24,7 @@ export default function Detail({ id }) {
     const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState("");
     const [plusOrMinus, setPlusOrMinus] = useState("+");
     const shoes = useSelector((state) => state.shoes);
+    const reviewsFromUser = useSelector((state) => state.reviewsFromUser)
     if (details && shoes) {
         var found,
             foundFromAll,
@@ -37,13 +39,13 @@ export default function Detail({ id }) {
     reviews && console.log(reviews);
     let rating = Math.floor(Math.random() * 5) + 0
 
-    useEffect(() => {
-        dispatch(getShoeDetails(id));
-        dispatch(getReviews());
-    }, [dispatch]);
+    useEffect(async () => {
+        await dispatch(getShoeDetails(id));
+        await dispatch(getReviews());
+    }, [dispatch,JSON.stringify(reviews),JSON.stringify(reviewsFromUser)]);
 
     return (
-        <div style={{waigth: "100%"}}>
+        <div style={{padding:10,waigth: "100%"}}>
             <div className={`${s.macro}`}>
                 <br />
                 <img className={`${s.img_detail}`} src={details && details.thumbnail} alt="Not found" />
@@ -105,12 +107,11 @@ export default function Detail({ id }) {
             <input
                 type="button"
                 onClick={() => {
-                    dispatch(addToCart({ image: details.thumbnail, name: details.shoeName, price: details.retailPrice, cuantity: 1 }));
+                    dispatch(addToCart({ id:details.id,image: details.thumbnail, name: details.shoeName, price: details.price.retailPrice, cuantity: 1 }));
                     dispatch(update());
                 }}
                 value="Add to Cart"
             />
-            <input type="button" value="Buy Now" />
             <div className={s.CatalogeButton}>
                 <button className={s.button} onClick={() => history.push("/catalogue")}>
                     Back

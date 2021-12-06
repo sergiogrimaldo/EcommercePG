@@ -1,0 +1,13 @@
+.btn_delete {
+	cursor: pointer;
+	text-align: center;
+	font-weight: bold;
+	height: 27px;
+	width: 27px;
+	background-color: rgb(150, 4, 4);
+	color: rgb(216, 216, 216);
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgb(216, 216, 216);
+	border-radius: 100px;
+}
