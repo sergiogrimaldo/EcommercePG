@@ -45,7 +45,7 @@ export default function Detail({ id }) {
     }, [dispatch,JSON.stringify(reviews),JSON.stringify(reviewsFromUser)]);
 
     return (
-        <div style={{waigth: "100%"}}>
+        <div style={{padding:10,waigth: "100%"}}>
             <div className={`${s.macro}`}>
                 <br />
                 <img className={`${s.img_detail}`} src={details && details.thumbnail} alt="Not found" />
@@ -112,7 +112,6 @@ export default function Detail({ id }) {
                 }}
                 value="Add to Cart"
             />
-            <input type="button" value="Buy Now" />
             <div className={s.CatalogeButton}>
                 <button className={s.button} onClick={() => history.push("/catalogue")}>
                     Back

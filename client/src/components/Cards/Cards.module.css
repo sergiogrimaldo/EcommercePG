@@ -1,7 +1,9 @@
 .cards {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-around;
     flex-wrap: wrap;
+    justify-items:center;
 }
 
 .links{
