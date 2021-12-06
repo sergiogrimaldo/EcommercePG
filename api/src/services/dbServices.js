@@ -2,7 +2,7 @@
 const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require("../../src/db");
 
 const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe un userID y un carrito (cart)
-
+    console.log(cart)
     /// la mockOrder viene a simular un carrito, podria pasarse un carrito pero deberia coincidir con este formato
     //
     let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
@@ -12,20 +12,23 @@ const addOrderToDB= async function({userId, cart}) { ////// esta funcion recibe 
     //console.log(user)
     //console.log(cart)
     // acc va a ser el total (suma de subtotales)
+    cart.map(item => item.subtotal = item.cuantity * item.price)
+    console.log(cart)
     let acc = 0
-
     //mockOrder.forEach(item => acc =+ item.subtotal)
     cart.forEach(item => acc = acc + item.subtotal)
 
     
     // creo la orden con el total
+
     let order = await Order.create({total:acc}) 
+
     // a la orden le seteo el user
     await order.setUser(user) 
     
     for (zapatilla of cart){ /// recorro los objetos de la orden (osea del carrito)
         // por zapato en carrito agregarlo a la orden
-        let shoe = await Shoe.findByPk(zapatilla.shoeId) 
+        let shoe = await Shoe.findByPk(zapatilla.id) 
         console.log(shoe)
         /// agrego a la orden
         await order.addShoe(shoe, {through:{cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal,color:zapatilla.color}})  

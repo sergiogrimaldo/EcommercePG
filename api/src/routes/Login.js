@@ -80,6 +80,13 @@ router.post("/googleAutenticar", async (req, res) => {
 
     console.log(payload);
 
+      
+  const user = await User.findOrCreate({where: {email: payload.email}, defaults: {
+    password: payload.at_hash,
+    name: payload.name,
+    roleId: 1,
+  }})
+
   const jtoken = jwt.sign({email: user[0].email, name: user[0].name, role:user[0].roleId, id:user[0].id}, process.env.TOKENSECRET, {
     expiresIn: 1440
   });
@@ -87,6 +94,7 @@ router.post("/googleAutenticar", async (req, res) => {
   res.json({
     mensaje: 'Autenticación correcta',
     token: jtoken,
+    id: user[0].id,
     role: user[0].roleId,
     name: user[0].name,
     email: user[0].email,

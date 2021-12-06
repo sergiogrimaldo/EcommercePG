@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/sergiogrimaldo/EcommercePG#readme",
   "dependencies": {
-    "concurrently": "^6.4.0"
+    "concurrently": "^6.4.0",
+    "leaflet": "^1.7.1",
+    "react-leaflet": "^3.2.2"
   }
 }

@@ -1,9 +1,10 @@
 .about-container {
     display: flex;
-    background-color: rgb(147 255 250);
+    background-color: #1f5966;
     color: black;
     height: 70vh;
     padding: 100px 0 100px 0;
+
   }
   
   .about-desc {

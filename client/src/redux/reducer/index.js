@@ -9,8 +9,8 @@ const initialState = {
 	shoes: [],
 	filteredShoes: [],
 	modalBuyDetails: {},
-    reviews: [],
-    reviewsFromUser: [],
+	reviews: [],
+	reviewsFromUser: [],
 	brands: [],
 	sizes: [],
 	prices: [],
@@ -30,6 +30,7 @@ const initialState = {
 	paymentMessage:"",
 	orders: [],
 	orderDetails:[],
+	getBrands: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -96,18 +97,25 @@ function rootReducer(state = initialState, action) {
 				cart: state.cart.filter(item => item.name != action.payload),
 			};
 
+		// case 'SEARCH':
+		// 	var aux = state.filteredShoes;
+		// 	if (action.payload.length > 0) {
+		// 		return {
+		// 			...state,
+		// 			shoes: aux.filter(elem => elem.shoeName.toLowerCase().includes(action.payload.toLowerCase())),
+		// 		};
+		// 	} else {
+		// 		return {
+		// 			...state,
+		// 			shoes: aux,
+		// 		};
+		// 	}
+
+
 		case 'SEARCH':
-			var aux = state.filteredShoes;
-			if (action.payload.length > 0) {
-				return {
-					...state,
-					shoes: aux.filter(elem => elem.shoeName.toLowerCase().includes(action.payload.toLowerCase())),
-				};
-			} else {
-				return {
-					...state,
-					shoes: aux,
-				};
+			return {
+				...state,
+				textToSearch: action.payload,
 			}
 
 		case 'LOGIN':
@@ -131,31 +139,31 @@ function rootReducer(state = initialState, action) {
 			
 		case 'ADD_TO_CART':
 
-			if (state.cart.length){
-                state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
-                state.cart(action.payload)
-                )
-            } else {
-                state.cart.push(action.payload)
-            }
+			// if (state.cart.length){
+            //     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
+            //     state.cart(action.payload)
+            //     )
+            // } else {
+            //     state.cart.push(action.payload)
+            // }
 
-			// state.cart &&
-			// 	state.cart.map(item => {
-			// 		if (item.name == action.payload.name) {
-			// 			return (item.cuantity = item.cuantity + 1 || 1);
-			// 		} else {
-			// 			return (item.cuantity = item.cuantity);
-			// 		}
-			// 	})
+			state.cart &&
+				state.cart.map(item => {
+					if (item.name == action.payload.name) {
+						return (item.cuantity = item.cuantity + 1 || 1);
+					} else {
+						return (item.cuantity = item.cuantity);
+					}
+				})
 
-			// state.cart.push({
-			// 	shoeId: action.payload.id,
-			// 	image: action.payload.image,
-			// 	name: action.payload.name,
-			// 	cuantity: action.payload.cuantity,
-			// 	price: action.payload.price,
-			// 	subtotal: action.payload.price * action.payload.cuantity,
-			// });
+			state.cart.push({
+				id: action.payload.id,
+				image: action.payload.image,
+				name: action.payload.name,
+				cuantity: action.payload.cuantity,
+				price: action.payload.price,
+			//	subtotal: action.payload.price * action.payload.cuantity,
+			});
 
 			return {
 				...state,
@@ -222,14 +230,13 @@ function rootReducer(state = initialState, action) {
 				prices: action.payload,
 			};
 
-            case 'GET_REVIEWS':
+		case 'GET_REVIEWS':
 			return {
 				...state,
 				reviews: action.payload,
 			};
 
-            
-            case 'GET_REVIEWS_FROM_USER':
+		case 'GET_REVIEWS_FROM_USER':
 			return {
 				...state,
 				reviewsFromUser: action.payload,
@@ -327,7 +334,17 @@ function rootReducer(state = initialState, action) {
 				currentPage: action.payload,
 			};
 		}
-
+		case 'POST_NEW_SHOE': {
+			return {
+				...state,
+			};
+		}
+		case 'GET_BRANDS': {
+			return {
+				...state,
+				getBrands: action.payload,
+			};
+		}
 		default:
 			return state;
 	}

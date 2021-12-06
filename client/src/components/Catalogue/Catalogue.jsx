@@ -1,6 +1,6 @@
 /* eslint-disable no-loop-func */
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Cards from '../Cards/Cards.jsx';
 import { getReviews } from "../../redux/actions/index.js";
@@ -9,11 +9,13 @@ import Header from '../Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import SignUp from '../Modals/SignUp';
 import { compileData } from './dataSupport';
+import AddShoe from '../AddShoe/AddShoe.jsx';
 import Login from '../Modals/Login';
-import { filterBrand, getShoes, getPrices, getAvailableSizes, getBrands, filterSize } from '../../redux/actions/index.js';
+import { filterBrand, getShoes, getPrices, getAvailableSizes, getBrands, filterSize,search } from '../../redux/actions/index.js';
 import styles from './Catalogue.module.css';
 
 function Catalogue() {
+	
 	const dispatch = useDispatch();
 	// const modal = useSelector(state => state.modal);
 	const dataShoes = useSelector(state => state.shoes);
@@ -30,6 +32,7 @@ function Catalogue() {
     //console.log(user);
 	useEffect(() => {
 		dispatch(getShoes());
+		dispatch(search(''))
 		dispatch(getPrices());
 		dispatch(getAvailableSizes());
         dispatch(getReviews());
@@ -41,7 +44,8 @@ function Catalogue() {
     
 
 	return (
-		<div className={`${styles.container}`}>
+		<div className={styles.container} style={{position:'relative'}}>
+			{user && user.role == 2 && <Link to='/addshoe' style={{cursor:'pointer',position:'fixed',bottom:25,right:25}}><button style={{border:'none',padding:10,borderRadius:'50%'}}> <h1>+</h1></button></Link> }
 			<Header data={data && data} />
 			<Cards data={data && data} />
 		</div>

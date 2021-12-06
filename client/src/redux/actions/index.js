@@ -69,6 +69,7 @@ export function logIn(payload) {
 		//const email = res.data.email;
 		const token = res.data.token;
 //		const role = res.data.role
+		const id = res.data.id;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
@@ -371,5 +372,21 @@ export function getShoeDetails(id) {
 		} catch (error) {
 			console.log(error);
 		}
+	};
+}
+
+export function postNewShoe(payload) {
+	return async function (dispatch) {
+		axios.post(`http://localhost:3001/shoes`, payload).then(r => {
+			dispatch({ type: 'POST_NEW_SHOE', payload: r.data });
+		});
+	};
+}
+
+export function getBrands() {
+	return async function (dispatch) {
+		axios.get(`http://localhost:3001/brands`).then(r => {
+			dispatch({ type: 'GET_BRANDS', payload: r.data });
+		});
 	};
 }

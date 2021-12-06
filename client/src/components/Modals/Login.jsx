@@ -3,14 +3,16 @@ import { useState, useEffect } from "react";
 import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from "react-router";
-import { logIn, setCurrentUser, getUsers, postUser } from "../../redux/actions";
+import { logIn, setCurrentUser, getUsers, postUser, getOrders } from "../../redux/actions";
 
 
 export default function Login(){
 
     const dispatch = useDispatch()
 
+
     const allUsers = useSelector(state => state.allUsers)
+    const user = useSelector(state => state.user)
 
     const history = useHistory()
 
@@ -57,7 +59,8 @@ export default function Login(){
             dispatch(closeModal())
             
             if (typeof res.email  != "undefined" ){
-                alert('Welcome');
+                await dispatch(getOrders({email:user?.email}))
+                //alert('Welcome');
             } else {
                 alert('Invalid user please try again')
             }
@@ -73,11 +76,12 @@ export default function Login(){
         <div style={{
             position:'absolute',
             backgroundColor:'rgba(0,0,0,0.65)',
-            zIndex:10,
-            height:'100vh',
+            zIndex:10000,
+            height:'100%',
             display:'grid',
             alignItems:'center',
             width:'100%',
+            overflow: 'hidden',
             justifyItems:'center'}}>
 
             <div style={{

@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../../redux/actions/index.js';
+import { openModal, getOrders } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
 import {ShoppingCart} from '@material-ui/icons';
 import {Badge} from '@material-ui/core';
 import './Navbar.css';
+import { useEffect } from 'react';
+import {Cover} from '../Home/Cover/Cover'
 
 
 function Navbar() {
@@ -19,6 +21,9 @@ function Navbar() {
     const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
 
+    useEffect(async () => {
+      await dispatch(getOrders({email:user?.email}))
+    },[])
     ///// TO FIX 
     // useEffect(() => {
     //   setCartItemsNumber(JSON.stringify(cart.length).length)
@@ -48,7 +53,7 @@ function Navbar() {
         <li 
         className='nav_links' 
         onClick={() => dispatch(logout())}
-        > <Link to='/'> Logout</Link>
+        > <Link to='/home' onClick={() => window.scrollTo(0, 0)}> Logout</Link>
        </li></>
         :
             <>

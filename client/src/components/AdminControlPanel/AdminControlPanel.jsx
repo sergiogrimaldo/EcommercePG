@@ -18,13 +18,13 @@ export default function AdminControlPanel(){
     useEffect( () =>{ dispatch(getOrders({email:user?.email}))},[])
 
     useEffect( async () => {
-       let response = [...([].concat(orders))]
+       let response = [...orders]
        if (stateFilter != 'All'){
            response = response.filter((order) => order.status == stateFilter) 
        }
        setLocalOrders(response)
         
-    },[stateFilter])
+    },[stateFilter,orders])
 
     useEffect( async () => {
          setAllUsers(users)
@@ -71,24 +71,26 @@ export default function AdminControlPanel(){
 
             <ul style={{listStyle:'none'}}>
             <li>
-                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}> 
+                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}
+                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> # </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Rol </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Name </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Email </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Activated? </div>
+                        {/* <div style={{display:'flex',justifyContent:'center'}}> Activated? </div> */}
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         </div>
                    </li>
 
                 { allUsers && allUsers.length && allUsers.sort((a,b) => b.createdAt > a.createdAt? -1 : 1).map((users,i) => 
                <li id={users.id} style={{marginTop:10}}>
-                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}>
+                   {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}> */}
+                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr ', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>{i+1}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.roleId === 2 ? 'admin' : 'user'}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.name}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.email}</p>
-                       <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p>
+                       {/* <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p> */}
                        <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{toDate(users.createdAt)}</p>
                        {user.email === users.email ? null : 
                        <div style={{display:'flex', justifyContent:'center', gap:10}}>
@@ -138,7 +140,7 @@ export default function AdminControlPanel(){
                 console.log(localOrders)}
 {/* AGREGAR QUE LAS ORDENES MOSTRADAS SEA SEGUN LA FECHA DE CREACION DE LAS ORDENES */}
 
-                {localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
+                {orders && orders.length > 0 && localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
                <li style={{marginTop:10}} key={order.id}>
                    
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
@@ -163,7 +165,7 @@ export default function AdminControlPanel(){
                        
                    </div>
                 </li>) 
-                : <div style={{marginTop:10, display:'flex',justifyContent:'center'}}>You dont have any  { stateFilter != 'All' ? `${stateFilter.toLowerCase()}` : null} orders</div>
+                : <div style={{marginTop:10, display:'flex',justifyContent:'center'}}> There arent any  '{ stateFilter != 'All' ? `${stateFilter.toLowerCase()}` : null}' orders</div>
             }
             </ul>
 

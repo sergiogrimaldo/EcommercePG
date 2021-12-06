@@ -112,7 +112,7 @@ export default function SignUp(){
         <div style={{
             position:'absolute',
             backgroundColor:'rgba(0,0,0,0.65)',
-            zIndex:10,
+            zIndex:10000,
             height:'100vh',
             display:'grid',
             alignItems:'center',
