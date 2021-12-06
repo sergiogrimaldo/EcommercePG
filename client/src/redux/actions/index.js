@@ -28,7 +28,7 @@ export function logIn(payload) {
 }
 //el decode token es el user
 
-export function googleLogIn(payload) {
+/* export function googleLogIn(payload) {
     return async (dispatch) => {
         const res = await axios.post("/login/googleAutenticar", payload);
 
@@ -50,7 +50,7 @@ export function googleLogIn(payload) {
 
         // dispatch(setCurrentUser(jwt.decode(token)))
     };
-}
+} */
 
 export function sendOrderDetails(payload) {
     return async (dispatch) => {
