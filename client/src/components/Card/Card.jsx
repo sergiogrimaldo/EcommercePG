@@ -1,7 +1,6 @@
 /* import { useState } from 'react'; */
 import s from './Card.module.css';
-/* import { useSelector } from 'react-redux';
- */
+import { useSelector } from 'react-redux';
 import { addToCart, update } from '../../redux/actions';
 import Review from '../Review/Review.jsx';
 import { useDispatch } from 'react-redux';
@@ -14,6 +13,7 @@ import DeleteShoe from '../DeleteShoe/DeleteShoe.jsx';
 
 export default function Card({ shoe }) {
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user)
 	/* 
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
@@ -50,9 +50,13 @@ export default function Card({ shoe }) {
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
 						<h3> {shoe.shoeName} </h3> <h2> US$ {shoe?.retailPrice} </h2>
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
+					
 					</div>{' '}
 				</div>{' '}
 			</Link>
+			<div style={{position:'absolute',top:70,right:70,zIndex:50}}>
+			{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
+						</div>
 			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
 				🛒 add to cart
 			</button>

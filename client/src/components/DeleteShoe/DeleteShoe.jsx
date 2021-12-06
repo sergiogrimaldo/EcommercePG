@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { deleteShoe } from '../../redux/actions/index.js';
+import { deleteShoe, getShoes } from '../../redux/actions/index.js';
 import styles from './DeleteShoe.module.css';
 
 export default function DeleteShoe({ id }) {
 	const history = useHistory();
 	const dispatch = useDispatch();
 
-	function onClickHandler() {
-		dispatch(deleteShoe(id));
-		history.push('/');
+	function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+	async function onClickHandler() {
+		await dispatch(deleteShoe(id))
+		await sleep(1000)
+		await dispatch(getShoes())
 	}
 
 	return (
