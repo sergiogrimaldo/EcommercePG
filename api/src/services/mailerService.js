@@ -13,22 +13,25 @@ const transporter = nodemailer.createTransport(smtpTransport({
     }
 }))
 
- const sendMail = async function ({template, payload}){
+ const sendMail = async function ({template, payload=''}){
     console.log(payload)
     let total = 0
     let id = uuidv4().slice(0,7)
 
     let nombreItems = []
     /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
-    payload.cart.forEach(item => {
-        if (!nombreItems.includes(item.name)){
-            nombreItems.push(item.name)
-        }})
 
-    payload.cart.forEach(item => {
-        total = total+item.price
-        }
-    )
+    if (payload.cart){
+        payload.cart.forEach(item => {
+            if (!nombreItems.includes(item.name)){
+                nombreItems.push(item.name)
+            }})
+    
+        payload.cart.forEach(item => {
+            total = total+item.price
+            }
+        )
+    }
 
     
 

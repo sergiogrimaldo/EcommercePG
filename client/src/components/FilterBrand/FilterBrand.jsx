@@ -15,6 +15,7 @@ export default function FilterBrand() {
     }
 
     function onChangeHandler(e) {
+        
         if (e.target.value) {
             setValue(e.target.value[0].toUpperCase() + e.target.value.slice(1));
         } else {

@@ -28,5 +28,5 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     /// confirmado / autorizado:
-  },{timestamps:false});
+  },);
 };

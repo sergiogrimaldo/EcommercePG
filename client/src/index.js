@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -8,11 +8,6 @@ import { store } from './redux/store.js';
 import setAuthorizationToken from './utils/setAutToken';
 import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './redux/actions';
-import dotenv from 'dotenv';
-dotenv.config();
-
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
-
 
 // if (localStorage.jwtToken) {
 //   setAuthorizationToken(localStorage.jwtToken);
@@ -22,15 +17,16 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001
 // setAuthorizationToken(localStorage.jwtToken);
 // store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
-// store.subscribe(()=>{
-//   localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-// })
+
+store.subscribe(()=>{
+  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
 
 ReactDOM.render(
 	<Provider store={store}>
-		<React.StrictMode>
+		 <React.StrictMode>
 			<App />
-		</React.StrictMode>
+		 </React.StrictMode> 
 	</Provider>,
 	document.getElementById('root')
 );
