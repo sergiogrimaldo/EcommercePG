@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
@@ -8,6 +8,9 @@ import { store } from './redux/store.js';
 import setAuthorizationToken from './utils/setAutToken';
 import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './redux/actions';
+
+
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 // if (localStorage.jwtToken) {
 //   setAuthorizationToken(localStorage.jwtToken);

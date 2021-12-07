@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 export function getOrders(payload) {
 	return async dispatch => {
 		try {
-			const res = await axios.post('http://localhost:3001/orders/getorders', payload);
+			const res = await axios.post('/orders/getorders', payload);
 			return dispatch({ type: 'GET_ALL_ORDERS', payload: res.data });
 		} catch (err) {
 			console.log(err);
@@ -16,7 +16,7 @@ export function getOrders(payload) {
 export function changeRol(payload) {
 	return async dispach => {
 		try {
-			const res = await axios.patch(`http://localhost:3001/users/` + payload.id, { email: payload.email });
+			const res = await axios.patch(`/users/` + payload.id, { email: payload.email });
 			return dispach({
 				type: 'CHANGE_ROL',
 				payload: res.data,
@@ -30,7 +30,7 @@ export function changeRol(payload) {
 export function deleteUser(payload) {
 	return async dispatch => {
 		try {
-			const res = await axios.delete(`http://localhost:3001/users/` + payload);
+			const res = await axios.delete(`/users/` + payload);
 			return dispatch({ type: 'DELETE_USER', payload: payload });
 		} catch (err) {
 			console.log(err);
@@ -41,7 +41,7 @@ export function deleteUser(payload) {
 export function setOrderStatus(payload) {
 	return async dispatch => {
 		try {
-			const res = await axios.patch(`http://localhost:3001/orders/${payload.id}`, { email: payload.email, status: payload.status });
+			const res = await axios.patch(`/orders/${payload.id}`, { email: payload.email, status: payload.status });
 			return dispatch({ type: 'SET_ORDER_STATUS' });
 		} catch (err) {
 			console.log(err);
@@ -52,7 +52,7 @@ export function setOrderStatus(payload) {
 export function getOrderDetails(payload) {
 	return async dispatch => {
 		try {
-			const res = await axios.post(`http://localhost:3001/orders/getorders/${payload.id}`, { email: payload.email });
+			const res = await axios.post(`/orders/getorders/${payload.id}`, { email: payload.email });
 			return dispatch({ type: 'GET_ORDER_DETAILS', payload: res.data });
 		} catch (err) {
 			console.log(err);
@@ -62,7 +62,7 @@ export function getOrderDetails(payload) {
 
 export function logIn(payload) {
 	return async dispatch => {
-		const res = await axios.post('http://localhost:3001/login/autenticar', payload);
+		const res = await axios.post('/login/autenticar', payload);
 
 		//const name = res.data.name;
 		//const email = res.data.email;
@@ -90,7 +90,7 @@ export function logIn(payload) {
 
 export function googleLogIn(payload) {
     return async (dispatch) => {
-        const res = await axios.post("http://localhost:3001/login/googleAutenticar", payload);
+        const res = await axios.post("/login/googleAutenticar", payload);
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
@@ -120,7 +120,7 @@ export function clearCart() {
 
 export function makeBuyOrder(payload) {
 	return async dispatch => {
-		const res = await axios.post('http://localhost:3001/orders', payload);
+		const res = await axios.post('/orders', payload);
 		return {
 			type: 'MAKE_BUY_ORDER',
 			payload: res.data,
@@ -130,7 +130,7 @@ export function makeBuyOrder(payload) {
 
 export function sendOrderDetails(payload) {
 	return async dispatch => {
-		const res = await axios.post('http://localhost:3001/sendmail', payload);
+		const res = await axios.post('/sendmail', payload);
 		return res;
 	};
 }
@@ -168,7 +168,7 @@ export function openBuyDetailsModal(payload) {
 
 export function getShoes() {
 	return function (dispatch) {
-		axios.get('http://localhost:3001/shoes').then(respons => {
+		axios.get('/shoes').then(respons => {
 			dispatch({
 				type: 'GET_SHOES',
 				payload: respons.data,
@@ -178,7 +178,7 @@ export function getShoes() {
 }
 export function getPrices() {
 	return function (dispatch) {
-		axios.get('http://localhost:3001/prices').then(respons => {
+		axios.get('/prices').then(respons => {
 			dispatch({
 				type: 'GET_PRICES',
 				payload: respons.data,
@@ -188,7 +188,7 @@ export function getPrices() {
 }
 export function getAvailableSizes() {
 	return function (dispatch) {
-		axios.get('http://localhost:3001/availableSizes').then(respons => {
+		axios.get('/availableSizes').then(respons => {
 			dispatch({
 				type: 'GET_AVAILABLE_SIZES',
 				payload: respons.data,
@@ -199,7 +199,7 @@ export function getAvailableSizes() {
 
 export function getReviews() {
 	return function (dispatch) {
-		axios.get('http://localhost:3001/reviews').then(respons => {
+		axios.get('/reviews').then(respons => {
 			dispatch({
 				type: 'GET_REVIEWS',
 				payload: respons.data,
@@ -209,7 +209,7 @@ export function getReviews() {
 }
 export function getReviewsFromUser(userId) {
 	return function (dispatch) {
-		axios.get(`http://localhost:3001/reviews/${userId}`).then(respons => {
+		axios.get(`/reviews/${userId}`).then(respons => {
 			dispatch({
 				type: 'GET_REVIEWS_FROM_USER',
 				payload: respons.data,
@@ -220,7 +220,7 @@ export function getReviewsFromUser(userId) {
 export function postReview(payload) {
 	return function (dispatch) {
 		console.log(payload);
-		axios.post(`http://localhost:3001/reviews`, payload).then(respons => {
+		axios.post(`/reviews`, payload).then(respons => {
 			dispatch({
 				type: 'GET_REVIEWS_FROM_USER',
 				payload: respons.data,
@@ -319,7 +319,7 @@ export function paymentMessage(data) {
 export function postUser(payload) {
 	return async function () {
 		try {
-			const res = await axios.post('http://localhost:3001/users', payload);
+			const res = await axios.post('/users', payload);
 			return res;
 		} catch (error) {
 			console.log(error);
@@ -330,7 +330,7 @@ export function postUser(payload) {
 export function getUsers() {
 	return async function (dispach) {
 		try {
-			const res = await axios.get('http://localhost:3001/users');
+			const res = await axios.get('/users');
 			console.log(res);
 			return dispach({
 				type: 'GET_ALL_USERS',
@@ -345,7 +345,7 @@ export function getUsers() {
 export function getShoeDetails(id) {
 	return async function (dispatch) {
 		try {
-			var ShoeDetails = await axios.get(`http://localhost:3001/shoes/${id}`);
+			var ShoeDetails = await axios.get(`/shoes/${id}`);
 			return dispatch({
 				type: 'GET_DETAILS',
 				payload: ShoeDetails.data,
@@ -358,7 +358,7 @@ export function getShoeDetails(id) {
 
 export function postNewShoe(payload) {
 	return async function (dispatch) {
-		axios.post(`http://localhost:3001/shoes`, payload).then(r => {
+		axios.post(`/shoes`, payload).then(r => {
 			dispatch({ type: 'POST_NEW_SHOE', payload: r.data });
 		});
 	};
@@ -366,7 +366,7 @@ export function postNewShoe(payload) {
 
 export function getBrands() {
 	return async function (dispatch) {
-		axios.get(`http://localhost:3001/brands`).then(r => {
+		axios.get(`/brands`).then(r => {
 			dispatch({ type: 'GET_BRANDS', payload: r.data });
 		});
 	};
@@ -374,7 +374,7 @@ export function getBrands() {
 
 export function deleteShoe(id) {
 	return async function (dispatch) {
-		axios.delete(`http://localhost:3001/shoes/${id}`).then(r => {
+		axios.delete(`/shoes/${id}`).then(r => {
 			dispatch({ type: 'DELETE_SHOE', payload: r.data });
 		});
 	};
