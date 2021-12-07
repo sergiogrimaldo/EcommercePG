@@ -27,7 +27,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
 
     if (orders && orders.length > 0 && user && user.id) {
         let isIn = false;
-        let foundOrder = orders && orders.find((order) => order.userId === user.id);
+        let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
         orders &&
             orders.forEach((order) => {
                 isIn = order.shoes.map((shoeInOrders) => shoeInOrders.id === shoe.id);
