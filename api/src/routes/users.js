@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const { Shoe, User, Brand, AvaiableSizes, Color, Role, Reviews } = require('../db');
 const { Op } = require('sequelize');
+const { tokenGenerator, resetPassword } = require("../controllers/userController");
 
 const router = Router();
 
@@ -128,5 +129,7 @@ router.get('/:id', async (req, res, next)=>{
         }
 
     })
+    router.post('/resetPassword', tokenGenerator)
+    router.post('/resetPassword/:token', resetPassword)
 
 module.exports = router;

@@ -54,6 +54,29 @@ const transporter = nodemailer.createTransport(smtpTransport({
     }
     ).then( () =>{ return 'mail mandado con exito'}).catch(err => console.log(err))
     
+
+    
 }
 
-module.exports = {sendMail}
+const sendPasswordEmail = async function ({url, email, name}){
+    
+    
+    await transporter.sendMail({
+        from: 'JSEC Store zapapp@zapapp.com',
+        to: email,
+        subject: `Reset Password`,
+        html: `Hi ${name}! 
+        <br> 
+        If you request a password reset for your account please
+        <a href=${url}>click here</a>
+        <br> 
+        If you didn't please ignore this email
+        `
+    }
+    ).then( () =>{ return 'mail mandado con exito'}).catch(err => console.log(err))
+    
+    
+    
+}
+
+module.exports = {sendMail, sendPasswordEmail}
