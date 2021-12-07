@@ -88,10 +88,9 @@ export function logIn(payload) {
 }
 //el decode token es el user
 
-/* export function googleLogIn(payload) {
+export function googleLogIn(payload) {
     return async (dispatch) => {
         const res = await axios.post("http://localhost:3001/login/googleAutenticar", payload);
-
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
@@ -108,12 +107,10 @@ export function logIn(payload) {
 				id: id,
 			})
 		);
-
 		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: role,id: id, };
-
         // dispatch(setCurrentUser(jwt.decode(token)))
     };
-} */
+} 
 
 export function clearCart() {
 	return {
@@ -381,4 +378,4 @@ export function deleteShoe(id) {
 			dispatch({ type: 'DELETE_SHOE', payload: r.data });
 		});
 	};
-}
+};
