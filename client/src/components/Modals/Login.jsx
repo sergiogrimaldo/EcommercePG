@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { logIn, setCurrentUser, getUsers, postUser, getOrders } from "../../redux/actions";
 
 
@@ -149,6 +150,11 @@ export default function Login(){
             >Close</button>
 
             </div>
+
+            <Link to='/users/resetPassword' 
+            style={{color: "black", fontSize:12}}
+            onClick={() => dispatch(closeModal())}
+            >Forgot your password?</Link>
 
         </form>    
                 

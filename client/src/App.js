@@ -18,6 +18,8 @@ import OrderDetails from './components/OrderDetails/OrderDetails.jsx';
 import AddShoe from './components/AddShoe/AddShoe.jsx';
 import EditShoe from './components/EditShoe/EditShoe.jsx';
 import { Redirect } from 'react-router-dom';
+import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
+import RequestResetPassword from './components/ResetPassword/RequestResetPassword.jsx';
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
@@ -67,6 +69,10 @@ function App() {
 				<Route exact path='/about' component={About} />
 				<Route exact path='/addShoe' component={AddShoe} />
 				<Route exact path='/editShoe' component={EditShoe} />
+				<Route exact path='/users/resetPassword' component={RequestResetPassword} />
+				<Route exact path='/users/resetPassword/:token' render={({ match }) => 
+					<ResetPassword token={match.params.token} />} />
+				
 			</Switch>
 		</BrowserRouter>
 	);

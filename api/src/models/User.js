@@ -20,13 +20,16 @@ module.exports = (sequelize) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
+    token: DataTypes.STRING,
+    exp: DataTypes.DATE,
     activated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
     },
     /// confirmado / autorizado:
+
   },);
 };
