@@ -50,13 +50,14 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-	const { description, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
+	let id = req.query.shoeId;
+	const { description, brandId, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
 
 	if (description && shoeName && retailPrice) {
 		try {
 			await Brand.findOrCreate({ where: { name: brand || 'none' } });
 			const nuBrand = await Brand.findOne({ where: { name: brand } });
-
+			//console.log(nuBrand)
 			const sizes = await AvailableSizes.create({
 				'3,5': avaiableSizes[0] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 				4: avaiableSizes[1] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -123,30 +124,136 @@ router.post('/', async (req, res, next) => {
 				}
 			}
 
-			let newShoe = await Shoe.create({
-				description: description,
-				stock: stock,
-				shoeName: shoeName,
-				silhoutte: silhoutte,
-				thumbnail: thumbnail,
-				resellPrices: resellPrices,
-				lowestResellPrice: lowestResellPrice,
-				colorway: colorway,
-				urlKey: urlKey,
-				brand: brand,
+			let newShoe = await Shoe.findOrCreate({
+				include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
+				where:{
+					shoeName:shoeName,
+				},
+
+				defaults:{
+					description: description,
+					stock: stock,
+					shoeName: shoeName,
+					silhoutte: silhoutte,
+					thumbnail: thumbnail,
+					//resellPrices: resellPrices,
+					//lowestResellPrice: lowestResellPrice,
+					colorway: colorway,
+					urlKey: urlKey,
+					//brand: brand,
+					//brand: nuBrand.name
+				}
+				
 			});
 
-			await newShoe.setBrand(nuBrand);
-			await newShoe.setAvailableSize(sizes);
-			await newShoe.setPrice(prices);
+			//await newShoe[0].setBrand(nuBrand[0]);
+			await newShoe[0].setAvailableSize(sizes);
+			await newShoe[0].setPrice(prices);
 
-			res.send(newShoe);
+			//res.send(newShoe);
+			//console.log(newShoe)
+			if(newShoe[1]===true){
+				return res.send(newShoe[0]);  
+			}else{
+				// const Zapato = await Brand.find({
+					//const noEncuentroLaBrand = await Brand.findOne({ where: { name: brand } });
+				// 	where:{
+				// 		name:name,
+				// 	}
+				// }),
+				if(description){
+					newShoe[0].description=description
+				}
+				if(stock){
+					newShoe[0].stock=stock
+				}
+				if(shoeName){
+					newShoe[0].shoeName=shoeName
+				}
+				if(silhoutte){
+					newShoe[0].silhoutte=silhoutte
+				}
+				if(thumbnail){
+					newShoe[0].thumbnail=thumbnail
+				}
+				if(resellPrices){
+					newShoe[0].resellPrices=resellPrices
+				}
+				if(lowestResellPrice){
+					newShoe[0].lowestResellPrice=lowestResellPrice
+				}
+				if(colorway){
+					newShoe[0].colorway=colorway 
+				}
+				if(urlKey){
+					newShoe[0].urlKey=urlKey 
+				}
+				if(nuBrand){
+					await newShoe[0].setBrand(nuBrand)
+					console.log(nuBrand, "jsajajajaj")
+				}
+				if(brand){
+					newShoe[0].brand=brand
+				}
+				// if(noEncuentroLaBrand){
+				// 	//newShoe.noEncuentroLaBrand=noEncuentroLaBrand 
+				// 	await newShoe[0].setBrand(noEncuentroLaBrand)
+					
+				// }
+				await newShoe[0].setBrand(nuBrand[0]);
+				await newShoe[0].save()
+				//console.log(newShoe[0].save(), "quesesto")
+			}
+			await newShoe[0].setBrand(nuBrand[0]);
+			//console.log(nuBrand, "jsajajajaj")
+			//console.log(newShoe[0])
+			return res.send(newShoe[0]); 
+			
 		} catch (error) {
 			next(error);
 		}
 	} else {
-		res.status(404).send({ msg: 'Faltan los valores basicos' });
+		return res.status(404).send({ msg: 'Faltan los valores basicos' });
 	}
+});
+
+router.put('/:id', async (req, res, next) => {
+    let {id} = req.params;
+    const { brand } = req.body;
+    console.log(id, "jajajjaa")
+    console.log(brand, "jajajaja")
+    // const jane = await User.create({ name: "Jane" });
+    // jane.favoriteColor = "blue"
+    // await jane.update({ name: "Ada" })
+    // // The database now has "Ada" for name, but still has the default "green" for favorite color
+    // await jane.save()
+
+    if (brand) {
+        try {
+
+            let changedShoe = await Shoe.findOne({
+                where:{
+                    id: id
+                }
+                
+            })
+
+            let nuBrand = await Brand.findOrCreate({ where: { name: brand }, defaults:{name : brand}}, );
+            console.log(nuBrand)
+            await changedShoe.setBrand(nuBrand[0])
+            //await changedShoe.update({brandId:nuBrand[0].id})
+            
+            await changedShoe.save()
+
+            //await changedShoe[0].setBrand(nuBrand);
+
+            return res.send( await Shoe.findOne({where:{id}, include:[{model:Brand}]}));
+        }catch(error){
+            next(error)
+        }
+    }else{
+        return res.status(404).send({ msg: 'Faltan los valores basicos' });
+    }
 });
 
 router.delete('/:id', async function (req, res, next) {
@@ -158,8 +265,7 @@ router.delete('/:id', async function (req, res, next) {
 			},
 		});
 		if (existsInDB) {
-            await existsInDB.setOrders([])
-			await Shoe.destroy({
+			Shoe.destroy({
 				where: {
 					id,
 				},
