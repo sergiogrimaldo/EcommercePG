@@ -89,13 +89,13 @@ export function logIn(payload) {
 //el decode token es el user
 
 export function googleLogIn(payload) {
-    return async (dispatch) => {
-        const res = await axios.post("/login/googleAutenticar", payload);
+	return async dispatch => {
+		const res = await axios.post('/login/googleAutenticar', payload);
 		const name = res.data.name;
 		const email = res.data.email;
 		const token = res.data.token;
-		const role = res.data.role
-		const id = res.data.id
+		const role = res.data.role;
+		const id = res.data.id;
 		localStorage.setItem('jwtToken', token);
 		setAuthorizationToken(token);
 		dispatch(
@@ -107,10 +107,10 @@ export function googleLogIn(payload) {
 				id: id,
 			})
 		);
-		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: role,id: id, };
-        // dispatch(setCurrentUser(jwt.decode(token)))
-    };
-} 
+		return { email: jwt.decode(token).email, name: jwt.decode(token).name, role: role, id: id };
+		// dispatch(setCurrentUser(jwt.decode(token)))
+	};
+}
 
 export function clearCart() {
 	return {
@@ -316,6 +316,13 @@ export function paymentMessage(data) {
 	};
 }
 
+export function deleteId(id) {
+	return {
+		type: 'DELETE_ID',
+		payload: id,
+	};
+}
+
 export function postUser(payload) {
 	return async function () {
 		try {
@@ -378,4 +385,4 @@ export function deleteShoe(id) {
 			dispatch({ type: 'DELETE_SHOE', payload: r.data });
 		});
 	};
-};
+}
