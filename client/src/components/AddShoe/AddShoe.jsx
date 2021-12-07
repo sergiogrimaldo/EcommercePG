@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBrands, postNewShoe } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import styles from './AddShoe.module.css';
+import ColorSelect from './ColorSelect';
 
 export default function AddShoe() {
 	const dispatch = useDispatch();
 	const brands = useSelector(state => state.getBrands);
 	const sizes = [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11.5, 12.5, 13, 14, 15, 16, 17, 18];
+	let [searchColor, setSearchColor] = useState('');
+	let [colors, setColors] = useState([]);
 	let errors = {};
 	let [checkState, setCheckState] = useState({
 		availableSizes: new Array(sizes.length).fill(false),
@@ -17,7 +20,7 @@ export default function AddShoe() {
 		id: 0,
 		description: '',
 		silhoutte: '',
-		colorway: '',
+		colorway: [],
 		shoeName: '',
 		retailPrice: 0,
 		thumbnail: '',
@@ -60,7 +63,7 @@ export default function AddShoe() {
 		} else {
 			errors.thumbnail = 'Thumbnail required';
 		}
-		if (input.colorway) {
+		if (input.colorway.length > 0) {
 			errors.colorway = '';
 		} else {
 			errors.colorway = 'Colorway required';
@@ -113,6 +116,20 @@ export default function AddShoe() {
 		setError(validate({ ...input, [e.target.name]: e.target.value }));
 	}
 
+	function handleColors(color) {
+		// setColors([...colors, e]);
+		setInput({ ...input, colorway: [...input.colorway, color] });
+		setError(validate({ ...input, colorway: [...input.colorway, color] }));
+		setSearchColor('');
+	}
+
+	console.log(input.colorway);
+
+	function deleteColor(e) {
+		setInput({ ...input, colorway: [...input.colorway].filter(elem => elem !== e.target.value) });
+		setError(validate({ ...input, colorway: [...input.colorway].filter(elem => elem !== e.target.value) }));
+	}
+
 	function onSubmit(e) {
 		e.preventDefault();
 		let checkObj = Object.values(error);
@@ -125,7 +142,7 @@ export default function AddShoe() {
 				name: input.name,
 				description: input.description,
 				silhoutte: input.silhouette,
-				colorway: input.colorway,
+				colorway: input.colorway.join('/'),
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
 				thumbnail: input.thumbnail,
@@ -204,9 +221,26 @@ export default function AddShoe() {
 					<label>Silhouette</label>
 					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
 				</div>
-				<div className={`${styles.divvy}`}>
+				{/* <div className={`${styles.divvy}`}>
 					<label>Colorway</label>
 					<input type='text' name='colorway' value={input.colorway} onChange={handleInput} className={`${error.colorway ? styles.error : styles.inputname}`} />
+				</div> */}
+				<div className={`${styles.divvy}`}>
+					<label>Colorway</label>
+					<div className={`${input.colorway.length > 0 ? styles.colorDivvy : styles.hide}`}>
+						{input.colorway.length > 0
+							? input.colorway.map(elem => (
+									<button key={elem} value={elem} className={`${styles.btn_clearColor}`} onClick={deleteColor}>
+										{elem} <label className={`${styles.xLabel}`}>x</label>
+									</button>
+							  ))
+							: ''}
+					</div>
+					<input type='text' value={searchColor} onChange={e => setSearchColor(e.target.value)} className={`${error.colorway ? styles.error : styles.inputname}`} />
+
+					<div className={`${searchColor ? styles.colorbox : styles.hide}`}>
+						<ColorSelect input={searchColor} handleColors={handleColors} />
+					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Retail Price</label>

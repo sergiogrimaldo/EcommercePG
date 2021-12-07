@@ -28,7 +28,7 @@ const Reviews = ({ shoeId }) => {
             {starsAndComments &&
                 starsAndComments.slice(0, 3).map((review, i) => (
                     <div key={i}>
-                        <h4>{review.user.name}</h4>
+                        <h4>{review.user ? review.user.name : `usuario${Math.floor(Math.random() * 1000) + 400}`}</h4>
                         <div className="container">
                             <AiFillStar className={review.rating >= 1 ? style.gold : style.dark} />
                             <AiFillStar className={review.rating >= 2 ? style.gold : style.dark} />

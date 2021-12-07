@@ -12,10 +12,12 @@ const Review = ({ rating, shoe, currentComponent }) => {
     const [isAUser, setIsAUser] = useState(false);
     const [textArea, setTextArea] = useState(false);
     const user = useSelector((state) => state.user);
+    const orders = useSelector((state) => state.orders);
     const reviews = useSelector((state) => state.reviews);
     let arrayOfRatings = [];
     let avg = 0;
     let found = false;
+    let foundOrderCompleted = false;
     if (reviews && reviews.length > 0) {
         found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
         arrayOfRatings = found && found.map((review) => review.rating);
@@ -23,6 +25,15 @@ const Review = ({ rating, shoe, currentComponent }) => {
         avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
     }
 
+    if (orders && orders.length > 0 && user && user.id) {
+        let isIn = false;
+        let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
+        orders &&
+            orders.forEach((order) => {
+                isIn = order.shoes.map((shoeInOrders) => shoeInOrders.id === shoe.id);
+            });
+        foundOrderCompleted = isIn[0] === true && foundOrder.status === "Completed";
+    }
     const reviewStar = (number) => {
         setStars(number);
         setTextArea(true);
@@ -76,7 +87,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
             <div
                 className={style.container}
                 style={{
-                    display: isAUser === true ? "none" : "",
+                    display: isAUser === true && foundOrderCompleted === true ? "none" : "",
                 }}
             >
                 <div className="container">
@@ -119,7 +130,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
             <div
                 className={style.container}
                 style={{
-                    display: isAUser === true ? "" : "none",
+                    display: isAUser === true && foundOrderCompleted === true ? "" : "none",
                 }}
             >
                 <div className="container">
