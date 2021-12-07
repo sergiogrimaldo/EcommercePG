@@ -31,7 +31,7 @@ router.post('/', async (req,res,next) =>{
                     
                 });
                 if(newReview[1]===true){
-                    res.send(newReview);  
+                   return  res.send(newReview);  
                 }else{
                     if(comment){
                     newReview[0].comment=comment
@@ -48,7 +48,7 @@ router.post('/', async (req,res,next) =>{
             }
         }
         else{
-            res.status(404).send({msg: "Faltan los valores basicos"})
+            return res.status(404).send({msg: "Faltan los valores basicos"})
         }
 });
 

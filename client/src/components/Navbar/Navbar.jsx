@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal } from '../../redux/actions/index.js';
+import { openModal, getOrders, clearCart, update } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
 import {ShoppingCart} from '@material-ui/icons';
 import {Badge} from '@material-ui/core';
 import './Navbar.css';
+import { useEffect } from 'react';
+import {Cover} from '../Home/Cover/Cover'
 
 
 function Navbar() {
@@ -19,12 +21,20 @@ function Navbar() {
     const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
 
+    useEffect(async () => {
+      await dispatch(getOrders({email:user?.email}))
+    },[])
     ///// TO FIX 
     // useEffect(() => {
     //   setCartItemsNumber(JSON.stringify(cart.length).length)
     // }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
 
 
+    const handleLogout = function () {
+      dispatch(logout())
+      dispatch(clearCart())
+      dispatch(update())
+    }
     return (
         <>
       <nav className='navbar'>
@@ -37,14 +47,18 @@ function Navbar() {
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
           <ul className={click ? 'nav_menu active' : 'nav_menu'}>		
-          
+        
         { 
           (user && !user.error && JSON.stringify(user).length>2) ? <>
          <li> Hola {`${user.name?.split(' ')[0]}`} 😀! </li>
+         { user.role===2 ?
+         <li>    <Link to='/adminCPanel'> AdminControlPanel</Link> </li> : 
+         <li> <Link className='nav_links' to='/myAccount'> My Account </Link> </li>
+         }
         <li 
         className='nav_links' 
-        onClick={() => dispatch(logout())}
-        > LOGOUT 
+        onClick={() => handleLogout()}
+        > <Link to='/home' onClick={() => window.scrollTo(0, 0)}> Logout</Link>
        </li></>
         :
             <>

@@ -158,7 +158,8 @@ router.delete('/:id', async function (req, res, next) {
 			},
 		});
 		if (existsInDB) {
-			Shoe.destroy({
+            await existsInDB.setOrders([])
+			await Shoe.destroy({
 				where: {
 					id,
 				},
