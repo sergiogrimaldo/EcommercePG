@@ -1,15 +1,15 @@
 const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const ShoesRoutes = require('./Shoes');
-const SizesRoutes = require('./SizesAvailable');
-const BrandRoutes = require('./Brands');
+const ShoesRoutes = require('./shoes');
+const SizesRoutes = require('./sizesAvailable');
+const BrandRoutes = require('./brands');
 const PricesRoutes = require('./prices');
-const UserRoutes = require('./Users')
-const LoginRoutes = require('./Login')
+const UserRoutes = require('./users')
+const LoginRoutes = require('./login')
 const mailRoutes = require('./mailRoutes')
-const ordersRoutes = require('./Orders')
-const reviewsRoutes = require('./Reviews')
+const ordersRoutes = require('./orders')
+const reviewsRoutes = require('./reviews')
 //Acá tengo las constantes de rutas creadas que requieren 
 //los archivos de ruta que cree antes
 const router = Router();
