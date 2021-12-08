@@ -68,7 +68,7 @@ export default function AddShoe() {
 		} else {
 			errors.colorway = 'Colorway required';
 		}
-		if (input.silhouette) {
+		if (input.silhoutte) {
 			errors.silhouette = '';
 		} else {
 			errors.silhouette = 'Silhouette required';
@@ -219,7 +219,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
-					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
+					<input type='text' name='silhouette' value={input.silhoutte} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
 				</div>
 				{/* <div className={`${styles.divvy}`}>
 					<label>Colorway</label>
