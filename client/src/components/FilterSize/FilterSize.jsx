@@ -31,7 +31,7 @@ export default function FilterSize({ data }) {
 
 	return (
 		<div className={`${styles.drop}`}>
-			<button className={`${!value && sizes && sizes ? styles.menu : styles.menu_active}`}>{value && sizes && sizes ? value : 'Size'}</button>
+			<button className={`${!value && sizes && sizes ? styles.menu : styles.menu_active}`}>{value && sizes && sizes ? value.replace(',', '.') : 'Size'}</button>
 			<div className={`${styles.select}`}>
 				<button className={`${styles.btn}`} value='' onClick={onChangeHandler}>
 					All

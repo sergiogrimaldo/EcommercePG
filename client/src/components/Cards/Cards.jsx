@@ -62,27 +62,27 @@ export default function Cards({ data }) {
 
 			setShownCards(aux);
 			if (filters.includes('brands') && !filters.includes('sizes') && !filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands)).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands)));
+				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands)));
 			}
 			if (filters.includes('brands') && filters.includes('sizes') && !filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0)).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0));
+				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0 && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0));
 			}
 			if (filters.includes('brands') && !filters.includes('sizes') && filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.retailPrice <= filterPrice).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.retailPrice <= filterPrice));
+				data && textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.retailPrice <= filterPrice && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.retailPrice <= filterPrice));
 			}
 			if (filters.includes('brands') && filters.includes('sizes') && filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.brand.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice)).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())) : setShownCards(data.filter(elem => elem.brand.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice));
+				textToSearch ? setShownCards(data.filter(elem => elem.brand.name.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.brand.includes(filterBrands) && elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice));
 			}
 			if (!filters.includes('brands') && filters.includes('sizes') && !filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0));
+				textToSearch ? setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0 && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0));
 			}
 			if (!filters.includes('brands') && filters.includes('sizes') && filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice));
+				textToSearch ? setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.AvailableSizes[filterSizes] > 0 && elem.retailPrice <= filterPrice));
 
 				//				setShownCards(data.filter(elem => elem.AvailableSizes?.hasOwnProperty(filterSizes) && elem.retailPrice <= filterPrice));
 			}
 			if (!filters.includes('brands') && !filters.includes('sizes') && filters.includes('price')) {
-				textToSearch ? setShownCards(data.filter(elem => elem.retailPrice <= filterPrice).filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.retailPrice <= filterPrice));
+				textToSearch ? setShownCards(data.filter(elem => elem.retailPrice <= filterPrice && elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase()))) : setShownCards(data.filter(elem => elem.retailPrice <= filterPrice));
 			}
 		} else {
 			if (textToSearch) {
