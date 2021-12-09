@@ -36,6 +36,11 @@ const initialState = {
 function rootReducer(state = initialState, action) {
 
 	switch (action.type) {
+		case 'SEND_ACTIVATE_EMAIL':
+			return {
+				...state,
+				
+			};
 		case 'MAKE_BUY_ORDER':
 			return {
 				...state,

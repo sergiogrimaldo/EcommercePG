@@ -55,9 +55,11 @@ const sendMail = async function (payload=''){
         await transporter.sendMail({
             from: 'JSEC Store zapapp@zapapp.com',
             to: payload.email,
-            subject: `Please activate your account #${id}`,
-            html: `Hi ${payload.name}! These are the details of your purchase, have a nice day! :
-            <a href=${url}>click here to activate your account</a>
+            subject: `${payload.name} Active your account`,
+            html: `Hi ${payload.name}!
+            <a href=${payload.url}>click here to activate your account</a>
+            <br>
+            Have a nice day!
             `
         }
         )

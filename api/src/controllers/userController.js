@@ -31,7 +31,7 @@ const tokenGenerator = async (req, res) => {
             await sendMail({template:'resetPassword',email: user.email, name: user.name, url: url})
         break
         case 'validateUser':
-            url = `http://localhost:3000/users/activate/${user.id}/${user.token}`
+            url = `http://localhost:3000/users/activate/${user.token}`
             await sendMail({template:'activateAccount',email: user.email, name: user.name, url: url})
         break
 
@@ -70,14 +70,13 @@ const resetPassword = async (req, res) => {
 
 const validateUser = async (req, res) => {
     
-
     const user = await User.findOne({
         where : {
-            token: req.body.token,
+            token: req.params.token,
         }
     })
 
-    console.log(req.body.token)
+    console.log(req.params.token)
 
     if(!user){
         res.status(404).send('Token is not valid')
