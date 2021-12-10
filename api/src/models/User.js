@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
     },
     token: {
         type: DataTypes.STRING,
-        defaultValue: null,
+        defaultValue: "",
     },
     exp: {
         type: DataTypes.DATE,

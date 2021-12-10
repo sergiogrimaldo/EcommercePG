@@ -28,6 +28,7 @@ router.get('/', async (req, res, next) =>{
         const userBD = await User.findAll({
             include: [{model:Role}, { model: Reviews }],
         })
+        userBD && console.log("soy userBD de users routes",userBD)
         return res.json(userBD)
     }
     catch(error){
