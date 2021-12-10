@@ -28,7 +28,7 @@ function App() {
 	const modal = useSelector(state => state.modal);
 	const modalData = useSelector(state => state.modalBuyDetails);
 	const deleteId = useSelector(state => state.deleteId);
-	const pay = useSelector(state => state.pay)
+	
 
 	return (
 		<BrowserRouter>
