@@ -28,9 +28,9 @@ router.get('/', async (req, res, next) => {
 		}
 	}
 	try {
-		const shoesBD = await Shoe.findAll({
+		const shoesBD = await Shoe.findAll(/* {
 			include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
-		});
+		} */);
 		return res.json(shoesBD);
 	} catch (error) {
 		next(error);

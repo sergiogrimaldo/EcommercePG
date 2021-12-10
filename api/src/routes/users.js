@@ -25,9 +25,9 @@ router.get('/', async (req, res, next) =>{
             }
         }
     try{
-        const userBD = await User.findAll({
+        const userBD = await User.findAll(/* {
             include: [{model:Role}, { model: Reviews }],
-        })
+        } */)
         
         if(userBD[0].dataValues.token !== undefined) return res.json(userBD)
     }
