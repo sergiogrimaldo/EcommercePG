@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CardElement,useStripe,useElements } from '@stripe/react-stripe-js';
 import {paymentMessage, clearCart, makeBuyOrder, getOrders} from '../../redux/actions/index.js';
-import { openModal } from '../../redux/actions/index.js';
 import accounting from 'accounting';
 import { Button }from '@material-ui/core';
 import axios from 'axios';
@@ -24,7 +23,6 @@ function CheckoutList({backStep,nextStep}) {
         e.preventDefault();
        let result= window.confirm('Are you sure you want to confirm the purchase?')
        if(result === true){
-        // await dispatch(openModal('pay'));
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
             card: elements.getElement(CardElement)

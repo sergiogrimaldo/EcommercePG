@@ -389,6 +389,6 @@ export function deleteShoe(id) {
 	};
 }
 
-export function pay(payload) {
-	return {type: 'PAY', payload};
-}
+// export function pay(payload) {
+// 	return {type: 'PAY', payload};
+// }
