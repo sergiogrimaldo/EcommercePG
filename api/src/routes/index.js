@@ -22,7 +22,7 @@ router.use('/prices', PricesRoutes); // http://localhost:3001/prices
 router.use('/brands', BrandRoutes); // http://localhost:3001/brands
 router.use('/users', UserRoutes); // http://localhost:3001/users
 router.use('/login', LoginRoutes) // http://localhost:3001/login
-router.use('/sendmail', mailRoutes())  // http://localhost:3001/sendmail
+router.use('/sendmail', mailRoutes)  // http://localhost:3001/sendmail
 router.use('/orders', ordersRoutes)  // http://localhost:3001/orders
 router.use('/reviews', reviewsRoutes)  // http://localhost:3001/reviews
 
