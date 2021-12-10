@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CardElement,useStripe,useElements } from '@stripe/react-stripe-js';
 import {paymentMessage, clearCart, makeBuyOrder, getOrders} from '../../redux/actions/index.js';
+import { openModal } from '../../redux/actions/index.js';
 import accounting from 'accounting';
 import { Button }from '@material-ui/core';
 import axios from 'axios';
@@ -21,29 +22,33 @@ function CheckoutList({backStep,nextStep}) {
 
     async function onHandleSubmit(e){
         e.preventDefault();
+       let result= window.confirm('Are you sure you want to confirm the purchase?')
+       if(result === true){
+        // await dispatch(openModal('pay'));
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
             card: elements.getElement(CardElement)
         })
-        // accounting.formatMoney(`${total}`)} `${total}
 
+        // accounting.formatMoney(`${total}`)} `${total} 
+        
         if(!error){
             try{
                 const {id} = paymentMethod
                 const  {data,status} = await axios.post('http://localhost:3001/orders/payment',{id,amount:total})
     
-                    /// mando
+                    /// mando 
                 console.log('envio exitoso')
                 dispatch(makeBuyOrder({userId:user.id, cart:cart}))
                 dispatch(clearCart())
                 await dispatch(getOrders({email:user?.email}))
-                    // limpi
+                    // limpi 
                 
                 console.log('recibido',data)
                 dispatch(paymentMessage(data.message))
                 
                 nextStep();
-                // elements.getElement(CardElement).clear();
+                // elements.getElement(CardElement).clear(); 
 
 
             }catch(err){
@@ -53,7 +58,7 @@ function CheckoutList({backStep,nextStep}) {
             }             
 
         }
-        
+        }
     }
 
     return (
@@ -65,6 +70,8 @@ function CheckoutList({backStep,nextStep}) {
             </form>
         </div>
     )
+    
 }
+
 
 export default CheckoutList

@@ -21,12 +21,14 @@ import { Redirect } from 'react-router-dom';
 import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
 import RequestResetPassword from './components/ResetPassword/RequestResetPassword.jsx';
 import DeleteModal from './components/Modals/DeleteModal.jsx';
+import PayModal from './components/Modals/PayModal.jsx';
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
 	const modal = useSelector(state => state.modal);
 	const modalData = useSelector(state => state.modalBuyDetails);
 	const deleteId = useSelector(state => state.deleteId);
+	const pay = useSelector(state => state.pay)
 
 	return (
 		<BrowserRouter>
@@ -35,6 +37,7 @@ function App() {
 			{modal === 'signUp' && <SignUp />}
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 			{modal === 'delete' && <DeleteModal deleteId={deleteId} />}
+			{modal === 'pay' && <PayModal pay ={pay}/>}
 
 			<Navbar />
 

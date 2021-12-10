@@ -148,10 +148,12 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
-	return {
-		type: 'DELETE_FROM_CART',
-		payload: payload,
-	};
+	alert('Are you sure?')
+		return {
+			type: 'DELETE_FROM_CART',
+			payload: payload,
+		};
+	
 }
 
 export function openModal(payload) {
@@ -385,4 +387,8 @@ export function deleteShoe(id) {
 			dispatch({ type: 'DELETE_SHOE', payload: r.data });
 		});
 	};
+}
+
+export function pay(payload) {
+	return {type: 'PAY', payload};
 }
