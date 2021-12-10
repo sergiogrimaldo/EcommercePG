@@ -26,15 +26,15 @@ const initialState = {
 	isAuthenticaded: false,
 	allUsers: [],
 	shoeDetails: [],
-	shipingShoes: [],
-	paymentMessage: '',
+	shipingShoes:[],
+	paymentMessage:"",
 	orders: [],
-	orderDetails: [],
+	orderDetails:[],
 	getBrands: [],
-	deleteId: 0,
 };
 
 function rootReducer(state = initialState, action) {
+
 	switch (action.type) {
 		case 'MAKE_BUY_ORDER':
 			return {
@@ -43,35 +43,35 @@ function rootReducer(state = initialState, action) {
 		case 'CLEAR_CART':
 			return {
 				...state,
-				cart: [],
+				cart:[]
 			};
 
 		case 'CHANGE_ROL':
 			return {
 				...state,
-				allUsers: action.payload.sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1)),
-			};
+				allUsers: action.payload.sort((a,b) => b.createdAt > a.createdAt? -1 : 1)
+			}
 		case 'DELETE_USER':
 			return {
 				...state,
-				allUsers: state.allUsers.filter(user => user.id != action.payload),
-			};
-
+				allUsers: state.allUsers.filter( user => user.id != action.payload)
+			}
+			
 		case 'SET_ORDER_STATUS':
 			return {
-				...state,
-			};
+				...state
+			}
 		case 'GET_ALL_ORDERS':
 			return {
 				...state,
-				orders: action.payload,
-			};
+				orders: action.payload
+			}
 
 		case 'GET_ORDER_DETAILS':
 			return {
 				...state,
-				orderDetails: action.payload,
-			};
+				orderDetails: action.payload
+			}
 
 		case 'GET_ALL_USERS':
 			return {
@@ -111,11 +111,12 @@ function rootReducer(state = initialState, action) {
 		// 		};
 		// 	}
 
+
 		case 'SEARCH':
 			return {
 				...state,
 				textToSearch: action.payload,
-			};
+			}
 
 		case 'LOGIN':
 			return {
@@ -135,15 +136,16 @@ function rootReducer(state = initialState, action) {
 				user: {},
 				reviewsFromUser: [],
 			};
-
+			
 		case 'ADD_TO_CART':
+
 			// if (state.cart.length){
-			//     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
-			//     state.cart(action.payload)
-			//     )
-			// } else {
-			//     state.cart.push(action.payload)
-			// }
+            //     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
+            //     state.cart(action.payload)
+            //     )
+            // } else {
+            //     state.cart.push(action.payload)
+            // }
 
 			state.cart &&
 				state.cart.map(item => {
@@ -152,7 +154,7 @@ function rootReducer(state = initialState, action) {
 					} else {
 						return (item.cuantity = item.cuantity);
 					}
-				});
+				})
 
 			state.cart.push({
 				id: action.payload.id,
@@ -160,18 +162,18 @@ function rootReducer(state = initialState, action) {
 				name: action.payload.name,
 				cuantity: action.payload.cuantity,
 				price: action.payload.price,
-				//	subtotal: action.payload.price * action.payload.cuantity,
+			//	subtotal: action.payload.price * action.payload.cuantity,
 			});
 
 			return {
 				...state,
 			};
-		// state.cart && state.cart.forEach(shoe => shoe.name.toLowerCase() == action.payload.name.toLowerCase() ? state.cart.cuantity + 1 :[...state.cart,action.payload] )
+			// state.cart && state.cart.forEach(shoe => shoe.name.toLowerCase() == action.payload.name.toLowerCase() ? state.cart.cuantity + 1 :[...state.cart,action.payload] )
 
-		// return {
-		// 	...state,
-		// 	cart:action.payload
-		// }
+			// return {
+			// 	...state,
+			// 	cart:action.payload
+			// }
 
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
@@ -206,6 +208,8 @@ function rootReducer(state = initialState, action) {
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
 				allUsers: state.allUsers || [],
+			
+				
 			}; // flattening out the array
 
 		case 'GET_DETAILS':
@@ -248,11 +252,6 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				modal: '',
-			};
-		case 'DELETE_ID':
-			return {
-				...state,
-				deleteId: action.payload,
 			};
 		case 'SET_FILTER_BRANDS': {
 			if (action.payload) {
@@ -308,26 +307,26 @@ function rootReducer(state = initialState, action) {
 			}
 
 		case 'UPDATE': {
-			if (state.cart) {
+			if(state.cart){
 				return {
 					...state,
-					cart: [...state.cart],
+					cart: [...state.cart]
 				};
 			}
 		}
 
-		case 'SHOPING_SHOES': {
+		case 'SHOPING_SHOES':{
 			return {
 				...state,
-				shipingShoes: action.payload,
-			};
+				shipingShoes:action.payload,
+			}
 		}
 
 		case 'PAYMENT_MESSAGE':
 			return {
 				...state,
-				paymentMessage: action.payload,
-			};
+				paymentMessage:action.payload
+			}
 
 		case 'SET_PAGE': {
 			return {

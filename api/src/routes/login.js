@@ -40,7 +40,7 @@ router.post('/autenticar', async (req, res) => {
 
   // if(req.body.name === "asfo" && req.body.password === "holamundo") {
   let user = await User.findOne({where:{email:email}} )
-  if ( user && user.password === password  ){
+  if ( user && user.password === password && user.activated == true ){
 
 
 		const payload = {
@@ -91,6 +91,7 @@ router.post("/googleAutenticar", async (req, res) => {
     password: payload.at_hash,
     name: payload.name,
     roleId: 1,
+    activated: true,
   }})
 
   const jtoken = jwt.sign({email: user[0].email, name: user[0].name, role:user[0].roleId, id:user[0].id}, process.env.TOKENSECRET, {

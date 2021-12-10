@@ -2,6 +2,34 @@ import axios from 'axios';
 import setAuthorizationToken from '../../utils/setAutToken';
 import jwt from 'jsonwebtoken';
 
+// genera un token y manda un mail, pendendiendo el token case del body:
+// post ---> localhost/users/resetpassword
+
+//activa la cuenta con el token envíado por email en tokenGerator:
+// post ---> localhost/users/resetpassword/token
+
+export function sendActivateEmail(payload){
+	return async dispach => {
+		try {
+			const res = await axios.post('/users/resetpassword', payload);
+			return dispach({ type: 'SEND_ACTIVATE_EMAIL', payload: res.data })
+		} catch (error) {
+			console.log(error)
+		}
+	}
+} 
+
+// export function activateAccount(payload){
+// 	return async dispach => {
+// 		try {
+// 			const res = await axios.post(`/users/resetpassword/${token}`, payload)
+// 			return dispach({ type: 'ACTIVATE_ACCOUNT', payload: res.data })
+// 		} catch (error) {
+// 			console.log(error)
+// 		}
+// 	}
+// } 
+
 export function getOrders(payload) {
 	return async dispatch => {
 		try {

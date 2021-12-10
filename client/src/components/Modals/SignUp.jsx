@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { closeModal } from "../../redux/actions";
-import { postUser, getUsers } from "../../redux/actions";
+import { postUser, getUsers, sendActivateEmail } from "../../redux/actions";
 import s from './SignUp.module.css'
 
 
@@ -97,7 +97,8 @@ export default function SignUp(){
         e.preventDefault();
         await dispatch(postUser(input));
         console.log(input)
-        alert('User created successfully');
+        alert('User created successfully, please confirm your email');
+        dispatch(sendActivateEmail({email:input.email, tokenCase:"validateUser"}));
         setInput({
             name: "",
             email: "",
