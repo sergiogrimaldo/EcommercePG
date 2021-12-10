@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const axios = require("axios");
-const { Shoe, AvailableSizes } = require("../db");
+const { Shoe, AvailableSize } = require("../db");
 const { Op } = require("sequelize");
 
 const router = Router();
 
 router.get("/", async (req, res, next) => {
     try {
-        let paQuery = await AvailableSizes.findAll();
+        let paQuery = await AvailableSize.findAll();
         if (!paQuery.length) {
             return res.status(404).json("Error, recall");
         } else {

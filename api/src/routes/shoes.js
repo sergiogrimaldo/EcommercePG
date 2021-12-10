@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Shoe, User, Price, Brand, AvailableSizes, Color, Reviews } = require('../db');
+const { Shoe, User, Price, Brand, AvailableSize, Color, Reviews } = require('../db');
 const { Op } = require('sequelize');
 
 const router = Router();
@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
 	if (Name) {
 		try {
 			let paQuery = await Shoe.findAll({
-				include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
+				include: [{ model: Brand }, { model: AvailableSize }, { model: Color }, { model: Price }, { model: Reviews }],
 				where: {
 					shoeName: {
 						[Op.iLike]: '%' + Name + '%',
@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => {
 	}
 	try {
 		const shoesBD = await Shoe.findAll(/* {
-			include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
+			include: [{ model: Brand }, { model: AvailableSize }, { model: Color }, { model: Price }, { model: Reviews }],
 		} */);
 		return res.json(shoesBD);
 	} catch (error) {
@@ -41,7 +41,7 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		let ap = await Shoe.findByPk(id, {
-			include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
+			include: [{ model: Brand }, { model: AvailableSize }, { model: Color }, { model: Price }, { model: Reviews }],
 		});
 		return res.send(ap);
 	} catch (error) {
@@ -58,7 +58,7 @@ router.post('/', async (req, res, next) => {
 			await Brand.findOrCreate({ where: { name: brand || 'none' } });
 			const nuBrand = await Brand.findOne({ where: { name: brand } });
 			//console.log(nuBrand)
-			const sizes = await AvailableSizes.create({
+			const sizes = await AvailableSize.create({
 				'3,5': avaiableSizes[0] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 				'4': avaiableSizes[1] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 				'4,5': avaiableSizes[2] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -111,7 +111,7 @@ router.post('/', async (req, res, next) => {
 				'18': avaiableSizes[22] > 0 ? Math.floor(Math.random() * 500) + 1 : 0,
 			});
 
-			let allSizes = await AvailableSizes.findAll();
+			let allSizes = await AvailableSize.findAll();
 
 			var stock = 0;
 			if (sizes) {
@@ -125,7 +125,7 @@ router.post('/', async (req, res, next) => {
 			}
 
 			let newShoe = await Shoe.findOrCreate({
-				include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
+				include: [{ model: Brand }, { model: AvailableSize }, { model: Color }, { model: Price }, { model: Reviews }],
 				where: {
 					shoeName: shoeName,
 				},

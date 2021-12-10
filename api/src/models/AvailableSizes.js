@@ -3,7 +3,7 @@ module.exports = sequelize => {
 	// defino el modelo
 	///Buscar una forma de hacerlo mas corto
 	sequelize.define(
-		'availableSizes',
+		'availableSize',
 		{
 			'3,5': {
 				type: DataTypes.INTEGER,

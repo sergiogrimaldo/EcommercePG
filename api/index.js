@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var fs = require("fs");
 const server = require("./src/app.js");
-const { conn, Shoe, Color, Brand, AvailableSizes, Role, Price, User } = require("./src/db.js");
+const { conn, Shoe, Color, Brand, AvailableSize, Role, Price, User } = require("./src/db.js");
 
 // Syncing all the models at once.
 ("use strict");
@@ -50,7 +50,7 @@ const peticionApi = async function () {
                 await Brand.findOrCreate({ where: { name: brand || "none" } });
                 let brandeses = await Brand.findOne({ where: { name: brand } });
 
-                const talles = await AvailableSizes.create({
+                const talles = await AvailableSize.create({
                     retailPrice: retailPrice,
                     "3.5": resellPrices.flightClub[3.5] ? Math.floor(Math.random() * 15) + 1 : 0,
                     "4": resellPrices.flightClub[4] ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -104,7 +104,7 @@ const peticionApi = async function () {
                 });
 
                 let stock = 0;
-                let todosLosTalles = await AvailableSizes.findAll();
+                let todosLosTalles = await AvailableSize.findAll();
                 if (todosLosTalles) {
                     for (let i = 0; i < todosLosTalles.length; i++) {
                         stock = 0;
