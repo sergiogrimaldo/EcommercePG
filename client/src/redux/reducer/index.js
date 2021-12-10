@@ -32,7 +32,6 @@ const initialState = {
 	orderDetails: [],
 	getBrands: [],
 	deleteId: 0,
-	pay: '',
 };
 
 function rootReducer(state = initialState, action) {
