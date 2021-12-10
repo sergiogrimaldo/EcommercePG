@@ -71,26 +71,26 @@ export default function AdminControlPanel(){
 
             <ul style={{listStyle:'none'}}>
             <li>
-                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}
-                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}> 
+                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  
+                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}
                         <div style={{display:'flex',justifyContent:'center'}}> # </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Rol </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Name </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Email </div>
-                        {/* <div style={{display:'flex',justifyContent:'center'}}> Activated? </div> */}
+                        <div style={{display:'flex',justifyContent:'center'}}> Activated? </div> 
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         </div>
                    </li>
 
                 { allUsers && allUsers.length && allUsers.sort((a,b) => b.createdAt > a.createdAt? -1 : 1).map((users,i) => 
                <li id={users.id} style={{marginTop:10}}>
-                   {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}> */}
-                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr ', columnGap:5}}>
+                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}> 
+                   {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr ', columnGap:5}}> */}
                        <p style={{display:'flex',justifyContent:'center'}}>{i+1}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.roleId === 2 ? 'admin' : 'user'}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.name}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.email}</p>
-                       {/* <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p> */}
+                       <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p>
                        <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{toDate(users.createdAt)}</p>
                        {user.email === users.email ? null : 
                        <div style={{display:'flex', justifyContent:'center', gap:10}}>
@@ -128,10 +128,15 @@ export default function AdminControlPanel(){
 
             <ul style={{marginTop:25, listStyle:'none'}}>
             <li>
-                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', width:'100%'}}> 
+                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 0.7fr 1fr 1.5fr 1.3fr 1fr', width:'100%'}}>  */}
+                        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr 1fr 1fr 1.5fr 1fr 1fr', width:'100vw', columnGap:5}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> Order </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Product </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Total </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Status </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Name </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Shipping Adress </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Email </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Last Update </div>
                         </div>
@@ -143,23 +148,25 @@ export default function AdminControlPanel(){
                 {orders && orders.length > 0 && localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
                <li style={{marginTop:10}} key={order.id}>
                    
-                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
+                   <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr', width:'100vw', columnGap:5}}> 
                        <p style={{display:'flex',justifyContent:'center'}}>
                        <Link to={`./orders/${order.id}`} 
                        style={{textDecoration: 'none'}}>
                        <strong>#{order.id.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{
-                            <select id={order.id} onChange={(e) => handleOrderStatusChange(e)}>
+                            <select id={order.id} style={{height:'80%'}} onChange={(e) => handleOrderStatusChange(e)}>
                             {/* ('Pending', 'In Progress', 'Cancelled', 'Completed') */}
                                 <option selected={order.status === 'In Progress'} value='In Progress'> In Progress</option>
                                 <option selected={order.status === 'Pending'}  value='Pending'>Pending</option>
                                 <option selected={order.status === 'Cancelled'} value='Cancelled'> Cancelled</option>
                                 <option selected={order.status === 'Completed'} value='Completed'> Completed</option>
                             </select>
-
-
                        }</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.name} {order.lastName}</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.adress}</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.email}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.createdAt)}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.updatedAt)}</p>
                        

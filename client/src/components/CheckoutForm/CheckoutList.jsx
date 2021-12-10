@@ -14,6 +14,7 @@ function CheckoutList({backStep,nextStep}) {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.user);
+    const shippingDetails = useSelector(state => state.shipingShoes)
     let total = 0;
     cart?.forEach((item) => {
         total = total + item.price;
@@ -34,7 +35,8 @@ function CheckoutList({backStep,nextStep}) {
     
                     /// mando
                 console.log('envio exitoso')
-                dispatch(makeBuyOrder({userId:user.id, cart:cart}))
+                await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
+                //dispatch(makeBuyOrder({userId:user.id, cart:cart}))///////////////////////
                 dispatch(clearCart())
                 await dispatch(getOrders({email:user?.email}))
                     // limpi

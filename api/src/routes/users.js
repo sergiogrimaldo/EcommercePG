@@ -58,19 +58,23 @@ router.get('/:id', async (req, res, next)=>{
             if(email && password){
                 try{
                     const newUser = await User.create({
-                        include: [{ model: Reviews }],
+                        //include: [{ model: Reviews }],
                         name: name,
                         email: email, //aca creo un nuevo user con las propiedades que necesito
                         password: password,
+                        
                     });
                     const rol = await Role.findOne({
-                        include: [{ model: Reviews }],
+                        //include: [{ model: Reviews }],
                         where:{ //aca busco en la base de datos donde uno tenga la propiedad client 
                             name:"client"
                         }
                     })
-                    await newUser.setRole(rol)        
-                    res.send(newUser); //aca seteo a un nuevo user con el rol "cliente"
+                    await newUser.setRole(rol)
+                            
+                    return res.send(await User.findByPk(newUser.id, {
+                        include: [{ model: Reviews }]
+                    })) //aca seteo a un nuevo user con el rol "cliente"
                 }
                 catch(error){
                     next(error)
@@ -129,8 +133,14 @@ router.get('/:id', async (req, res, next)=>{
         }
 
     })
+    //genera un token y manda un mail, pendendiendo el token case del body:
     router.post('/resetPassword', tokenGenerator) // localhost/users/resetpassword
+
+    //resetea la password con el token envíado por email en tokenGerator
     router.post('/resetPassword/:token', resetPassword) //localhost/users/resetpassword/token
-    router.post('/activateAccount', validateUser) //localhost/users/resetpassword/token
+
+    //activa la cuenta con el token envíado por email en tokenGerator
+    router.post('/activateAccount/:token', validateUser) //localhost/users/resetpassword/token
+    
 
 module.exports = router;

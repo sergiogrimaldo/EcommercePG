@@ -189,7 +189,6 @@ router.post('/', async (req, res, next) => {
 				}
 				if (nuBrand) {
 					await newShoe[0].setBrand(nuBrand);
-					console.log(nuBrand, 'jsajajajaj');
 				}
 				if (brand) {
 					newShoe[0].brand = brand;
