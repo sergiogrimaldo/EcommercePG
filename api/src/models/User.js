@@ -22,8 +22,14 @@ module.exports = (sequelize) => {
       allowNull: false,
       unique: true,
     },
-    token: DataTypes.STRING,
-    exp: DataTypes.DATE,
+    token: {
+        type: DataTypes.STRING,
+        defaultValue: null,
+    },
+    exp: {
+        type: DataTypes.DATE,
+        defaultValue: null,
+    },
     activated: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
