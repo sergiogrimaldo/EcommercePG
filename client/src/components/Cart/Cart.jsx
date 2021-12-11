@@ -115,7 +115,7 @@ export default function Cart() {
                                         {/* FIX ABOVE */}
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
-                                        <h2><input type="number" name="cuantity" step="1" min='0' max={item.stock} defaultValue={item.cuantity} onChange={(e) => handleChange(e,item)}/></h2>
+                                        <h2><input type="number" name="cuantity" step="1" min='1' max={item.stock} defaultValue={item.cuantity} onChange={(e) => handleChange(e,item)}/></h2>
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         <h2>{item.price}</h2>
