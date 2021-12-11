@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) =>{
             include: [{model:Role}, { model: Reviews }],
         } */)
         
-        if(userBD[0].dataValues.token !== undefined) return res.json(userBD)
+      return res.json(userBD)
     }
     catch(error){
         next(error);
