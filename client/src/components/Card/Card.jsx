@@ -1,7 +1,7 @@
 /* import { useState } from 'react'; */
 import s from './Card.module.css';
 import { useSelector } from 'react-redux';
-import { addToCart, update } from '../../redux/actions';
+import { addToCart, update, } from '../../redux/actions';
 import Review from '../Review/Review.jsx';
 import { useDispatch } from 'react-redux';
 /*
@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import DeleteShoe from '../DeleteShoe/DeleteShoe.jsx';
 
 export default function Card({ shoe }) {
+	console.log(shoe)
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user)
 	/* 
@@ -32,7 +33,7 @@ export default function Card({ shoe }) {
 	let rating = Math.floor(Math.random() * 5) + 0;
 
 	const handleClick = function () {
-		dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, cuantity: 1 }));
+		dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, stock:shoe.stock, cuantity: 1 }));
 		dispatch(update());
 	};
 

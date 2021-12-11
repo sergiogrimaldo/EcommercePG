@@ -89,7 +89,7 @@ function Navbar() {
               to='/cart'
               className='nav_links'
               >
-                <Badge badgeContent={cart?.length} color='secondary'>
+                <Badge badgeContent={cart &&  cart.length <= 1 ?  (cart.length == 1 ? cart[0].cuantity : null)  :  cart.reduce((a,b) => a.cuantity + b.cuantity)} color='secondary'>
                   <ShoppingCart fontSize='large' color='primary' />
                 </Badge>
               </Link>
