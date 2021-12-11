@@ -176,10 +176,12 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
-	return {
-		type: 'DELETE_FROM_CART',
-		payload: payload,
-	};
+	alert('Are you sure?')
+		return {
+			type: 'DELETE_FROM_CART',
+			payload: payload,
+		};
+	
 }
 
 export function openModal(payload) {
@@ -421,3 +423,7 @@ export function deleteShoe(id) {
 		});
 	};
 }
+
+// export function pay(payload) {
+// 	return {type: 'PAY', payload};
+// }

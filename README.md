@@ -17,6 +17,7 @@
 ## Trabajo en Equipo
 
 En este proyecto, van a trabajar en equipo de 6 a 8 personas. Van a trabajar siempre en pares, al terminar una tarea, van a cambiar de pareja para llegar a trabajar con todos los compañeros.
+
 Ninguna tarea debería llevar más de dos días en terminar, si esto sucede contactar con tu PM.
 
 Vamos a usar **GIT** para gestionar el código y **Trello** para gestionar el proyecto y facilitar la colaboración. Recomendamos el siguiente *workflow* para una tarea dada:

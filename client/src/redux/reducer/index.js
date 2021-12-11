@@ -361,6 +361,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
+		// case 'PAY':
+		// 	return {
+		// 		...state,
+		// 		pay: action.payload,
+		// 	};
 		default:
 			return state;
 	}
