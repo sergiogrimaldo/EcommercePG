@@ -166,3 +166,9 @@
 .btn_clearColor:active {
 	transform: translateY(1px);
 }
+
+.error2 {
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgb(255, 153, 0);
+}

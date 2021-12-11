@@ -386,3 +386,10 @@ export function deleteShoe(id) {
 		});
 	};
 }
+
+export function clearShoeDetails() {
+	return {
+		type: 'CLEAR_SHOE_DETAILS',
+		payload: [],
+	};
+}

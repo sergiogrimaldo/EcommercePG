@@ -141,7 +141,7 @@ export default function AddShoe() {
 			let newShoe = {
 				name: input.name,
 				description: input.description,
-				silhoutte: input.silhouette,
+				silhoutte: input.silhoutte,
 				colorway: input.colorway.join('/'),
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
@@ -244,7 +244,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Retail Price</label>
-					<input type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
+					<input id='retail' type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 		</div>

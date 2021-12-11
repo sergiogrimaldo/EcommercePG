@@ -32,6 +32,7 @@ const initialState = {
 	orderDetails: [],
 	getBrands: [],
 	deleteId: 0,
+	editDetails: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -351,6 +352,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
+		case 'CLEAR_SHOE_DETAILS':
+			return {
+				...state,
+				shoeDetails: action.payload,
+			};
 		default:
 			return state;
 	}
