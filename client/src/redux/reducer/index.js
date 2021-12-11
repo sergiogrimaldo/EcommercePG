@@ -192,7 +192,7 @@ function rootReducer(state = initialState, action) {
 				...state,
 				shoes: action.payload,
 				filteredShoes: action.payload,
-				brands: action.payload.map(elem => elem.brand.name),
+				brands: state.brands && action.payload.map(elem => elem),
 				/* sizes: [...new Set(action.payload
                     .map((elem) => elem.resellPrices) // mapping data's resellPrices properties
                     .filter((elem) => elem) // filtering undefined ones out

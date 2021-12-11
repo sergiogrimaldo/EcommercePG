@@ -36,7 +36,7 @@ export default function FilterBrand() {
                     brands.map((elem, index) => {
                         return (
                             <button className={`${styles.btn}`} key={elem + index} value={elem} onClick={onChangeHandler}>
-                                {elem[0].toUpperCase() + elem.slice(1)}
+                                {elem}
                             </button>
                         );
                     })}
