@@ -136,9 +136,17 @@ function rootReducer(state = initialState, action) {
 				user: {},
 				reviewsFromUser: [],
 			};
+
+		case 'CHANGE_ITEM_CUANTITY':
+			state.cart.map(item => {
+				if (item.name == action.payload.name) {
+					return (item.cuantity = action.payload.cuantity);
+				}} )
+			return ({...state});
 			
 		case 'ADD_TO_CART':
 
+			console.log(action.payload)
 			// if (state.cart.length){
             //     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
             //     state.cart(action.payload)
@@ -147,22 +155,25 @@ function rootReducer(state = initialState, action) {
             //     state.cart.push(action.payload)
             // }
 
+			let addItem = true
+
 			state.cart &&
 				state.cart.map(item => {
 					if (item.name == action.payload.name) {
+						addItem = false
 						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
-					}
-				})
+					} 
+				});
 
-			state.cart.push({
+
+			addItem== true && state.cart.push({
 				id: action.payload.id,
+				stock: action.payload.stock,
 				image: action.payload.image,
 				name: action.payload.name,
 				cuantity: action.payload.cuantity,
 				price: action.payload.price,
-			//	subtotal: action.payload.price * action.payload.cuantity,
+				//	subtotal: action.payload.price * action.payload.cuantity,
 			});
 
 			return {

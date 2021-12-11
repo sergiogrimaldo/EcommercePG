@@ -1,17 +1,25 @@
+import {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { deleteFromCart, openModal } from "../../redux/actions";
+import { deleteFromCart,update, openModal, changeItemCuantity } from "../../redux/actions";
 import { Link, useHistory } from "react-router-dom";
 import style from "./cart.module.css";
-
-
-
-
 
 export default function Cart() {
     const dispatch = useDispatch();
     const history = useHistory()
     const cart = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user);
+    const [localCart, setcart] = useState(cart)
+
+    //useEffect(() => setcart(cart), JSON.stringify(cart))
+
+    function handleChange(e, item){
+    e.preventDefault()
+    dispatch(changeItemCuantity({name:item.name,cuantity:Number(e.target.value)}))
+    //setcart(cart)
+    dispatch(update())
+    }
+
     let nombreItems = [];
     /// me guardo nombre unico de los objetos de la tienda, para solo renderizarlos una vez
 
@@ -22,7 +30,7 @@ export default function Cart() {
     });
     let total = 0;
     cart?.forEach((item) => {
-        total = total + item.price;
+        total = total + (item.price*item.cuantity);
     });
 
     function handleOpenCheckOut() {
@@ -107,7 +115,7 @@ export default function Cart() {
                                         {/* FIX ABOVE */}
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
-                                        <h2>{item.cuantity}</h2>
+                                        <h2><input type="number" name="cuantity" step="1" min='0' max={item.stock} defaultValue={item.cuantity} onChange={(e) => handleChange(e,item)}/></h2>
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         <h2>{item.price}</h2>

@@ -303,6 +303,13 @@ export function setFilterBrands(brand) {
 	};
 }
 
+export function changeItemCuantity(payload) {
+	return {
+		type: 'CHANGE_ITEM_CUANTITY',
+		payload: payload,
+	};
+}
+
 export function filterPrice(price) {
 	return {
 		type: 'FILTER_PRICE',
