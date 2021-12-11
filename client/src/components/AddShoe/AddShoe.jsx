@@ -32,7 +32,7 @@ export default function AddShoe() {
 		description: 'Description required',
 		retailPrice: 'Retail price required',
 		thumbnail: 'Thumbnail required',
-		silhouette: 'Silhouette required',
+		silhoutte: 'Silhouette required',
 		colorway: 'Colorway required',
 		brand: 'Brand required',
 		availableSizes: 'Sizes required',
@@ -69,9 +69,9 @@ export default function AddShoe() {
 			errors.colorway = 'Colorway required';
 		}
 		if (input.silhoutte) {
-			errors.silhouette = '';
+			errors.silhoutte = '';
 		} else {
-			errors.silhouette = 'Silhouette required';
+			errors.silhoutte = 'Silhouette required';
 		}
 		if (input.brand) {
 			errors.brand = '';
@@ -203,12 +203,11 @@ export default function AddShoe() {
 					<label>Select brand</label>
 					<select name='brand' onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`}>
 						<option value=''></option>
-						{brands &&
-							brands.map((elem, index) => (
-								<option key={elem + index + 2} value={elem.name}>
-									{elem.name[0].toUpperCase() + elem.name.slice(1)}
-								</option>
-							))}
+						{brands?.map((elem, index) => (
+							<option key={elem && elem.name + index + 2} value={elem && elem.name}>
+								{elem && elem.name[0].toUpperCase() + elem.name.slice(1)}
+							</option>
+						))}
 					</select>
 					<div className={`${styles.divvy}`}>
 						or add a new one
@@ -219,7 +218,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
-					<input type='text' name='silhouette' value={input.silhoutte} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
+					<input type='text' name='silhoutte' value={input.silhoutte} onChange={handleInput} className={`${error.silhoutte ? styles.error : styles.inputname}`} />
 				</div>
 				{/* <div className={`${styles.divvy}`}>
 					<label>Colorway</label>

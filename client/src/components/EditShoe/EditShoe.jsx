@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBrands, postNewShoe, getShoeDetails, clearShoeDetails } from '../../redux/actions/index.js';
+import { getBrands, postNewShoe, getShoeDetails, putNewShoe } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import styles from './EditShoe.module.css';
 import ColorSelect from '../AddShoe/ColorSelect';
@@ -13,7 +13,7 @@ export default function EditShoe({ id }) {
 	}, []);
 	const details = useSelector(state => state.shoeDetails);
 	const brands = useSelector(state => state.getBrands);
-	const sizes = [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13, 14, 15, 16, 17, 18];
+	const sizes = [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11.5, 12.5, 13, 14, 15, 16, 17, 18];
 	let [searchColor, setSearchColor] = useState('');
 	let errors = {};
 	let [count, setCount] = useState(0);
@@ -199,7 +199,8 @@ export default function EditShoe({ id }) {
 				brand: input.brand || details.brand.name,
 			};
 			console.log(newShoe);
-			// dispatch(postNewShoe(newShoe));
+			dispatch(postNewShoe(newShoe));
+			// dispatch(putNewShoe(id, newShoe.brand));
 			alert('New entry created');
 		}
 	}
