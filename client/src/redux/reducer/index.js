@@ -26,15 +26,16 @@ const initialState = {
 	isAuthenticaded: false,
 	allUsers: [],
 	shoeDetails: [],
-	shipingShoes:[],
-	paymentMessage:"",
+	shipingShoes: [],
+	paymentMessage: '',
 	orders: [],
-	orderDetails:[],
+	orderDetails: [],
 	getBrands: [],
+	deleteId: 0,
+	editDetails: [],
 };
 
 function rootReducer(state = initialState, action) {
-
 	switch (action.type) {
 		case 'MAKE_BUY_ORDER':
 			return {
@@ -43,35 +44,35 @@ function rootReducer(state = initialState, action) {
 		case 'CLEAR_CART':
 			return {
 				...state,
-				cart:[]
+				cart: [],
 			};
 
 		case 'CHANGE_ROL':
 			return {
 				...state,
-				allUsers: action.payload.sort((a,b) => b.createdAt > a.createdAt? -1 : 1)
-			}
+				allUsers: action.payload.sort((a, b) => (b.createdAt > a.createdAt ? -1 : 1)),
+			};
 		case 'DELETE_USER':
 			return {
 				...state,
-				allUsers: state.allUsers.filter( user => user.id != action.payload)
-			}
-			
+				allUsers: state.allUsers.filter(user => user.id != action.payload),
+			};
+
 		case 'SET_ORDER_STATUS':
 			return {
-				...state
-			}
+				...state,
+			};
 		case 'GET_ALL_ORDERS':
 			return {
 				...state,
-				orders: action.payload
-			}
+				orders: action.payload,
+			};
 
 		case 'GET_ORDER_DETAILS':
 			return {
 				...state,
-				orderDetails: action.payload
-			}
+				orderDetails: action.payload,
+			};
 
 		case 'GET_ALL_USERS':
 			return {
@@ -111,12 +112,11 @@ function rootReducer(state = initialState, action) {
 		// 		};
 		// 	}
 
-
 		case 'SEARCH':
 			return {
 				...state,
 				textToSearch: action.payload,
-			}
+			};
 
 		case 'LOGIN':
 			return {
@@ -141,50 +141,50 @@ function rootReducer(state = initialState, action) {
 			state.cart.map(item => {
 				if (item.name == action.payload.name) {
 					return (item.cuantity = action.payload.cuantity);
-				}} )
-			return ({...state});
-			
+				}
+			});
+			return { ...state };
+
 		case 'ADD_TO_CART':
-
-			console.log(action.payload)
+			console.log(action.payload);
 			// if (state.cart.length){
-            //     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
-            //     state.cart(action.payload)
-            //     )
-            // } else {
-            //     state.cart.push(action.payload)
-            // }
+			//     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
+			//     state.cart(action.payload)
+			//     )
+			// } else {
+			//     state.cart.push(action.payload)
+			// }
 
-			let addItem = true
+			let addItem = true;
 
 			state.cart &&
 				state.cart.map(item => {
 					if (item.name == action.payload.name) {
-						addItem = false
+						addItem = false;
 						return (item.cuantity = item.cuantity + 1 || 1);
-					} 
+					}
 				});
 
-
-			addItem== true && state.cart.push({
-				id: action.payload.id,
-				stock: action.payload.stock,
-				image: action.payload.image,
-				name: action.payload.name,
-				cuantity: action.payload.cuantity,
-				price: action.payload.price,
-				//	subtotal: action.payload.price * action.payload.cuantity,
-			});
+			addItem == true &&
+				state.cart.push({
+					id: action.payload.id,
+					stock: action.payload.stock,
+					image: action.payload.image,
+					name: action.payload.name,
+					cuantity: action.payload.cuantity,
+					price: action.payload.price,
+					//	subtotal: action.payload.price * action.payload.cuantity,
+				});
 
 			return {
 				...state,
 			};
-			// state.cart && state.cart.forEach(shoe => shoe.name.toLowerCase() == action.payload.name.toLowerCase() ? state.cart.cuantity + 1 :[...state.cart,action.payload] )
+		// state.cart && state.cart.forEach(shoe => shoe.name.toLowerCase() == action.payload.name.toLowerCase() ? state.cart.cuantity + 1 :[...state.cart,action.payload] )
 
-			// return {
-			// 	...state,
-			// 	cart:action.payload
-			// }
+		// return {
+		// 	...state,
+		// 	cart:action.payload
+		// }
 
 		case 'REMOVE_FROM_CART':
 			state.cart.map(item => {
@@ -219,8 +219,6 @@ function rootReducer(state = initialState, action) {
 				isAuthenticaded: state.isAuthenticaded || true,
 				user: state.user || {},
 				allUsers: state.allUsers || [],
-			
-				
 			}; // flattening out the array
 
 		case 'GET_DETAILS':
@@ -318,26 +316,26 @@ function rootReducer(state = initialState, action) {
 			}
 
 		case 'UPDATE': {
-			if(state.cart){
+			if (state.cart) {
 				return {
 					...state,
-					cart: [...state.cart]
+					cart: [...state.cart],
 				};
 			}
 		}
 
-		case 'SHOPING_SHOES':{
+		case 'SHOPING_SHOES': {
 			return {
 				...state,
-				shipingShoes:action.payload,
-			}
+				shipingShoes: action.payload,
+			};
 		}
 
 		case 'PAYMENT_MESSAGE':
 			return {
 				...state,
-				paymentMessage:action.payload
-			}
+				paymentMessage: action.payload,
+			};
 
 		case 'SET_PAGE': {
 			return {
@@ -361,11 +359,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
-		// case 'PAY':
-		// 	return {
-		// 		...state,
-		// 		pay: action.payload,
-		// 	};
+		case 'CLEAR_SHOE_DETAILS':
+			return {
+				...state,
+				shoeDetails: action.payload,
+			};
 		default:
 			return state;
 	}

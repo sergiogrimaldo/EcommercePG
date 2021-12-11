@@ -10,11 +10,12 @@ import { openBuyDetailsModal } from '../../redux/actions/index.js';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js'; */
 import { Link } from 'react-router-dom';
 import DeleteShoe from '../DeleteShoe/DeleteShoe.jsx';
+import EditButton from '../EditShoe/EditButton.jsx';
 
 export default function Card({ shoe }) {
 	console.log(shoe)
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user)
+	const user = useSelector(state => state.user);
 	/* 
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
@@ -51,13 +52,13 @@ export default function Card({ shoe }) {
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
 						<h3> {shoe.shoeName} </h3> <h2> US$ {shoe?.retailPrice} </h2>
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
-					
 					</div>{' '}
 				</div>{' '}
 			</Link>
-			<div style={{position:'absolute',top:70,right:70,zIndex:50}}>
-			{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
-						</div>
+			<div style={{ position: 'absolute', top: 70, right: 70, zIndex: 50 }}>
+				{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
+				{user && user.role == 2 && <EditButton id={shoe.id} />}
+			</div>
 			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
 				🛒 add to cart
 			</button>

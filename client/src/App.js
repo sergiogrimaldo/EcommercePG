@@ -75,7 +75,7 @@ function App() {
 
 				<Route exact path='/about' component={About} />
 				<Route exact path='/addShoe' component={AddShoe} />
-				<Route exact path='/editShoe' component={EditShoe} />
+				<Route exact path='/editShoe/:id' render={({ match }) => <EditShoe id={match.params.id} />} />
 				<Route exact path='/users/resetPassword' component={RequestResetPassword} />
 				<Route exact path='/users/resetPassword/:token' render={({ match }) => 
 					<ResetPassword token={match.params.token} />} />

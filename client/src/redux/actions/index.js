@@ -8,16 +8,16 @@ import jwt from 'jsonwebtoken';
 //activa la cuenta con el token envíado por email en tokenGerator:
 // post ---> localhost/users/resetpassword/token
 
-export function sendActivateEmail(payload){
+export function sendActivateEmail(payload) {
 	return async dispach => {
 		try {
 			const res = await axios.post('/users/resetpassword', payload);
-			return dispach({ type: 'SEND_ACTIVATE_EMAIL', payload: res.data })
+			return dispach({ type: 'SEND_ACTIVATE_EMAIL', payload: res.data });
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
-} 
+	};
+}
 
 // export function activateAccount(payload){
 // 	return async dispach => {
@@ -28,7 +28,7 @@ export function sendActivateEmail(payload){
 // 			console.log(error)
 // 		}
 // 	}
-// } 
+// }
 
 export function getOrders(payload) {
 	return async dispatch => {
@@ -176,12 +176,11 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
-	alert('Are you sure?')
-		return {
-			type: 'DELETE_FROM_CART',
-			payload: payload,
-		};
-	
+	alert('Are you sure?');
+	return {
+		type: 'DELETE_FROM_CART',
+		payload: payload,
+	};
 }
 
 export function openModal(payload) {
@@ -424,6 +423,9 @@ export function deleteShoe(id) {
 	};
 }
 
-// export function pay(payload) {
-// 	return {type: 'PAY', payload};
-// }
+export function clearShoeDetails() {
+	return {
+		type: 'CLEAR_SHOE_DETAILS',
+		payload: [],
+	};
+}
