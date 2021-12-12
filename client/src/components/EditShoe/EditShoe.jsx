@@ -271,8 +271,12 @@ export default function EditShoe({ id }) {
 			<div className={`${styles.form}`}>
 				<div className={`${styles.divvy}`}>
 					<label>Select brand</label>
-					<select id='br_sl' defaultValue={details.brand && details.brand.name} name='brand' onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`}>
-						<option value=''></option>
+					<select
+						id='br_sl'
+						defaultValue={input.brand ? input.brand : details.brand && details.brand.name}
+						name='brand'
+						onChange={handleInput}
+						className={`${error.brand ? styles.error : styles.inputname}`}>
 						{brands &&
 							brands.map((elem, index) => (
 								<option key={elem + index + 2} value={elem.name}>
