@@ -359,9 +359,10 @@ function rootReducer(state = initialState, action) {
 				getBrands: action.payload,
 			};
 		}
-		case 'DELETE_SHOE': {
+		case 'DELETE_ID': {
 			return {
 				...state,
+				deleteId: action.payload,
 			};
 		}
 		case 'CLEAR_SHOE_DETAILS':
