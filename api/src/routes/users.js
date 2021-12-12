@@ -142,5 +142,13 @@ router.get('/:id', async (req, res, next)=>{
     //activa la cuenta con el token envíado por email en tokenGerator
     router.post('/activateAccount/:token', validateUser) //localhost/users/resetpassword/token
     
+    ///añade a wishlist
+    router.post('/wishlist')
+    
+    /// consigue wishlist
+    router.get('/wishlist')
+
+    // elimina wishlist
+
 
 module.exports = router;

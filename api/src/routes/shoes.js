@@ -6,6 +6,7 @@ const { Op } = require('sequelize');
 const router = Router();
 
 router.get('/', async (req, res, next) => {
+	console.log(req.query)
 	let Name = req.query.shoeName;
 	if (Name) {
 		try {
@@ -20,11 +21,11 @@ router.get('/', async (req, res, next) => {
 			if (!paQuery.length) {
 				return res.status(404).json('Error, recall');
 			} else {
-				console.log(paQuery.getAvaiableSizes());
+				//console.log(paQuery.getAvaiableSizes());
 				return res.json(paQuery);
 			}
-		} catch (errro) {
-			next(error);
+		} catch (error) {
+			console.log(error);
 		}
 	}
 	try {

@@ -32,20 +32,21 @@ function CheckoutList({backStep,nextStep}) {
         // accounting.formatMoney(`${total}`)} `${total} 
         
         if(!error){
+            console.log(shippingDetails)
             try{
                 const {id} = paymentMethod
-                const  {data,status} = await axios.post('http://localhost:3001/orders/payment',{id,amount:total})
+                const  {data,status} = await axios.post('/orders/payment',{id,amount:total})
     
                     /// mando 
                 console.log('envio exitoso')
-                await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
+                shippingDetails && await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
                 //dispatch(makeBuyOrder({userId:user.id, cart:cart}))///////////////////////
                 dispatch(clearCart())
-                await dispatch(getOrders({email:user?.email}))
+                user && dispatch(getOrders({email:user.email}))
                     // limpi 
                 
                 console.log('recibido',data)
-                dispatch(paymentMessage(data.message))
+                shippingDetails && dispatch(paymentMessage(data.message))
                 
                 nextStep();
                 // elements.getElement(CardElement).clear(); 

@@ -78,6 +78,9 @@ Reviews.belongsTo(User);
 Reviews.belongsTo(Shoe);
 Shoe.hasMany(Reviews);
 
+User.belongsToMany(Shoe, {through: 'wishlist'})
+Shoe.belongsToMany(User, {through: 'wishlist'})
+
 // Order can contain many shoe, and the same shoe can be in many different orders
 const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });
 Order.belongsToMany(Shoe, { through: Order_Shoes });
@@ -123,6 +126,7 @@ try {
       
       //let orden = await Order.findByPk(order.id, {include: [{model: Order_Shoes}]})
       let orden = await Order_Shoes.findAll({where:{orderId:order.id}})
+      console.log(orden)
       console.log('--------')
       console.log(order.id,order.status,order.total,order.updatedAt) /// order: id, status, total, createdAt, updatedAt, userId
       let itemsComprados=[]

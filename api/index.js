@@ -163,7 +163,7 @@ const peticionApi = async function () {
     }
 };
 //{ force: true }
-conn.sync({ force: false })
+conn.sync({ force: true })
     .then(() => {
         // conn.sync().then(() => {
         server.listen(process.env.PORT, () => {

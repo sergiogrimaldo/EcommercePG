@@ -14,15 +14,15 @@ export default function DeleteShoe({ id }) {
 	// }
 
 	function onClickHandler(e) {
-		console.log(e.target.value);
-		dispatch(deleteId(e.target.value));
+		//console.log(e.target.value);
+		dispatch(deleteId(id));
 		dispatch(openModal('delete'));
 	}
 
 	return (
 		<div>
 			<button className={`${styles.btn_delete}`} value={id} onClick={onClickHandler}>
-				X
+				X{id}
 			</button>
 		</div>
 	);
