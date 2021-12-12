@@ -52,7 +52,7 @@ export default function Detail({ id }) {
 				<div className={`${s.container}`}>
 					<h1>{details && details.shoeName}</h1>
 					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
-					<h2 className={`${s.brand}`}>Brand: {details && details.brand.name}</h2>
+					<h2 className={`${s.brand}`}>Brand: {details.brand && details.brand.name}</h2>
 					<h2 className={`${s.color}`}>Color: {details && details.colorway}</h2>
 					<h2 className={`${s.price}`}>Price: ${details && details.price.retailPrice}</h2>
 					<h2 className={`${s.size}`}>
