@@ -168,6 +168,7 @@ export default function EditShoe({ id }) {
 		setInput({ ...input, colorway: [...input.colorway, color] });
 		setError(validate({ ...input, colorway: [...input.colorway, color] }));
 		setSearchColor('');
+		document.getElementById('scolor').value = '';
 	}
 
 	function deleteColor(e) {
@@ -180,7 +181,7 @@ export default function EditShoe({ id }) {
 			...input,
 			colorway: details.colorway && [...details.colorway.split('/').join(' ').split('-').join(' ').split(' ')].filter(elem => elem !== e.target.value),
 		});
-		setError(validate({ ...input, colorway: [...input.colorway].filter(elem => elem !== e.target.value) }));
+		setError(validate({ ...input, colorway: [...input.colorway, details.colorway.split('/').join(' ').split('-').join(' ').split(' ')].filter(elem => elem !== e.target.value) }));
 	}
 
 	function onSubmit(e) {
@@ -204,12 +205,11 @@ export default function EditShoe({ id }) {
 			};
 			console.log(newShoe);
 			dispatch(putNewShoe(id, newShoe));
-			// dispatch(putNewShoe(id, newShoe.brand));
 			alert('New entry created');
 		}
 	}
 
-	console.log(origVals);
+	console.log(input.colorway, error.colorway);
 
 	return (
 		<div className={`${styles.main}`}>
@@ -325,7 +325,7 @@ export default function EditShoe({ id }) {
 										</button>
 									))}
 					</div>
-					<input type='text' defaultValue={searchColor} onInput={e => setSearchColor(e.target.value)} className={`${error.colorway ? styles.error : styles.inputname}`} />
+					<input id='scolor' type='text' defaultValue={searchColor} onInput={e => setSearchColor(e.target.value)} className={`${error.colorway ? styles.error : styles.inputname}`} />
 
 					<div className={`${searchColor ? styles.colorbox : styles.hide}`}>
 						<ColorSelect input={searchColor} handleColors={handleColors} />
