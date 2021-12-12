@@ -38,6 +38,11 @@ export default function Detail({ id }) {
 	reviews && console.log(reviews);
 	let rating = Math.floor(Math.random() * 5) + 0;
 
+	/*     useEffect(() => {
+        dispatch(getShoeDetails(id));
+        dispatch(getReviews(id));
+    }, [dispatch, id]); */
+
 	useEffect(async () => {
 		await dispatch(getShoeDetails(id));
 		await dispatch(getReviews());
@@ -56,7 +61,7 @@ export default function Detail({ id }) {
 				<div className={`${s.container}`}>
 					<h1>{details && details.shoeName}</h1>
 					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
-					<h2 className={`${s.brand}`}>Brand: {details.brand && details.brand.name}</h2>
+					{details && details.brand && <h2 className={`${s.brand}`}>Brand: {details.brand && details.brand.name}</h2>}
 					<h2 className={`${s.color}`}>Color: {details && details.colorway}</h2>
 					<h2 className={`${s.price}`}>Price: ${details && details.price.retailPrice}</h2>
 					<h2 className={`${s.size}`}>

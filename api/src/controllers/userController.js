@@ -5,10 +5,13 @@ const {
   } = require('uuid');
 const { sendMail } = require('../services/mailerService')
 
+const DB_HOST = process.env.DB_HOST; //localhost   ||   http://ecommerce-pg.herokuapp.com/
+
+
 const tokenGenerator = async (req, res) => {
 
     const {email, tokenCase} = req.body;
-    console.log(email, tokenCase)
+    //console.log(email, tokenCase)
 
     const user = await User.findOne({
         where: {email: email}
@@ -27,11 +30,11 @@ const tokenGenerator = async (req, res) => {
     let url 
     switch (tokenCase){
         case 'resetPassword':
-             url = `http://localhost:3000/users/resetPassword/${user.token}`
+            DB_HOST === "localhost" ? url = `http://localhost:3000/users/resetPassword/${user.token}` : url = `ecommerce-pg.vercel.app/users/resetPassword/${user.token}`
             await sendMail({template:'resetPassword',email: user.email, name: user.name, url: url})
         break
         case 'validateUser':
-            url = `http://localhost:3000/users/activate/${user.token}`
+            DB_HOST === "localhost" ? url = `http://localhost:3000/users/activate/${user.token}` : url = `ecommerce-pg.vercel.app/users/activate/${user.token}`
             await sendMail({template:'activateAccount',email: user.email, name: user.name, url: url})
         break
 
@@ -51,11 +54,11 @@ const resetPassword = async (req, res) => {
         }
     })
 
-    console.log(req.params.token)
+    //console.log(req.params.token)
 
     const { newPass } = req.body;
 
-    console.log(req.body)
+   // console.log(req.body)
 
     if(!user){
         res.status(404).send('Token is not valid')
@@ -76,17 +79,17 @@ const validateUser = async (req, res) => {
         }
     })
 
-    console.log(req.params.token)
+   // console.log(req.params.token)
 
     if(!user){
         res.status(404).send('Token is not valid')
-    }
+    } else {
     
-    user.activated = true
+    user.activated = true;
     user.save();
 
     res.send(`${user.name}, your account has been activated!`)
-
+    }
 }
 
 module.exports = {

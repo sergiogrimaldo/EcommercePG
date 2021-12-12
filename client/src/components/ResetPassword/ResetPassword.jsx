@@ -61,7 +61,7 @@ export default function ResetPassword({token}){
     const  handleSubmit = async function(e) {
         e.preventDefault()
         if(e.target[0].value === e.target[1].value){
-            await axios.post(`http://localhost:3001/users/resetPassword/${token}`,{newPass : input.password})  
+            await axios.post(`/users/resetPassword/${token}`,{newPass : input.password})  
             alert('Your password has been change sucessfully')
             history.push('/home'); 
         }
