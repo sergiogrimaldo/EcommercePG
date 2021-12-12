@@ -242,7 +242,7 @@ router.delete('/:id', async function (req, res, next) {
 			},
 		});
 		if (existsInDB) {
-			Shoe.destroy({
+			await Shoe.destroy({
 				where: {
 					id,
 				},
