@@ -2,6 +2,7 @@ const { Router } = require('express');
 const axios = require('axios');
 const { Shoe, User, Price, Brand, AvailableSizes, Color, Reviews } = require('../db');
 const { Op } = require('sequelize');
+const { cloudinary } = require('../../utils/cloudinary')
 
 const router = Router();
 
@@ -206,5 +207,22 @@ router.delete('/:id', async function (req, res, next) {
 		next(err);
 	}
 });
+
+router.post('/uploadShoeImage', async(req, res) => {
+	try {
+		
+		const fileStr = req.body.data;
+		// console.log(fileStr)
+		
+		const uploadedRes = await cloudinary.uploader.upload(fileStr, {
+			upload_preset: 'pg_images'
+		})
+		console.log(uploadedRes.url)
+		res.json(uploadedRes.url)
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({err: 'Oh no'})
+	}
+})
 
 module.exports = router;
