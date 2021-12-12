@@ -44,7 +44,7 @@ function AddressForm({nextStep}) {
             setFormularioValido(false);
         }else{
             setFormularioValido(true);
-            //dispatch(shopingShoes(input))
+            dispatch(shopingShoes(input))
             setInput({
                 name:'',
                 lastName:'',

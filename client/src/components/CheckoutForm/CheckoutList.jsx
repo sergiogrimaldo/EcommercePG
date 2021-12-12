@@ -34,7 +34,7 @@ function CheckoutList({backStep,nextStep}) {
         if(!error){
             try{
                 const {id} = paymentMethod
-                const  {data,status} = await axios.post('http://localhost:3001/orders/payment',{id,amount:total})
+                const  {data,status} = await axios.post('/orders/payment',{id,amount:total})
     
                     /// mando 
                 console.log('envio exitoso')
