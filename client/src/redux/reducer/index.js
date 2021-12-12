@@ -205,7 +205,7 @@ function rootReducer(state = initialState, action) {
 				...state,
 				shoes: action.payload,
 				filteredShoes: action.payload,
-				brands: action.payload.map(elem => elem.brand.name),
+				brands: action.payload.brand && action.payload.map(elem => elem.brand.name), //legacy
 				/* sizes: [...new Set(action.payload
                     .map((elem) => elem.resellPrices) // mapping data's resellPrices properties
                     .filter((elem) => elem) // filtering undefined ones out
@@ -344,6 +344,11 @@ function rootReducer(state = initialState, action) {
 			};
 		}
 		case 'POST_NEW_SHOE': {
+			return {
+				...state,
+			};
+		}
+		case 'PUT_NEW_SHOE': {
 			return {
 				...state,
 			};
