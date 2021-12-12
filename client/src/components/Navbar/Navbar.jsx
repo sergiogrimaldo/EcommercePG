@@ -29,6 +29,8 @@ function Navbar() {
     //   setCartItemsNumber(JSON.stringify(cart.length).length)
     // }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
 
+    //for later use on reducer (so it will keep object like properties)
+    // const reducer = (accumulator, currentValue) => accummulator + currentValue.cuantity
 
     const handleLogout = function () {
       dispatch(logout())
@@ -89,7 +91,7 @@ function Navbar() {
               to='/cart'
               className='nav_links'
               >
-                <Badge badgeContent={cart &&  cart.length <= 1 ?  (cart.length == 1 ? cart[0].cuantity : null)  :  cart.reduce((a,b) => a.cuantity + b.cuantity)} color='secondary'>
+                <Badge badgeContent={cart &&  [].concat(cart).reduce((accumulator, currentValue) => accumulator + currentValue.cuantity,0)} color='secondary'>
                   <ShoppingCart fontSize='large' color='primary' />
                 </Badge>
               </Link>
