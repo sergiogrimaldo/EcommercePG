@@ -31,19 +31,22 @@ export default function EditShoe({ id }) {
 			}
 		}
 		numSizes = numSizes.sort((a, b) => a[0] - b[0]);
-		let fixedSizes = [];
+		var fixedSizes = [];
 		for (let k = 0; k < numSizes.length; k++) {
 			fixedSizes[k] = new Array(numSizes[k][0].toString(), numSizes[k][1]);
 		}
 		var nums = [];
+		var origVals = [];
 		var vals = [];
 		for (let j = 0; j < fixedSizes.length; j++) {
 			if (fixedSizes[j][1] > 0) {
 				nums.push(true);
 				vals.push(Number(fixedSizes[j][0]));
+				origVals.push(Number(fixedSizes[j][1]));
 			} else {
 				nums.push(false);
 				vals.push(0);
+				origVals.push(0);
 			}
 		}
 	}
@@ -190,20 +193,23 @@ export default function EditShoe({ id }) {
 			let newShoe = {
 				description: input.description || details.description,
 				silhoutte: input.silhoutte || details.silhoutte,
-				colorway: Array.isArray(input.colorway) ? input.colorway.join('/') : details.colorway.split('/').join(' ').split('-').join(' ').split(' '),
+				colorway: Array.isArray(input.colorway) ? input.colorway.join('/') : details.colorway.split('/').join(' ').split('-').join(' ').split(' ').join('/'),
 				shoeName: input.shoeName || details.shoeName,
 				retailPrice: input.retailPrice || details.price.retailPrice,
 				thumbnail: input.thumbnail || details.thumbnail,
 				urlKey: input.shoeName.split(' ').join('-') || details.shoeName.split(' ').join('-'),
 				avaiableSizes: input.availableSizes.length > 0 ? input.availableSizes : vals,
 				brand: input.brand || details.brand.name,
+				origSizeVals: origVals,
 			};
 			console.log(newShoe);
-			dispatch(postNewShoe(newShoe));
+			dispatch(putNewShoe(id, newShoe));
 			// dispatch(putNewShoe(id, newShoe.brand));
 			alert('New entry created');
 		}
 	}
+
+	console.log(origVals);
 
 	return (
 		<div className={`${styles.main}`}>
@@ -226,7 +232,14 @@ export default function EditShoe({ id }) {
 							sizes.map((elem, index) => (
 								<div className={`${styles.sizes}`} key={elem + index}>
 									{elem}
-									<input className={`${styles.checkboxes}`} name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes.includes(true) ? checkState.availableSizes[index] : nums && nums[index]} />
+									<input
+										className={`${styles.checkboxes}`}
+										name='availableSizes'
+										type='checkbox'
+										value={elem}
+										onChange={() => handleSizes(index)}
+										checked={checkState.availableSizes.includes(true) ? checkState.availableSizes[index] : nums && nums[index]}
+									/>
 								</div>
 							))}
 					</div>
@@ -244,7 +257,14 @@ export default function EditShoe({ id }) {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
-					<input id='tn' type='text' name='thumbnail' defaultValue={input.thumbnail ? input.thumbnail : details.thumbnail} onInput={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
+					<input
+						id='tn'
+						type='text'
+						name='thumbnail'
+						defaultValue={input.thumbnail ? input.thumbnail : details.thumbnail}
+						onInput={handleInput}
+						className={`${error.thumbnail ? styles.error : styles.inputname}`}
+					/>
 				</div>
 			</div>
 
@@ -263,7 +283,14 @@ export default function EditShoe({ id }) {
 					<div className={`${styles.divvy}`}>
 						or add a new one
 						<div className={`${styles.divvy}`}>
-							<input id='br_in' type='text' name='brand' defaultValue={input.brand ? input.brand : details.brand && details.brand.name} onInput={handleInput} className={`${error.brand ? styles.error : styles.inputname}`} />
+							<input
+								id='br_in'
+								type='text'
+								name='brand'
+								defaultValue={input.brand ? input.brand : details.brand && details.brand.name}
+								onInput={handleInput}
+								className={`${error.brand ? styles.error : styles.inputname}`}
+							/>
 						</div>
 					</div>
 				</div>
@@ -273,7 +300,12 @@ export default function EditShoe({ id }) {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Colorway</label>
-					<div className={`${(input.colorway && input.colorway.length > 0) || (details.colorway && details.colorway.split('/').join(' ').split('-').join(' ').split(' ').join(' ')) ? styles.colorDivvy : styles.hide}`}>
+					<div
+						className={`${
+							(input.colorway && input.colorway.length > 0) || (details.colorway && details.colorway.split('/').join(' ').split('-').join(' ').split(' ').join(' '))
+								? styles.colorDivvy
+								: styles.hide
+						}`}>
 						{input.colorway
 							? input.colorway.map((elem, index) => (
 									<button key={elem + index} value={elem} className={`${styles.btn_clearColor}`} onClick={deleteColor}>
@@ -301,7 +333,14 @@ export default function EditShoe({ id }) {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Retail Price</label>
-					<input id='retail' type='number' name='retailPrice' defaultValue={details.price && details.price.retailPrice} onInput={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
+					<input
+						id='retail'
+						type='number'
+						name='retailPrice'
+						defaultValue={details.price && details.price.retailPrice}
+						onInput={handleInput}
+						className={`${error.retailPrice ? styles.error : styles.inputname}`}
+					/>
 				</div>
 			</div>
 		</div>

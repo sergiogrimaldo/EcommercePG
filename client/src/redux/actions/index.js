@@ -407,9 +407,9 @@ export function postNewShoe(payload) {
 	};
 }
 
-export function putNewShoe(id, brand) {
+export function putNewShoe(id, data) {
 	return async function (dispatch) {
-		axios.post(`/shoes/${id}`, brand).then(r => {
+		axios.put(`/shoes/${id}`, data).then(r => {
 			dispatch({ type: 'PUT_NEW_SHOE', payload: r.data });
 		});
 	};

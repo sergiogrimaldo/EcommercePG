@@ -43,6 +43,10 @@ export default function Detail({ id }) {
 		await dispatch(getReviews());
 	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser), id]);
 
+	function onClickHandler(e) {
+		console.log(e.target.value);
+	}
+
 	return (
 		<div style={{ padding: 10, waigth: '100%' }}>
 			<div className={`${s.macro}`}>
@@ -61,8 +65,11 @@ export default function Detail({ id }) {
 							Object.entries(details.availableSize)
 								.filter(elem => elem[1] !== 0)
 								.filter(elem => elem[0] !== 'id')
-								.map(elem => elem[0])
-								.join(' ')}
+								.map(elem => (
+									<button value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
+										{elem[0].includes(',') ? elem[0].replace(',', '.') : elem[0]}
+									</button>
+								))}
 					</h2>
 				</div>
 				<div className={`${s.description}`}>Product Description: {details && details.description}</div>
@@ -110,9 +117,10 @@ export default function Detail({ id }) {
 					dispatch(update());
 				}}
 				value='Add to Cart'
+				className={s.addTo}
 			/>
 			<div className={s.CatalogeButton}>
-				<button className={s.button} onClick={() => history.push('/catalogue')}>
+				<button className={s.back} onClick={() => history.push('/catalogue')}>
 					Back
 				</button>
 			</div>
