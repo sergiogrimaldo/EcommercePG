@@ -28,6 +28,16 @@ export default function MyAccount(){
     useEffect( () =>{ dispatch(getOrders({email:user?.email}))},[])
 
 
+    
+    useEffect( async () => {
+        let response = [...orders]
+        if (stateFilter != 'All'){
+            response = response.filter((order) => order.status == stateFilter) 
+        }
+        setLocalOrders(response)
+         
+     },[JSON.stringify(orders),stateFilter,orders])
+
     function toDate(string){
         const date = new Date(string)
         const stringa = ''+date
@@ -58,10 +68,12 @@ export default function MyAccount(){
 
             <ul style={{marginTop:25, listStyle:'none'}}>
             <li>
-                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr', width:'100%'}}> 
+                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 0.7fr 1fr 1.5fr 1.3fr 1fr', width:'100vw'}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> Order </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Product </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Total </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Status </div>
+                        <div style={{display:'flex',justifyContent:'center'}}> Shipping Adress </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Last Update </div>
                         </div>
@@ -69,16 +81,18 @@ export default function MyAccount(){
 
                 
 
-                { orders && orders.length ? orders.map((order,i) => 
+                {orders && orders.length > 0 && localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
                <li style={{marginTop:10}}>
                    
-                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr', columnGap:5}}>
+                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 0.7fr 1fr 1.5fr 1.3fr 1fr', width:'100vw'}}> 
 
                     <p><Link to={`./orders/${order.id}`} 
                        style={{textDecoration: 'none'}}>
-                       #{order.id.split('-')[0]}</Link></p>
+                       <strong>#{order.id.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.status}</p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.adress}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.createdAt)}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.updatedAt)}</p>
                    </div>

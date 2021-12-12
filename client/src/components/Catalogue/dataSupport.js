@@ -27,6 +27,7 @@ export const compileData = (dataShoes, dataSizes, dataPrices) => {
 				thumbnail: foundShoes.thumbnail,
 				urlKey: foundShoes.urlKey,
 				AvailableSizes: foundSizes,
+				stock: foundShoes.stock,
 			});
 		}
 		index++;

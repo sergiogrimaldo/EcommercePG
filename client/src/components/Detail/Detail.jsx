@@ -41,7 +41,7 @@ export default function Detail({ id }) {
 	useEffect(async () => {
 		await dispatch(getShoeDetails(id));
 		await dispatch(getReviews());
-	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser)]);
+	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser), id]);
 
 	return (
 		<div style={{ padding: 10, waigth: '100%' }}>
@@ -52,7 +52,7 @@ export default function Detail({ id }) {
 				<div className={`${s.container}`}>
 					<h1>{details && details.shoeName}</h1>
 					<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
-					<h2 className={`${s.brand}`}>Brand: {details && details.brand.name}</h2>
+					<h2 className={`${s.brand}`}>Brand: {details.brand && details.brand.name}</h2>
 					<h2 className={`${s.color}`}>Color: {details && details.colorway}</h2>
 					<h2 className={`${s.price}`}>Price: ${details && details.price.retailPrice}</h2>
 					<h2 className={`${s.size}`}>
@@ -73,31 +73,33 @@ export default function Detail({ id }) {
 				{allColors &&
 					allColors.colorNameThumbnailAnd_id.slice(0, 100).map((item, i) => {
 						return (
-							<div
-								onMouseEnter={() => {
-									setShoeOnHover(item.id);
-									setShoeOnHoverColor(allColors.colorNameThumbnailAnd_id);
-								}}
-								onMouseLeave={() => {
-									setShoeOnHover('');
-									setShoeOnHoverColor('');
-								}}
-								key={i}
-								className={s.gridOfFirstThreeColors}>
-								{item.threeColorGrid
-									.map((items, ind) => {
-										return (
-											<div
-												key={ind + 400}
-												className={s.gridOfColors}
-												style={{
-													backgroundColor: items,
-												}}
-											/>
-										);
-									})
-									.slice(0, 4)}{' '}
-							</div>
+							<Link to={`/shoe/${item.id}`}>
+								<div
+									onMouseEnter={() => {
+										setShoeOnHover(item.id);
+										setShoeOnHoverColor(allColors.colorNameThumbnailAnd_id);
+									}}
+									onMouseLeave={() => {
+										setShoeOnHover('');
+										setShoeOnHoverColor('');
+									}}
+									key={i}
+									className={s.gridOfFirstThreeColors}>
+									{item.threeColorGrid
+										.map((items, ind) => {
+											return (
+												<div
+													key={ind + 400}
+													className={s.gridOfColors}
+													style={{
+														backgroundColor: items,
+													}}
+												/>
+											);
+										})
+										.slice(0, 4)}{' '}
+								</div>
+							</Link>
 						);
 					})}{' '}
 			</div>{' '}

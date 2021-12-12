@@ -21,12 +21,15 @@ import { Redirect } from 'react-router-dom';
 import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
 import RequestResetPassword from './components/ResetPassword/RequestResetPassword.jsx';
 import DeleteModal from './components/Modals/DeleteModal.jsx';
+import AccountActivation from './components/AccountActivation/AccountActivation.jsx';
+
 
 function App() {
 	// modals need to be here so it can be accesed by all the components
 	const modal = useSelector(state => state.modal);
 	const modalData = useSelector(state => state.modalBuyDetails);
 	const deleteId = useSelector(state => state.deleteId);
+	
 
 	return (
 		<BrowserRouter>
@@ -35,6 +38,7 @@ function App() {
 			{modal === 'signUp' && <SignUp />}
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 			{modal === 'delete' && <DeleteModal deleteId={deleteId} />}
+			
 
 			<Navbar />
 
@@ -71,9 +75,12 @@ function App() {
 
 				<Route exact path='/about' component={About} />
 				<Route exact path='/addShoe' component={AddShoe} />
-				<Route exact path='/editShoe' component={EditShoe} />
+				<Route exact path='/editShoe/:id' render={({ match }) => <EditShoe id={match.params.id} />} />
 				<Route exact path='/users/resetPassword' component={RequestResetPassword} />
-				<Route exact path='/users/resetPassword/:token' render={({ match }) => <ResetPassword token={match.params.token} />} />
+				<Route exact path='/users/resetPassword/:token' render={({ match }) => 
+					<ResetPassword token={match.params.token} />} />
+				<Route exact path='/users/activate/:token' render={({ match }) => 
+					<AccountActivation token={match.params.token} />} />
 			</Switch>
 		</BrowserRouter>
 	);

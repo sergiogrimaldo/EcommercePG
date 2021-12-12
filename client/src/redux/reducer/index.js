@@ -32,6 +32,7 @@ const initialState = {
 	orderDetails: [],
 	getBrands: [],
 	deleteId: 0,
+	editDetails: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -136,7 +137,16 @@ function rootReducer(state = initialState, action) {
 				reviewsFromUser: [],
 			};
 
+		case 'CHANGE_ITEM_CUANTITY':
+			state.cart.map(item => {
+				if (item.name == action.payload.name) {
+					return (item.cuantity = action.payload.cuantity);
+				}
+			});
+			return { ...state };
+
 		case 'ADD_TO_CART':
+			console.log(action.payload);
 			// if (state.cart.length){
 			//     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
 			//     state.cart(action.payload)
@@ -145,23 +155,26 @@ function rootReducer(state = initialState, action) {
 			//     state.cart.push(action.payload)
 			// }
 
+			let addItem = true;
+
 			state.cart &&
 				state.cart.map(item => {
 					if (item.name == action.payload.name) {
+						addItem = false;
 						return (item.cuantity = item.cuantity + 1 || 1);
-					} else {
-						return (item.cuantity = item.cuantity);
 					}
 				});
 
-			state.cart.push({
-				id: action.payload.id,
-				image: action.payload.image,
-				name: action.payload.name,
-				cuantity: action.payload.cuantity,
-				price: action.payload.price,
-				//	subtotal: action.payload.price * action.payload.cuantity,
-			});
+			addItem == true &&
+				state.cart.push({
+					id: action.payload.id,
+					stock: action.payload.stock,
+					image: action.payload.image,
+					name: action.payload.name,
+					cuantity: action.payload.cuantity,
+					price: action.payload.price,
+					//	subtotal: action.payload.price * action.payload.cuantity,
+				});
 
 			return {
 				...state,
@@ -192,7 +205,7 @@ function rootReducer(state = initialState, action) {
 				...state,
 				shoes: action.payload,
 				filteredShoes: action.payload,
-				brands: action.payload.map(elem => elem.brand.name),
+				brands: action.payload.brand && action.payload.map(elem => elem.brand.name), //legacy
 				/* sizes: [...new Set(action.payload
                     .map((elem) => elem.resellPrices) // mapping data's resellPrices properties
                     .filter((elem) => elem) // filtering undefined ones out
@@ -248,11 +261,6 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				modal: '',
-			};
-		case 'DELETE_ID':
-			return {
-				...state,
-				deleteId: action.payload,
 			};
 		case 'SET_FILTER_BRANDS': {
 			if (action.payload) {
@@ -340,6 +348,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
+		case 'PUT_NEW_SHOE': {
+			return {
+				...state,
+			};
+		}
 		case 'GET_BRANDS': {
 			return {
 				...state,
@@ -351,6 +364,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 			};
 		}
+		case 'CLEAR_SHOE_DETAILS':
+			return {
+				...state,
+				shoeDetails: action.payload,
+			};
 		default:
 			return state;
 	}

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBrands, postNewShoe } from '../../redux/actions/index.js';
+import { getBrands, postNewShoe, postReview } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import styles from './AddShoe.module.css';
 import ColorSelect from './ColorSelect';
+import axios from 'axios';
 
 export default function AddShoe() {
 	const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function AddShoe() {
 		description: 'Description required',
 		retailPrice: 'Retail price required',
 		thumbnail: 'Thumbnail required',
-		silhouette: 'Silhouette required',
+		silhoutte: 'Silhouette required',
 		colorway: 'Colorway required',
 		brand: 'Brand required',
 		availableSizes: 'Sizes required',
@@ -58,20 +59,20 @@ export default function AddShoe() {
 		} else {
 			errors.retailPrice = 'Retail price required';
 		}
-		if (input.thumbnail) {
-			errors.thumbnail = '';
-		} else {
-			errors.thumbnail = 'Thumbnail required';
-		}
+		// if (input.thumbnail) {
+		// 	errors.thumbnail = '';
+		// } else {
+		// 	errors.thumbnail = 'Thumbnail required';
+		// }
 		if (input.colorway.length > 0) {
 			errors.colorway = '';
 		} else {
 			errors.colorway = 'Colorway required';
 		}
-		if (input.silhouette) {
-			errors.silhouette = '';
+		if (input.silhoutte) {
+			errors.silhoutte = '';
 		} else {
-			errors.silhouette = 'Silhouette required';
+			errors.silhoutte = 'Silhouette required';
 		}
 		if (input.brand) {
 			errors.brand = '';
@@ -116,6 +117,45 @@ export default function AddShoe() {
 		setError(validate({ ...input, [e.target.name]: e.target.value }));
 	}
 
+	//flor adding stuff start section
+
+	const [fileInput, setFileInput] = useState('')
+
+	const [previewSource, setPreviewSource] = useState('')
+
+	const handleFileInput = (e) => {
+		const file = e.target.files[0];
+		previewFile(file)
+	}
+	
+	const previewFile = (file) => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setPreviewSource(reader.result)
+		}
+	}
+	const handleSubmitFile = async(e) => {
+		e.preventDefault();
+		console.log(previewSource)
+		if(!previewSource) return;
+		await uploadImage(previewSource)
+		
+	}
+	// await uploadImage(ps) ---> urlImage
+	const uploadImage = async(base64EncodedImage) => {
+		console.log(base64EncodedImage)
+		try {
+			const urlImage = (await axios.post('/shoes/uploadShoeImage', {data: base64EncodedImage},)).data
+			setPreviewSource(urlImage)
+			console.log(urlImage)
+			return urlImage
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	////flor adding stuff end section
 	function handleColors(color) {
 		// setColors([...colors, e]);
 		setInput({ ...input, colorway: [...input.colorway, color] });
@@ -141,10 +181,11 @@ export default function AddShoe() {
 			let newShoe = {
 				name: input.name,
 				description: input.description,
-				silhoutte: input.silhouette,
+				silhoutte: input.silhoutte,
 				colorway: input.colorway.join('/'),
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
+				// thumbnail: input.thumbnail,
 				thumbnail: input.thumbnail,
 				urlKey: input.shoeName.split(' ').join('-'),
 				avaiableSizes: input.availableSizes,
@@ -190,11 +231,48 @@ export default function AddShoe() {
 			</form>
 			<div>
 				<div className={`${styles.thumbnail_box}`}>
-					<img className={`${styles.thumbnail}`} src={input.thumbnail} alt='No Thumbnail' />
+					<img className={`${styles.thumbnail}`} src={previewSource || input.thumbnail} alt='No Thumbnail' />
 				</div>
+				{/* {
+					previewSource && (
+						<img src={previewSource} alt='No upload'
+							style={{height: 300}}
+						/>
+					)
+				} */}
+				{
+					/*
+					flor adding stuff section start
+
+					 */
+				}
+				<form onSubmit={handleSubmitFile}>
+				<div>
+					<input 
+					type='file' 
+					name='image'
+					placeholder='Upload an image'
+					value={fileInput}
+					onChange={handleFileInput}
+					className={styles.fileInput}
+					></input>
+					<button
+					className={styles.uploadBtn}
+					type='submit'
+
+					>Upload</button>
+				</div>
+				</form>
+		
+				{
+					/*
+					flor adding stuff section end
+
+					 */
+				}
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
-					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
+					<input type='text' name='thumbnail' value={previewSource || input.thumbnail} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 
@@ -203,12 +281,11 @@ export default function AddShoe() {
 					<label>Select brand</label>
 					<select name='brand' onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`}>
 						<option value=''></option>
-						{brands &&
-							brands.map((elem, index) => (
-								<option key={elem + index + 2} value={elem.name}>
-									{elem.name[0].toUpperCase() + elem.name.slice(1)}
-								</option>
-							))}
+						{brands?.map((elem, index) => (
+							<option key={elem && elem.name + index + 2} value={elem && elem.name}>
+								{elem && elem.name[0].toUpperCase() + elem.name.slice(1)}
+							</option>
+						))}
 					</select>
 					<div className={`${styles.divvy}`}>
 						or add a new one
@@ -219,7 +296,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
-					<input type='text' name='silhouette' value={input.silhouette} onChange={handleInput} className={`${error.silhouette ? styles.error : styles.inputname}`} />
+					<input type='text' name='silhoutte' value={input.silhoutte} onChange={handleInput} className={`${error.silhoutte ? styles.error : styles.inputname}`} />
 				</div>
 				{/* <div className={`${styles.divvy}`}>
 					<label>Colorway</label>
@@ -244,7 +321,7 @@ export default function AddShoe() {
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Retail Price</label>
-					<input type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
+					<input id='retail' type='number' name='retailPrice' value={input.retailPrice} onChange={handleInput} className={`${error.retailPrice ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 		</div>
