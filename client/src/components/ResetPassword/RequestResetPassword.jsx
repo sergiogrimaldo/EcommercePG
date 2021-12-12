@@ -65,7 +65,7 @@ export default function RequestResetPassword(){
 
     const handleSubmit = async function(e) {
         e.preventDefault()
-        const users = (await axios.get('http://localhost:3001/users')).data
+        const users = (await axios.get('/users')).data
             let valid = false
             users.forEach(function(user) {
                 if(user.email === e.target[0].value){
@@ -85,7 +85,7 @@ export default function RequestResetPassword(){
             
             //console.log(valid)
             if(valid){
-                await axios.post('http://localhost:3001/users/resetPassword',{email : input.email})
+                await axios.post('/users/resetPassword',{email : input.email})
                 alert('Check your email')
                 history.push('/home');
             }

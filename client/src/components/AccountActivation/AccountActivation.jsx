@@ -5,8 +5,9 @@ import axios from "axios";
 
 export default function AccountActivation({token}) {
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async()=> 
-    await axios.post(`http://localhost:3001/users/activateAccount/${token}`),
+    await axios.post(`/users/activateAccount/${token}`),
     [])
     return (
         <div style={{display: 'grid', justifyContent: 'center', alignItems:'center', padding:220, textAlign: 'center'}}>
