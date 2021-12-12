@@ -10,9 +10,6 @@ import { addToCart, update } from "../../redux/actions";
 import { onlyThreeColorGrid } from "../FilterColor/colors.js";
 import { Link, useHistory } from "react-router-dom";
 
-//import { openModal } from '../../redux/actions/index.js';
-//import { openBuyDetailsModal } from '../../redux/actions/index.js';
-
 export default function Detail({ id }) {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -44,7 +41,9 @@ export default function Detail({ id }) {
         await dispatch(getReviews());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser), id]);
-
+    function onClickHandler(e) {
+        console.log(e.target.value);
+    }
     //details && console.log(details)
     return (
         <div style={{ padding: 10, waigth: "100%" }}>
@@ -66,8 +65,11 @@ export default function Detail({ id }) {
                             Object.entries(details.availableSize)
                                 .filter((elem) => elem[1] !== 0)
                                 .filter((elem) => elem[0] !== "id")
-                                .map((elem) => elem[0])
-                                .join(" ")}
+                                .map((elem) => (
+                                    <button value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
+                                        {elem[0].includes(",") ? elem[0].replace(",", ".") : elem[0]}
+                                    </button>
+                                ))}
                     </h2>
                 </div>
                 <div className={`${s.description}`}>Product Description: {details && details.description}</div>
