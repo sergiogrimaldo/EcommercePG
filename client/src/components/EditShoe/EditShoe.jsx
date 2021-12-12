@@ -205,7 +205,7 @@ export default function EditShoe({ id }) {
 			};
 			console.log(newShoe);
 			dispatch(putNewShoe(id, newShoe));
-			alert('New entry created');
+			alert('Entry updated');
 		}
 	}
 
@@ -248,7 +248,7 @@ export default function EditShoe({ id }) {
 					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
 				</Link>
 				<button type='submit' className={`${styles.btn_create}`}>
-					Create
+					Update
 				</button>
 			</form>
 			<div>
