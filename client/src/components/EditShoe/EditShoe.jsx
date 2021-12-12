@@ -209,8 +209,6 @@ export default function EditShoe({ id }) {
 		}
 	}
 
-	console.log(input.colorway, error.colorway);
-
 	return (
 		<div className={`${styles.main}`}>
 			<form className={`${styles.form}`} onSubmit={onSubmit}>
