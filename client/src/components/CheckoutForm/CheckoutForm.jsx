@@ -6,8 +6,8 @@ import AddressForm from './AddressForm';
 import PaymenForm from './PaymenForm';
 import Confirmation from  './Confirmation.jsx';
 
-function CheckoutForm() {
-
+function CheckoutForm({shippingDetails}) {
+    
     const [state,setState] = useState(0)
     const paymentMessage = useSelector(state => state.paymentMessage)
     // creo un array para definir cada paso al momento de realizar una compra exitosa

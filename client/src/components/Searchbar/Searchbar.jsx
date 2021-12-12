@@ -16,8 +16,8 @@ export default function Searchbar() {
 
 	return (
 		<div>
-			<form onSubmit={onSubmitHandler}>
-				<input type='text' value={input} onChange={onChangeHandler} />
+			<form style={{display:'flex', width: '150%'}} onSubmit={onSubmitHandler}>
+				<input style={{borderTopLeftRadius:15, borderBottomLeftRadius:15, width:'100%', padding:5}} type='text' value={input} onChange={onChangeHandler} />
 				<button type='submit'>Search</button>
 			</form>
 		</div>

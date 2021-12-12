@@ -2,6 +2,34 @@ import axios from 'axios';
 import setAuthorizationToken from '../../utils/setAutToken';
 import jwt from 'jsonwebtoken';
 
+// genera un token y manda un mail, pendendiendo el token case del body:
+// post ---> localhost/users/resetpassword
+
+//activa la cuenta con el token envíado por email en tokenGerator:
+// post ---> localhost/users/resetpassword/token
+
+export function sendActivateEmail(payload) {
+	return async dispach => {
+		try {
+			const res = await axios.post('/users/resetpassword', payload);
+			return dispach({ type: 'SEND_ACTIVATE_EMAIL', payload: res.data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+}
+
+// export function activateAccount(payload){
+// 	return async dispach => {
+// 		try {
+// 			const res = await axios.post(`/users/resetpassword/${token}`, payload)
+// 			return dispach({ type: 'ACTIVATE_ACCOUNT', payload: res.data })
+// 		} catch (error) {
+// 			console.log(error)
+// 		}
+// 	}
+// }
+
 export function getOrders(payload) {
 	return async dispatch => {
 		try {
@@ -148,6 +176,7 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
+	alert('Are you sure?');
 	return {
 		type: 'DELETE_FROM_CART',
 		payload: payload,
@@ -275,6 +304,13 @@ export function setFilterBrands(brand) {
 	};
 }
 
+export function changeItemCuantity(payload) {
+	return {
+		type: 'CHANGE_ITEM_CUANTITY',
+		payload: payload,
+	};
+}
+
 export function filterPrice(price) {
 	return {
 		type: 'FILTER_PRICE',
@@ -371,6 +407,14 @@ export function postNewShoe(payload) {
 	};
 }
 
+export function putNewShoe(id, brand) {
+	return async function (dispatch) {
+		axios.post(`/shoes/${id}`, brand).then(r => {
+			dispatch({ type: 'PUT_NEW_SHOE', payload: r.data });
+		});
+	};
+}
+
 export function getBrands() {
 	return async function (dispatch) {
 		axios.get(`/brands`).then(r => {
@@ -384,5 +428,12 @@ export function deleteShoe(id) {
 		axios.delete(`/shoes/${id}`).then(r => {
 			dispatch({ type: 'DELETE_SHOE', payload: r.data });
 		});
+	};
+}
+
+export function clearShoeDetails() {
+	return {
+		type: 'CLEAR_SHOE_DETAILS',
+		payload: [],
 	};
 }

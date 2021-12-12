@@ -13,7 +13,9 @@ const transporter = nodemailer.createTransport(smtpTransport({
     }
 }))
 
- const sendMail = async function ({template, payload=''}){
+const sendMail = async function (payload=''){
+    console.log('email')
+    
     console.log(payload)
     let total = 0
     let id = uuidv4().slice(0,7)
@@ -33,50 +35,64 @@ const transporter = nodemailer.createTransport(smtpTransport({
         )
     }
 
-    
-
-     //console.log(payload)
-    await transporter.sendMail({
-        from: 'JSEC Store zapapp@zapapp.com',
-        to: payload.email,
-        subject: `Order details #${id}`,
-        html: `Hi ${payload.name}! These are the details of your purchase, have a nice day! :
-        <br> 
-        <ul>
-        <li>
-        Shipping Adress: ${payload.adress}
-        </li>
-        <li>items: <ul>${payload.cart.map(item => (nombreItems.includes(item.name) ? '<br>'+nombreItems.splice(nombreItems.indexOf(item.name),1) +' x '+ item.cuantity+' at US$ '+ item.price+' each' : ''))}</ul></li>
-        <br>
-        <li>TOTAL: US$ ${total}</li>
-        </ul>
-        `
+    switch (payload.template){
+        case 'resetPassword':
+        await transporter.sendMail({
+            from: 'JSEC Store zapapp@zapapp.com',
+            to: payload.email,
+            subject: `Reset Password`,
+            html: `Hi ${payload.name}! 
+            <br> 
+            If you request a password reset for your account please
+            <a href=${payload.url}>click here</a>
+            <br> 
+            If you didn't please ignore this email
+            `
+        }
+        )
+        break;
+        case 'activateAccount':
+        await transporter.sendMail({
+            from: 'JSEC Store zapapp@zapapp.com',
+            to: payload.email,
+            subject: `${payload.name} Active your account`,
+            html: `Hi ${payload.name}!
+            <a href=${payload.url}>click here to activate your account</a>
+            <br>
+            Have a nice day!
+            `
+        }
+        )
+        break
+    // ----
+        case 'purchase':
+        await transporter.sendMail({
+            from: 'JSEC Store zapapp@zapapp.com',
+            to: payload.email,
+            subject: `Your order is ${payload.status} (Order details #${payload.orderId})`,
+            html: `Hi ${payload.name}! These are the details of your purchase, have a nice day! :
+            <br> 
+            <ul>
+            <li>
+            Shipping Adress: ${payload.adress}
+            </li>
+            <li>items: <ul>${payload.cart.map(item => (nombreItems.includes(item.name) ? '<br>'+nombreItems.splice(nombreItems.indexOf(item.name),1) +' x '+ item.cuantity+' at US$ '+ item.price+' each' : ''))}</ul></li>
+            <br>
+            <li>TOTAL: US$ ${total}</li>
+            </ul>
+            `
+        }
+        )
+        console.log('mensaje enviado')
     }
-    ).then( () =>{ return 'mail mandado con exito'}).catch(err => console.log(err))
-    
 
-    
 }
 
-const sendPasswordEmail = async function ({url, email, name}){
+// const sendPasswordEmail = async function ({url, email, name}){
     
-    
-    await transporter.sendMail({
-        from: 'JSEC Store zapapp@zapapp.com',
-        to: email,
-        subject: `Reset Password`,
-        html: `Hi ${name}! 
-        <br> 
-        If you request a password reset for your account please
-        <a href=${url}>click here</a>
-        <br> 
-        If you didn't please ignore this email
-        `
-    }
-    ).then( () =>{ return 'mail mandado con exito'}).catch(err => console.log(err))
-    
-    
-    
-}
 
-module.exports = {sendMail, sendPasswordEmail}
+    
+// }
+
+// module.exports = {sendMail, sendPasswordEmail}
+module.exports = {sendMail}

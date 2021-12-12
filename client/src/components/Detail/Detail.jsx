@@ -41,7 +41,7 @@ export default function Detail({ id }) {
 	useEffect(async () => {
 		await dispatch(getShoeDetails(id));
 		await dispatch(getReviews());
-	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser)]);
+	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser), id]);
 
 	return (
 		<div style={{ padding: 10, waigth: '100%' }}>
@@ -73,31 +73,33 @@ export default function Detail({ id }) {
 				{allColors &&
 					allColors.colorNameThumbnailAnd_id.slice(0, 100).map((item, i) => {
 						return (
-							<div
-								onMouseEnter={() => {
-									setShoeOnHover(item.id);
-									setShoeOnHoverColor(allColors.colorNameThumbnailAnd_id);
-								}}
-								onMouseLeave={() => {
-									setShoeOnHover('');
-									setShoeOnHoverColor('');
-								}}
-								key={i}
-								className={s.gridOfFirstThreeColors}>
-								{item.threeColorGrid
-									.map((items, ind) => {
-										return (
-											<div
-												key={ind + 400}
-												className={s.gridOfColors}
-												style={{
-													backgroundColor: items,
-												}}
-											/>
-										);
-									})
-									.slice(0, 4)}{' '}
-							</div>
+							<Link to={`/shoe/${item.id}`}>
+								<div
+									onMouseEnter={() => {
+										setShoeOnHover(item.id);
+										setShoeOnHoverColor(allColors.colorNameThumbnailAnd_id);
+									}}
+									onMouseLeave={() => {
+										setShoeOnHover('');
+										setShoeOnHoverColor('');
+									}}
+									key={i}
+									className={s.gridOfFirstThreeColors}>
+									{item.threeColorGrid
+										.map((items, ind) => {
+											return (
+												<div
+													key={ind + 400}
+													className={s.gridOfColors}
+													style={{
+														backgroundColor: items,
+													}}
+												/>
+											);
+										})
+										.slice(0, 4)}{' '}
+								</div>
+							</Link>
 						);
 					})}{' '}
 			</div>{' '}

@@ -1,0 +1,174 @@
+.main {
+	display: flex;
+	margin-top: 70px;
+	justify-content: space-around;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+}
+
+.divvy {
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+}
+
+.sizebox {
+	display: inline-flex;
+	justify-content: space-between;
+	flex-direction: column;
+	height: 150px;
+	width: 350px;
+	flex-wrap: wrap;
+	margin: 10px;
+}
+
+.sizes {
+	display: block;
+	margin: 5px;
+}
+
+.checkboxes {
+	margin: 5px;
+	align-items: center;
+	align-content: center;
+	align-self: center;
+}
+
+.thumbnail_box {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	height: 320px;
+	border-width: 3px;
+	border-style: dotted;
+	border-color: grey;
+	border-radius: 6px;
+	background-color: lightgrey;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.thumbnail {
+	width: 395px;
+	height: 320px;
+	border-radius: 6px;
+}
+
+.desc {
+	height: 80px;
+	width: 380px;
+}
+
+.btn_create {
+	position: relative;
+	margin-top: 5px;
+	bottom: 50px;
+	left: 590px;
+	height: 35px;
+	width: 130px;
+	border: none;
+	background-color: rgb(184, 184, 184);
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn_create:active {
+	box-shadow: 0 1px #666;
+	transform: translateY(1px);
+	background-color: #666;
+}
+
+.btn_back {
+	position: relative;
+	margin-top: 5px;
+	left: 10px;
+	height: 35px;
+	width: 130px;
+	border: none;
+	background-color: rgb(184, 184, 184);
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.btn_back:active {
+	box-shadow: 0 1px #666;
+	transform: translateY(1px);
+	background-color: #666;
+}
+
+.error {
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgb(182, 9, 9);
+}
+
+.error_desc {
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgb(182, 9, 9);
+	height: 80px;
+	width: 380px;
+}
+
+.hide {
+	display: none;
+}
+
+.req {
+	color: rgb(182, 9, 9);
+	margin-left: 30px;
+}
+
+.inputname {
+	display: flex;
+}
+
+.btn_color {
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.btn_color:active {
+	transform: translateY(1px);
+}
+
+.colorbox {
+	display: flex;
+	/* flex-wrap: wrap; */
+}
+
+.colorDivvy {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+}
+
+.btn_clearColor {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 30px;
+	width: 70px;
+	margin-right: 7px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	background-color: rgb(165, 165, 165);
+	color: black;
+}
+
+.btn_clearColor:active {
+	transform: translateY(1px);
+}
+
+.error2 {
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgb(255, 153, 0);
+}

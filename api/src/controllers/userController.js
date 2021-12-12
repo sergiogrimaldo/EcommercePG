@@ -3,12 +3,12 @@ const {
     v1: uuidv1,
     v4: uuidv4,
   } = require('uuid');
-
-const {sendPasswordEmail} = require('../services/mailerService')
+const { sendMail } = require('../services/mailerService')
 
 const tokenGenerator = async (req, res) => {
 
-    const {email} = req.body;
+    const {email, tokenCase} = req.body;
+    console.log(email, tokenCase)
 
     const user = await User.findOne({
         where: {email: email}
@@ -24,11 +24,21 @@ const tokenGenerator = async (req, res) => {
 
     await user.save();
 
-    const resetUrl = `http://localhost:3000/users/resetPassword/${user.token}`
+    let url 
+    switch (tokenCase){
+        case 'resetPassword':
+             url = `http://localhost:3000/users/resetPassword/${user.token}`
+            await sendMail({template:'resetPassword',email: user.email, name: user.name, url: url})
+        break
+        case 'validateUser':
+            url = `http://localhost:3000/users/activate/${user.token}`
+            await sendMail({template:'activateAccount',email: user.email, name: user.name, url: url})
+        break
 
-    await sendPasswordEmail({email: user.email, name: user.name, url: resetUrl})
+    }
 
-    res.send(user.token);
+
+    return(res.send(user.token));
 
 }
 
@@ -58,7 +68,29 @@ const resetPassword = async (req, res) => {
 
 }
 
+const validateUser = async (req, res) => {
+    
+    const user = await User.findOne({
+        where : {
+            token: req.params.token,
+        }
+    })
+
+    console.log(req.params.token)
+
+    if(!user){
+        res.status(404).send('Token is not valid')
+    }
+    
+    user.activated = true
+    user.save();
+
+    res.send(`${user.name}, your account has been activated!`)
+
+}
+
 module.exports = {
     tokenGenerator,
     resetPassword,
+    validateUser
 }

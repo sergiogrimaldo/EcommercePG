@@ -125,89 +125,22 @@ router.post('/', async (req, res, next) => {
 				}
 			}
 
-			let newShoe = await Shoe.findOrCreate({
-				include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }, { model: Reviews }],
-				where: {
-					shoeName: shoeName,
-				},
-
-				defaults: {
-					description: description,
-					stock: stock,
-					shoeName: shoeName,
-					silhoutte: silhoutte,
-					thumbnail: thumbnail,
-					//resellPrices: resellPrices,
-					//lowestResellPrice: lowestResellPrice,
-					colorway: colorway,
-					urlKey: urlKey,
-					//brand: brand,
-					//brand: nuBrand.name
-				},
+			let newShoe = await Shoe.create({
+				description: description,
+				stock: stock,
+				shoeName: shoeName,
+				silhoutte: silhoutte,
+				thumbnail: thumbnail,
+				//resellPrices: resellPrices,
+				//lowestResellPrice: lowestResellPrice,
+				colorway: colorway,
+				urlKey: urlKey,
+				//brand: nuBrand.name
 			});
 
-			//await newShoe[0].setBrand(nuBrand[0]);
-			await newShoe[0].setAvailableSize(sizes);
-			await newShoe[0].setPrice(prices);
-
-			//res.send(newShoe);
-			//console.log(newShoe)
-			if (newShoe[1] === true) {
-				return res.send(newShoe[0]);
-			} else {
-				// const Zapato = await Brand.find({
-				//const noEncuentroLaBrand = await Brand.findOne({ where: { name: brand } });
-				// 	where:{
-				// 		name:name,
-				// 	}
-				// }),
-				if (description) {
-					newShoe[0].description = description;
-				}
-				if (stock) {
-					newShoe[0].stock = stock;
-				}
-				if (shoeName) {
-					newShoe[0].shoeName = shoeName;
-				}
-				if (silhoutte) {
-					newShoe[0].silhoutte = silhoutte;
-				}
-				if (thumbnail) {
-					newShoe[0].thumbnail = thumbnail;
-				}
-				if (resellPrices) {
-					newShoe[0].resellPrices = resellPrices;
-				}
-				if (lowestResellPrice) {
-					newShoe[0].lowestResellPrice = lowestResellPrice;
-				}
-				if (colorway) {
-					newShoe[0].colorway = colorway;
-				}
-				if (urlKey) {
-					newShoe[0].urlKey = urlKey;
-				}
-				if (nuBrand) {
-					await newShoe[0].setBrand(nuBrand);
-					console.log(nuBrand, 'jsajajajaj');
-				}
-				if (brand) {
-					newShoe[0].brand = brand;
-				}
-				// if(noEncuentroLaBrand){
-				// 	//newShoe.noEncuentroLaBrand=noEncuentroLaBrand
-				// 	await newShoe[0].setBrand(noEncuentroLaBrand)
-
-				// }
-				await newShoe[0].setBrand(nuBrand[0]);
-				await newShoe[0].save();
-				//console.log(newShoe[0].save(), "quesesto")
-			}
-			await newShoe[0].setBrand(nuBrand[0]);
-			//console.log(nuBrand, "jsajajajaj")
-			//console.log(newShoe[0])
-			return res.send(newShoe[0]);
+			await newShoe.setBrand(nuBrand);
+			await newShoe.setAvailableSize(sizes);
+			await newShoe.setPrice(prices);
 		} catch (error) {
 			next(error);
 		}
