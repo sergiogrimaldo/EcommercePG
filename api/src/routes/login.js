@@ -11,10 +11,10 @@ const { User } = require("../db");
 const jwt = require("jsonwebtoken");
 const router = Router();
 
-const origin =
-    process.env.DB_HOST === "localhost"
-        ? "535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
-        : "712548091909-h0gqr6u8q1mj7s3ac3p5s0hkn6snkptf.apps.googleusercontent.com";
+const origin = "712548091909-h0gqr6u8q1mj7s3ac3p5s0hkn6snkptf.apps.googleusercontent.com";
+    // process.env.DB_HOST === "localhost"
+    //     ? "535679678854-l50v2fpt6e7ag1mhjtc5p1aa1pgv0kcb.apps.googleusercontent.com"
+    //     : "712548091909-h0gqr6u8q1mj7s3ac3p5s0hkn6snkptf.apps.googleusercontent.com";
 
 
 //console.log(process.env)
