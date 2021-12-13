@@ -25,7 +25,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
         let sum = arrayOfRatings && arrayOfRatings.length > 0 && arrayOfRatings.reduce((previous, current) => (current += previous));
         avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
     }
-
+    
     if (orders && orders.length > 0 && user && user.id) {
         let isIn = [];
         let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
