@@ -88,7 +88,7 @@ export default function MyAccount(){
 
                     <p><Link to={`./orders/${order.id}`} 
                        style={{textDecoration: 'none'}}>
-                       <strong>#{order.id.split('-')[0]}</strong></Link></p>
+                       <strong>#{order.id?.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.status}</p>
