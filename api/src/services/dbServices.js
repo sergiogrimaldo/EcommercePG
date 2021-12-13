@@ -2,7 +2,8 @@
 const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require("../../src/db");
 
 const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta funcion recibe un userID y un carrito (cart)
-    console.log("addOrderToDBaddOrderToDBaddOrderToDB",cart, "doneeeeeeeeee")
+    console.log(cart)
+    console.log(shippingInfo,'shippingInfo')
     /// la mockOrder viene a simular un carrito, podria pasarse un carrito pero deberia coincidir con este formato
     //
     let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
@@ -34,16 +35,16 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
         await order.addShoe(shoe, {through:{cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal,color:zapatilla.color}})  
         /// busco talles de zapatilla
 
-        ////let sizes = await shoe.getAvailableSize()  
+        let sizes = await shoe.getAvailableSize()  
         ////console.log(sizes)
 
         // tamaño de zapatilla en el carrito
 
-        /////let shoesize=zapatilla.size  
+        let shoesize=zapatilla.size  
 
         // le resto la cantidad al tamaño de la zapatilla
 
-        /////sizes[shoesize] = sizes[shoesize]-(zapatilla.cuantity)  
+        sizes[shoesize] = sizes[shoesize]-(zapatilla.cuantity)  
         // guardo cambios
 
         ////await sizes.save() 
@@ -55,6 +56,7 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
     }
 
     //return(console.log('orden creada'))
+    await order.save()
     return('orden creada') // por si quiero devolver un mensaje en algun lado
 }
 
@@ -115,7 +117,7 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
 
     const user = await User.findOne({where: { email:email }})
 
-    console.log(user, "user dbservice")
+    console.log(user)
 
     if(user.roleId === 2){
         let order = await Order.findByPk(id);
@@ -125,6 +127,7 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
     }else{
         return "You don´t have access to this action"
     }
+
 
     //si es admi puede modificar el estado de la orden solicitada
 }

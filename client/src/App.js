@@ -22,6 +22,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword.jsx';
 import RequestResetPassword from './components/ResetPassword/RequestResetPassword.jsx';
 import DeleteModal from './components/Modals/DeleteModal.jsx';
 import AccountActivation from './components/AccountActivation/AccountActivation.jsx';
+import WishList from './components/WishList/WishList'
 
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
 	const modalData = useSelector(state => state.modalBuyDetails);
 	const deleteId = useSelector(state => state.deleteId);
 	
-
 	return (
+		<>
+	
 		<BrowserRouter>
 			{modal === 'checkout' && <Checkout />}
 			{modal === 'login' && <Login />}
@@ -39,12 +41,25 @@ function App() {
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
 			{modal === 'delete' && <DeleteModal deleteId={deleteId} />}
 			
+			{/* <div style={{height:'100vh', backgroundColor:'black', color:'white'}}>
+				WishList
+				{ console.log(wishList)}
+				{ wishList && JSON.stringify(wishList).length > 2 && wishList.shoes.map((shoe) => <div style={{display:'flex', alignItems:'center'}}>
+					<img src={shoe.thumbnail} width='250px'/>
+					<div>{shoe.shoeName}</div>
+					<div>
+						<button id={shoe.id} onClick={() => handleDeleteClick(shoe.id)}>❌{shoe.id}</button> 
+					</div>
+					</div> )}
 
+		</div> */}
 			<Navbar />
 
 			<Switch>
 				<Route exact path='/checkout' component={CheckoutForm} />
-
+				<Route exact path='/wishList'>
+					<WishList />
+				</Route>
 				<Route exact path='/home'>
 					<Home />
 				</Route>
@@ -83,6 +98,7 @@ function App() {
 					<AccountActivation token={match.params.token} />} />
 			</Switch>
 		</BrowserRouter>
+		</>
 	);
 }
 

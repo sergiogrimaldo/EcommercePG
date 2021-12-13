@@ -25,5 +25,5 @@ export default function DeleteShoe({ id }) {
 				X
 			</button>
 		</div>
-	);
+	)
 }

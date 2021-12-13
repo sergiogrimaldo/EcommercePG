@@ -11,7 +11,7 @@ import SignUp from '../Modals/SignUp';
 import { compileData } from './dataSupport';
 import AddShoe from '../AddShoe/AddShoe.jsx';
 import Login from '../Modals/Login';
-import { filterBrand, getShoes, getPrices, getAvailableSizes, getBrands, filterSize,search } from '../../redux/actions/index.js';
+import { filterBrand, getShoes, getPrices, getAvailableSizes, getBrands, filterSize,search,getWishList } from '../../redux/actions/index.js';
 import styles from './Catalogue.module.css';
 
 function Catalogue() {
@@ -37,6 +37,7 @@ function Catalogue() {
 		dispatch(getAvailableSizes());
         dispatch(getReviews());
         if (user && user.id) {
+			
             dispatch(getReviewsFromUser(user.id));
         }
 	}, []);
