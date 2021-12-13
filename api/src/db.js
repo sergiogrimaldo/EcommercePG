@@ -60,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price } = sequelize.models;
+const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price, Wishlist } = sequelize.models;
 
 // One user can have many orders
 User.belongsToMany(Order, { through: User_Order });
@@ -77,6 +77,11 @@ Reviews.belongsTo(User);
 
 Reviews.belongsTo(Shoe);
 Shoe.hasMany(Reviews);
+
+User.belongsToMany(Shoe, {through: Wishlist}) /// un usuario desea muchas zapatillas
+Shoe.belongsToMany(User, {through: Wishlist}) /// muchas zapatillas son deseadas por muchos usuarios
+
+
 
 // Order can contain many shoe, and the same shoe can be in many different orders
 const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });

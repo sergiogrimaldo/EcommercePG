@@ -4,7 +4,7 @@ import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from "react-google-login";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { logIn, setCurrentUser, getUsers, postUser, getOrders } from "../../redux/actions";
+import { logIn, setCurrentUser, getUsers, postUser, getOrders, getWishList } from "../../redux/actions";
 
 const PORT = "712548091909-h0gqr6u8q1mj7s3ac3p5s0hkn6snkptf.apps.googleusercontent.com";
     // process.env.NODE_ENV === "production"
@@ -23,6 +23,7 @@ export default function Login() {
         const user = await dispatch(googleLogIn({ token: response.tokenId }));
         console.log(user);
         await dispatch(setCurrentUser(user));
+        
         dispatch(closeModal());
         await dispatch(getOrders({ email: user?.email }));
 
