@@ -124,7 +124,7 @@ try {
  */
 
 try {
-    Order.addHook("afterSave", async (order) => {
+    Order.addHook("afterUpdate", async (order) => {
       //console.log(order.id,"locoooooooooooooooo");
       //let orden = await Order.findByPk(order.id, {include: [{model: Order_Shoes}]})
       setTimeout(async () => {
