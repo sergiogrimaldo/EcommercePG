@@ -1,6 +1,6 @@
 .container {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	z-index: 3;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 	padding: 20px;
@@ -11,3 +11,15 @@
 	align-items: center;
 	flex-direction: row;
 }
+
+@media only screen and (max-width: 960px) {
+    .container {
+      flex-direction: column;
+      padding: 0;
+      height: auto;
+    }
+	.btns{
+	padding: 0;
+      height: auto;
+	}
+  }
