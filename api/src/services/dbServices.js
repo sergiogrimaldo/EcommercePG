@@ -3,6 +3,7 @@ const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require(
 
 const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta funcion recibe un userID y un carrito (cart)
     console.log(cart)
+    console.log(shippingInfo,'shippingInfo')
     /// la mockOrder viene a simular un carrito, podria pasarse un carrito pero deberia coincidir con este formato
     //
     let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
@@ -55,6 +56,7 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
     }
 
     //return(console.log('orden creada'))
+    await order.save()
     return('orden creada') // por si quiero devolver un mensaje en algun lado
 }
 
