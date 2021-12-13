@@ -17,7 +17,7 @@ export default function AddShoe() {
 		availableSizes: new Array(sizes.length).fill(false),
 	});
 
-	let [url,setUrl] = useState('')
+	// let [url, setUrl] = useState('');
 
 	let [input, setInput] = useState({
 		id: 0,
@@ -61,11 +61,11 @@ export default function AddShoe() {
 		} else {
 			errors.retailPrice = 'Retail price required';
 		}
-		// if (input.thumbnail) {
-		// 	errors.thumbnail = '';
-		// } else {
-		// 	errors.thumbnail = 'Thumbnail required';
-		// }
+		if (input.thumbnail) {
+			errors.thumbnail = '';
+		} else {
+			errors.thumbnail = 'Thumbnail required';
+		}
 		if (input.colorway.length > 0) {
 			errors.colorway = '';
 		} else {
@@ -151,7 +151,8 @@ export default function AddShoe() {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
 			setPreviewSource(urlImage);
 			//console.log(urlImage);
-			setUrl(urlImage)
+			setInput({ ...input, thumbnail: urlImage });
+			setError(validate({ ...input, thumbnail: urlImage }));
 			return urlImage;
 		} catch (error) {
 			console.log(error);
@@ -159,14 +160,18 @@ export default function AddShoe() {
 	};
 
 	////flor adding stuff end section
+	function uploadClick(e) {
+		if (!previewSource) {
+			alert('Please select a file first');
+		}
+	}
+
 	function handleColors(color) {
 		// setColors([...colors, e]);
 		setInput({ ...input, colorway: [...input.colorway, color] });
 		setError(validate({ ...input, colorway: [...input.colorway, color] }));
 		setSearchColor('');
 	}
-
-	
 
 	function deleteColor(e) {
 		setInput({ ...input, colorway: [...input.colorway].filter(elem => elem !== e.target.value) });
@@ -188,8 +193,8 @@ export default function AddShoe() {
 				colorway: input.colorway.join('/'),
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
-				// thumbnail: input.thumbnail,
-				thumbnail: url,
+				thumbnail: input.thumbnail,
+				// thumbnail: url,
 				urlKey: input.shoeName.split(' ').join('-'),
 				avaiableSizes: input.availableSizes,
 				brand: input.brand,
@@ -218,9 +223,10 @@ export default function AddShoe() {
 					<div className={`${styles.sizebox}`}>
 						{sizes &&
 							sizes.map((elem, index) => (
-								<div className={`${styles.sizes}`} key={elem + index}>
+								<div className={`${styles.sizes}`}>
 									{elem}
 									<input
+										key={elem + index}
 										className={`${styles.checkboxes}`}
 										name='availableSizes'
 										type='checkbox'
@@ -235,9 +241,6 @@ export default function AddShoe() {
 				<Link to='/catalogue'>
 					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
 				</Link>
-				<button type='submit' className={`${styles.btn_create}`}>
-					Create
-				</button>
 			</form>
 			<div>
 				<div className={`${styles.thumbnail_box}`}>
@@ -255,9 +258,14 @@ export default function AddShoe() {
 
 					 */}
 				<form onSubmit={handleSubmitFile}>
-					<div>
-						<input type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.fileInput}></input>
-						<button className={styles.uploadBtn} type='submit'>
+					<div className={`${styles.fileBox}`}>
+						<div className={`${styles.fileInputBox}`}>
+							<label className={styles.fileInput} for='files'>
+								Browse...
+							</label>
+							<input id='files' type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.hideFile}></input>
+						</div>
+						<button className={styles.upload_btn} type='submit' onClick={uploadClick}>
 							Upload
 						</button>
 					</div>
@@ -269,7 +277,12 @@ export default function AddShoe() {
 					 */}
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
-					<input type='text' name='thumbnail' value={url} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
+					<input type='text' name='thumbnail' value={input.thumbnail} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
+					<div>
+						<button type='submit' className={`${styles.btn_create}`} onClick={onSubmit}>
+							Create
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -286,26 +299,26 @@ export default function AddShoe() {
 					</select>
 					<div className={`${styles.divvy}`}>
 						or add a new one
-						<div className={`${styles.divvy}`}>
-							<input type='text' name='brand' value={input.brand} onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`} />
-						</div>
+						<input
+							type='text'
+							name='brand'
+							defaultValue={input.brand ? input.brand[0].toUpperCase() + input.brand.slice(1) : ''}
+							onChange={handleInput}
+							className={`${error.brand ? styles.error : styles.inputname}`}
+						/>
 					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
 					<input type='text' name='silhoutte' value={input.silhoutte} onChange={handleInput} className={`${error.silhoutte ? styles.error : styles.inputname}`} />
 				</div>
-				{/* <div className={`${styles.divvy}`}>
-					<label>Colorway</label>
-					<input type='text' name='colorway' value={input.colorway} onChange={handleInput} className={`${error.colorway ? styles.error : styles.inputname}`} />
-				</div> */}
 				<div className={`${styles.divvy}`}>
 					<label>Colorway</label>
 					<div className={`${input.colorway.length > 0 ? styles.colorDivvy : styles.hide}`}>
 						{input.colorway.length > 0
 							? input.colorway.map(elem => (
 									<button key={elem} value={elem} className={`${styles.btn_clearColor}`} onClick={deleteColor}>
-										{elem} <label className={`${styles.xLabel}`}>x</label>
+										{elem + '  x'}
 									</button>
 							  ))
 							: ''}

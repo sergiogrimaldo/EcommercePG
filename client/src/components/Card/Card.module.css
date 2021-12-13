@@ -1,22 +1,21 @@
 .card {
-    width: 330px;
-    position: relative;
-    margin: 30px;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-family: "Poppins", sans-serif;
-    transition: all 300ms;
-    border-radius: 20px;
-
+	width: 330px;
+	position: relative;
+	margin: 30px;
+	margin-bottom: 10px;
+	padding: 10px;
+	font-family: 'Poppins', sans-serif;
+	transition: all 300ms;
+	border-radius: 20px;
 }
 
 .card:hover {
-    box-shadow: 1px 1px 20px -10px #20202049;
+	box-shadow: 1px 1px 20px -10px #20202049;
 }
 
 .card:hover .info__description {
-    margin-top: 0px;
-    border-radius: 0px 0px 20px 20px;
+	margin-top: 0px;
+	border-radius: 0px 0px 20px 20px;
 }
 
 /* .card:hover .icon {
@@ -26,53 +25,55 @@
 } */
 
 .icon {
-    width: 100%;
-    height: 340px;
-    background: #eff3f5;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
-    border-radius: 20px;
-    background-color:#fff;
-    
+	width: 100%;
+	height: 340px;
+	background: #eff3f5;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	z-index: 1;
+	transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
+	border-radius: 20px;
+	background-color: #fff;
 }
 .icon i {
-    font-size: 150px;
-    color: #fff;
-    transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
+	font-size: 150px;
+	color: #fff;
+	transition: all 400ms cubic-bezier(0.5, 0, 0, 1);
 }
-
 
 .img {
-    border-radius: 20px;
-    height: 130px;
-    width: 150px;
-    max-height: 186px;
-    max-width: 261px;
-    margin-top: -70px;
+	border-radius: 20px;
+	height: 130px;
+	width: 150px;
+	max-height: 186px;
+	max-width: 261px;
+	margin-top: -70px;
 }
 
-.button{
-    background-color:white;
-    cursor: pointer;
-    z-index:30;
-    border-Radius:10;
-    position:absolute;
-    bottom:65px;
-    left:38%;
-    padding:5px; 
-    border:1px solid black;
+.button {
+	background-color: white;
+	cursor: pointer;
+	z-index: 30;
+	border-radius: 10;
+	position: absolute;
+	bottom: 65px;
+	left: 38%;
+	padding: 5px;
+	border: 1px solid black;
 }
-.button:hover{
-    background-color: black;
-    color:white;
+.button:hover {
+	background-color: black;
+	color: white;
 }
 
 .outstock {
 	color: red;
+}
+
+.btn_ed_del {
+	display: flex;
 }

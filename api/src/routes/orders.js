@@ -50,7 +50,7 @@ router.patch("/:id", async (req, res, next) => {
 })
 
 router.post("/", async (req, res, next) => { 
-    console.log(req.body)
+    console.log("la cara del bodyeeeeeeeeeeee",req.body, "doneeeeeeeeeeeeee")
     res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart, shippingInfo:req.body.shippingInfo})) 
 })
 

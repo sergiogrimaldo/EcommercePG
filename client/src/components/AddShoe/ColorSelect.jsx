@@ -41,20 +41,27 @@ const ColorSelect = ({ input, handleColors }) => {
 								// }}>
 								// 	{elem[0].toUpperCase() + elem.slice(1)}
 								// </div>
-
-								<button
-									value={elem}
-									style={{
-										width: 70,
-										height: 30,
-										backgroundColor: findGrid(elem),
-										margin: 10,
-									}}
-									className={`${styles.btn_color}`}
-									onClick={clickHandler}
-									key={elem + index}>
-									{elem[0].toUpperCase() + elem.slice(1)}
-								</button>
+								<div className={`${styles.div_color}`}>
+									<button
+										value={elem}
+										style={{
+											width: 70,
+											height: 30,
+											backgroundColor: 'lightgray',
+										}}
+										className={`${styles.btn_color}`}
+										onClick={clickHandler}
+										key={elem + index}>
+										{elem[0].toUpperCase() + elem.slice(1)}
+									</button>
+									<div
+										style={{
+											width: 30,
+											height: 30,
+											backgroundColor: findGrid(elem),
+										}}
+										className={`${styles.btn_color}`}></div>
+								</div>
 							)
 					)
 					.slice(0, 12)

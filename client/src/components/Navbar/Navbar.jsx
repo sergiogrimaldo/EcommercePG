@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal, getOrders, clearCart, update } from '../../redux/actions/index.js';
+import { openModal, getOrders, clearCart, update, clearWishlist } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
@@ -8,11 +8,15 @@ import {ShoppingCart} from '@material-ui/icons';
 import {Badge} from '@material-ui/core';
 import './Navbar.css';
 import { useEffect } from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import {useHistory} from 'react-router-dom'
 import {Cover} from '../Home/Cover/Cover'
 
 
 function Navbar() {
     const cart = useSelector(state => state.cart)
+    const history = useHistory()
     const [click, setClick] = useState(false);
     const dispatch = useDispatch();
     const handleClick = () => setClick(!click);
@@ -29,12 +33,20 @@ function Navbar() {
     //   setCartItemsNumber(JSON.stringify(cart.length).length)
     // }, [JSON.stringify(cart)]) // no triggerea sino porque compara arrays por referencia no por valor (deep equality)
 
-    //for later use on reducer (so it will keep object like properties)
-    // const reducer = (accumulator, currentValue) => accummulator + currentValue.cuantity
+    const handleLike1 = function (){
+      if (!(user.email)){
+        dispatch(openModal('login'))
+      }
+      else {
+        history.push('/wishlist')
+      }
+    }
+
 
     const handleLogout = function () {
       dispatch(logout())
       dispatch(clearCart())
+      dispatch(clearWishlist())
       dispatch(update())
     }
     return (
@@ -95,7 +107,11 @@ function Navbar() {
                   <ShoppingCart fontSize='large' color='primary' />
                 </Badge>
               </Link>
-              </li></ul>
+              </li>
+              <li>
+              <FontAwesomeIcon style={{cursor:'pointer'}} size='lg'  color='red' icon={faHeart} onClick={ () => handleLike1()}/> 
+              </li>
+              </ul>
         </div>
         
       </nav>
