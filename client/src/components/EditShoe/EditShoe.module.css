@@ -64,15 +64,13 @@
 	width: 380px;
 }
 
-.btn_create {
-	position: relative;
+.addTo {
 	margin-top: 5px;
-	bottom: 50px;
-	left: 590px;
 	height: 35px;
 	width: 130px;
 	border: none;
 	background-color: rgb(184, 184, 184);
+	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 }
