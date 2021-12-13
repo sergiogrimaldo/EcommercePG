@@ -299,24 +299,26 @@ export default function AddShoe() {
 					</select>
 					<div className={`${styles.divvy}`}>
 						or add a new one
-						<input type='text' name='brand' value={input.brand} onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`} />
+						<input
+							type='text'
+							name='brand'
+							defaultValue={input.brand ? input.brand[0].toUpperCase() + input.brand.slice(1) : ''}
+							onChange={handleInput}
+							className={`${error.brand ? styles.error : styles.inputname}`}
+						/>
 					</div>
 				</div>
 				<div className={`${styles.divvy}`}>
 					<label>Silhouette</label>
 					<input type='text' name='silhoutte' value={input.silhoutte} onChange={handleInput} className={`${error.silhoutte ? styles.error : styles.inputname}`} />
 				</div>
-				{/* <div className={`${styles.divvy}`}>
-					<label>Colorway</label>
-					<input type='text' name='colorway' value={input.colorway} onChange={handleInput} className={`${error.colorway ? styles.error : styles.inputname}`} />
-				</div> */}
 				<div className={`${styles.divvy}`}>
 					<label>Colorway</label>
 					<div className={`${input.colorway.length > 0 ? styles.colorDivvy : styles.hide}`}>
 						{input.colorway.length > 0
 							? input.colorway.map(elem => (
 									<button key={elem} value={elem} className={`${styles.btn_clearColor}`} onClick={deleteColor}>
-										{elem} <label className={`${styles.xLabel}`}>x</label>
+										{elem + '  x'}
 									</button>
 							  ))
 							: ''}

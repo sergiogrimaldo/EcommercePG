@@ -171,16 +171,17 @@ input.checkboxes {
 .colorDivvy {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	margin: 10px;
 }
 
 .btn_clearColor {
 	display: flex;
-	justify-content: space-evenly;
+	white-space: nowrap;
 	align-items: center;
-	height: 30px;
-	width: 70px;
+	padding: 10px;
 	margin-right: 7px;
+	margin-top: 7px;
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
