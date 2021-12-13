@@ -17,6 +17,8 @@ export default function AddShoe() {
 		availableSizes: new Array(sizes.length).fill(false),
 	});
 
+	let [url,setUrl] = useState('')
+
 	let [input, setInput] = useState({
 		id: 0,
 		description: '',
@@ -139,12 +141,13 @@ export default function AddShoe() {
 		e.preventDefault();
 		console.log(previewSource)
 		if(!previewSource) return;
-		await uploadImage(previewSource)
+		let imageUrl = await uploadImage(previewSource)
+		setUrl(imageUrl)
 		
 	}
 	// await uploadImage(ps) ---> urlImage
 	const uploadImage = async(base64EncodedImage) => {
-		console.log(base64EncodedImage)
+	//	console.log(base64EncodedImage)
 		try {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', {data: base64EncodedImage},)).data
 			setPreviewSource(urlImage)
@@ -163,7 +166,7 @@ export default function AddShoe() {
 		setSearchColor('');
 	}
 
-	console.log(input.colorway);
+	
 
 	function deleteColor(e) {
 		setInput({ ...input, colorway: [...input.colorway].filter(elem => elem !== e.target.value) });
@@ -186,7 +189,7 @@ export default function AddShoe() {
 				shoeName: input.shoeName,
 				retailPrice: input.retailPrice,
 				// thumbnail: input.thumbnail,
-				thumbnail: input.thumbnail,
+				thumbnail: url,
 				urlKey: input.shoeName.split(' ').join('-'),
 				avaiableSizes: input.availableSizes,
 				brand: input.brand,
@@ -272,7 +275,7 @@ export default function AddShoe() {
 				}
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
-					<input type='text' name='thumbnail' value={previewSource || input.thumbnail} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
+					<input type='text' name='thumbnail' value={url} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
 				</div>
 			</div>
 
