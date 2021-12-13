@@ -150,7 +150,8 @@ export default function AddShoe() {
 		try {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
 			setPreviewSource(urlImage);
-			console.log(urlImage);
+			//console.log(urlImage);
+			setUrl(urlImage)
 			return urlImage;
 		} catch (error) {
 			console.log(error);
