@@ -26,8 +26,11 @@ export default function FilterPrice({ data }) {
 
 	return (
 		<div>
+			<h6>Price</h6>
+			<div>
 			<input type='range' min='0' max={roundUpMax} step='50' value={value} onChange={onChangeHandler} />
 			<label className={`${value !== -Infinity ? styles.label : styles.labelHide}`}>{`$${value}`}</label>
+			</div>
 		</div>
 	);
 }

@@ -88,13 +88,13 @@ export default function Searchbar(props) {
 	}
 
 	return (
-		<div style={{position:'absolute',width:300, top:35,left:'55vw'}}>
-			<form style={{display:'flex', width: '150%'}} {...formProps} >
+		<div style={{display:'flex',width:'150%',padding:5}}>
+			<form style={{display:'flex',width:'150%',padding:5}} {...formProps} >
 			{/* <form style={{display:'flex', width: '150%'}} onSubmit={onSubmitHandler}> */}
 				
-				<input style={{borderTopLeftRadius:15, borderBottomLeftRadius:15, width:'100%', padding:5}} {...inputProps}  />
+				<input style={{borderTopLeftRadius:15, borderBottomLeftRadius:15, width:'100%',padding:5}} {...inputProps}  />
 				{/* <input style={{borderTopLeftRadius:15, borderBottomLeftRadius:15, width:'100%', padding:5}} type='text' value={input} onChange={onChangeHandler} /> */}
-				<button type='submit'>Search</button>
+				<button style={{borderTopRightRadius:15, borderBottomRightRadius:15}} type='submit'>Search</button>
 				</form>
 				{
 					autocompleteState.isOpen && 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBrands, postNewShoe, getShoeDetails, putNewShoe } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import styles from './EditShoe.module.css';
 import ColorSelect from '../AddShoe/ColorSelect';
 
@@ -54,6 +55,10 @@ export default function EditShoe({ id }) {
 	let [checkState, setCheckState] = useState({
 		availableSizes: new Array(sizes.length).fill(false),
 	});
+
+	//flor
+	let [url, setUrl] = useState('');
+	//flor
 
 	let [input, setInput] = useState({
 		description: '',
@@ -163,6 +168,57 @@ export default function EditShoe({ id }) {
 		setError(validate({ ...input, [e.target.name]: e.target.value }));
 	}
 
+	//flor adding cloudinary stuff start section
+
+	const [fileInput, setFileInput] = useState('');
+
+	const [previewSource, setPreviewSource] = useState('');
+
+	const handleFileInput = e => {
+		const file = e.target.files[0];
+		previewFile(file);
+	};
+
+	const previewFile = file => {
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onloadend = () => {
+			setPreviewSource(reader.result);
+		};
+	};
+	const handleSubmitFile = async e => {
+		e.preventDefault();
+		console.log(previewSource);
+		if (!previewSource) return;
+		await uploadImage(previewSource);
+	};
+	// await uploadImage(ps) ---> urlImage
+	const uploadImage = async base64EncodedImage => {
+		console.log(base64EncodedImage);
+
+		try {
+			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
+			setPreviewSource(urlImage);
+			//console.log(urlImage);
+			setUrl(urlImage);
+			setInput({
+				...input,
+				thumbnail: urlImage,
+			});
+			setError(
+				validate({
+					...input,
+					thumbnail: urlImage,
+				})
+			);
+			return urlImage;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	////flor adding clodinary stuff end section
+
 	function handleColors(color) {
 		// setColors([...colors, e]);
 		if (!input.colorway) {
@@ -255,6 +311,28 @@ export default function EditShoe({ id }) {
 				<div className={`${styles.thumbnail_box}`}>
 					<img className={`${styles.thumbnail}`} src={input.thumbnail ? input.thumbnail : details.thumbnail} alt='No Thumbnail' />
 				</div>
+				{/*
+					flor adding stuff section start
+
+					 */}
+				<form onSubmit={handleSubmitFile}>
+					<div className={`${styles.fileBox}`}>
+						<div className={`${styles.fileInputBox}`}>
+							<label className={styles.fileInput} for='files_edit'>
+								Browse...
+							</label>
+							<input id='files_edit' type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.hideFile}></input>
+						</div>
+						<button type='submit' className={styles.upload_btn}>
+							Upload
+						</button>
+					</div>
+				</form>
+
+				{/*
+					flor adding stuff section end
+
+					 */}
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
 					<input

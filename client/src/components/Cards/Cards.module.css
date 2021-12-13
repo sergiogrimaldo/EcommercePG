@@ -9,3 +9,14 @@
 .links{
     text-decoration: none;
 }
+
+@media only screen and (max-width: 960px) {
+    .cards {
+    justify-content: space-around;
+      flex-direction: column;
+      padding: 0;
+      height: auto;
+      justify-items:center;
+      display: grid;
+    }
+  }

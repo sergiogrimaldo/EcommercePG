@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport(smtpTransport({
 const sendMail = async function (payload=''){
     console.log('email')
     
-    console.log("payloaddddd",payload, "doneee")
+    //console.log("payloaddddd",payload, "doneee")
     let total = 0
     let id = uuidv4().slice(0,7)
 
