@@ -318,10 +318,10 @@ export default function EditShoe({ id }) {
 				<form onSubmit={handleSubmitFile}>
 					<div className={`${styles.fileBox}`}>
 						<div className={`${styles.fileInputBox}`}>
-							<label className={styles.fileInput} for='files'>
+							<label className={styles.fileInput} for='files_edit'>
 								Browse...
 							</label>
-							<input type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.hideFile}></input>
+							<input id='files_edit' type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.hideFile}></input>
 						</div>
 						<button type='submit' className={styles.upload_btn}>
 							Upload
