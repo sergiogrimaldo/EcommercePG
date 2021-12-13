@@ -245,9 +245,6 @@ export default function EditShoe({ id }) {
 				<Link to='/catalogue'>
 					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
 				</Link>
-				<button type='submit' className={`${styles.btn_create}`}>
-					Update
-				</button>
 			</form>
 			<div>
 				<div className={`${styles.thumbnail_box}`}>
@@ -263,6 +260,11 @@ export default function EditShoe({ id }) {
 						onInput={handleInput}
 						className={`${error.thumbnail ? styles.error : styles.inputname}`}
 					/>
+					<div>
+						<button type='submit' className={`${styles.btn_create}`} onClick={onSubmit}>
+							Update
+						</button>
+					</div>
 				</div>
 			</div>
 
