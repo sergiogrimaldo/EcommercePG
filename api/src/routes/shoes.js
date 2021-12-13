@@ -51,6 +51,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
+	console.log(req.body)
 	const { description, brandId, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
 
 	if (description && shoeName && retailPrice) {
@@ -257,16 +258,17 @@ router.delete('/:id', async function (req, res, next) {
 
 router.post('/uploadShoeImage', async (req, res) => {
 	try {
+		//console.log(req.body)
 		const fileStr = req.body.data;
-		// console.log(fileStr)
+		//console.log(fileStr)
 
 		const uploadedRes = await cloudinary.uploader.upload(fileStr, {
 			upload_preset: 'pg_images',
 		});
-		console.log(uploadedRes.url);
+		//console.log(uploadedRes.url);
 		res.json(uploadedRes.url);
 	} catch (error) {
-		console.log(error);
+	//	console.log(error);
 		res.status(500).json({ err: 'Oh no' });
 	}
 });
