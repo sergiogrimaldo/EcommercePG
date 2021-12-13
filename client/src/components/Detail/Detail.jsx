@@ -47,11 +47,11 @@ export default function Detail({ id }) {
 	//details && console.log(details)
 	return (
 		<div>
-			<div className={s.backdiv}>
+			{/* <div className={s.backdiv}>
 				<button className={s.back} onClick={() => history.push('/catalogue')}>
 					Back
 				</button>
-			</div>
+			</div> */}
 
 			<div className={`${s.macro}`}>
 				<h1 className={`${s.title}`}>{details && details.shoeName}</h1>
@@ -66,8 +66,9 @@ export default function Detail({ id }) {
 								Object.entries(details.availableSize)
 									.filter(elem => elem[1] !== 0)
 									.filter(elem => elem[0] !== 'id')
+									.sort((a, b) => Number(a[0].includes(',') ? a[0].replace(',', '.') : a[0]) - Number(b[0].includes(',') ? b[0].replace(',', '.') : b[0]))
 									.map(elem => (
-										<button value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
+										<button className={`${s.size_btn}`} value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
 											{elem[0].includes(',') ? elem[0].replace(',', '.') : elem[0]}
 										</button>
 									))}
@@ -109,10 +110,9 @@ export default function Detail({ id }) {
 									);
 								})}
 						</div>
-
 						<div className={s.divvy_two}>
 							<h2 className={`${s.description_label}`}>Product Description</h2>
-							<div className={`${s.description}`}>{details && details.description}</div>
+							<p className={`${s.description}`}>{details && details.description}</p>
 
 							<Reviews shoeId={id} />
 						</div>

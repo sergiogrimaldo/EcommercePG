@@ -4,10 +4,10 @@
 	font-size: 14px;
 }
 
-.drop:hover .menu {
+/* .drop:hover .menu {
 	background-color: lightgrey;
 	transition: background-color 0.2s;
-}
+} */
 
 .select {
 	display: none;
@@ -29,7 +29,7 @@
 }
 
 .menu {
-	background-color: grey;
+	background-color: lightgrey;
 	color: black;
 	width: 110px;
 	padding: 10px;
