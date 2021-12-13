@@ -10,11 +10,12 @@ export default function Header({ data }) {
 	return (
 		<div className={`${styles.container}`}>
 			<FilterPrice data={data} />
+			<Searchbar />
 			<div className={`${styles.btns}`}>
 			<FilterBrand data={data} />
 			<FilterSize data={data} />
 			</div>
-			<Searchbar />
+			
 			{/* <FilterColor data={data} /> */}
 			
 		</div>

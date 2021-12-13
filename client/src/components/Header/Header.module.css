@@ -26,9 +26,4 @@
 	padding: 0;
     height: auto;
 	}
-	.search{
-	flex-direction: column;
-      padding: 0;
-      height: auto;
-	}
   }
