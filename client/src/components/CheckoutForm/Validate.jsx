@@ -26,4 +26,3 @@ function Validate(input) {
 }
 
 export default Validate;
-

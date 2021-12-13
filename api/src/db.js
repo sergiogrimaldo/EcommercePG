@@ -4,7 +4,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, PORT } = process.env; 
 
 let sequelize =
   process.env.NODE_ENV === "production"
@@ -60,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price } = sequelize.models;
+const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price, Wishlist } = sequelize.models;
 
 // One user can have many orders
 User.belongsToMany(Order, { through: User_Order });
@@ -77,6 +77,11 @@ Reviews.belongsTo(User);
 
 Reviews.belongsTo(Shoe);
 Shoe.hasMany(Reviews);
+
+User.belongsToMany(Shoe, {through: Wishlist}) /// un usuario desea muchas zapatillas
+Shoe.belongsToMany(User, {through: Wishlist}) /// muchas zapatillas son deseadas por muchos usuarios
+
+
 
 // Order can contain many shoe, and the same shoe can be in many different orders
 const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });
@@ -120,9 +125,11 @@ try {
 
 try {
     Order.addHook("afterSave", async (order) => {
-      
+      console.log(order.id,"locoooooooooooooooo");
       //let orden = await Order.findByPk(order.id, {include: [{model: Order_Shoes}]})
-      let orden = await Order_Shoes.findAll({where:{orderId:order.id}})
+      setTimeout(async () => {
+      let orden = await Order_Shoes.findAll({where:{orderId: order.id}})
+      orden && console.log("orrrrrrrrrrdddddddddddddd",orden, "doneeeeeeee")
       console.log('--------')
       console.log(order.id,order.status,order.total,order.updatedAt) /// order: id, status, total, createdAt, updatedAt, userId
       let itemsComprados=[]
@@ -139,7 +146,7 @@ try {
         //console.log(cart)
         console.log(itemsComprados)
         console.log(order.adress, order.email, order.name)
-        await sendMail({cart: itemsComprados, name:order.name, email:order.email, status:order.status, template:'purchase', orderId:(order.id).split('-')[0]})
+        await sendMail({cart: itemsComprados, name:order.name,adress: order.adress, email:order.email, status:order.status, template:'purchase', orderId:(order.id).split('-')[0]})
         console.log(`Total: ${order.total}`)
 
         //{id:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
@@ -147,6 +154,7 @@ try {
     //  for (shoe of orden.shoes){
     //      console.log(shoe.shoeName,shoe.cuantity,shoe.subtotal)
     //  }
+}, 600);
     });
 } catch (error) {
     console.log(error);

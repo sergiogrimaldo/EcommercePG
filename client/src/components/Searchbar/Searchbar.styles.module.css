@@ -1,0 +1,16 @@
+.li{
+    cursor:pointer;
+    background-color:white;
+    width:100%;
+}
+
+.h5:hover{
+    
+    color:red
+}
+.input{
+
+    width:'90%';
+    padding:5;
+}
+

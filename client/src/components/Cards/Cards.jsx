@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Link from 'react-router-dom';
-import { setPage } from '../../redux/actions';
+import { setPage, getWishList } from '../../redux/actions';
 import Card from '../Card/Card';
 import Paging from '../Paging/Paging.jsx';
 import s from './Cards.module.css';
 
 export default function Cards({ data }) {
 	const dispach = useDispatch();
+	const user = useSelector(state => state.user)
 	const filters = useSelector(state => state.filters); //brands
 	const filterBrands = useSelector(state => state.filterBrands);
 	const filterSizes = useSelector(state => state.filterSizes);
@@ -17,6 +18,7 @@ export default function Cards({ data }) {
 	const textToSearch = useSelector(state => state.textToSearch);
 	const [shownCards, setShownCards] = useState([]);
 	const SHOES_PER_PAGE = 9;
+	const wishlist = useSelector(state => state.wishlist)
 	const [loading, setLoading] = useState(false);
 	const [auxShow, setAuxShow] = useState([]);
 
@@ -56,6 +58,10 @@ export default function Cards({ data }) {
 
 	const currentCards = shownCards.slice(page === 1 ? 0 : page * 10 - 11, page * 10 - 1);
 
+	useEffect( () => {
+		dispach(getWishList({email:user?.email}))
+	},[])
+
 	useEffect(() => {
 		if (filters && filters.length > 0) {
 			let aux = data;
@@ -91,7 +97,7 @@ export default function Cards({ data }) {
 				setShownCards(data);
 			}
 		}
-	}, [data, JSON.stringify(shoes), filters, filterBrands, filterSizes, filterPrice, page, textToSearch]);
+	}, [data, JSON.stringify(shoes), filters, filterBrands, filterSizes, filterPrice, page, textToSearch, JSON.stringify(wishlist)]);
 
 	// useEffect( () => {
 	// 	setShownCards(shownCards.filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())))

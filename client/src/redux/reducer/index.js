@@ -33,10 +33,31 @@ const initialState = {
 	getBrands: [],
 	deleteId: 0,
 	editDetails: [],
+	wishlist: {},
 };
 
 function rootReducer(state = initialState, action) {
 	switch (action.type) {
+		case 'CLEAR_WISHLIST':
+			return{
+				...state,
+				wishlist:{},
+			}
+		case 'ADD_WISHLIST':
+			return{
+				...state
+			}
+
+		case 'DELETE_WISHLIST':
+			return{
+				...state
+			}
+		case 'GET_WISHLIST':
+
+			return {
+				...state,
+				wishlist: action.payload
+			};
 		case 'MAKE_BUY_ORDER':
 			return {
 				...state,
