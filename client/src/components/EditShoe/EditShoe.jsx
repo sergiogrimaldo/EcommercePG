@@ -56,8 +56,8 @@ export default function EditShoe({ id }) {
 		availableSizes: new Array(sizes.length).fill(false),
 	});
 
-	//flor 
-	let [url,setUrl] = useState('')
+	//flor
+	let [url, setUrl] = useState('');
 	//flor
 
 	let [input, setInput] = useState({
@@ -200,21 +200,22 @@ export default function EditShoe({ id }) {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
 			setPreviewSource(urlImage);
 			//console.log(urlImage);
-			setUrl(urlImage)
+			setUrl(urlImage);
 			setInput({
 				...input,
 				thumbnail: urlImage,
-			})
-			setError(validate({
-				...input,
-				thumbnail: urlImage,
-			}))
+			});
+			setError(
+				validate({
+					...input,
+					thumbnail: urlImage,
+				})
+			);
 			return urlImage;
 		} catch (error) {
 			console.log(error);
 		}
 	};
- 
 
 	////flor adding clodinary stuff end section
 
@@ -308,22 +309,21 @@ export default function EditShoe({ id }) {
 			</form>
 			<div>
 				<div className={`${styles.thumbnail_box}`}>
-					<img className={`${styles.thumbnail}`} src={ input.thumbnail ? input.thumbnail : details.thumbnail} alt='No Thumbnail' />
+					<img className={`${styles.thumbnail}`} src={input.thumbnail ? input.thumbnail : details.thumbnail} alt='No Thumbnail' />
 				</div>
 				{/*
 					flor adding stuff section start
 
 					 */}
-					 <form onSubmit={handleSubmitFile}>
-					<div>
-						<input 
-						type='file' 
-						name='image' 
-						placeholder='Upload an image' 
-						value={fileInput} 
-						onChange={handleFileInput} 
-						></input>
-						<button type='submit'>
+				<form onSubmit={handleSubmitFile}>
+					<div className={`${styles.fileBox}`}>
+						<div className={`${styles.fileInputBox}`}>
+							<label className={styles.fileInput} for='files'>
+								Browse...
+							</label>
+							<input type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.hideFile}></input>
+						</div>
+						<button type='submit' className={styles.upload_btn}>
 							Upload
 						</button>
 					</div>
