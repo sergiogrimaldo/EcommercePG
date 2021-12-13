@@ -1,0 +1,13 @@
+.input{
+
+    width:'90%';
+    padding:5;
+}
+
+@media only screen and (max-width: 960px) {
+.search{
+	flex-direction: column;
+      padding: 0;
+      height: auto;
+}
+}
