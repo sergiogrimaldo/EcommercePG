@@ -59,7 +59,7 @@
 
 .button{
     background-color:white;
-
+    cursor: pointer;
     z-index:30;
     border-Radius:10;
     position:absolute;
@@ -71,4 +71,8 @@
 .button:hover{
     background-color: black;
     color:white;
+}
+
+.outstock {
+	color: red;
 }

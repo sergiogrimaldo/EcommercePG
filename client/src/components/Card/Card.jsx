@@ -49,7 +49,7 @@ export default function Card({ shoe }) {
 				>
 					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
-						<h3> {shoe.shoeName} </h3> <h2> US$ {shoe?.retailPrice} </h2>
+						<h3> {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
 					</div>{' '}
 				</div>{' '}
@@ -58,9 +58,15 @@ export default function Card({ shoe }) {
 				{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
 				{user && user.role == 2 && <EditButton id={shoe.id} />}
 			</div>
-			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
+			{shoe.stock > 0 ? (
+                <button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
 				🛒 add to cart
 			</button>
+            ) : (
+                <button className={s.button} style={{ backgroundColor: "red", zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}>
+                Out of stock
+            </button>
+            )}
 		</div>
 	);
 }

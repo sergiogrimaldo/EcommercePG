@@ -111,7 +111,7 @@ export default function Detail({ id }) {
                         );
                     })}{" "}
             </div>{" "}
-            {details && details.stock && (
+            {details && details.stock > 0 ? (
                 <input
                     type="button"
                     onClick={() => {
@@ -128,6 +128,8 @@ export default function Detail({ id }) {
                     }}
                     value="Add to Cart"
                 />
+            ) : (
+                <div></div>
             )}
             <div className={s.CatalogeButton}>
                 <button className={s.button} onClick={() => history.push("/catalogue")}>
