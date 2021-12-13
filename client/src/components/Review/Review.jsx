@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 const Review = ({ rating, shoe, currentComponent }) => {
     const dispatch = useDispatch();
     const [stars, setStars] = useState("");
+    const [text, setText] = useState("");
     const [showMassage, setShowMassage] = useState(false);
     const [isAUser, setIsAUser] = useState(false);
     const [textArea, setTextArea] = useState(false);
@@ -66,7 +67,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (stars !== "") {
+        if (stars !== "" && text !== "") {
             setShowMassage(true);
             await dispatch(
                 postReview({
@@ -77,6 +78,9 @@ const Review = ({ rating, shoe, currentComponent }) => {
                 })
             );
             await dispatch(getShoeDetails(shoe.id));
+        }
+        if (stars === "" || text === "") {
+            alert("Please fill all fields");
         }
         setStars("");
         e.target.reset();
@@ -154,6 +158,9 @@ const Review = ({ rating, shoe, currentComponent }) => {
                         <AiFillStar className={stars >= 5 ? style.gold : style.dark} onClick={() => reviewStar(5)} />
                         <textarea
                             name="text"
+                            onChange={(e) => {
+                                setText(e.target.value);
+                            }}
                             style={{
                                 display: textArea === true ? "" : "none",
                             }}
