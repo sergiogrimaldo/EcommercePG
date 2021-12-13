@@ -180,7 +180,7 @@ function rootReducer(state = initialState, action) {
 
 			state.cart &&
 				state.cart.map(item => {
-					if (item.name == action.payload.name) {
+					if (item.name == action.payload.name && item.size == action.payload.size) {
 						addItem = false;
 						return (item.cuantity = item.cuantity + 1 || 1);
 					}
@@ -194,6 +194,7 @@ function rootReducer(state = initialState, action) {
 					name: action.payload.name,
 					cuantity: action.payload.cuantity,
 					price: action.payload.price,
+					size: action.payload.size,
 					//	subtotal: action.payload.price * action.payload.cuantity,
 				});
 

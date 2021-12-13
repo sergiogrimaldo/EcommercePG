@@ -20,21 +20,9 @@ export default function Card({ shoe }) {
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
 	const wishlist = useSelector(state => state.wishlist)
-	/* 
-	const [shoeOnHover, setShoeOnHover] = useState('');
-	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
-	const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
-	const [plusOrMinus, setPlusOrMinus] = useState('+');
-	var shoes = useSelector(state => state.shoes); */
-	/* let found,
-		foundFromAll,
-		allColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe.id), //cuarto parametro = false ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
-		restOfColors = onlyThreeColorGrid(shoes, shoe.silhoutte, shoe.id, false); //cuarto parametro = true ? trae todos los demas shoes del mismo tipo pero distinto color : trae solo tres pares
-	if (shoeOnHover) {
-		found = shoeOnHoverImg.find(el => el.id === shoeOnHover);
-		foundFromAll = shoes.find(el => el.id === shoeOnHover);
-	} */
-	console.log(shoe)
+	const [buySize, setBuySize] = useState('')
+	
+	// console.log(shoe)
 	const [icon1,setIcon1] = useState(farHeart)
 	const [icon2,setIcon2] = useState(faHeart)
 	let rating = Math.floor(Math.random() * 5) + 0;
@@ -74,8 +62,12 @@ export default function Card({ shoe }) {
 	}
 
 	const handleClick = function () {
-		dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, stock: shoe.stock, cuantity: 1 }));
-		dispatch(update());
+		console.log(buySize)
+		if (parseInt(buySize) > 0 && buySize != ''){
+			dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, stock: shoe.stock, cuantity: 1, size: buySize }));
+			dispatch(update());
+
+		}
 	};
 
 	return (
@@ -83,10 +75,6 @@ export default function Card({ shoe }) {
 			<Link to={`/shoe/${shoe.id}`}>
 				<div
 					className={s.card}
-					//onMouseLeave={() => {
-					//setRestOfShoeOnHoverImg('');
-					//setPlusOrMinus('+');
-					//}}
 				>
 					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
@@ -106,8 +94,8 @@ export default function Card({ shoe }) {
 				<FontAwesomeIcon style={{cursor:'pointer'}} size='lg'  color='red' icon={icon1} onClick={ () => handleLike2()}/> 
 			}
 			</div>
-			{ shoe.stock > 0 && <select style={{position:'absolute', bottom: 100, right: 170, zIndex: 20 }}>{Object.keys(shoe.AvailableSizes).map((size) => 
-			<option style={{display:'flex'}}>{size != 'id' && shoe.AvailableSizes[size] > 0 && size}</option>)}
+			{ shoe.stock > 0 && <select onChange={(e) =>setBuySize(e.target.value || '')} style={{position:'absolute', bottom: 100, right: 170, zIndex: 20 }}><option select> Select Size</option>{Object.keys(shoe.AvailableSizes).map((size) => 
+			{size != 'id' && shoe.AvailableSizes[size] > 0 && <option style={{display:'flex'}} value={size} >{size}</option>})}
 			</select>}
 			{shoe.stock > 0?
 			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
@@ -117,6 +105,7 @@ export default function Card({ shoe }) {
                 <button className={s.button} style={{ backgroundColor: "red", zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}>
                 Out of stock
             </button>
+			
             }
 		</div>
 	);

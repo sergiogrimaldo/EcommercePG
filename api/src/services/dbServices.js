@@ -47,7 +47,7 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
         sizes[shoesize] = sizes[shoesize]-(zapatilla.cuantity)  
         // guardo cambios
 
-        ////await sizes.save() 
+        await sizes.save() 
 
         shoe.stock = shoe.stock - zapatilla.cuantity // le resto cantidad al stock total de zapatillas
         await shoe.save()   
@@ -56,7 +56,7 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
     }
 
     //return(console.log('orden creada'))
-    await order.save()
+    //await order.save()
     return('orden creada') // por si quiero devolver un mensaje en algun lado
 }
 
