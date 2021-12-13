@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport(smtpTransport({
 const sendMail = async function (payload=''){
     console.log('email')
     
-    console.log(payload)
+    console.log("payloaddddd",payload, "doneee")
     let total = 0
     let id = uuidv4().slice(0,7)
 
@@ -33,7 +33,7 @@ const sendMail = async function (payload=''){
             }})
     
         payload.cart.forEach(item => {
-            total = total+item.price
+            total = total+item.subtotal
             }
         )
     }
@@ -79,7 +79,7 @@ const sendMail = async function (payload=''){
             <li>
             Shipping Adress: ${payload.adress}
             </li>
-            <li>items: <ul>${payload.cart.map(item => (nombreItems.includes(item.name) ? '<br>'+nombreItems.splice(nombreItems.indexOf(item.name),1) +' x '+ item.cuantity+' at US$ '+ item.price+' each' : ''))}</ul></li>
+            <li>items: <ul>${payload.cart.map(item => (nombreItems.includes(item.name) ? '<br>'+nombreItems.splice(nombreItems.indexOf(item.name),1) +' x '+ item.cuantity+' at US$ '+ item.subtotal+' each' : ''))}</ul></li>
             <br>
             <li>TOTAL: US$ ${total}</li>
             </ul>

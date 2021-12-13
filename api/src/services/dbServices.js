@@ -2,7 +2,7 @@
 const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require("../../src/db");
 
 const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta funcion recibe un userID y un carrito (cart)
-    console.log(cart)
+    console.log("addOrderToDBaddOrderToDBaddOrderToDB",cart, "doneeeeeeeeee")
     /// la mockOrder viene a simular un carrito, podria pasarse un carrito pero deberia coincidir con este formato
     //
     let mockOrder = [{shoeId:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
@@ -115,7 +115,7 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
 
     const user = await User.findOne({where: { email:email }})
 
-    console.log(user)
+    console.log(user, "user dbservice")
 
     if(user.roleId === 2){
         let order = await Order.findByPk(id);

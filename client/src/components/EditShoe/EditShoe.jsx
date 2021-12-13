@@ -165,8 +165,13 @@ export default function EditShoe({ id }) {
 
 	function handleColors(color) {
 		// setColors([...colors, e]);
-		setInput({ ...input, colorway: [...input.colorway, color] });
-		setError(validate({ ...input, colorway: [...input.colorway, color] }));
+		if (!input.colorway) {
+			setInput({ ...input, colorway: details.colorway && [...details.colorway.split('/').join(' ').split('-').join(' ').split(' '), color] });
+			setError(validate({ ...input, colorway: [...input.colorway, details.colorway.split('/').join(' ').split('-').join(' ').split(' '), color] }));
+		} else {
+			setInput({ ...input, colorway: [...input.colorway, color] });
+			setError(validate({ ...input, colorway: [...input.colorway, color] }));
+		}
 		setSearchColor('');
 		document.getElementById('scolor').value = '';
 	}
@@ -245,9 +250,6 @@ export default function EditShoe({ id }) {
 				<Link to='/catalogue'>
 					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
 				</Link>
-				<button type='submit' className={`${styles.btn_create}`}>
-					Update
-				</button>
 			</form>
 			<div>
 				<div className={`${styles.thumbnail_box}`}>
@@ -263,6 +265,11 @@ export default function EditShoe({ id }) {
 						onInput={handleInput}
 						className={`${error.thumbnail ? styles.error : styles.inputname}`}
 					/>
+					<div>
+						<button type='submit' className={`${styles.btn_create}`} onClick={onSubmit}>
+							Update
+						</button>
+					</div>
 				</div>
 			</div>
 
@@ -275,6 +282,7 @@ export default function EditShoe({ id }) {
 						name='brand'
 						onChange={handleInput}
 						className={`${error.brand ? styles.error : styles.inputname}`}>
+						<option value=''></option>
 						{brands &&
 							brands.map((elem, index) => (
 								<option key={elem + index + 2} value={elem.name}>
@@ -289,7 +297,7 @@ export default function EditShoe({ id }) {
 								id='br_in'
 								type='text'
 								name='brand'
-								defaultValue={input.brand ? input.brand : details.brand && details.brand.name}
+								defaultValue={input.brand ? input.brand[0].toUpperCase() + input.brand.slice(1) : details.brand && details.brand.name[0].toUpperCase() + details.brand.name.slice(1)}
 								onInput={handleInput}
 								className={`${error.brand ? styles.error : styles.inputname}`}
 							/>
@@ -311,7 +319,7 @@ export default function EditShoe({ id }) {
 						{input.colorway
 							? input.colorway.map((elem, index) => (
 									<button key={elem + index} value={elem} className={`${styles.btn_clearColor}`} onClick={deleteColor}>
-										{elem} <label className={`${styles.xLabel}`}>x</label>
+										{elem + '  x'}
 									</button>
 							  ))
 							: details.colorway &&
@@ -323,7 +331,7 @@ export default function EditShoe({ id }) {
 									.split(' ')
 									.map((elem, index) => (
 										<button key={elem + index} value={elem} className={`${styles.btn_clearColor}`} onClick={createColorArr}>
-											{elem} <label className={`${styles.xLabel}`}>x</label>
+											{elem + '  x'}
 										</button>
 									))}
 					</div>
