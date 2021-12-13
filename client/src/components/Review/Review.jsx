@@ -26,13 +26,13 @@ const Review = ({ rating, shoe, currentComponent }) => {
     }
 
     if (orders && orders.length > 0 && user && user.id) {
-        let isIn = false;
+        let isIn = [];
         let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
         foundOrder &&
             orders.forEach((order) => {
                 isIn = order.shoes.map((shoeInOrders) => shoeInOrders?.id === shoe?.id);
             });
-        foundOrderCompleted = isIn[0] === true && foundOrder.status === "Completed";
+        foundOrderCompleted = isIn.length > 0 && isIn.includes(true) && foundOrder.status === "Completed";
     }
     const reviewStar = (number) => {
         setStars(number);
