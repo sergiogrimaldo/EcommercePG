@@ -205,11 +205,9 @@ export default function EditShoe({ id }) {
 			};
 			console.log(newShoe);
 			dispatch(putNewShoe(id, newShoe));
-			alert('New entry created');
+			alert('Entry updated');
 		}
 	}
-
-	console.log(input.colorway, error.colorway);
 
 	return (
 		<div className={`${styles.main}`}>
@@ -248,7 +246,7 @@ export default function EditShoe({ id }) {
 					<button className={`${styles.btn_back}`}>Back to Catalogue</button>
 				</Link>
 				<button type='submit' className={`${styles.btn_create}`}>
-					Create
+					Update
 				</button>
 			</form>
 			<div>
@@ -271,8 +269,12 @@ export default function EditShoe({ id }) {
 			<div className={`${styles.form}`}>
 				<div className={`${styles.divvy}`}>
 					<label>Select brand</label>
-					<select id='br_sl' defaultValue={details.brand && details.brand.name} name='brand' onChange={handleInput} className={`${error.brand ? styles.error : styles.inputname}`}>
-						<option value=''></option>
+					<select
+						id='br_sl'
+						defaultValue={input.brand ? input.brand : details.brand && details.brand.name}
+						name='brand'
+						onChange={handleInput}
+						className={`${error.brand ? styles.error : styles.inputname}`}>
 						{brands &&
 							brands.map((elem, index) => (
 								<option key={elem + index + 2} value={elem.name}>

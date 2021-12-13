@@ -121,42 +121,41 @@ export default function AddShoe() {
 
 	//flor adding stuff start section
 
-	const [fileInput, setFileInput] = useState('')
+	const [fileInput, setFileInput] = useState('');
 
-	const [previewSource, setPreviewSource] = useState('')
+	const [previewSource, setPreviewSource] = useState('');
 
-	const handleFileInput = (e) => {
+	const handleFileInput = e => {
 		const file = e.target.files[0];
-		previewFile(file)
-	}
-	
-	const previewFile = (file) => {
+		previewFile(file);
+	};
+
+	const previewFile = file => {
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onloadend = () => {
-			setPreviewSource(reader.result)
-		}
-	}
-	const handleSubmitFile = async(e) => {
+			setPreviewSource(reader.result);
+		};
+	};
+	const handleSubmitFile = async e => {
 		e.preventDefault();
-		console.log(previewSource)
-		if(!previewSource) return;
-		let imageUrl = await uploadImage(previewSource)
-		setUrl(imageUrl)
-		
-	}
+		console.log(previewSource);
+		if (!previewSource) return;
+		await uploadImage(previewSource);
+	};
 	// await uploadImage(ps) ---> urlImage
-	const uploadImage = async(base64EncodedImage) => {
-	//	console.log(base64EncodedImage)
+	const uploadImage = async base64EncodedImage => {
+		console.log(base64EncodedImage);
+
 		try {
-			const urlImage = (await axios.post('/shoes/uploadShoeImage', {data: base64EncodedImage},)).data
-			setPreviewSource(urlImage)
-			console.log(urlImage)
-			return urlImage
+			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
+			setPreviewSource(urlImage);
+			console.log(urlImage);
+			return urlImage;
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-	}
+	};
 
 	////flor adding stuff end section
 	function handleColors(color) {
@@ -220,7 +219,14 @@ export default function AddShoe() {
 							sizes.map((elem, index) => (
 								<div className={`${styles.sizes}`} key={elem + index}>
 									{elem}
-									<input className={`${styles.checkboxes}`} name='availableSizes' type='checkbox' value={elem} onChange={() => handleSizes(index)} checked={checkState.availableSizes[index]} />
+									<input
+										className={`${styles.checkboxes}`}
+										name='availableSizes'
+										type='checkbox'
+										value={elem}
+										onChange={() => handleSizes(index)}
+										checked={checkState.availableSizes[index]}
+									/>
 								</div>
 							))}
 					</div>
@@ -243,36 +249,23 @@ export default function AddShoe() {
 						/>
 					)
 				} */}
-				{
-					/*
+				{/*
 					flor adding stuff section start
 
-					 */
-				}
+					 */}
 				<form onSubmit={handleSubmitFile}>
-				<div>
-					<input 
-					type='file' 
-					name='image'
-					placeholder='Upload an image'
-					value={fileInput}
-					onChange={handleFileInput}
-					className={styles.fileInput}
-					></input>
-					<button
-					className={styles.uploadBtn}
-					type='submit'
-
-					>Upload</button>
-				</div>
+					<div>
+						<input type='file' name='image' placeholder='Upload an image' value={fileInput} onChange={handleFileInput} className={styles.fileInput}></input>
+						<button className={styles.uploadBtn} type='submit'>
+							Upload
+						</button>
+					</div>
 				</form>
-		
-				{
-					/*
+
+				{/*
 					flor adding stuff section end
 
-					 */
-				}
+					 */}
 				<div className={`${styles.divvy}`}>
 					<label>Thumbnail</label>
 					<input type='text' name='thumbnail' value={url} onChange={handleInput} className={`${error.thumbnail ? styles.error : styles.inputname}`} />
