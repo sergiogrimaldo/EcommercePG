@@ -25,3 +25,5 @@ function Validate(input) {
     return errors;
 }
 
+export default Validate;
+
