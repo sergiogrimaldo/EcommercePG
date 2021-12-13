@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { search } from '../../redux/actions';
+import './search.css'
+export default function Searchbar() {
+=======
 import {useMemo, useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { search } from '../../redux/actions';
@@ -20,6 +27,7 @@ const AutocompleteItem = ({id, shoeName, thumbnail, price,i}) => {
 			</Link></li>
 }
 export default function Searchbar(props) {
+>>>>>>> d0757d3b59dff9f9bcfc277f96abfbff72583a15
 	let [input, setInput] = useState('');
 	let dispatch = useDispatch();
 	const shoes = useSelector((state) => state.shoes)
@@ -88,6 +96,13 @@ export default function Searchbar(props) {
 	}
 
 	return (
+<<<<<<< HEAD
+		<div className='search'>
+			<form style={{display:'flex', width: '100%'}} onSubmit={onSubmitHandler}>
+				<input style={{borderTopLeftRadius:15, borderBottomLeftRadius:15,width:'90%',padding:5}} type='text' value={input} onChange={onChangeHandler} />
+				<button style={{borderTopRightRadius:15, borderBottomRightRadius:15}} type='submit'>Search</button>
+			</form>
+=======
 		<div style={{position:'absolute',width:300, top:35,left:'55vw'}}>
 			<form style={{display:'flex', width: '150%'}} {...formProps} >
 			{/* <form style={{display:'flex', width: '150%'}} onSubmit={onSubmitHandler}> */}
@@ -117,6 +132,7 @@ export default function Searchbar(props) {
 						</div>
 				}
 			
+>>>>>>> d0757d3b59dff9f9bcfc277f96abfbff72583a15
 		</div>
 	);
 }
