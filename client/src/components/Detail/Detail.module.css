@@ -1,12 +1,16 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	width: 40%;
-	height: 500%;
+	width: 600px;
 }
 
 .macro {
 	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	margin-top: 20px;
 }
 
 .instock {
@@ -20,64 +24,29 @@
 .img_detail {
 	display: flex;
 	align-items: center;
-	width: 300px;
-	height: 300px;
-}
-
-.description {
-	display: flex;
-	width: 250px;
-	height: 250px;
+	border-radius: 10px;
+	width: 450px;
+	height: 380px;
+	margin-right: 20px;
+	margin-bottom: 15px;
 }
 
 .info__description {
 	display: flex;
 }
-.img {
-	border-radius: 20px;
-	height: auto;
-	width: auto;
-	max-height: 186px;
-	max-width: 261px;
-	margin-top: -70px;
-}
 
-.displayImgTrue {
-	display: block;
-	width: 330px;
-	height: 250px;
-	position: absolute;
-	right: 0px;
-	top: 100px;
-	z-index: 1;
-	border: 1px solid black;
-}
-.displayImgFalse {
-	display: none;
-	width: 300px;
-	height: 250px;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	z-index: 1;
-	border: 1px solid black;
+.description {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
 }
 
 .gridOfColors {
-	width: 18px;
-	height: 18px;
+	width: 22px;
+	height: 22px;
 	cursor: pointer;
-}
-
-.gridOfFirstThreeColors {
-	border: 1px solid black;
-}
-
-.shoesDescription {
-	width: 70%;
-	margin-left: 30%;
-	height: 110px;
-	overflow-y: scroll;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
 }
 
 .btn_size {
@@ -90,4 +59,82 @@
 
 .back {
 	padding: 10px;
+}
+
+.shoe_cont {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 500px;
+	align-items: center;
+}
+
+.divvy_one {
+	display: inline-flex;
+	justify-content: center;
+}
+
+.divvy_two {
+	display: block;
+	justify-content: center;
+	width: 600px;
+	height: 300px;
+	margin-top: 10px;
+}
+
+.palette {
+	display: flex;
+	width: 200px;
+	margin-top: 25px;
+}
+
+.colorLink {
+	margin: 0;
+}
+
+.size {
+	width: 450px;
+	height: 300px;
+	margin-top: 10px;
+}
+
+.color {
+	margin-top: 10px;
+}
+
+.colors {
+	margin-top: 10px;
+	margin-right: 20px;
+	position: relative;
+	top: -22px;
+}
+
+.price {
+	margin-top: 10px;
+}
+
+.title {
+	margin-bottom: 40px;
+}
+
+.description_label {
+	margin-top: 10px;
+}
+
+.btn_size {
+	border: none;
+	border-radius: 10px;
+	margin: 5px;
+	cursor: pointer;
+	height: 50px;
+	width: 50px;
+	transition: background-color 0.2s;
+}
+
+.btn_size:hover {
+	background-color: lightgray;
+}
+
+.btn_size:active {
+	background-color: rgb(148, 148, 148);
 }
