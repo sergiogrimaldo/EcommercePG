@@ -12,7 +12,7 @@ const stripe = new Stripe("sk_test_51K2dGKJ8rEWDJkMVI4Ppno1uwJVUGB6O0cgvIUACjJt0
 router.post("/payment", async (req, res, next) => {
    const {amount,id} = req.body;
     //let cart = [].concat(await JSON.parse(req.body.cart))
-    console.log('soy las props del fron', req.body)
+    //console.log('soy las props del fron', req.body)
     try{
         const paymentCurrent = await stripe.paymentIntents.create({
             amount,
@@ -22,7 +22,7 @@ router.post("/payment", async (req, res, next) => {
             confirm:true,
 
         })
-        console.log('hola', paymentCurrent)
+        //console.log('hola', paymentCurrent)
         return res.status(200).json({message:"Succesfull payment"})
     }
     catch(err){
@@ -34,7 +34,7 @@ router.post("/payment", async (req, res, next) => {
 })
 
 router.post("/getorders", async (req, res, next) => {
-    console.log(req.body)
+    //console.log(req.body, 'soy el bodyzzzzzzzzzzzzzzzzz')
     res.json(await getOrdersFromDB({email: req.body.email}))
 })
 
@@ -43,14 +43,14 @@ router.post("/getorders/:id", async (req, res, next) => {
 })
 
 router.patch("/:id", async (req, res, next) => {
-    console.log(req.body)
+    //console.log(req.body)
     //los estados solo pueden ser los nombrados en el modelo order ('Pending', 'In Progress', 'Cancelled', 'Completed')
     //desde el front trabajar solo con esas opciones
     res.json( await updateStatusOrderFromDB({email: req.body.email, status: req.body.status, id: req.params.id}))
 })
 
 router.post("/", async (req, res, next) => { 
-    console.log("la cara del bodyeeeeeeeeeeee",req.body, "doneeeeeeeeeeeeee")
+   // console.log("la cara del bodyeeeeeeeeeeee",req.body, "doneeeeeeeeeeeeee")
     res.json(await addOrderToDB({userId:req.body.userId, cart:req.body.cart, shippingInfo:req.body.shippingInfo})) 
 })
 

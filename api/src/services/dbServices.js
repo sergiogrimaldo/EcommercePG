@@ -29,7 +29,7 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
     for (zapatilla of cart){ /// recorro los objetos de la orden (osea del carrito)
         // por zapato en carrito agregarlo a la orden
         let shoe = await Shoe.findByPk(zapatilla.id) 
-        console.log(shoe)
+       // console.log(shoe,"zzzzzzzzzzzzzzzzzzzzzzzzzz")
         /// agrego a la orden
         await order.addShoe(shoe, {through:{cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal,color:zapatilla.color}})  
         /// busco talles de zapatilla
@@ -78,7 +78,7 @@ const getOrdersFromDB = async function ({email="", id=""}){
             order = await Order.findByPk(id, {
             include:[ { model: Shoe }, {model: User}],});
         }catch(err){
-            console.log(err)
+            console.log(err);
         }
                  
             if(!order){
@@ -116,7 +116,7 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
 
     const user = await User.findOne({where: { email:email }})
 
-    console.log(user, "user dbservice")
+    //console.log(user, "user dbservice")
 
     if(user.roleId === 2){
         let order = await Order.findByPk(id);
@@ -126,7 +126,6 @@ const updateStatusOrderFromDB = async function({email="", status="", id=""}){
     }else{
         return "You don´t have access to this action"
     }
-
 
     //si es admi puede modificar el estado de la orden solicitada
 }
