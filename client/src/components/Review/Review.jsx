@@ -30,7 +30,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
         let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
         foundOrder &&
             orders.forEach((order) => {
-                isIn = order.shoes.map((shoeInOrders) => shoeInOrders.id === shoe.id);
+                isIn = order.shoes.map((shoeInOrders) => shoeInOrders?.id === shoe?.id);
             });
         foundOrderCompleted = isIn[0] === true && foundOrder.status === "Completed";
     }

@@ -38,7 +38,8 @@ function CheckoutList({backStep,nextStep}) {
     
                     /// mando 
                 console.log('envio exitoso')
-                await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
+               // cart && console.log(cart)
+                user && cart.length > 0 && shippingDetails && await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
                 //dispatch(makeBuyOrder({userId:user.id, cart:cart}))///////////////////////
                 dispatch(clearCart())
                 await dispatch(getOrders({email:user?.email}))
