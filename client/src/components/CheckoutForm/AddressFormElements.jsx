@@ -10,7 +10,7 @@ export const colores = {
 
 export const Label = styled.label`
     display:block;
-    color:#820000;
+    color:#0f0f0f;
     font-weight:700;
     padding:10px;
     min-height:40px;
@@ -20,11 +20,39 @@ export const Label = styled.label`
     ` }
 `
 
+export const ValidateIcon = styled(FontAwesomeIcon)`
+    position:absolute;
+    bottom:8px;
+    z-index:100;
+    font-size:14px;
+    opacity:0;
+    top:5px;
+
+    ${props => props.valido !== undefined && css`
+        opacity:1;
+        color:${colores.error};
+    `}
+
+    ${props => props.valido === undefined && css`
+        opacity:1; 
+        color:${colores.exito};
+    `}
+
+`
+
+export const InputContainer = styled.div`
+    position:relative;
+    z-index:90;
+    margin-top:10px;
+`
+  
+
 export const CenterButton = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
     grid-column:span 2;
+    margin-top:-70px;
 `
 export const Boton = styled.button`
     height:45px;
@@ -57,9 +85,10 @@ export const MenssageError = styled.div`
 `
 
 export const StylError = styled.p`
-    font-size:1rem;
+    font-size:0.8rem;
     margin-bottom:0;
-    margin-top:0;
+    margin-top:-2px;
+
     color:${colores.error};
     display:none;
     ${props => props.valido !== undefined && css`

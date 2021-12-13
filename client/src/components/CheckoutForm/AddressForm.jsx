@@ -12,6 +12,8 @@ import {
     Label,
     CenterButton,
     Boton,
+    ValidateIcon,
+    InputContainer,
 } from './AddressFormElements';
 
 function AddressForm({nextStep}) {
@@ -62,8 +64,8 @@ function AddressForm({nextStep}) {
             </div>
             
             <form className={styles.form} onSubmit={onHandleSubmit}>
-                <Label className={styles.label} htmlFor='name' valido={errors.name}>name*:</Label>
-                <div>
+                <Label  htmlFor='name' valido={errors.name}>name*:</Label>
+                <InputContainer>
                     <input
                         type='text'
                         placeholder='enter your name'
@@ -73,14 +75,24 @@ function AddressForm({nextStep}) {
                         onChange={onHandleChange}
                         valido={errors.name}
                     />
+                    
+                    {
+                        input.name && <ValidateIcon
+                            icon={errors.name === undefined ? faCheckCircle:faTimesCircle}
+                            valido={errors.name}
+                        />
+                    }
                     {
                         errors.name && (
                             <StylError valido={errors.name}>{errors.name}</StylError>
                         )
                     }
-                </div>
-                <Label className={styles.label} htmlFor='lastName' valido={errors.lastName}>lastName*:</Label>
-                <div>
+                    
+                </InputContainer>
+                    
+            
+                <Label  htmlFor='lastName' valido={errors.lastName}>lastName*:</Label>
+                <InputContainer>
                     <input
                         type='text'
                         placeholder='enter your lastName'
@@ -90,14 +102,21 @@ function AddressForm({nextStep}) {
                         onChange={onHandleChange}
                         valido={errors.lastName}
                     />
-                     {
+                    {
+                        input.lastName && <ValidateIcon
+                            icon={errors.lastName === undefined ? faCheckCircle:faTimesCircle}
+                            valido={errors.lastName}
+                        />
+                    }
+                    {
                         errors.lastName && (
                             <StylError valido={errors.lastName}>{errors.lastName}</StylError>
                         )
                     }
-                </div>
-                <Label className={styles.label} htmlFor='address' valido={errors.address}>address*:</Label>
-                <div>
+                </InputContainer>
+
+                <Label  htmlFor='address' valido={errors.address}>address*:</Label>
+                <InputContainer>
                     <input
                         type='text'
                         placeholder='enter your address'
@@ -108,13 +127,20 @@ function AddressForm({nextStep}) {
                         valido={errors.address}
                     />
                     {
+                        input.address && <ValidateIcon
+                            icon={errors.address === undefined ? faCheckCircle:faTimesCircle}
+                            valido={errors.address}
+                        />
+                    }
+                    {
                         errors.address && (
                             <StylError valido={errors.address}>{errors.address}</StylError>
                         )
                     }
-                </div>
-                <Label className={styles.label} htmlFor='phone' valido={errors.phone}>phone*:</Label>
-                <div>
+                </InputContainer>
+                
+                <Label  htmlFor='phone' valido={errors.phone}>phone*:</Label>
+                <InputContainer>
                     <input
                         type='text'
                         placeholder='enter your phone'
@@ -125,13 +151,20 @@ function AddressForm({nextStep}) {
                         valido={errors.phone}
                     />
                     {
+                        input.phone && <ValidateIcon
+                            icon={errors.phone === undefined ? faCheckCircle:faTimesCircle}
+                            valido={errors.phone}
+                        />
+                    }
+                    {
                         errors.phone && (
                             <StylError valido={errors.phone}>{errors.phone}</StylError>
                         )
                     }
-                </div>
-                <Label className={styles.label} htmlFor='email' valido={errors.email}>email*:</Label>
-                <div>
+                </InputContainer>
+                
+                <Label  htmlFor='email' valido={errors.email}>email*:</Label>
+                <InputContainer>
                     <input
                         type='text'
                         placeholder='enter your email'
@@ -142,24 +175,25 @@ function AddressForm({nextStep}) {
                         valido={errors.email}
                     />
                     {
+                        input.email && <ValidateIcon
+                            icon={errors.email === undefined ? faCheckCircle:faTimesCircle}
+                            valido={errors.email}
+                        />
+                    }
+                    {
                         errors.email && (
                             <StylError valido={errors.email}>{errors.email}</StylError>
                         )
                     }
-                </div>
-                <div>
-                    <Link to='/cart'>
-                        <button>Back to the Checkout</button>
-                    </Link>
-                </div>
+                </InputContainer>
+                
                 {formularioValido === false && <MenssageError>
-                        <p><FontAwesomeIcon icon={faExclamationTriangle}/><b>Error:</b><b>Por favor complete los campos marcados con * correctamente.</b></p>
+                        <p><FontAwesomeIcon icon={faExclamationTriangle}/><b>Error:</b><b> Complete los campos *.</b></p>
                     </MenssageError>}
-                {/* <div>
-                    <button type="submit">Next</button>
-                </div> */}
+                
+                <Link to='/cart'> <Boton>Back </Boton></Link>
                 <CenterButton>
-                        { input.name !== "" && <Boton type='submit'>Next</Boton>}
+                        { input.name !== "" && <Boton type='submit'>Next</Boton> }
                 </CenterButton>
             </form>
         </div>
