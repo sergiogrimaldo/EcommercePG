@@ -54,19 +54,24 @@ export default function Card({ shoe }) {
 					</div>{' '}
 				</div>{' '}
 			</Link>
-			<div style={{ position: 'absolute', top: 70, right: 70, zIndex: 50 }}>
+			<div style={{ position: 'absolute', top: 75, right: 50, zIndex: 50 }} className={`${s.btn_ed_del}`}>
 				{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
 				{user && user.role == 2 && <EditButton id={shoe.id} />}
 			</div>
 			{shoe.stock > 0 ? (
-                <button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
-				🛒 add to cart
-			</button>
-            ) : (
-                <button className={s.button} style={{ backgroundColor: "red", zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}>
-                Out of stock
-            </button>
-            )}
+				<button
+					className={s.button}
+					style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}
+					onClick={() => handleClick()}>
+					🛒 add to cart
+				</button>
+			) : (
+				<button
+					className={s.button}
+					style={{ backgroundColor: 'red', zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}>
+					Out of stock
+				</button>
+			)}
 		</div>
 	);
 }
