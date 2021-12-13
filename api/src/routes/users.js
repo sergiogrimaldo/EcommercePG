@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Shoe, User, Brand, AvaiableSizes, Color, Role, Reviews } = require('../db');
+const { Shoe, User, Brand, AvaiableSizes, Color, Role, Reviews, Wishlist } = require('../db');
 const { Op } = require('sequelize');
 const { tokenGenerator, resetPassword, validateUser } = require("../controllers/userController");
 
@@ -143,12 +143,38 @@ router.get('/:id', async (req, res, next)=>{
     router.post('/activateAccount/:token', validateUser) //localhost/users/resetpassword/token
     
     ///añade a wishlist
-    router.post('/wishlist')
-    
+    router.post('/wishlist', async (req,res) => {
+        try {
+            let user = await User.findOne({where:{email:req.body.email}})
+            await user.addShoe(req.body.shoeId,  {through: Wishlist})
+            res.json(await User.findOne({where:{email:req.body.email}, include: [{ model: Shoe }]}))          
+        } catch(error){
+            console.log(error)
+        }
+    })
+
     /// consigue wishlist
-    router.get('/wishlist')
+    router.post('/getWishlist', async(req,res) => {
+        try {
+            console.log(req.body)
+        let user = await User.findOne({where:{email:req.body.email}})
+            console.log(await User.findOne({where:{email:user.email}, include: [{ model: Shoe }]}))
+            res.json(await User.findOne({where:{email:user.email}, include: [{ model: Shoe }]}))     
+        } catch(err){
+            console.log(err)
+        }
+        
+    })
 
     // elimina wishlist
-
+    router.post('/deleteWishlist', async (req,res) => {
+        try {
+            let user = await User.findOne({where:{email:req.body.email}})
+            await Wishlist.destroy({where:{userId: user.id, shoeId:req.body.shoeId}})
+            res.json('your shoe has been delete succesfully from your wishlist')
+        } catch (error){
+            console.log(error)
+        }
+    } )
 
 module.exports = router;

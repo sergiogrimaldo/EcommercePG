@@ -22,7 +22,7 @@ export default function DeleteShoe({ id }) {
 	return (
 		<div>
 			<button className={`${styles.btn_delete}`} value={id} onClick={onClickHandler}>
-				X{id}
+				X
 			</button>
 		</div>
 	);

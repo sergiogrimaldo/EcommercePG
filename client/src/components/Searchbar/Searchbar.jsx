@@ -47,14 +47,15 @@ export default function Searchbar(props) {
 					// return fetch(`http://localhost:3001/shoes?shoeName=${query}`)
 					let busqueda = shoes.filter(elem => elem.shoeName.toLowerCase().includes(query.toLowerCase()))
 					// .then(res => res.json())
-					if (searchFilter.length > 0){
-						console.log(searchFilter)
-						busqueda = busqueda.filter(elem => elem.brand.name == searchFilter)
-					}
+					//// if (searchFilter.length > 0){
+					//// 	console.log(searchFilter)
+					//// 	busqueda = busqueda.filter(elem => elem.brand.name == searchFilter)
+					//// 
 					return busqueda
+					}
 				}
 			}
-		}
+		
 		],
 		...props
 	}), [props])

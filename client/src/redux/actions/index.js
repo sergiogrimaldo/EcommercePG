@@ -146,13 +146,54 @@ export function clearCart() {
 	};
 }
 
+export function clearWishlist() {
+	return {
+		type: 'CLEAR_WISHLIST',
+	};
+}
+
+export function getWishList(payload) {
+	return async dispatch => {
+		const res = await axios.post(`/users/getWishlist`, payload)
+		console.log(res.data,'res')
+		return dispatch({
+			type: 'GET_WISHLIST',
+			payload: res.data,
+		});
+	};
+}
+
+
+
+export function addToWishList(payload) {
+	return async dispatch => {
+		const res = await axios.post(`/users/wishlist`, payload)
+		console.log(res.data,'res')
+		return dispatch({
+			type: 'ADD_WISHLIST',
+			payload: res.data,
+		});
+	};
+}
+export function deleteFromWishList(payload) {
+	return async dispatch => {
+		const res = await axios.post(`/users/deleteWishlist`, payload)
+		console.log(res.data,'res')
+		return dispatch({
+			type: 'DELETE_WISHLIST',
+			payload: res.data,
+		});
+	};
+}
+
+
 export function makeBuyOrder(payload) {
 	return async dispatch => {
 		const res = await axios.post('/orders', payload);
-		return {
+		return dispatch({
 			type: 'MAKE_BUY_ORDER',
 			payload: res.data,
-		};
+		});
 	};
 }
 
