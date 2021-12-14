@@ -167,7 +167,7 @@ function rootReducer(state = initialState, action) {
 			return { ...state };
 
 		case 'ADD_TO_CART':
-			console.log(action.payload);
+			//console.log(action.payload);
 			// if (state.cart.length){
 			//     state.cart.forEach((shoe) => shoe.id == action.payload.id  ? shoe.cuantity++ :
 			//     state.cart(action.payload)

@@ -20,11 +20,11 @@ export default function FilterSize({ data }) {
 			}
 		});
 		sizes = [...new Set(sizes)].filter(elem => elem);
-		console.log(sizes);
+		//console.log(sizes);
 	}
 	function onChangeHandler(e) {
 		setValue(e.target.value);
-		console.log(e.target.value);
+		//console.log(e.target.value);
 		dispatch(filterSize(e.target.value));
 		dispatch(setPage(0));
 	}

@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { deleteFromCart,update, openModal, changeItemCuantity } from "../../redux/actions";
 import { Link, useHistory } from "react-router-dom";
@@ -9,7 +8,6 @@ export default function Cart() {
     const history = useHistory()
     const cart = useSelector((state) => state.cart);
     const user = useSelector((state) => state.user);
-    const [localCart, setcart] = useState(cart)
 
     //useEffect(() => setcart(cart), JSON.stringify(cart))
 
@@ -39,6 +37,12 @@ export default function Cart() {
             //dispatch(openModal("checkout"));
         } else {
             dispatch(openModal("login"));
+        }
+    }
+    const deleteShoeFromCart = (e) => {
+        let result = window.confirm('Are you sure you want to delete the shoe?')
+        if(result){
+            dispatch(deleteFromCart(e.target.value))
         }
     }
     return (
@@ -149,7 +153,7 @@ export default function Cart() {
                                             value={item.name}
                                             
                                             className={`${style.btn}`}
-                                            onClick={(e) => dispatch(deleteFromCart(e.target.value))}
+                                            onClick={(e) =>deleteShoeFromCart(e)}
                                         >
                                             Delete
                                         </button>

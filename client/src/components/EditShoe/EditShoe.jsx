@@ -188,13 +188,13 @@ export default function EditShoe({ id }) {
 	};
 	const handleSubmitFile = async e => {
 		e.preventDefault();
-		console.log(previewSource);
+		//console.log(previewSource);
 		if (!previewSource) return;
 		await uploadImage(previewSource);
 	};
 	// await uploadImage(ps) ---> urlImage
 	const uploadImage = async base64EncodedImage => {
-		console.log(base64EncodedImage);
+		//console.log(base64EncodedImage);
 
 		try {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
@@ -264,7 +264,7 @@ export default function EditShoe({ id }) {
 				brand: input.brand || details.brand.name,
 				origSizeVals: origVals,
 			};
-			console.log(newShoe);
+			//console.log(newShoe);
 			dispatch(putNewShoe(id, newShoe));
 			alert('Entry updated');
 		}

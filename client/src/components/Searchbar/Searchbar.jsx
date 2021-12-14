@@ -13,7 +13,7 @@ import s from './Searchbar.styles.module.css'
 const AutocompleteItem = ({id, shoeName, thumbnail, price,i}) => {
 	return <li className={s.li} >
 		<Link to={`/shoe/${id}`}><div style={{display:'flex'}}>
-			<img src={thumbnail} height='50px'/> <div>
+			<img alt='alt' src={thumbnail} height='50px'/> <div>
 				<h5 className={s.h5}>{shoeName}</h5>
 				<h6>US${price.retailPrice}</h6></div>
 			</div>
@@ -28,6 +28,7 @@ export default function Searchbar(props) {
 
 	useEffect( () => {
 		setSearchFilter(filterBrands)
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [JSON.stringify(filterBrands)])
 
 
@@ -43,7 +44,7 @@ export default function Searchbar(props) {
 			sourceId: 'shoes',
 			getItems: ({query}) => {
 				if (!!query) {
-					console.log(searchFilter)
+					//console.log(searchFilter)
 					// return fetch(`http://localhost:3001/shoes?shoeName=${query}`)
 					let busqueda = shoes.filter(elem => elem.shoeName.toLowerCase().includes(query.toLowerCase()))
 					// .then(res => res.json())
@@ -83,7 +84,7 @@ export default function Searchbar(props) {
 
 	function onSubmitHandler(e) {
 		e.preventDefault()
-		console.log(e)
+		//console.log(e)
 		dispatch(search(e.target[0].value));
 	}
 
@@ -100,7 +101,7 @@ export default function Searchbar(props) {
 					autocompleteState.isOpen && 
 					<div ref={panelRef} {...autocomplete.getPanelProps()}>
 						{autocompleteState.collections.map((collection, index) => {
-							console.log(collection,'collection')
+							//console.log(collection,'collection')
 							const {items} = collection
 							return (
 								<section key={`section=${index}`}>

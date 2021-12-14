@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { /* useSelector, */ useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { setFilterBrands } from '../../redux/actions/index.js';
 import { setPage } from '../../redux/actions/index.js';
@@ -10,6 +10,7 @@ export default function FilterBrand() {
 	const [brands, setBrands] = useState([]);
 	let [value, setValue] = useState('');
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(async () => {
 		await axios.get('/brands').then(r => {
 			setBrands(r.data);

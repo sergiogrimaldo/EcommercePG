@@ -9,13 +9,14 @@ const Reviews = ({ shoeId }) => {
     const reviewsFromUser = useSelector((state) => state.reviewsFromUser)
 
     useEffect(() => {
+        setStarsAndComments([])
         if (reviews) {
             let found = reviews.filter((review) => review.shoeId === parseInt(shoeId, 10));
-            // console.log(found);
             if (found && found.length > 0) {
                 setStarsAndComments(found);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [shoeId, reviews,JSON.stringify(reviews),JSON.stringify(reviewsFromUser)]);
 
     return (
