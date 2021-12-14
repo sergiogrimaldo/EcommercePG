@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .container{
     width:50%;
-    heigth:50%;
+    height:50%;
 }
 
 .title{
@@ -10,11 +10,12 @@
     justify-content: center;
     align-items: center;
     margin: 20px;
+    background: aqua;
 }
 
 .text{
     margin: 5px;
-    
+    color: rgb(255, 255, 255);
 }
 
 .imgBox{

@@ -8,8 +8,8 @@
 
 body {
 	font-family: 'Poppins', sans-serif;	
-	background-color: #1f59668f;
-    background-image: radial-gradient(at 47% 33%, hsl(182deg 100% 85% / 74%) 0, #0b64271a 59%), radial-gradient(at 82% 65%, #1f59665c 0, #5a6ecf4a 55%);
+	background-color: rgb(86,86,88);
+	background: radial-gradient(circle, rgba(86,86,88,1)0%, rgba(0,0,0,1)100%);
 }
 body::-webkit-scrollbar {
 	width: 12px;               /* width of the entire scrollbar */
