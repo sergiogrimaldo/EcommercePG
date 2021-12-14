@@ -5,7 +5,7 @@ import s from "./BuyDetailsModal.module.css";
 
 export default function BuyDetailsModal({ data }) {
     const dispatch = useDispatch();
-    console.log(data);
+    //console.log(data);
     return data.foundFromAll ? (
         <div
             style={{

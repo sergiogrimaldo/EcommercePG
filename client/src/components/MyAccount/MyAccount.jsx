@@ -29,6 +29,7 @@ export default function MyAccount(){
 
 
     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect( async () => {
         let response = [...orders]
         if (stateFilter != 'All'){
@@ -36,6 +37,7 @@ export default function MyAccount(){
         }
         setLocalOrders(response)
          
+     // eslint-disable-next-line react-hooks/exhaustive-deps
      },[JSON.stringify(orders),stateFilter,orders])
 
     function toDate(string){

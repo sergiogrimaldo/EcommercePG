@@ -18,7 +18,7 @@ function Paging({ shoes, shoesPerPage }) {
     pageNumber.push([">>"]);
 
     const handleButton = function changePage(e) {
-        console.log(e);
+        //console.log(e);
         if (e == "<<") {
             if (page > 0) {
                 dispach(setPage(page - 1));

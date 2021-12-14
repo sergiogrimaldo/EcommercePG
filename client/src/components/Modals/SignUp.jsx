@@ -75,7 +75,7 @@ export default function SignUp(){
                 )
             }
             if(allUsers.some(user => user.email === e.target.value)){
-                console.log(errors)
+                //console.log(errors)
                 setErrors(
                     {...errors,
                     email : 'You already got an account with this email',
@@ -96,7 +96,7 @@ export default function SignUp(){
     async function handleSubmit(e){
         e.preventDefault();
         await dispatch(postUser(input));
-        console.log(input)
+        //console.log(input)
         alert('User created successfully, please confirm your email');
         dispatch(sendActivateEmail({email:input.email, tokenCase:"validateUser"}));
         setInput({

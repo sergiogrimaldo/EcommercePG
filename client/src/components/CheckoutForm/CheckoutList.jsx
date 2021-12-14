@@ -33,20 +33,20 @@ function CheckoutList({backStep,nextStep}) {
         // accounting.formatMoney(`${total}`)} `${total} 
         
         if(!error){
-            console.log(shippingDetails)
+           // console.log(shippingDetails)
             try{
                 const {id} = paymentMethod
                 const  {data,status} = await axios.post('/orders/payment',{id,amount:total})
     
                     /// mando 
-                console.log('envio exitoso')
+                //console.log('envio exitoso')
                 shippingDetails && await dispatch(makeBuyOrder({userId:user.id, cart:cart, shippingInfo: shippingDetails}))
                 //dispatch(makeBuyOrder({userId:user.id, cart:cart}))///////////////////////
                 dispatch(clearCart())
                 user && dispatch(getOrders({email:user.email}))
                     // limpi 
                 
-                console.log('recibido',data)
+               // console.log('recibido',data)
                 shippingDetails && dispatch(paymentMessage(data.message))
                 
                 nextStep();

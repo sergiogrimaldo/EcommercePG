@@ -21,7 +21,7 @@ export default function Checkout (){
     }
     let total = 0
     cart?.forEach(item => {
-        console.log(item)
+        //console.log(item)
         total = total+item.price
         }
     )
