@@ -13,7 +13,7 @@ export default function OrderDetails({id}){
         dispach(getOrderDetails({email: user.email, id:id}))
         
     }, [])
-    console.log(orderDetails)
+    //console.log(orderDetails)
     return (
         <div style={{display:'grid', alignItems:'center', marginTop:20, alignContent:'center', justifyContent:'center', width:'100vw'}}>
             {
@@ -25,7 +25,7 @@ export default function OrderDetails({id}){
                     </div>
                     <div style={{backgroundColor:'white' , width:'70vw', borderRadius:'15px', boxShadow:'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'}}>
                         {
-                            console.log(orderDetails)
+                            //console.log(orderDetails)
                         }
                         {
                             orderDetails.shoes?.map(shoe => 

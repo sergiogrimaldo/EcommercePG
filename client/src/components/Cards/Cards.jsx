@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Link from 'react-router-dom';
 import { setPage, getWishList } from '../../redux/actions';
 import Card from '../Card/Card';
 import Paging from '../Paging/Paging.jsx';
@@ -19,8 +18,6 @@ export default function Cards({ data }) {
 	const [shownCards, setShownCards] = useState([]);
 	const SHOES_PER_PAGE = 9;
 	const wishlist = useSelector(state => state.wishlist)
-	const [loading, setLoading] = useState(false);
-	const [auxShow, setAuxShow] = useState([]);
 
 	// console.log(data);
 	// if (page === 0) {
@@ -60,6 +57,7 @@ export default function Cards({ data }) {
 
 	useEffect( () => {
 		dispach(getWishList({email:user?.email}))
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
 
 	useEffect(() => {
@@ -97,6 +95,7 @@ export default function Cards({ data }) {
 				setShownCards(data);
 			}
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, JSON.stringify(shoes), filters, filterBrands, filterSizes, filterPrice, page, textToSearch, JSON.stringify(wishlist)]);
 
 	// useEffect( () => {

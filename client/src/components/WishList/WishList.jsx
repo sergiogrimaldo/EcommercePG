@@ -17,6 +17,7 @@ export default function WishList(){
         await dispatch(getWishList({email:user.email}))
 	}
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(async () => {
 		//let lista = await axios.post(`/users/getWishlist`, {email:'admin@admin.com'})
 		// console.log(lista)
@@ -27,7 +28,7 @@ export default function WishList(){
         <div style={{height:'87vh'}}>
             
         <h1>WishList</h1>
-         { console.log(wishList)} 
+        {/*  { console.log(wishList)} */} 
         { wishList && JSON.stringify(wishList).length > 2 && wishList.shoes.map((shoe) => <div style={{display:'flex', alignItems:'center'}}>
             <img src={shoe.thumbnail} width='250px'/>
             <div>{shoe.shoeName}</div>

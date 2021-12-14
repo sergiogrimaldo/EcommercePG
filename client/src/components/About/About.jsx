@@ -2,7 +2,7 @@ import React from "react";
 import s from "./About.module.css";
 
 function About() {
-    console.log("About");
+   // console.log("About");
     return (
         <div>
             <div className={s.aboutContainer}>

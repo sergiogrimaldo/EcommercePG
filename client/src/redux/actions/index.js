@@ -155,7 +155,7 @@ export function clearWishlist() {
 export function getWishList(payload) {
 	return async dispatch => {
 		const res = await axios.post(`/users/getWishlist`, payload)
-		console.log(res.data,'res')
+		//console.log(res.data,'res')
 		return dispatch({
 			type: 'GET_WISHLIST',
 			payload: res.data,
@@ -168,7 +168,7 @@ export function getWishList(payload) {
 export function addToWishList(payload) {
 	return async dispatch => {
 		const res = await axios.post(`/users/wishlist`, payload)
-		console.log(res.data,'res')
+		//console.log(res.data,'res')
 		return dispatch({
 			type: 'ADD_WISHLIST',
 			payload: res.data,
@@ -178,7 +178,7 @@ export function addToWishList(payload) {
 export function deleteFromWishList(payload) {
 	return async dispatch => {
 		const res = await axios.post(`/users/deleteWishlist`, payload)
-		console.log(res.data,'res')
+		//console.log(res.data,'res')
 		return dispatch({
 			type: 'DELETE_WISHLIST',
 			payload: res.data,
@@ -289,7 +289,7 @@ export function getReviewsFromUser(userId) {
 }
 export function postReview(payload) {
 	return function (dispatch) {
-		console.log(payload);
+		//console.log(payload);
 		axios.post(`/reviews`, payload).then(respons => {
 			dispatch({
 				type: 'GET_REVIEWS_FROM_USER',
@@ -318,7 +318,7 @@ export function postReview(payload) {
 	}; */
 
 export function addToCart(payload) {
-	console.log('soyy payload de action', payload);
+	//console.log('soyy payload de action', payload);
 	return {
 		type: 'ADD_TO_CART',
 		payload: payload,
@@ -415,7 +415,7 @@ export function getUsers() {
 	return async function (dispach) {
 		try {
 			const res = await axios.get('/users');
-			console.log(res);
+			//console.log(res);
 			return dispach({
 				type: 'GET_ALL_USERS',
 				payload: res.data,

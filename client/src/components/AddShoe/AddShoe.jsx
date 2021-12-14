@@ -139,13 +139,13 @@ export default function AddShoe() {
 	};
 	const handleSubmitFile = async e => {
 		e.preventDefault();
-		console.log(previewSource);
+		//console.log(previewSource);
 		if (!previewSource) return;
 		await uploadImage(previewSource);
 	};
 	// await uploadImage(ps) ---> urlImage
 	const uploadImage = async base64EncodedImage => {
-		console.log(base64EncodedImage);
+		//console.log(base64EncodedImage);
 
 		try {
 			const urlImage = (await axios.post('/shoes/uploadShoeImage', { data: base64EncodedImage })).data;
@@ -182,7 +182,7 @@ export default function AddShoe() {
 		e.preventDefault();
 		let checkObj = Object.values(error);
 		let checkArr = checkObj.filter(elem => elem !== '');
-		console.log(checkArr);
+		//console.log(checkArr);
 		if (checkArr.length > 0) {
 			alert('Please fill in the required fields');
 		} else {

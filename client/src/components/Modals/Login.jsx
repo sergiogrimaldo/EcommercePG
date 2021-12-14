@@ -21,7 +21,7 @@ export default function Login() {
 
     const responseGoogle = async (response) => {
         const user = await dispatch(googleLogIn({ token: response.tokenId }));
-        console.log(user);
+        //console.log(user);
         await dispatch(setCurrentUser(user));
         
         dispatch(closeModal());

@@ -62,7 +62,7 @@ export default function Card({ shoe }) {
 	}
 
 	const handleClick = function () {
-		console.log(buySize)
+		//console.log(buySize)
 		if (parseInt(buySize) > 0 && buySize != ''){
 			dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, stock: shoe.stock, cuantity: 1, size: buySize }));
 			dispatch(update());

@@ -25,6 +25,7 @@ function Navbar() {
     const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
       await dispatch(getOrders({email:user?.email}))
     },[])

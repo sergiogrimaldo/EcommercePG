@@ -8,6 +8,7 @@ function Confirmation({message, backStep}) {
     const user = useSelector(state => state.user)
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
         await dispatch(getOrders({email:user?.email}))
     },[])
