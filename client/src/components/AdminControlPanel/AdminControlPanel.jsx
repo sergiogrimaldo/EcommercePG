@@ -53,7 +53,12 @@ export default function AdminControlPanel(){
 
     }
 
-
+    const onclickDelete = (e) => {
+        let result = window.confirm('Are you sure you want to delete the user?')
+        if(result){
+            dispatch(deleteUser(e.target.id))
+        }
+    }
 
     return (
         <div style={{height: '100%',overflowX:'hidden'}}>
@@ -97,7 +102,7 @@ export default function AdminControlPanel(){
                         <button 
                         id={(users.id)} 
                         style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}} 
-                        onClick={(e) => dispatch(deleteUser(e.target.id))}>Delete</button>
+                        onClick={(e)=>onclickDelete(e)}>Delete</button>
                         <button
                         style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}}
                         id={(users.id)}
