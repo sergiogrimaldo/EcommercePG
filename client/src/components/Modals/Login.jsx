@@ -4,7 +4,7 @@ import { closeModal, googleLogIn } from "../../redux/actions";
 import { GoogleLogin } from "react-google-login";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { logIn, setCurrentUser, getUsers, postUser, getOrders, getWishList } from "../../redux/actions";
+import { logIn, setCurrentUser, getUsers, addToCart, getOrders, clearCart } from "../../redux/actions";
 
 const PORT = "712548091909-h0gqr6u8q1mj7s3ac3p5s0hkn6snkptf.apps.googleusercontent.com";
     // process.env.NODE_ENV === "production"
@@ -72,6 +72,30 @@ export default function Login() {
         });
         dispatch(closeModal());
     }
+
+useEffect(() => {
+    if (user && allUsers.length > 0) {
+        let found = allUsers.find((element) => element.id === user.id);
+        if (found) {
+            dispatch(clearCart());
+            let parcedCart = JSON.parse(found.cart);
+            parcedCart?.forEach((shoe) => {
+
+                dispatch(
+                    addToCart({
+                        id: shoe.id,
+                        image: shoe.image,
+                        name: shoe.name,
+                        price: shoe.price,
+                        stock: shoe.stock,
+                        cuantity: shoe.cuantity,
+                        size: shoe.size,
+                    })
+                );
+            });
+        }
+    }
+}, [allUsers, dispatch, user]);
 
     return (
         <div

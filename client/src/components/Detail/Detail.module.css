@@ -12,15 +12,11 @@ background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
 
 .macro {
 	display: flex;
-
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
-	/* margin-top: 20px; */
-	background: rgb(86,86,88);
-background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
-
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .instock {

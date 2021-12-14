@@ -79,9 +79,10 @@
 .btn_ed_del {
 	display: flex;
 }
-.h3{
+.h3 {
 	background-color: chocolate;
 }
+
 .btnstock{
 	background-color: red;
 	 z-index: 30;
@@ -93,3 +94,4 @@
 	   padding: 5; 
 	   border: '1px solid black';
 }
+

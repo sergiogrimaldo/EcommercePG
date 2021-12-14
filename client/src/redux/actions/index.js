@@ -154,12 +154,14 @@ export function clearWishlist() {
 
 export function getWishList(payload) {
 	return async dispatch => {
+		if(payload.email){
 		const res = await axios.post(`/users/getWishlist`, payload)
 		//console.log(res.data,'res')
 		return dispatch({
 			type: 'GET_WISHLIST',
 			payload: res.data,
 		});
+	}
 	};
 }
 
@@ -217,6 +219,7 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
+
 	return {
 		type: 'DELETE_FROM_CART',
 		payload: payload,
@@ -321,6 +324,16 @@ export function addToCart(payload) {
 	return {
 		type: 'ADD_TO_CART',
 		payload: payload,
+	};
+}
+
+export function postCartInDB(payload) {
+	return async function () {
+		try {
+			await axios.post('/users/cart', payload);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 }
 export function removeFromCart(payload) {
