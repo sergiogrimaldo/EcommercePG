@@ -47,11 +47,11 @@ export default function Detail({ id }) {
 	//details && console.log(details)
 	return (
 		<div>
-			{/* <div className={s.backdiv}>
+			<div className={s.backdiv}>
 				<button className={s.back} onClick={() => history.push('/catalogue')}>
 					Back
 				</button>
-			</div> */}
+			</div>
 
 			<div className={`${s.macro}`}>
 				<h1 className={`${s.title}`}>{details && details.shoeName}</h1>
@@ -115,12 +115,16 @@ export default function Detail({ id }) {
 							<p className={`${s.description}`}>{details && details.description}</p>
 
 							<Reviews shoeId={id} />
+							
 						</div>
+						<button>hola</button>
 					</div>
 
 					{/* <img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} /> */}
 				</div>
+				
 			</div>
+
 		</div>
 	);
 }

@@ -6,11 +6,13 @@
 
 .macro {
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	align-content: center;
-	margin-top: 20px;
+    align-items: center;
+    margin-top: 20
+px
+;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .instock {
@@ -138,3 +140,10 @@
 .btn_size:active {
 	background-color: rgb(148, 148, 148);
 }
+@media only screen and (max-width: 960px) {
+	.macro {
+	  height: 200px;
+	  width: 100%;
+	}
+  
+  }
