@@ -61,18 +61,21 @@ export default function Detail({ id }) {
 						<Review rating={rating} shoe={details} currentComponent='Detail' />
 						<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
 						<h2>Available Sizes</h2>
-						<div className={`${s.size}`}>
-							{details &&
-								Object.entries(details.availableSize)
-									.filter(elem => elem[1] !== 0)
-									.filter(elem => elem[0] !== 'id')
-									.sort((a, b) => Number(a[0].includes(',') ? a[0].replace(',', '.') : a[0]) - Number(b[0].includes(',') ? b[0].replace(',', '.') : b[0]))
-									.map(elem => (
-										<button className={`${s.size_btn}`} value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
-											{elem[0].includes(',') ? elem[0].replace(',', '.') : elem[0]}
-										</button>
-									))}
-						</div>
+							<div style={{display:'flex', flexDirection:'column', position:'relative', justifyItems:'center'}}>
+								<div className={`${s.size}`}>
+								{details &&
+									Object.entries(details.availableSize)
+										.filter(elem => elem[1] !== 0)
+										.filter(elem => elem[0] !== 'id')
+										.sort((a, b) => Number(a[0].includes(',') ? a[0].replace(',', '.') : a[0]) - Number(b[0].includes(',') ? b[0].replace(',', '.') : b[0]))
+										.map(elem => (
+											<button className={`${s.size_btn}`} value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
+												{elem[0].includes(',') ? elem[0].replace(',', '.') : elem[0]}
+											</button>
+										))}
+								</div>
+										<button style={{height:30, backgroundColor:'black',color:'white', position:'absolute', bottom:0, width:'90%', marginBottom:10}}> Add To cart</button>
+							</div>
 					</div>
 					<div className={`${s.container}`}>
 						{details && details.brand && <h2 className={`${s.brand}`}>Brand: {details.brand && details.brand.name}</h2>}
