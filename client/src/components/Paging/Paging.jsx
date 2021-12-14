@@ -32,22 +32,23 @@ function Paging({ shoes, shoesPerPage }) {
         }
     };
 //console.log(window.screen.width)
-    return (
-        <nav>
-            <div className={style.containerPage}>
-                {pageNumber &&
-                    pageNumber.map((e) => {
-                        return (
-                            <div key={e}>
-                                <button key={"button" + e} className={style.containerBTN} onClick={() => handleButton(e)}>
-                                    {e}
-                                </button>
-                            </div>
-                        );
-                    })}
-            </div>
-        </nav>
-    );
+return (
+    <nav className={style.nav}>
+        <div className={style.containerPage}>
+            {pageNumber &&
+                pageNumber.map((e) => {
+                    return (
+                        <div key={e}>
+                            <button key={"button" + e} className={style.containerBTN} onClick={() => handleButton(e)}>
+                                {e}
+                            </button>
+                        </div>
+                    );
+                })}
+        </div>
+    </nav>
+);
 }
+
 
 export default Paging;

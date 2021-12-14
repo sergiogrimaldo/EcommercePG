@@ -82,19 +82,19 @@ export default function Card({ shoe }) {
 				{/*boton*/}
 
 				{!user.email && (
-					<button>
-						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+					<button style={{border: 'none'}}>
+						<FontAwesomeIcon className={s.hearth} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
 					</button>
 				)}
 
 				{user.email && wishlist && wishlist.shoes && wishlist.shoes.some(wishlistShoe => wishlistShoe.id == shoe.id) && (
-					<button>
-						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+					<button style={{border: 'none'}}>
+						<FontAwesomeIcon  className={s.hearth} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
 					</button>
 				)}
 				{user.email && wishlist && wishlist.shoes && !wishlist.shoes.some(wishlistShoe => wishlistShoe.id == shoe.id) && (
-					<button>
-						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleAddFav(e)} />
+					<button style={{border: 'none'}}>
+						<FontAwesomeIcon  className={s.hearth} size='lg' color='red' icon={icon} onClick={e => handleAddFav(e)} />
 					</button>
 				)}
 			</div>

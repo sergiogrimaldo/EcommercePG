@@ -1,9 +1,17 @@
 .containerPage {
+    color: black;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    height: 42px;
     flex-wrap: wrap;
     background-color: #ffffff00;
+}
+
+.nav{
+    color:aliceblue;
+    background: rgb(69,69,69);
+    background: radial-gradient(circle, rgba(69,69,69,1) 56%, rgba(69,69,69,1) 65%);
 }
 
 .containerBTN {
@@ -18,16 +26,17 @@
     background-color: #ffffff00;
     transition: background-color 0.5s;
     cursor: pointer;
-    color: #270606;
-    box-shadow: 1px 1px 10px #0c69e4;
+    color: aliceblue;
+    box-shadow: 1px 1px 10px #dddfe2;
 }
 
 .containerBTN:hover {
-    background-color: #6d9cf5;
+    background-color: #e4e4e4;
 }
 
 @media only screen and (max-width: 700px) {
     .itIsLittle {
         display: none;
+
     }
 }

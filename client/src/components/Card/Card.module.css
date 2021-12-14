@@ -85,6 +85,14 @@
 	color: black;
 }
 
+.hearth{
+	right:200;
+	cursor: 'pointer';
+	border: 'none';
+	line-height: '60';
+	top: '-64px';
+	left: '47px';
+}
 .social {
 	display: inline-flex;
 	width: 20px;
