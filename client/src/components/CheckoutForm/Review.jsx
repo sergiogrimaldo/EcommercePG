@@ -11,7 +11,7 @@ function Review() {
     const cart = useSelector(state => state.cart);
     let total = 0;
     cart?.forEach((item) => {
-        total = total + item.price;
+        total = total + (item.price*item.cuantity);
     });
     
     return (
@@ -25,7 +25,7 @@ function Review() {
                         <ListItem key={shoes.name}>
                             <ListItemText primary={shoes.name} secondary={`cuantity:${shoes.cuantity}`} />
                             <Typography>
-                                {accounting.formatMoney(`${shoes.price}`)}
+                                {accounting.formatMoney(`${shoes.price*shoes.cuantity}`)}
                             </Typography>
                         </ListItem>
                     ))
