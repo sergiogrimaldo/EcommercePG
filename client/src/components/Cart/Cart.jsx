@@ -50,7 +50,7 @@ export default function Cart() {
                         justifyContent: "center",
                         alignItems: "center",
                         justifyItems: "center",
-                        gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
+                        gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr",
                         height: "100%",
                         width: "100%",
                         overflowY: "auto",
@@ -88,11 +88,22 @@ export default function Cart() {
                             justifyContent: "center",
                         }}
                     >
-                        <h2>Price per Unit</h2>
+                        <h2>Size</h2>
                     </div>
                     <div
                         style={{
                             gridColumn: 5,
+                            display: JSON.stringify(cart).length > 2 ? "flex" : "none",
+                            alignContent: "center",
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <h2>Price per Unit</h2>
+                    </div>
+                    <div
+                        style={{
+                            gridColumn: 6,
                             display: JSON.stringify(cart).length > 2 ? "flex" : "none",
                             alignContent: "center",
                             alignItems: "center",
@@ -111,11 +122,15 @@ export default function Cart() {
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         {/* TEMPORARY DENSE-LOGIC FIX TO CART */}
-                                        <h1>{nombreItems.splice(nombreItems.indexOf(item.name), 1)}</h1>
+                                        {/* <h1>{nombreItems.splice(nombreItems.indexOf(item.name), 1)}</h1> */}
+                                        <h1>{item.name}</h1>
                                         {/* FIX ABOVE */}
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         <h2><input type="number" name="cuantity" step="1" min='1' max={item.stock} defaultValue={item.cuantity} onChange={(e) => handleChange(e,item)}/></h2>
+                                    </div>
+                                    <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
+                                        <h2>{item.size}</h2>
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         <h2>{item.price}</h2>
