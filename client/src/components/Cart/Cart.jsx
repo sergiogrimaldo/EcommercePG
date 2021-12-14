@@ -147,7 +147,8 @@ export default function Cart() {
                                         <h3>{item.cuantity * item.price}</h3>
                                         <button
                                             value={item.name}
-                                            style={{ position: "absolute", left: "50px" }}
+                                            
+                                            className={`${style.btn}`}
                                             onClick={(e) => dispatch(deleteFromCart(e.target.value))}
                                         >
                                             Delete

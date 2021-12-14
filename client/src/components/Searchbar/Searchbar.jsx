@@ -88,7 +88,7 @@ export default function Searchbar(props) {
 	}
 
 	return (
-		<div style={{display:'flex',width:'150%',padding:5}}>
+		<div className="buscar">
 			<form style={{display:'flex',width:'150%',padding:5}} {...formProps} >
 			{/* <form style={{display:'flex', width: '150%'}} onSubmit={onSubmitHandler}> */}
 				

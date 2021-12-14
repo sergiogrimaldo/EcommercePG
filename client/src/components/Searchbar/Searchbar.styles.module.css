@@ -9,3 +9,22 @@
     color:red
 }
 
+@media screen and (max-width: 1024px){
+	.buscar{
+		width: 33%;
+	}
+}
+
+@media screen and (max-width: 768px){
+	.buscar{
+		width: 50%;
+	}
+	
+}
+
+@media screen and (max-width: 568px){
+	.buscar{
+		width: 100%;
+	}
+	
+}
