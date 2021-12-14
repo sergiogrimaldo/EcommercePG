@@ -10,6 +10,7 @@ export default function FilterBrand() {
 	const [brands, setBrands] = useState([]);
 	let [value, setValue] = useState('');
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(async () => {
 		await axios.get('/brands').then(r => {
 			setBrands(r.data);
