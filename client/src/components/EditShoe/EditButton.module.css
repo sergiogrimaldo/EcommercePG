@@ -1,12 +1,15 @@
-.btn_delete {
+.btn_edite {
 	cursor: pointer;
 	text-align: center;
 	font-weight: bold;
 	height: 25px;
 	width: 50px;
-	background-color: grey;
+	background-color: rgb(221, 127, 56);
 	color: rgb(255, 255, 255);
 	border: none;
 	border-radius: 10px;
 	margin-left: 2px;
+	position: relative;
+    top: -49px;    
+	left: 158px;
 }

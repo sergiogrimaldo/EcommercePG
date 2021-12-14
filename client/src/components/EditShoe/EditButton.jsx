@@ -15,7 +15,7 @@ export default function EditButton({ id }) {
 	return (
 		<div>
 			<Link to={`/editShoe/${id}`}>
-				<button className={`${styles.btn_delete}`} onClick={clickHandler}>
+				<button className={`${styles.btn_edite}`} onClick={clickHandler}>
 					Edit
 				</button>
 			</Link>

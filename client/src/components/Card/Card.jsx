@@ -62,11 +62,13 @@ export default function Card({ shoe }) {
 	}
 
 	const handleClick = function () {
-		//console.log(buySize)
+		//console.log(e)
 		if (parseInt(buySize) > 0 && buySize != ''){
 			dispatch(addToCart({ id: shoe.id, image: shoe.thumbnail, name: shoe.shoeName, price: shoe.retailPrice, stock: shoe.stock, cuantity: 1, size: buySize }));
 			dispatch(update());
 
+		}else{
+			alert("Pick a size");
 		}
 	};
 
@@ -96,12 +98,10 @@ export default function Card({ shoe }) {
 			{ shoe.stock > 0 && <select onChange={(e) =>setBuySize(e.target.value || '')} style={{position:'absolute', bottom: 100, right: 170, zIndex: 20 }}><option select> Select Size</option>{Object.keys(shoe.AvailableSizes).map((size) => size != 'id' && shoe.AvailableSizes[size] > 0 && <option style={{display:'flex'}} value={size} >{size}</option>)}
 			</select>}
 			{shoe.stock > 0?
-			<button className={s.button} style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }} onClick={() => handleClick()}>
-				🛒 add to cart
-			</button>
+			<button className={s.button}  onClick={() => handleClick()}> 🛒 add to cart </button>
+
              : 
-                <button className={s.button} style={{ backgroundColor: "red", zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '38.%', zIndex: 10, padding: 5, border: '1px solid black' }}>
-                Out of stock
+                <button className={s.btnstock}>  Out of stock
             </button>
 			
             }

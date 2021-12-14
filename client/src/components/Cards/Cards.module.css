@@ -1,9 +1,8 @@
 .cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: space-around;
+    grid-template-columns: 0fr 0fr 0fr;
     flex-wrap: wrap;
-    justify-items:center;
+    justify-content: space-evenly;
 }
 
 .links{
