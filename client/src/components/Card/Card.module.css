@@ -6,7 +6,7 @@
 	padding: 10px;
 	font-family: 'Poppins', sans-serif;
 	transition: all 300ms;
-	border-radius: 20px;
+	border-radius: 20px; 
 }
 
 .card:hover {
