@@ -55,10 +55,10 @@ export default function Cards({ data }) {
 
 	const currentCards = shownCards.slice(page === 1 ? 0 : page * 10 - 11, page * 10 - 1);
 
+	//despachas la accion para renderizar la withlist por tarjeta
 	useEffect( () => {
 		dispach(getWishList({email:user?.email}))
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[])
+	},[user])
 
 	useEffect(() => {
 		if (filters && filters.length > 0) {
@@ -97,6 +97,7 @@ export default function Cards({ data }) {
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data, JSON.stringify(shoes), filters, filterBrands, filterSizes, filterPrice, page, textToSearch, JSON.stringify(wishlist)]);
+
 
 	// useEffect( () => {
 	// 	setShownCards(shownCards.filter(elem => elem.shoeName.toLowerCase().includes(textToSearch.toLowerCase())))
