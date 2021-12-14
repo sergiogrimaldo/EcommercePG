@@ -23,7 +23,8 @@ function Review() {
                 {
                     cart?.map(shoes => (
                         <ListItem key={shoes.name}>
-                            <ListItemText primary={shoes.name} secondary={`cuantity:${shoes.cuantity}`} />
+                            <ListItemText primary={shoes.name} secondary={`Cuantity:${shoes.cuantity}, Size:${shoes.size}`}/>
+
                             <Typography>
                                 {accounting.formatMoney(`${shoes.price*shoes.cuantity}`)}
                             </Typography>
