@@ -15,9 +15,10 @@ function CheckoutList({backStep,nextStep}) {
     const cart = useSelector(state => state.cart);
     const user = useSelector(state => state.user);
     const shippingDetails = useSelector(state => state.shipingShoes)
+    
     let total = 0;
     cart?.forEach((item) => {
-        total = total + item.price;
+        total = total + (item.price*item.cuantity);
     });
 
     async function onHandleSubmit(e){
