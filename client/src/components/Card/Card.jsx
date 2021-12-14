@@ -73,15 +73,14 @@ export default function Card({ shoe }) {
 	return (
 		<div className={s.card__father} style={{ position: 'relative' }}>
 			<Link to={`/shoe/${shoe.id}`}>
-				<div
-					className={s.card}
-				>
+				<>
 					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
 						<h3> {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
-					</div>
-				</div>
+					</div>{' '}
+				</>
+
 			</Link>
 			<div style={{ position: 'absolute', top: 70, left: 50, zIndex: 20, display:'flex' }}>
 				{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
