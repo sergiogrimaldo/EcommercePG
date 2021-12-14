@@ -20,7 +20,9 @@ export default function Card({ shoe }) {
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
 	const wishlist = useSelector(state => state.wishlist)
+	const page = useSelector(state => state.currentPage)
 	const [buySize, setBuySize] = useState('')
+
 	
 	
 	const [icon,setIcon] = useState(farHeart)
@@ -28,12 +30,13 @@ export default function Card({ shoe }) {
 	let rating = Math.floor(Math.random() * 5) + 0;
 
 	useEffect( () => {
+		// dispatch(update());
 		if(wishlist?.shoes?.some((wishlistShoe) => wishlistShoe.id == shoe.id )){
 			setIcon(faHeart)
 		}else{
 			setIcon(farHeart)
 		}
-	},[wishlist, wishlist.shoes])
+	},[wishlist, wishlist.shoes, page])
 
 
 	const handleAddFav = async(e) => {
@@ -88,7 +91,7 @@ export default function Card({ shoe }) {
 			
 				{!user.email&& <button>
 				<FontAwesomeIcon 
-				style={{cursor:'pointer'}} 
+				style={{cursor:'pointer', border:'none'}} 
 				size='lg' 
 				color='red' 
 				icon={icon}
@@ -99,7 +102,7 @@ export default function Card({ shoe }) {
 				wishlist.shoes.some((wishlistShoe) => wishlistShoe.id == shoe.id ) &&
 				<button>
 				<FontAwesomeIcon 
-				style={{cursor:'pointer'}} 
+				style={{cursor:'pointer', border:'none'}} 
 				size='lg' 
 				color='red' 
 				icon={icon}
@@ -110,7 +113,7 @@ export default function Card({ shoe }) {
 				!(wishlist.shoes.some((wishlistShoe) => wishlistShoe.id == shoe.id )) &&
 				<button>
 				<FontAwesomeIcon 
-				style={{cursor:'pointer'}} 
+				style={{cursor:'pointer', border:'none',}} 
 				size='lg' 
 				color='red' 
 				icon={icon}
