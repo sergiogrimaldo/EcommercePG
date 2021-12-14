@@ -53,15 +53,12 @@ router.post("/", async (req, res, next) => {
     if (email && password) {
         try {
             const newUser = await User.create({
-                //include: [{ model: Reviews }],
                 name: name,
                 email: email, //aca creo un nuevo user con las propiedades que necesito
                 password: password,
             });
             const rol = await Role.findOne({
-                //include: [{ model: Reviews }],
                 where: {
-                    //aca busco en la base de datos donde uno tenga la propiedad client
                     name: "client",
                 },
             });
@@ -103,15 +100,11 @@ router.delete("/:id", async function (req, res, next) {
 
 router.patch("/:id", async function (req, res, next) {
     const { email } = req.body;
-
     const user = await User.findByPk(req.params.id);
-
     if (!user) {
         return res.status(400).json("Invalid User");
     }
-
     const admi = await User.findOne({ where: { email: email } });
-
     if (admi.roleId === 2) {
         if (user.roleId === 1) {
             user.setRole(2);
@@ -125,16 +118,11 @@ router.patch("/:id", async function (req, res, next) {
         return res.status(401).json("You are not allowed to do this action");
     }
 });
-//genera un token y manda un mail, pendendiendo el token case del body:
-router.post("/resetPassword", tokenGenerator); // localhost/users/resetpassword
+router.post("/resetPassword", tokenGenerator); 
+router.post("/resetPassword/:token", resetPassword); 
+router.post("/activateAccount/:token", validateUser); 
 
-//resetea la password con el token envíado por email en tokenGerator
-router.post("/resetPassword/:token", resetPassword); //localhost/users/resetpassword/token
 
-//activa la cuenta con el token envíado por email en tokenGerator
-router.post("/activateAccount/:token", validateUser); //localhost/users/resetpassword/token
-
-///añade a wishlist
 router.post("/wishlist", async (req, res) => {
     try {
         let user = await User.findOne({ where: { email: req.body.email } });
@@ -145,7 +133,7 @@ router.post("/wishlist", async (req, res) => {
     }
 });
 
-/// consigue wishlist
+
 router.post("/getWishlist", async (req, res) => {
     try {
         if (req.body.email) {

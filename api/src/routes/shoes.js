@@ -7,7 +7,6 @@ const { cloudinary } = require('../../utils/cloudinary');
 const router = Router();
 
 router.get('/', async (req, res, next) => {
-	console.log(req.query)
 	let Name = req.query.shoeName;
 	if (Name) {
 		try {
@@ -52,14 +51,12 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-	console.log(req.body)
 	const { description, brandId, silhoutte, resellPrices, lowestResellPrice, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand } = req.body;
 
 	if (description && shoeName && retailPrice) {
 		try {
 			await Brand.findOrCreate({ where: { name: brand || 'none' } });
 			const nuBrand = await Brand.findOne({ where: { name: brand } });
-			//console.log(nuBrand)
 			const sizes = await AvailableSizes.create({
 				'3,5': avaiableSizes[0] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 				'4': avaiableSizes[1] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -87,7 +84,6 @@ router.post('/', async (req, res, next) => {
 				'17': avaiableSizes[23] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 				'18': avaiableSizes[24] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 			});
-
 			const prices = await Price.create({
 				retailPrice: retailPrice,
 				'3,5': avaiableSizes[0] > 0 ? Math.floor(Math.random() * 500) + 150 : 0,
@@ -116,9 +112,7 @@ router.post('/', async (req, res, next) => {
 				'17': avaiableSizes[23] > 0 ? Math.floor(Math.random() * 500) + 150 : 0,
 				'18': avaiableSizes[24] > 0 ? Math.floor(Math.random() * 500) + 150 : 0,
 			});
-
 			let allSizes = await AvailableSizes.findAll();
-
 			var stock = 0;
 			if (sizes) {
 				for (var i = allSizes.length - 1; i < allSizes.length; i++) {
@@ -129,20 +123,15 @@ router.post('/', async (req, res, next) => {
 					}
 				}
 			}
-
 			let newShoe = await Shoe.create({
 				description: description,
 				stock: stock,
 				shoeName: shoeName,
 				silhoutte: silhoutte,
 				thumbnail: thumbnail,
-				//resellPrices: resellPrices,
-				//lowestResellPrice: lowestResellPrice,
 				colorway: colorway,
 				urlKey: urlKey,
-				//brand: nuBrand.name
 			});
-
 			await newShoe.setBrand(nuBrand);
 			await newShoe.setAvailableSize(sizes);
 			await newShoe.setPrice(prices);
@@ -157,23 +146,14 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
 	let { id } = req.params;
 	const { description, silhoutte, colorway, shoeName, retailPrice, thumbnail, urlKey, avaiableSizes, brand, origSizeVals } = req.body;
-	// console.log(id, 'jajajjaa');
-	// const jane = await User.create({ name: "Jane" });
-	// jane.favoriteColor = "blue"
-	// await jane.update({ name: "Ada" })
-	// // The database now has "Ada" for name, but still has the default "green" for favorite color
-	// await jane.save()
-
 	try {
 		let changedShoe = await Shoe.findOne({
 			where: {
 				id: id,
 			},
 		});
-
 		await Brand.findOrCreate({ where: { name: brand } });
 		const nuBrand = await Brand.findOne({ where: { name: brand } });
-
 		let sizeUpdate = {
 			'3,5': avaiableSizes[0] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 			'4': avaiableSizes[1] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
@@ -201,15 +181,10 @@ router.put('/:id', async (req, res, next) => {
 			'17': avaiableSizes[23] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 			'18': avaiableSizes[24] > 0 ? Math.floor(Math.random() * 15) + 1 : 0,
 		};
-
-		//await changedShoe.update({brandId:nuBrand[0].id})
-
 		await changedShoe.setBrand(nuBrand);
 		await Price.update({ retailPrice: retailPrice }, { where: { id: id } });
 		await AvailableSizes.update(sizeUpdate, { where: { id: id } });
-
 		let allSizes = await AvailableSizes.findOne({ where: { id: id } });
-
 		var stock = 0;
 		if (allSizes) {
 			for (let j in allSizes.dataValues) {
@@ -218,7 +193,6 @@ router.put('/:id', async (req, res, next) => {
 				}
 			}
 		}
-
 		let updateVals = {
 			shoeName,
 			description,
@@ -228,13 +202,8 @@ router.put('/:id', async (req, res, next) => {
 			colorway,
 			stock: stock,
 		};
-
 		await changedShoe.update(updateVals);
-
 		await changedShoe.save();
-
-		//await changedShoe[0].setBrand(nuBrand);
-
 		return res.send(await Shoe.findOne({ where: { id }, include: [{ model: Brand }, { model: AvailableSizes }, { model: Color }, { model: Price }] }));
 	} catch (error) {
 		next(error);
@@ -265,17 +234,12 @@ router.delete('/:id', async function (req, res, next) {
 
 router.post('/uploadShoeImage', async (req, res) => {
 	try {
-		//console.log(req.body)
 		const fileStr = req.body.data;
-		//console.log(fileStr)
-
 		const uploadedRes = await cloudinary.uploader.upload(fileStr, {
 			upload_preset: 'pg_images',
 		});
-		//console.log(uploadedRes.url);
 		res.json(uploadedRes.url);
 	} catch (error) {
-	//	console.log(error);
 		res.status(500).json({ err: 'Oh no' });
 	}
 });

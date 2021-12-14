@@ -41,7 +41,6 @@ const peticionApi = async function () {
         return console.log("Shoes already in Database");
     } else {
         try {
-            // const Api = fetch('./allShoes.json').then(res=> res.json()).catch((e) => console.log(e))
             let allShoes = require("./data.json");
 
             for (let x = 0; x < allShoes.length; x++) {
@@ -118,17 +117,6 @@ const peticionApi = async function () {
                         }
                     }
                 }
-                /*  if (avaiableSize.length< 300) {
-                    
-                    await AvaiableSizes.create(talles);
-                    
-                    // console.log(avaiableSize)
-                    // shoe.addAvaiableSizes(avaiableSize);
-                    
-                } */
-                // console.log(avaiableSize);
-                //shoe.setAvaiableSizes(avaiableSize);
-                //console.log(shoe)
 
                 let shoe = {};
                 if (!(await Shoe.findOne({ where: { _id: _id } }))) {
@@ -145,19 +133,14 @@ const peticionApi = async function () {
                 }
 
                 for (color of colorway.split("/")) {
-                    //console.log(color)
                     await Color.findOrCreate({ where: { name: color } });
                     let coloreses = await Color.findOne({ where: { name: color } });
                     await shoe.addColor(coloreses);
                 }
 
-                //console.log(brandeses)
                 await shoe.setBrand(brandeses);
                 await shoe.setAvailableSize(talles)   /// ESTA LINEA ESTABA COMENTADA, LA DESCOMENTE PARA PODER CREAR ORDENES
                 await shoe.setPrice(prices) /// ESTA LINEA ESTABA COMENTADA, LA DESCOMENTE PARA PODER CREAR ORDENES
-
-                // 4, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5
-                //avaiableSize.save()
             }
         } catch (error) {
             //aca agarro el error si existe
@@ -165,10 +148,8 @@ const peticionApi = async function () {
         }
     }
 };
-//{ force: true }
 conn.sync({ force: false})
     .then(() => {
-        // conn.sync().then(() => {
         server.listen(process.env.PORT, () => {
             console.log(`%s listening at ${process.env.PORT}`); // eslint-disable-line no-console
         });
