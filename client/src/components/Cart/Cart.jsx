@@ -39,6 +39,12 @@ export default function Cart() {
             dispatch(openModal("login"));
         }
     }
+    const deleteShoeFromCart = (e) => {
+        let result = window.confirm('Are you sure you want to delete the shoe?')
+        if(result){
+            dispatch(deleteFromCart(e.target.value))
+        }
+    }
     return (
         <>
             <div style={{ height: "75vh", overflowX: "hidden", position: "relative" }}>
@@ -147,7 +153,7 @@ export default function Cart() {
                                             value={item.name}
                                             
                                             className={`${style.btn}`}
-                                            onClick={(e) => dispatch(deleteFromCart(e.target.value))}
+                                            onClick={(e) =>deleteShoeFromCart(e)}
                                         >
                                             Delete
                                         </button>

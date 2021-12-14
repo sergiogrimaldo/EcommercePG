@@ -217,7 +217,6 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
-	alert('Are you sure?');
 	return {
 		type: 'DELETE_FROM_CART',
 		payload: payload,
