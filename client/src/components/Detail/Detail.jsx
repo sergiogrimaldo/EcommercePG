@@ -46,7 +46,7 @@ export default function Detail({ id }) {
 	}
 	//details && console.log(details)
 	return (
-		<div>
+		<div className='div'>
 			{/* <div className={s.backdiv}>
 				<button className={s.back} onClick={() => history.push('/catalogue')}>
 					Back
