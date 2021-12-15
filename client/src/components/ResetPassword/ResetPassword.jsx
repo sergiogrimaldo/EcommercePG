@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { useState } from "react"
 import { useHistory } from "react-router";
+import s from './ResetPassword.module.css';
 
 export default function ResetPassword({token}){
 
@@ -72,27 +73,31 @@ export default function ResetPassword({token}){
     
 
     return(
-        <div>
-            <form onSubmit={e => handleSubmit(e)}>
+        <div className={s.container}>
+            <form className={s.form} onSubmit={e => handleSubmit(e)}>
+                <h2>Reset Password</h2>
                 <label>Password:</label>
                 <input
                 type="password"
                 id="password"
+                className={s.input}
                 onChange={e => handleChange(e)}
                 />
                 {errors.password && (
-                        <p>{errors.password}</p>
+                        <p className={s.error}>{errors.password}</p>
                     )}
+
                 <label>Repeat Password:</label>
                 <input
                 type="password"
                 id="passRepeated"
+                className={s.input}
                 onChange={e => handleChange(e)}
                 />
                 {errors.passRepeated && (
-                        <p>{errors.passRepeated}</p>
-                    )}
-                <button type="submit" disabled={errors.password || errors.passRepeated}>
+                    <p className={s.error}>{errors.passRepeated}</p>
+                )}
+                <button type="submit" className={s.btn} disabled={errors.password || errors.passRepeated}>
                     Change password
                 </button>
             </form>

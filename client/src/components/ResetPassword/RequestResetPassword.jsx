@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import { useState } from "react"
 import { useHistory } from "react-router";
+import s from './RequesResetPassword.module.css';
 
 
 // async function validate({input}){
@@ -94,21 +95,26 @@ export default function RequestResetPassword(){
     
 
     return(
-        <div>
-            <form onSubmit={e => handleSubmit(e)}>
+        <div className={s.container}>
+        
+        
+            <form className={s.form} onSubmit={e => handleSubmit(e)}>
+            <h2 className={s.title}>Please enter your email</h2>
                 <label>Email:</label>
                 <input
                 type="text"
                 id="email"
+                className={s.input}
                 onChange={e => handleChange(e)}
                 />
                 {errors.email && (
-                        <p>{errors.email}</p>
+                        <p className={s.error}>{errors.email}</p>
                     )}
-                <button type="submit" disabled={errors.email}>
+                <button type="submit" disabled={errors.email} className={s.btn}>
                     Send email
                 </button>
             </form>
+        
         </div>
     )
 }
