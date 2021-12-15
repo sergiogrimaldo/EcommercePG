@@ -82,7 +82,7 @@ export default function AdminControlPanel(){
     return (
         <div className={s.card__father} style={{height: '100%',overflowX:'hidden'}}>
         <div className={s.card__father} style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
-            <h1>Admin Control Panel</h1>
+            <h1 className={s.card}>Admin Control Panel</h1>
             <br/>
             <h2>My account</h2>
             <h3>{user?.name}</h3>
