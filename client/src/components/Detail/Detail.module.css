@@ -12,6 +12,7 @@ background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
 
 .macro {
 	display: flex;
+
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -19,6 +20,7 @@ background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
 	/* margin-top: 20px; */
 	background: rgb(86,86,88);
 background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
+
 }
 
 .instock {
@@ -146,3 +148,10 @@ background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
 .btn_size:active {
 	background-color: rgb(148, 148, 148);
 }
+@media only screen and (max-width: 960px) {
+	.macro {
+	  height: 200px;
+	  width: 100%;
+	}
+  
+  }
