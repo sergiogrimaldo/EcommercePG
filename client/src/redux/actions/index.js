@@ -219,6 +219,7 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
+
 	return {
 		type: 'DELETE_FROM_CART',
 		payload: payload,
@@ -323,6 +324,16 @@ export function addToCart(payload) {
 	return {
 		type: 'ADD_TO_CART',
 		payload: payload,
+	};
+}
+
+export function postCartInDB(payload) {
+	return async function () {
+		try {
+			await axios.post('/users/cart', payload);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 }
 export function removeFromCart(payload) {
