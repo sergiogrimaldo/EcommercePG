@@ -40,9 +40,10 @@ export default function Cart() {
         }
     }
     const deleteShoeFromCart = (e) => {
+    
         let result = window.confirm('Are you sure you want to delete the shoe?')
         if(result){
-            dispatch(deleteFromCart(e.target.value))
+            dispatch(deleteFromCart(e))
         }
     }
     return (
@@ -150,10 +151,10 @@ export default function Cart() {
                                     >
                                         <h3>{item.cuantity * item.price}</h3>
                                         <button
-                                            value={item.name}
+                                            value={item}
                                             
                                             className={`${style.btn}`}
-                                            onClick={(e) =>deleteShoeFromCart(e)}
+                                            onClick={(e) =>deleteShoeFromCart({name:item.name,size:item.size})}
                                         >
                                             Delete
                                         </button>

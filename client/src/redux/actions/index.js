@@ -219,7 +219,7 @@ export function logout() {
 }
 
 export function deleteFromCart(payload) {
-
+	console.log(payload,'payloaddelete')
 	return {
 		type: 'DELETE_FROM_CART',
 		payload: payload,

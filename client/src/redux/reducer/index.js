@@ -120,7 +120,16 @@ function rootReducer(state = initialState, action) {
 		case 'DELETE_FROM_CART':
 			return {
 				...state,
-				cart: state.cart.filter(item => item.name != action.payload),
+				//cart: state.cart.filter(item => ((item.name != action.payload.name) && (item.size != action.payload.size))),
+				cart : state.cart.filter(item => {
+					if (item.name == action.payload.name){
+						if (item.size == action.payload.size){
+							return false
+						}
+						return true
+					}
+					return true
+				})
 			};
 
 		// case 'SEARCH':

@@ -105,6 +105,7 @@ export default function Card({ shoe }) {
 						{Object.keys(shoe.AvailableSizes)
 							.filter(elem => elem !== 0)
 							.filter(elem => elem !== 'id')
+							.filter(elem => shoe.AvailableSizes[elem] > 0)
 							.sort((a, b) => Number(a.includes(',') ? a.replace(',', '.') : a) - Number(b.includes(',') ? b.replace(',', '.') : b))
 							.map(size => (
 								<option style={{ display: 'flex' }} value={size}>
