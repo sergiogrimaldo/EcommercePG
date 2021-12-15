@@ -36,7 +36,7 @@ export default function Card({ shoe }) {
 		}else{
 			setIcon(farHeart)
 		}
-	},[wishlist, wishlist.shoes, page])
+	},[wishlist, wishlist?.shoes, page])
 
 
 	const handleAddFav = async(e) => {
