@@ -77,6 +77,12 @@
 .btn_ed_del {
 	display: flex;
 }
-.h3{
+.h3 {
 	background-color: chocolate;
+}
+
+.social {
+	display: inline-flex;
+	width: 20px;
+	color: white;
 }
