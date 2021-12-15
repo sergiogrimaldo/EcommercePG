@@ -79,7 +79,7 @@ useEffect(() => {
         if (found) {
             dispatch(clearCart());
             let parcedCart = JSON.parse(found.cart);
-            parcedCart.forEach((shoe) => {
+            parcedCart?.forEach((shoe) => {
 
                 dispatch(
                     addToCart({
