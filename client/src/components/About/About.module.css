@@ -10,10 +10,12 @@
     justify-content: center;
     align-items: center;
     margin: 20px;
+    color: rgb(180, 217, 248);
 }
 
 .text{
     margin: 5px;
+    color: aliceblue;
     
 }
 
@@ -41,9 +43,11 @@
 
 h3{
     margin: 5px;
+    color: aliceblue;
 }
 
 h4{
     margin: 5px;
     font-size: 110%;
+    color: aliceblue;
 }

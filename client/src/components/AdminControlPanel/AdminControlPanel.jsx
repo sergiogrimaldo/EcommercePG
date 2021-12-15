@@ -3,6 +3,7 @@ import {getOrderDetails, getOrders, setOrderStatus, deleteUser, changeRol, getUs
 import {useEffect, useState} from 'react'
 import jwt from 'jsonwebtoken';
 import { Link } from 'react-router-dom';
+import s from './AdminControlPanel.module.css';
 
 export default function AdminControlPanel(){
     const dispatch = useDispatch()
@@ -79,8 +80,8 @@ export default function AdminControlPanel(){
     }
 
     return (
-        <div style={{height: '100%',overflowX:'hidden'}}>
-        <div style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
+        <div className={s.card__father} style={{height: '100%',overflowX:'hidden'}}>
+        <div className={s.card__father} style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
             <h1>Admin Control Panel</h1>
             <br/>
             <h2>My account</h2>
@@ -92,7 +93,7 @@ export default function AdminControlPanel(){
             
             </div>
 
-            <ul style={{listStyle:'none'}}>
+            <ul className={s.card__father} style={{listStyle:'none'}}>
             <li>
                         <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  
                         {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}

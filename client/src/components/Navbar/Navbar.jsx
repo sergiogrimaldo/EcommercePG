@@ -71,15 +71,15 @@ function Navbar() {
         
         { 
           (user && !user.error && JSON.stringify(user).length>2) ? <>
-         <li> Hola {`${user.name?.split(' ')[0]}`} 😀! </li>
+         <li className='nav_links'> Hola {`${user.name?.split(' ')[0]}`} 😀! </li>
          { user.role===2 ?
-         <li>    <Link to='/adminCPanel'> AdminControlPanel</Link> </li> : 
-         <li> <Link className='nav_links' to='/myAccount'> My Account </Link> </li>
+         <li className='nav_links'>    <Link className='nav_links' to='/adminCPanel'> AdminControlPanel</Link> </li> : 
+         <li className='nav_links'> <Link className='nav_links' to='/myAccount'> My Account </Link> </li>
          }
         <li 
         className='nav_links' 
         onClick={() => handleLogout()}
-        > <Link to='/home' onClick={() => window.scrollTo(0, 0)}> Logout</Link>
+        > <Link className='nav_links' to='/home' onClick={() => window.scrollTo(0, 0)}> Logout</Link>
        </li></>
         :
             <>

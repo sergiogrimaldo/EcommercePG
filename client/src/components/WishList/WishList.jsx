@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {getWishList, deleteFromWishList} from '../../redux/actions'
+import './WhisList.css';
 export default function WishList(){
 
     const user = useSelector(state => state.user)
@@ -27,12 +28,12 @@ export default function WishList(){
     return(
         <div style={{height:'87vh'}}>
             
-        <h1>WishList</h1>
+        <h1 className='div1'>WishList</h1>
         {/*  { console.log(wishList)} */} 
         { wishList && JSON.stringify(wishList).length > 2 && wishList.shoes.map((shoe) => <div style={{display:'flex', alignItems:'center'}}>
-            <img src={shoe.thumbnail} width='250px'/>
-            <div>{shoe.shoeName}</div>
-            <div>
+            <img className='divImg' src={shoe.thumbnail} width='250px'/>
+            <div className='divShoe'>{shoe.shoeName}</div>
+            <div className='divButton'>
                 <button id={shoe.id} onClick={() => handleDeleteClick(shoe.id)}>❌</button> 
             </div>
             </div> )}
