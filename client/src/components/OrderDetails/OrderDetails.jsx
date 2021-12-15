@@ -20,7 +20,7 @@ export default function OrderDetails({id}){
                 user && orderDetails && JSON.stringify(orderDetails).length > 2 && 
                 <>               
                     <div style={{textAlign:'center',marginBottom:10}}>
-                        <h1>#{orderDetails.orderId.split('-')[0]}</h1>
+                        <h1>#{orderDetails?.orderId?.split('-')[0]}</h1>
                         <h2>Status: {orderDetails.status}</h2>
                     </div>
                     <div style={{backgroundColor:'white' , width:'70vw', borderRadius:'15px', boxShadow:'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'}}>
