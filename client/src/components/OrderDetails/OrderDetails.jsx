@@ -13,14 +13,14 @@ export default function OrderDetails({id}){
         dispach(getOrderDetails({email: user.email, id:id}))
         
     }, [])
-    //console.log(orderDetails)
+    console.log(orderDetails)
     return (
         <div style={{display:'grid', alignItems:'center', marginTop:20, alignContent:'center', justifyContent:'center', width:'100vw'}}>
             {
                 user && orderDetails && JSON.stringify(orderDetails).length > 2 && 
                 <>               
                     <div style={{textAlign:'center',marginBottom:10}}>
-                        <h1>#{orderDetails.id.split('-')[0]}</h1>
+                        <h1>#{orderDetails.orderId.split('-')[0]}</h1>
                         <h2>Status: {orderDetails.status}</h2>
                     </div>
                     <div style={{backgroundColor:'white' , width:'70vw', borderRadius:'15px', boxShadow:'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'}}>
@@ -36,10 +36,11 @@ export default function OrderDetails({id}){
                                 />
                                 <div>
                                 <h2 style={{gridColumn:'2', margin:0}}>{shoe.shoeName}</h2>
-                                <h3 style={{gridColumn:'2', margin:0}}>{shoe.Order_Shoes.color}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Price: US${shoe.Order_Shoes.subtotal / shoe.Order_Shoes.cuantity}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Cuantity: {shoe.Order_Shoes.cuantity}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Sub total: US${shoe.Order_Shoes.subtotal}</h3>
+                                {/* <h3 style={{gridColumn:'2', margin:0}}>{shoe.Order_Shoes.color}</h3> */}
+                                <h3 style={{gridColumn:'2', margin:0}}>Price: US${shoe.price}</h3>
+                                <h3 style={{gridColumn:'2', margin:0}}>Size: {shoe.size}</h3>
+                                <h3 style={{gridColumn:'2', margin:0}}>Cuantity: {shoe.cuantity}</h3>
+                                <h3 style={{gridColumn:'2', margin:0}}>Sub total: US${shoe.price*shoe.cuantity}</h3>
                                 </div>
                             </Link>
                             )

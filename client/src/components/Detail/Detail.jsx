@@ -17,10 +17,10 @@ export default function Detail({ id }) {
 	const reviews = useSelector(state => state.reviews);
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
-	/* const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
-	const [plusOrMinus, setPlusOrMinus] = useState('+'); */
 	const shoes = useSelector(state => state.shoes);
 	const reviewsFromUser = useSelector(state => state.reviewsFromUser);
+
+	const [selectSize, setSelectSize] = useState('')
 	if (details && shoes) {
 		var found,
 			/* foundFromAll, */
@@ -42,8 +42,17 @@ export default function Detail({ id }) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, JSON.stringify(reviews), JSON.stringify(reviewsFromUser), id]);
 	function onClickHandler(e) {
-		console.log(e.target.value);
+		setSelectSize(e.target.value)
 	}
+
+	function handleBuy(){
+		if (parseInt(selectSize) > 0 && selectSize != ''){
+			dispatch(addToCart({ id: details.id, image: details.thumbnail, name: details.shoeName, price: details.price.retailPrice, cuantity: 1, size: selectSize }));
+			dispatch(update());
+		}
+	}
+
+
 	//details && console.log(details)
 	return (
 		<div>
@@ -61,7 +70,7 @@ export default function Detail({ id }) {
 						<Review rating={rating} shoe={details} currentComponent='Detail' />
 						<h2 className={`${details && details.stock ? s.instock : s.outstock}`}>{details && details.stock ? 'In Stock' : 'Out Of Stock'} </h2>
 						<h2>Available Sizes</h2>
-							<div style={{display:'flex', flexDirection:'column', position:'relative', justifyItems:'center'}}>
+							<div style={{display:'flex', flexDirection:'column', position:'relative', justifyItems:'center', alignItems:'center'}}>
 								<div className={`${s.size}`}>
 								{details &&
 									Object.entries(details.availableSize)
@@ -74,7 +83,7 @@ export default function Detail({ id }) {
 											</button>
 										))}
 								</div>
-										<button style={{height:30, backgroundColor:'black',color:'white', position:'absolute', bottom:0, width:'90%', marginBottom:10}}> Add To cart</button>
+										<button onClick={() => handleBuy()} style={{height:30, backgroundColor:'black',color:'white', width:'90%', marginTop:10}}> Add To cart</button>
 							</div>
 					</div>
 					<div className={`${s.container}`}>
