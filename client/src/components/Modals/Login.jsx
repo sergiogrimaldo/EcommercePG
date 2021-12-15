@@ -80,6 +80,7 @@ useEffect(() => {
             dispatch(clearCart());
             let parcedCart = JSON.parse(found.cart);
             parcedCart.forEach((shoe) => {
+
                 dispatch(
                     addToCart({
                         id: shoe.id,
