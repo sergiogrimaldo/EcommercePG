@@ -74,12 +74,13 @@ export default function Login() {
     }
 
 useEffect(() => {
-    if (user) {
+    if (user && allUsers.length > 0) {
         let found = allUsers.find((element) => element.id === user.id);
         if (found) {
             dispatch(clearCart());
             let parcedCart = JSON.parse(found.cart);
-            parcedCart && parcedCart.forEach((shoe) => {
+            parcedCart.forEach((shoe) => {
+
                 dispatch(
                     addToCart({
                         id: shoe.id,
