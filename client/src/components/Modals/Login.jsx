@@ -16,7 +16,7 @@ export default function Login() {
 
     const allUsers = useSelector((state) => state.allUsers);
     const user = useSelector((state) => state.user);
-
+    const cart = useSelector((state) => state.cart);
     const history = useHistory();
 
     const responseGoogle = async (response) => {
@@ -75,24 +75,63 @@ export default function Login() {
 
 useEffect(() => {
     if (user && allUsers.length > 0) {
+        let cartToParce = cart;
         let found = allUsers.find((element) => element.id === user.id);
         if (found) {
-            dispatch(clearCart());
             let parcedCart = JSON.parse(found.cart);
-            parcedCart?.forEach((shoe) => {
-
-                dispatch(
-                    addToCart({
-                        id: shoe.id,
-                        image: shoe.image,
-                        name: shoe.name,
-                        price: shoe.price,
-                        stock: shoe.stock,
-                        cuantity: shoe.cuantity,
-                        size: shoe.size,
-                    })
-                );
-            });
+            if (JSON.stringify(cartToParce) !== found.cart && parcedCart.length > 0) {
+                dispatch(clearCart());
+                parcedCart?.forEach((element) => {
+                    cartToParce.forEach((cartElement) => {
+                        if (JSON.stringify(element) !== JSON.stringify(cartElement)) {
+                            parcedCart.push(cartElement);
+                        }
+                    });
+                });
+                parcedCart?.forEach((shoe) => {
+                    dispatch(
+                        addToCart({
+                            id: shoe.id,
+                            image: shoe.image,
+                            name: shoe.name,
+                            price: shoe.price,
+                            stock: shoe.stock,
+                            cuantity: shoe.cuantity,
+                            size: shoe.size,
+                        })
+                    );
+                });
+            }
+            if (JSON.stringify(cart) !== found.cart && parcedCart.length < 1) {
+                parcedCart?.forEach((shoe) => {
+                    dispatch(
+                        addToCart({
+                            id: shoe.id,
+                            image: shoe.image,
+                            name: shoe.name,
+                            price: shoe.price,
+                            stock: shoe.stock,
+                            cuantity: shoe.cuantity,
+                            size: shoe.size,
+                        })
+                    );
+                });
+            }
+            if (JSON.stringify(cartToParce) === found.cart && parcedCart.length < 1) {
+                cartToParce.forEach((shoe) => {
+                    dispatch(
+                        addToCart({
+                            id: shoe.id,
+                            image: shoe.image,
+                            name: shoe.name,
+                            price: shoe.price,
+                            stock: shoe.stock,
+                            cuantity: shoe.cuantity,
+                            size: shoe.size,
+                        })
+                    );
+                });
+            }
         }
     }
 }, [allUsers, dispatch, user]);

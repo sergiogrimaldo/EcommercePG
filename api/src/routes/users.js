@@ -106,7 +106,6 @@ router.post("/cart", async (req, res, next) => {
     if (userId) {
         try {
             const user = await User.findByPk(userId);
-            console.log("userrrr", user, "userrrr");
             if (user) {
                 const newCart = cartElements;
                 user.update({
@@ -114,7 +113,6 @@ router.post("/cart", async (req, res, next) => {
                 });
                 user.save();
             }
-            console.log("userrrrlasttttttttt", user, "userrrrlasttttttttt");
             return res.send({ msg: "Cart has been updated successfully" });
         } catch (error) {
             next(error);
