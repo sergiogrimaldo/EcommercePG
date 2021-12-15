@@ -85,7 +85,7 @@ export default function RequestResetPassword(){
             
             //console.log(valid)
             if(valid){
-                await axios.post('/users/resetPassword',{email : input.email})
+                await axios.post('/users/resetPassword',{email : input.email, tokenCase: 'resetPassword'})
                 alert('Check your email')
                 history.push('/home');
             }
