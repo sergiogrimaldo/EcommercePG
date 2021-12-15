@@ -101,6 +101,29 @@ router.delete("/:id", async function (req, res, next) {
     }
 });
 
+router.post("/cart", async (req, res, next) => {
+    const { userId, cartElements } = req.body;
+    if (userId) {
+        try {
+            const user = await User.findByPk(userId);
+            console.log("userrrr", user, "userrrr");
+            if (user) {
+                const newCart = cartElements;
+                user.update({
+                    cart: JSON.stringify(newCart),
+                });
+                user.save();
+            }
+            console.log("userrrrlasttttttttt", user, "userrrrlasttttttttt");
+            return res.send({ msg: "Cart has been updated successfully" });
+        } catch (error) {
+            next(error);
+        }
+    } else {
+        res.status(404).send({ msg: "Faltan los valores basicos" });
+    }
+});
+
 router.patch("/:id", async function (req, res, next) {
     const { email } = req.body;
 
@@ -173,5 +196,7 @@ router.post("/deleteWishlist", async (req, res) => {
         console.log(error);
     }
 });
+
+
 
 module.exports = router;

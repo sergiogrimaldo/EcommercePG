@@ -3,12 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Cards from '../Cards/Cards.jsx';
-import { getReviews } from "../../redux/actions/index.js";
-import { getReviewsFromUser } from "../../redux/actions/index.js";
+import { getReviews, getUsers, getReviewsFromUser, postCartInDB, getShoes, getPrices, getAvailableSizes, search } from "../../redux/actions/index.js";
 import Header from '../Header/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { compileData } from './dataSupport';
-import { getShoes, getPrices, getAvailableSizes, search } from '../../redux/actions/index.js';
 import styles from './Catalogue.module.css';
 
 function Catalogue() {
@@ -19,13 +17,24 @@ function Catalogue() {
 	const dataSizes = useSelector(state => state.sizes);
 	const dataPrices = useSelector(state => state.prices);
     const user = useSelector((state) => state.user);
+    const allUsers = useSelector((state) => state.allUsers);
+    const cart = useSelector((state) => state.cart);
 	let data = [];
+    
+    
+    useEffect(() => {
+        if (user && user.id && cart && cart.length > 0) {
+            dispatch(postCartInDB({userId: user.id, cartElements: cart}));
+            dispatch(getUsers());
+        }
+    }, [user, dispatch, cart]);
 
-	if (dataShoes && dataSizes && dataPrices) {
-		data = compileData(dataShoes, dataSizes, dataPrices);
-	}
-    //console.log(user);
+    if (dataShoes && dataSizes && dataPrices) {
+        data = compileData(dataShoes, dataSizes, dataPrices);
+    }
+
 	useEffect(() => {
+        dispatch(getUsers());
 		dispatch(getShoes());
 		dispatch(search(''))
 		dispatch(getPrices());
