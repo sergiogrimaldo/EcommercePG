@@ -8,6 +8,9 @@ Link:hover {
     position: "absolute"; 
     left: "50px";
     border-radius: 5px;
+    width: 50px;
+    height: 30px;
+        box-shadow: 1px;
  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
  background: #e62222;
 }

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import {faHeart as farHeart} from '@fortawesome/free-regular-svg-icons'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 /*
 import { openModal } from '../../redux/actions/index.js';
 import { openBuyDetailsModal } from '../../redux/actions/index.js';
@@ -20,47 +20,46 @@ export default function Card({ shoe }) {
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
 	const wishlist = useSelector(state => state.wishlist)
+	const page = useSelector(state => state.currentPage)
 	const [buySize, setBuySize] = useState('')
+
 	
-	// console.log(shoe)
-	const [icon1,setIcon1] = useState(farHeart)
-	const [icon2,setIcon2] = useState(faHeart)
+	
+	const [icon,setIcon] = useState(farHeart)
+
 	let rating = Math.floor(Math.random() * 5) + 0;
 
-	const handleLike1 = async function (){
+	useEffect( () => {
+		// dispatch(update());
+		if(wishlist?.shoes?.some((wishlistShoe) => wishlistShoe.id == shoe.id )){
+			setIcon(faHeart)
+		}else{
+			setIcon(farHeart)
+		}
+	},[wishlist, wishlist.shoes, page])
+
+
+	const handleAddFav = async(e) => {
+		e.preventDefault();
 		if (!(user.email)){
 			dispatch(openModal('login'))
+		}else {
+			await dispatch(addToWishList({email:user.email, shoeId:shoe.id}))
+			await dispatch(getWishList({email:user.email}))
 		}
-		else {
-			if (icon1 === farHeart){
-				await dispatch(deleteFromWishList({email:user.email, shoeId:shoe.id}))
-				setIcon1(faHeart)
-			}  
-			if (icon1 === faHeart){
-				await dispatch(addToWishList({email:user.email, shoeId:shoe.id}))
-				setIcon1(farHeart)
-			}
-		}
-		await dispatch(getWishList({email:user?.email}))
-	}
-
-	const handleLike2 = async function (){
+		
+	  };
+	
+	  const handleDeleteFav = async(e) => {
+		e.preventDefault();
 		if (!(user.email)){
 			dispatch(openModal('login'))
+		} else {
+			await dispatch(deleteFromWishList({email:user.email, shoeId:shoe.id}))
+			await dispatch(getWishList({email:user.email}))
 		}
-		else {
-			if (icon2 == farHeart){
-				setIcon2(faHeart)
-				await dispatch(deleteFromWishList({email:user.email, shoeId:shoe.id}))
-			}  
-			if (icon2 == faHeart){
-				setIcon2(farHeart)
-				await dispatch(addToWishList({email:user.email, shoeId:shoe.id}))
-			}
-		}
-		await dispatch(getWishList({email:user?.email}))
-	}
-
+	  };
+	  
 	const handleClick = function () {
 		//console.log(buySize)
 		if (parseInt(buySize) > 0 && buySize != ''){
@@ -88,11 +87,41 @@ export default function Card({ shoe }) {
 				{user && user.role == 2 && <EditButton id={shoe.id} />}
 			</div>
 			<div style={{ position: 'absolute', bottom: 70, right: 100, zIndex: 20 }}>
-				{user && wishlist && JSON.stringify(wishlist).length > 2  && 
-				wishlist.shoes.some((wishlistShoe) => wishlistShoe.id == shoe.id ) ?
-				<FontAwesomeIcon style={{cursor:'pointer'}} size='lg' color='red' icon={icon2} onClick={ () => handleLike1()}/> :
-				<FontAwesomeIcon style={{cursor:'pointer'}} size='lg'  color='red' icon={icon1} onClick={ () => handleLike2()}/> 
-			}
+			{/*boton*/}
+			
+				{!user.email&& <button>
+				<FontAwesomeIcon 
+				style={{cursor:'pointer', border:'none'}} 
+				size='lg' 
+				color='red' 
+				icon={icon}
+				onClick={(e) => handleDeleteFav(e)} 
+				/></button> }
+				
+				{user.email && wishlist && wishlist.shoes && 
+				wishlist.shoes.some((wishlistShoe) => wishlistShoe.id == shoe.id ) &&
+				<button>
+				<FontAwesomeIcon 
+				style={{cursor:'pointer', border:'none'}} 
+				size='lg' 
+				color='red' 
+				icon={icon}
+				onClick={(e) => handleDeleteFav(e)} 
+				/></button> 
+				}
+				{user.email && wishlist && wishlist.shoes && 
+				!(wishlist.shoes.some((wishlistShoe) => wishlistShoe.id == shoe.id )) &&
+				<button>
+				<FontAwesomeIcon 
+				style={{cursor:'pointer', border:'none',}} 
+				size='lg' 
+				color='red' 
+				icon={icon}
+				onClick={(e) => handleAddFav(e)} 
+				/></button> 
+				}
+			
+				
 			</div>
 			{ shoe.stock > 0 && <select onChange={(e) =>setBuySize(e.target.value || '')} style={{position:'absolute', bottom: 100, right: 170, zIndex: 20 }}><option select> Select Size</option>{Object.keys(shoe.AvailableSizes).map((size) => size != 'id' && shoe.AvailableSizes[size] > 0 && <option style={{display:'flex'}} value={size} >{size}</option>)}
 			</select>}
