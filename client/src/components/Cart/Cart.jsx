@@ -47,7 +47,7 @@ export default function Cart() {
     }
     return (
         <>
-            <div style={{ height: "75vh", overflowX: "hidden", position: "relative" }}>
+            <div className={style.card} style={{ height: "75vh", overflowX: "hidden", position: "relative" }}>
                 <div
                     style={{
                         display: "grid",
@@ -122,7 +122,7 @@ export default function Cart() {
                             nombreItems.includes(item.name) ? (
                                 <>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
-                                        <img style={{ height: 150 }} alt="" src={item.image} />
+                                        <img className={style.img} style={{ height: 150 }} alt="" src={item.image} />
                                     </div>
                                     <div style={{ display: "flex", alignContent: "center", alignItems: "center", justifyContent: "center" }}>
                                         {/* TEMPORARY DENSE-LOGIC FIX TO CART */}
@@ -171,7 +171,7 @@ export default function Cart() {
                     )}
                 </div>
             </div>
-            <div
+            <div className={style.card}
                 style={{
                     display: JSON.stringify(cart).length > 2 ? "flex" : "none",
                     position: "absolute",

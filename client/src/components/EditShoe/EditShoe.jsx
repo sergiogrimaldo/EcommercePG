@@ -334,7 +334,7 @@ export default function EditShoe({ id }) {
 
 					 */}
 				<div className={`${styles.divvy}`}>
-					<label>Thumbnail</label>
+					<label className="label">Thumbnail</label>
 					<input
 						id='tn'
 						type='text'

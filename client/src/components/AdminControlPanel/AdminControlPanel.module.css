@@ -1,0 +1,9 @@
+.card__father{
+    color: aliceblue;
+    border: antiquewhite;
+    border-width: 5px;
+    margin: 5px;
+}
+.card{
+    border: 3px;
+}

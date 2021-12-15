@@ -67,39 +67,40 @@ export default function Card({ shoe }) {
 	return (
 		<div className={s.card__father} style={{ position: 'relative' }}>
 			<Link to={`/shoe/${shoe.id}`}>
-				<div className={s.card}>
+
+				<>
 					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
-						<h3> {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
+						<h3 className={s.h3}> {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
 					</div>{' '}
-				</div>{' '}
+				</>
 			</Link>
-			<div style={{ position: 'absolute', top: 50, left: 45, zIndex: 1, display: 'flex' }}>{user && user.role == 2 && <EditButton id={shoe.id} />}</div>
-			<div style={{ position: 'absolute', top: 50, right: 50, zIndex: 1, display: 'flex' }}>{user && user.role == 2 && <DeleteShoe id={shoe.id} />}</div>
+			<div style={{ position: 'absolute', top: 10, left: 230, zIndex: 1, display: 'flex' }}>{user && user.role == 2 && <EditButton id={shoe.id} />}</div>
+			<div style={{ position: 'absolute', top: 10, right: 260, zIndex: 1, display: 'flex' }}>{user && user.role == 2 && <DeleteShoe id={shoe.id} />}</div>
 			<div style={{ cursor: 'pointer', border: 'none', position: 'relative', left: 75, zIndex: 20, bottom: 70 }} className={`${s.social}`}>
 				{/*boton*/}
 
 				{!user.email && (
 					<button>
-						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
 					</button>
 				)}
 
 				{user.email && wishlist && wishlist.shoes && wishlist.shoes.some(wishlistShoe => wishlistShoe.id == shoe.id) && (
 					<button>
-						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
 					</button>
 				)}
 				{user.email && wishlist && wishlist.shoes && !wishlist.shoes.some(wishlistShoe => wishlistShoe.id == shoe.id) && (
 					<button>
-						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleAddFav(e)} />
+						<FontAwesomeIcon style={{right:200, cursor: 'pointer', border: 'none', lineHeight: '60' }} size='lg' color='red' icon={icon} onClick={e => handleAddFav(e)} />
 					</button>
 				)}
 			</div>
 			<div style={{ position: 'relative' }}>
 				{shoe.stock > 0 && (
-					<select onChange={e => setBuySize(e.target.value || '')} style={{ position: 'absolute', bottom: 100, right: 150, zIndex: 20 }}>
+					<select onChange={e => setBuySize(e.target.value || '')} style={{ position: 'absolute', bottom: 80, right: 104, zIndex: 20 }}>
 						<option select> Select Size</option>
 						{Object.keys(shoe.AvailableSizes)
 							.filter(elem => elem !== 0)
@@ -117,7 +118,7 @@ export default function Card({ shoe }) {
 				{shoe.stock > 0 ? (
 					<button
 						className={s.button}
-						style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 65, left: '36.5%', zIndex: 10, padding: 5, border: '1px solid black' }}
+						style={{ zIndex: 30, borderRadius: 10, position: 'absolute', bottom: 40, left: 104, zIndex: 10, padding: 5, border: '1px solid black' }}
 						onClick={() => handleClick()}>
 						🛒 add to cart
 					</button>

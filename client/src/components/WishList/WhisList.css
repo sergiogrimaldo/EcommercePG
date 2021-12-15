@@ -1,0 +1,25 @@
+.div1{
+    position: relative;
+}
+
+.divImg{
+    position: relative;
+    top: 40px;
+    left: 90px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.divShoe{
+    position: relative;
+    top: 40px;
+    left: 100px;
+    font-size: 40px;
+    color: aliceblue;
+}
+.divButton{
+    position: relative;
+    top: 40px;
+    left: 120px;
+    
+    
+}

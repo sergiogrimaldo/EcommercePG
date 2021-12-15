@@ -8,12 +8,14 @@
 	display: flex;
 	flex-direction: column;
 	width: 400px;
+	color: aliceblue;
 }
 
 .divvy {
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
+	color: aliceblue;
 }
 
 .sizebox {
@@ -90,6 +92,10 @@ input.checkboxes {
 	box-shadow: 0 1px #666;
 	transform: translateY(1px);
 	background-color: #666;
+}
+
+.label{
+	color: aliceblue;
 }
 
 .btn_back {
