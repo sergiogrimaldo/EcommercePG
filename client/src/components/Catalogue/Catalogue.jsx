@@ -19,16 +19,16 @@ function Catalogue() {
 	const dataSizes = useSelector(state => state.sizes);
 	const dataPrices = useSelector(state => state.prices);
     const user = useSelector((state) => state.user);
-    const cart = useSelector((state) => state.cart);
+    // const cart = useSelector((state) => state.cart);
 	let data = [];
     
     
-    useEffect(() => {
-        if (user && user.id && cart) {
-            dispatch(postCartInDB({userId: user.id, cartElements: cart}));
-            dispatch(getUsers());
-        }
-    }, [user, dispatch, cart]);
+    // useEffect(() => {
+    //     if (user && user.id && cart) {
+    //         dispatch(postCartInDB({userId: user.id, cartElements: cart}));
+    //         dispatch(getUsers());
+    //     }
+    // }, [user, dispatch, cart]);
 
     if (dataShoes && dataSizes && dataPrices) {
         data = compileData(dataShoes, dataSizes, dataPrices);

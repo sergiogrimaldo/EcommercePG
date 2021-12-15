@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { openModal, getOrders, clearCart, update, clearWishlist } from '../../redux/actions/index.js';
+import { openModal, getOrders, clearCart, update, clearWishlist, postCartInDB,  getUsers } from '../../redux/actions/index.js';
 import { Link } from 'react-router-dom';
 import marca from './img/logo.png';
 import { logout } from '../../redux/actions/index.js';
@@ -24,6 +24,12 @@ function Navbar() {
     // const usuario = JSON.parse(JSON.stringify(user)) || ''
     const [cartItemsNumber,setCartItemsNumber] = useState(0)
 
+    useEffect(() => {
+      if (user && user.id && cart) {
+          dispatch(postCartInDB({userId: user.id, cartElements: cart}));
+          dispatch(getUsers());
+      }
+  }, [user, dispatch, cart]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(async () => {
