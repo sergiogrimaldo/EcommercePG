@@ -1,29 +1,30 @@
 /* eslint-disable no-loop-func */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import Cards from '../Cards/Cards.jsx';
-import { getReviews, getUsers, getReviewsFromUser, postCartInDB, getShoes, getPrices, getAvailableSizes, search } from "../../redux/actions/index.js";
-import Header from '../Header/Header';
-import { useSelector, useDispatch } from 'react-redux';
-import { compileData } from './dataSupport';
-import styles from './Catalogue.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import Cards from "../Cards/Cards.jsx";
+import { 
+    getReviews, getUsers, getReviewsFromUser, postCartInDB, 
+    getShoes, getPrices, getAvailableSizes, search 
+} from "../../redux/actions/index.js";
+import Header from "../Header/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { compileData } from "./dataSupport";
+import styles from "./Catalogue.module.css";
 
 function Catalogue() {
 	
 	const dispatch = useDispatch();
-	// const modal = useSelector(state => state.modal);
 	const dataShoes = useSelector(state => state.shoes);
 	const dataSizes = useSelector(state => state.sizes);
 	const dataPrices = useSelector(state => state.prices);
     const user = useSelector((state) => state.user);
-    const allUsers = useSelector((state) => state.allUsers);
     const cart = useSelector((state) => state.cart);
 	let data = [];
     
     
     useEffect(() => {
-        if (user && user.id && cart && cart.length > 0) {
+        if (user && user.id && cart) {
             dispatch(postCartInDB({userId: user.id, cartElements: cart}));
             dispatch(getUsers());
         }
