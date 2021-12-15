@@ -60,7 +60,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price, Wishlist } = sequelize.models;
+const { Order, Brand, Shoe, Reviews, User, User_Order, Role, Color, AvailableSizes, Price, Wishlist,Size, Order_Shoes } = sequelize.models;
 
 // One user can have many orders
 User.belongsToMany(Order, { through: User_Order });
@@ -84,16 +84,23 @@ Shoe.belongsToMany(User, {through: Wishlist}) /// muchas zapatillas son deseadas
 
 
 // Order can contain many shoe, and the same shoe can be in many different orders
-const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });
+//const Order_Shoes = sequelize.define("Order_Shoes", { orderId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, cuantity:DataTypes.INTEGER,color:DataTypes.STRING,subtotal:DataTypes.INTEGER }, { timestamps: false });
 Order.belongsToMany(Shoe, { through: Order_Shoes });
 Shoe.belongsToMany(Order, { through: Order_Shoes });
+
+Order_Shoes.hasMany(Shoe)
+// Order_Shoes.hasMany(Size)
+
+// Shoe.belongsToMany(Size,{through:Order_Shoes})
+// Size.belongsToMany(Shoe,{through:Order_Shoes})
 
 /////// Shoe can have many colors, one color can be on many shoe
 
 // defino el modelo para poder sacarle timestamps
-const Shoe_Colors = sequelize.define("Shoe_Colors", { colorId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER, size:DataTypes.STRING }, { timestamps: false });
+//const Shoe_Colors = sequelize.define("Shoe_Colors", { colorId: DataTypes.INTEGER, shoeId: DataTypes.INTEGER }, { timestamps: false });
 Color.belongsToMany(Shoe, { through: "Shoe_Colors" });
 Shoe.belongsToMany(Color, { through: "Shoe_Colors" });
+
 
 Shoe.belongsTo(AvailableSizes);
 AvailableSizes.hasOne(Shoe);
@@ -101,39 +108,17 @@ AvailableSizes.hasOne(Shoe);
 Brand.hasMany(Shoe);
 Shoe.belongsTo(Brand);
 
-
 Shoe.belongsTo(Price);
 Price.hasOne(Shoe);
 
 ////// HOOKS
 
-// este hook actualiza el stock como el total de las cantidades individuales disponibles por tamaño
-/* 
 try {
-    Shoe.addHook("afterSave", async (shoe) => {
-        let shoes = await Shoe.findOne({ where: { id: shoe.id } });
-        if (shoes.avaiableSizeId != null) {
-            let sizes = await AvailableSizes.findAll({ where: { id: shoes.avaiableSizeId }, attributes: { exclude: ["id"] }, raw: true });
-            let acc = 0;
-            Object.keys(sizes[0]).forEach((key) => (acc = acc + sizes[0][key]));
-        }
-    });
-} catch (error) {
-    console.log(error);
-}
- */
-
-try {
-
     Order.addHook("afterUpdate", async (order) => {
-      console.log(order.id,"locoooooooooooooooo");
 
-      //let orden = await Order.findByPk(order.id, {include: [{model: Order_Shoes}]})
       setTimeout(async () => {
       let orden = Order_Shoes && await Order_Shoes.findAll({where:{orderId: order.id}})
-      //orden && console.log("orrrrrrrrrrdddddddddddddd",orden, "doneeeeeeee")
-     // console.log('--------')
-      //console.log(order.id,order.status,order.total,order.updatedAt) /// order: id, status, total, createdAt, updatedAt, userId
+
       let itemsComprados=[]
       let cart = []
         for (shoe of orden){
@@ -143,19 +128,10 @@ try {
             let cuantity = shoe.cuantity
             let price = zapatilla.price.retailPrice
             itemsComprados.push({id,name:nombreZapatilla,cuantity,subtotal: price*cuantity})
-           // console.log(`${nombreZapatilla}, precio:${precio}, cantidad: ${cantidad}, subtotal: ${cantidad*precio} `)
         }
-        //console.log(cart)
-       // console.log(itemsComprados)
-       // console.log(order.adress, order.email, order.name)
-        orden &&  orden.length > 0 && await sendMail({cart: itemsComprados, name:order.name,adress: order.adress, email:order.email, status:order.status, template:'purchase', orderId:(order.id).split('-')[0]})
-        //console.log(`Total: ${order.total}`)
 
-        //{id:1,name:"Jordan 11 Retro Cool Grey (2021)",size:4,cuantity:1 , subtotal:225}]
-    //    console.log(await order.getShoes()) /// zapatillas relacionadas en Order_Shoes
-    //  for (shoe of orden.shoes){
-    //      console.log(shoe.shoeName,shoe.cuantity,shoe.subtotal)
-    //  }
+        orden &&  orden.length > 0 && await sendMail({cart: itemsComprados, name:order.name,adress: order.adress, email:order.email, status:order.status, template:'purchase', orderId:(order.id).split('-')[0]})
+
 }, 600);
     });
 } catch (error) {

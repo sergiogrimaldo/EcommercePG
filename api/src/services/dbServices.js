@@ -1,5 +1,5 @@
 //const addOrders= async function({userId,cart}) { 
-const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price, User } = require("../../src/db");
+const { Order, Shoe, Color, Brand, AvaiableSizes, Role, Price,Order_Shoes, User, Size } = require("../../src/db");
 
 const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta funcion recibe un userID y un carrito (cart)
 
@@ -27,11 +27,21 @@ const addOrderToDB= async function({userId, cart, shippingInfo}) { ////// esta f
     await order.setUser(user) 
     
     for (zapatilla of cart){ /// recorro los objetos de la orden (osea del carrito)
+        console.log(zapatilla)
         // por zapato en carrito agregarlo a la orden
         let shoe = await Shoe.findByPk(zapatilla.id) 
-       // console.log(shoe,"zzzzzzzzzzzzzzzzzzzzzzzzzz")
+        //let size = await Size.findOrCreate({where:{name:zapatilla.size}, defaults:{name: zapatilla.size}})
         /// agrego a la orden
-        await order.addShoe(shoe, {through:{cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal,color:zapatilla.color}})  
+        //console.log(size)
+        // try {
+        //     await buscarShoe.addSize(size[0].id)
+
+        // }catch(err){
+        //     console.log(err)
+        // }
+
+        //await order.addShoe(shoe, {through:{sizeId:size[0].id,cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal}})  
+        await Order_Shoes.create({orderId:order.id,shoeId: shoe.id, size:zapatilla.size, cuantity:zapatilla.cuantity,subtotal:zapatilla.subtotal })
         /// busco talles de zapatilla
 
         let sizes = await shoe.getAvailableSize()  
@@ -75,8 +85,24 @@ const getOrdersFromDB = async function ({email="", id=""}){
 
         let order
         try{
-            order = await Order.findByPk(id, {
-            include:[ { model: Shoe }, {model: User}],});
+            let order = await Order_Shoes.findAll({where:{orderId:id},raw:true})
+            let shoes = []
+            let totalAcc = 0
+            let generalOrder = await Order.findByPk(id,{raw:true})
+            for (ord of order){
+                console.log(ord.shoeId)
+                let foundShoe=await Shoe.findByPk(ord.shoeId,{raw:true})
+                let price = await Price.findByPk(foundShoe.priceId,{raw:true})
+                totalAcc = totalAcc + (ord.cuantity*price.retailPrice)
+                shoes.push({...foundShoe,size:ord.size,cuantity:ord.cuantity, price:price.retailPrice})
+            }
+            order[0].status = generalOrder.status
+            order[0].shoes = shoes
+            order[0].id = id
+            order[0].total = totalAcc
+           
+            return JSON.parse(JSON.stringify(order[0]))
+           //return (await Order_Shoes.findAll({where:{orderId:id},raw:true}))
         }catch(err){
             console.log(err);
         }
@@ -101,8 +127,9 @@ const getOrdersFromDB = async function ({email="", id=""}){
 
 
     if(user.roleId === 2){
-        return ( await Order.findAll({
-            include: { model: Shoe },}) )
+        //return 
+        return (await Order.findAll({include: [{ all: true }]}))
+        
     } else {
         return ( await Order.findAll({include: { model: Shoe }, where: {userId: user.id}}))
     }
