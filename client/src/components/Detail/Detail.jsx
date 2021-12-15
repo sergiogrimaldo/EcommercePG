@@ -6,17 +6,23 @@ import { getReviews } from '../../redux/actions/index.js';
 import s from './Detail.module.css';
 import Review from '../Review/Review.jsx';
 import Reviews from '../Review/Reviews.jsx';
-import { addToCart, update } from '../../redux/actions';
+import { addToCart, update, openModal, getWishList, addToWishList, deleteFromWishList } from '../../redux/actions';
 import { onlyThreeColorGrid } from '../FilterColor/colors.js';
 import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 
 export default function Detail({ id }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const user = useSelector(state => state.user);
+	const wishlist = useSelector(state => state.wishlist);
 	const details = useSelector(state => state.shoeDetails);
 	const reviews = useSelector(state => state.reviews);
 	const [shoeOnHover, setShoeOnHover] = useState('');
 	const [shoeOnHoverImg, setShoeOnHoverColor] = useState('');
+	const [icon, setIcon] = useState(farHeart);
 	/* const [restOfShoeOnHoverImg, setRestOfShoeOnHoverImg] = useState('');
 	const [plusOrMinus, setPlusOrMinus] = useState('+'); */
 	const shoes = useSelector(state => state.shoes);
@@ -36,6 +42,14 @@ export default function Detail({ id }) {
 	let rating = Math.floor(Math.random() * 5) + 0;
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {
+		if (wishlist?.shoes?.some(wishlistShoe => wishlistShoe.id == details.id)) {
+			setIcon(faHeart);
+		} else {
+			setIcon(farHeart);
+		}
+	}, [wishlist, wishlist?.shoes]);
+
 	useEffect(async () => {
 		await dispatch(getShoeDetails(id));
 		await dispatch(getReviews());
@@ -45,6 +59,25 @@ export default function Detail({ id }) {
 		console.log(e.target.value);
 	}
 	//details && console.log(details)
+	const handleAddFav = async e => {
+		e.preventDefault();
+		if (!user.email) {
+			dispatch(openModal('login'));
+		} else {
+			await dispatch(addToWishList({ email: user.email, shoeId: details.id }));
+			await dispatch(getWishList({ email: user.email }));
+		}
+	};
+
+	const handleDeleteFav = async e => {
+		e.preventDefault();
+		if (!user.email) {
+			dispatch(openModal('login'));
+		} else {
+			await dispatch(deleteFromWishList({ email: user.email, shoeId: details.id }));
+			await dispatch(getWishList({ email: user.email }));
+		}
+	};
 	return (
 		<div>
 			{/* <div className={s.backdiv}>
@@ -54,7 +87,26 @@ export default function Detail({ id }) {
 			</div> */}
 
 			<div className={`${s.macro}`}>
-				<h1 className={`${s.title}`}>{details && details.shoeName}</h1>
+				<div className={`${s.title}`} style={{display: 'flex', alignItems: 'center', alignContent:'center', justifyContent: 'center'}}>
+				<h1 style={{marginRight: 15}}>{details && details.shoeName}</h1>
+				
+				{!user.email && (
+					<button  style={{backgroundColor: 'rgba(0,0,0,0)', border:'none'}}>
+						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='3x' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+					</button>
+				)}
+
+				{user.email && wishlist && wishlist.shoes && wishlist.shoes.some(wishlistShoe => wishlistShoe.id == details.id) && (
+					<button  style={{backgroundColor: 'rgba(0,0,0,0)', border:'none'}}>
+						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='3x' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
+					</button>
+				)}
+				{user.email && wishlist && wishlist.shoes && !wishlist.shoes.some(wishlistShoe => wishlistShoe.id == details.id) && (
+					<button style={{backgroundColor: 'rgba(0,0,0,0)', border:'none'}}>
+						<FontAwesomeIcon style={{ cursor: 'pointer', border: 'none', lineHeight: '60' }} size='3x' color='red' icon={icon} onClick={e => handleAddFav(e)} />
+					</button>
+				)}
+				</div>
 				<div className={`${s.divvy_one}`}>
 					<div className={`${s.shoe_cont}`}>
 						<img className={`${s.img_detail}`} src={found && found.thumbnail ? found.thumbnail : details && details.thumbnail} alt='Not found' />
@@ -116,6 +168,7 @@ export default function Detail({ id }) {
 
 							<Reviews shoeId={id} />
 						</div>
+						
 					</div>
 
 					{/* <img src={found && found.thumbnail} alt='lol' className={shoeOnHover ? s.displayImgTrue : s.displayImgFalse} /> */}
