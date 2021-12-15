@@ -83,7 +83,8 @@ export default function Card({ shoe }) {
 				</div>{' '}
 			</Link>
 			<div style={{ position: 'absolute', top: 70, left: 50, zIndex: 20, display:'flex' }}>
-				{user && user.role == 2 && <DeleteShoe id={shoe.id} />}
+				{
+					user && user.role == 2 && <DeleteShoe id={shoe.id} />}
 				{user && user.role == 2 && <EditButton id={shoe.id} />}
 			</div>
 			<div style={{ position: 'absolute', bottom: 70, right: 100, zIndex: 20 }}>

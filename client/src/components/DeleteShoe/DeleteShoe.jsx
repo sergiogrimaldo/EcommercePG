@@ -15,6 +15,7 @@ export default function DeleteShoe({ id }) {
 
 	function onClickHandler(e) {
 		// console.log(e.target.value);
+		//console.log(e.target.value)
 		dispatch(deleteId(e.target.value));
 		dispatch(openModal('delete'));
 	}

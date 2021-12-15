@@ -78,7 +78,11 @@ function rootReducer(state = initialState, action) {
 				...state,
 				allUsers: state.allUsers.filter(user => user.id != action.payload),
 			};
-
+		case 'DELETE_ID':
+			return {
+				...state,
+				deleteId: action.payload,
+			}
 		case 'SET_ORDER_STATUS':
 			return {
 				...state,
@@ -247,7 +251,7 @@ function rootReducer(state = initialState, action) {
 			return {
 				...state,
 				shoeDetails: action.payload,
-			};
+			};	
 
 		case 'OPEN_MODAL':
 			return {
@@ -379,6 +383,7 @@ function rootReducer(state = initialState, action) {
 		case 'DELETE_SHOE': {
 			return {
 				...state,
+				
 			};
 		}
 		case 'CLEAR_SHOE_DETAILS':

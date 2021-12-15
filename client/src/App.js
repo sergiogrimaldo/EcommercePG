@@ -29,7 +29,7 @@ function App() {
 	// modals need to be here so it can be accesed by all the components
 	const modal = useSelector(state => state.modal);
 	const modalData = useSelector(state => state.modalBuyDetails);
-	const deleteId = useSelector(state => state.deleteId);
+	// const deleteId = useSelector(state => state.deleteId);
 	
 	return (
 		<>
@@ -39,7 +39,7 @@ function App() {
 			{modal === 'login' && <Login />}
 			{modal === 'signUp' && <SignUp />}
 			{modal === 'BuyDetailsModal' && <BuyDetailsModal data={modalData} />}
-			{modal === 'delete' && <DeleteModal deleteId={deleteId} />}
+			{modal === 'delete' && <DeleteModal/>}
 			
 			{/* <div style={{height:'100vh', backgroundColor:'black', color:'white'}}>
 				WishList
