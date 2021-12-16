@@ -18,7 +18,11 @@
 	flex-direction: column;
 	height: 175px;
 	width: 450px;
-	background-color: white;
+	background-color: white
+}
+
+.text {
+	color:black;
 }
 
 .btn_box {

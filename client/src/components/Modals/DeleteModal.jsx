@@ -38,7 +38,7 @@ export default function DeleteModal() {
 	return (
 		<div className={`${styles.container}`}>
 			<div className={`${styles.box}`}>
-				<span>Do you really want to remove this item from the database?</span>
+				<span className={`${styles.text}`}>Do you really want to remove this item from the database?</span>
 				<div className={`${styles.btn_box}`}>
 					<button className={`${styles.btn}`} value={1} onClick={onClickHandler}>
 						Yes
