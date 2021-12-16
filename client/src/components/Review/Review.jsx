@@ -13,12 +13,14 @@ const Review = ({ rating, shoe, currentComponent }) => {
     const [isAUser, setIsAUser] = useState(false);
     const [textArea, setTextArea] = useState(false);
     const user = useSelector((state) => state.user);
+    const currentPage = useSelector((state) => state.currentPage);
     const orders = useSelector((state) => state.orders);
     const reviews = useSelector((state) => state.reviews);
     let arrayOfRatings = [];
     let avg = 0;
     let found = false;
     let foundOrderCompleted = false;
+    
     if (reviews && reviews.length > 0) {
         found = reviews && shoe && reviews.filter((review) => review.shoeId === shoe.id);
         arrayOfRatings = found && found.map((review) => review.rating);
@@ -26,6 +28,10 @@ const Review = ({ rating, shoe, currentComponent }) => {
         avg = arrayOfRatings && Math.ceil(sum / arrayOfRatings.length);
     }
     
+    useEffect(() => {
+        setStars(avg);
+    }, [avg]);
+
     if (orders && orders.length > 0 && user && user.id) {
         let isIn = [];
         let foundOrder = orders && orders[0].id && orders.find((order) => order.userId === user.id);
@@ -35,6 +41,7 @@ const Review = ({ rating, shoe, currentComponent }) => {
             });
         foundOrderCompleted = isIn.length > 0 && isIn.includes(true) && foundOrder.status === "Completed";
     }
+
     const reviewStar = (number) => {
         setStars(number);
         setTextArea(true);
@@ -46,24 +53,25 @@ const Review = ({ rating, shoe, currentComponent }) => {
         } else {
             setIsAUser(false);
         }
-    }, [user]);
+    }, [user, currentPage]);
 
     useEffect(() => {
         if (isAUser && currentComponent === "Detail") {
             setStars("");
         }
-    }, [currentComponent, isAUser]);
+    }, [currentComponent, isAUser, currentPage]);
 
     useEffect(() => {
         if (!isAUser || !found) {
             //console.log("not a user");
             setStars(0);
         }
-        if (found && found.length > 0 && !isAUser) {
+        if (found && found.length > 0  && !isAUser) {
             //console.log("found", avg);
             setStars(avg);
         }
-    }, [isAUser, found, rating, avg]);
+    }, [isAUser, found, rating, avg, currentPage]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

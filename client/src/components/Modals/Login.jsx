@@ -143,6 +143,7 @@ useEffect(() => {
                 backgroundColor: "rgba(0,0,0,0.65)",
                 zIndex: 10000,
                 height: "100%",
+                color: "black",
                 display: "grid",
                 alignItems: "center",
                 width: "100%",

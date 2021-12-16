@@ -115,6 +115,7 @@ export default function SignUp(){
             backgroundColor:'rgba(0,0,0,0.65)',
             zIndex:10000,
             height:'100vh',
+            color: "black",
             display:'grid',
             alignItems:'center',
             width:'100%',

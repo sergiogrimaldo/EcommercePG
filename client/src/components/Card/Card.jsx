@@ -20,12 +20,12 @@ export default function Card({ shoe }) {
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
 	const wishlist = useSelector(state => state.wishlist);
+    const reviews = useSelector((state) => state.reviews);
 	const page = useSelector(state => state.currentPage);
 	const [buySize, setBuySize] = useState('');
-
 	const [icon, setIcon] = useState(farHeart);
-
 	let rating = Math.floor(Math.random() * 5) + 0;
+    
 
 	useEffect(() => {
 		// dispatch(update());

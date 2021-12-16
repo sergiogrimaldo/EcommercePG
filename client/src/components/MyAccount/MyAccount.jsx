@@ -89,7 +89,7 @@ export default function MyAccount(){
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 0.7fr 1fr 1.5fr 1.3fr 1fr', width:'100vw'}}> 
 
                     <p><Link to={`./orders/${order.id}`} 
-                       style={{textDecoration: 'none'}}>
+                       style={{textDecoration: 'none', color: "white"}}>
                        <strong>#{order.id?.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>

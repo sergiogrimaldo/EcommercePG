@@ -95,7 +95,7 @@ export default function RequestResetPassword(){
     
 
     return(
-        <div className={s.container}>
+        <div className={s.container} style={{color: "black"}}>
         
         
             <form className={s.form} onSubmit={e => handleSubmit(e)}>
