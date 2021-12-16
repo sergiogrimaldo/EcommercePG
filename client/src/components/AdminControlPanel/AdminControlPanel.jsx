@@ -176,7 +176,7 @@ export default function AdminControlPanel(){
                    <div style={{display:'grid', gridTemplateColumns:'1fr 0.8fr 1fr 0.2fr 0.8fr 0.6fr 1fr 1fr 1fr 1fr', width:'100vw', columnGap:5}}> 
                        <p style={{display:'flex',justifyContent:'center'}}>
                        <Link to={`./orders/${order.id}`} 
-                       style={{textDecoration: 'none'}}>
+                       style={{textDecoration: 'none', color: 'white'}}>
                        <strong>#{order.id?.split('-')[0]}</strong></Link></p>
                        <p style={{display:'flex',justifyContent:'center'}}>{order.shoes?.length == 1 ? order.shoes[0]?.shoeName : order.shoes[0]?.shoeName+'...' }</p>
 
