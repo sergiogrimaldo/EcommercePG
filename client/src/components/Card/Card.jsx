@@ -71,7 +71,7 @@ export default function Card({ shoe }) {
 				<>
 					<div className={s.icon} style={{ position: 'relative' }}>
 						<img src={shoe.thumbnail} alt='lol' className={s.img} />
-						<h3 className={s.h3}> {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
+						<h3 className={s.name}  > {shoe.shoeName} </h3> {shoe.stock > 0 && <h2> US$ {shoe?.retailPrice} </h2>}
 						<Review rating={rating} shoe={shoe} currentComponent='Card' />
 					</div>{' '}
 				</>
