@@ -73,7 +73,7 @@ export default function ResetPassword({token}){
     
 
     return(
-        <div className={s.container}>
+        <div className={s.container} style={{color: "black"}}>
             <form className={s.form} onSubmit={e => handleSubmit(e)}>
                 <h2>Reset Password</h2>
                 <label>Password:</label>
