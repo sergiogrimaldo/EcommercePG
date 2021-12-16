@@ -35,11 +35,11 @@ export default function OrderDetails({id}){
                                 />
                                 <div>
                                 <h2 style={{gridColumn:'2', margin:0}}>{shoe.shoeName}</h2>
-                                {/* <h3 style={{gridColumn:'2', margin:0}}>{shoe.Order_Shoes.color}</h3> */}
-                                <h3 style={{gridColumn:'2', margin:0}}>Price: US${shoe.price}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Size: {shoe.size}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Cuantity: {shoe.cuantity}</h3>
-                                <h3 style={{gridColumn:'2', margin:0}}>Sub total: US${shoe.price*shoe.cuantity}</h3>
+                                {/* <h3 style={{gridColumn:'2', color: 'black', margin:0}}>{shoe.Order_Shoes.color}</h3> */}
+                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Price: US${shoe.price}</h3>
+                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Size: {shoe.size}</h3>
+                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Cuantity: {shoe.cuantity}</h3>
+                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Sub total: US${shoe.price*shoe.cuantity}</h3>
                                 </div>
                             </Link>
                             )
