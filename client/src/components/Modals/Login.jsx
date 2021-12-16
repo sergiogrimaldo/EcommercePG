@@ -34,6 +34,8 @@ export default function Login() {
 
     useEffect(() => dispatch(getUsers()), []);
 
+    const [errors, setErrors] = useState({});
+
     const [input, setInput] = useState({
         // profileObj:{
         // givenName:"",
@@ -48,6 +50,40 @@ export default function Login() {
             ...input,
             [e.target.id]: e.target.value,
         });
+        if(e.target.id==="password"){
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    password : 'Please enter a password',
+                    }
+
+                )
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    password: "",
+                }
+                )
+            }
+        }
+        if(e.target.id==="email"){
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    password : 'Please enter an email',
+                    }
+
+                )
+            }
+            else{
+                setErrors({
+                    ...errors,
+                    email: "",
+                }
+                )
+            }
+        }
     }
 
     async function handleSubmit(e) {
@@ -169,23 +205,24 @@ useEffect(() => {
                         <label style={{ textAlign: "center" }} for="username">
                             Email:
                         </label>
+                        <div style={{display:'flex', flexDirection:'column'}}>
                         <input
                             id="email"
                             // value={input.profileObj.email}
                             placeholder="type your email"
                             onChange={(e) => handleChange(e)}
                         ></input>
-                        {/* <label style={{textAlign:"center"}} for='username'>Username:</label>
-                <input 
-                id='givenName'
-                // value={input.profileObj.givenName}   
-                placeholder='type your username or email'
-                // error={errors.identifier}
-                onChange={e => handleChange(e)}
-                ></input> */}
+                        
+                        {errors.email && (
+                        <p style={{fontSize: '1.8vh', fontWeight: 'bold'}}>{errors.email}</p>
+                        )}
+
+                        </div>
+                        
                         <label style={{ textAlign: "center" }} for="password">
                             Password:
                         </label>
+                        <div style={{display:'flex', flexDirection:'column'}}>
                         <input
                             type="password"
                             id="password"
@@ -194,6 +231,12 @@ useEffect(() => {
                             // error={errors.password}
                             onChange={(e) => handleChange(e)}
                         ></input>
+                        
+                        {errors.password && (
+                        <p style={{fontSize: '1.8vh', fontWeight: 'bold'}}>{errors.password}</p>
+                        )}
+
+                        </div>
                     </div>
 
                     <div style={{ marginTop: 25, display: "flex", width: "100%", justifyContent: "space-around" }}>
