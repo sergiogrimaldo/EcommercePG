@@ -1,7 +1,8 @@
 .containerPage {
     color: black;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 14px;
     margin-top: 10px;
     height: 42px;
     flex-wrap: wrap;
@@ -10,8 +11,8 @@
 
 .nav{
     color:aliceblue;
-    background: rgb(69,69,69);
-    background: radial-gradient(circle, rgba(69,69,69,1) 56%, rgba(69,69,69,1) 65%);
+    background: rgba(0,0,0,0);
+    /* background: radial-gradient(circle, rgba(69,69,69,1) 56%, rgba(69,69,69,1) 65%); */
 }
 
 .containerBTN {
