@@ -146,9 +146,13 @@ export default function AdminControlPanel(){
                    <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>
                        <Link to={`./orders/${order.id}`} 
-                       style={{textDecoration: 'none', color:'white'}}>
-                       <strong>#{order.id.split('-')[0]}</strong></Link></p>
-                       <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
+
+                       style={{textDecoration: 'none', color: 'white'}}>
+                       <strong>#{order.id?.split('-')[0]}</strong></Link></p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.shoes?.length == 1 ? order.shoes[0]?.shoeName : order.shoes[0]?.shoeName+'...' }</p>
+
+                       <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>
+
                        <p style={{display:'flex',justifyContent:'center'}}>{
                             <select id={order.id} onChange={(e) => handleOrderStatusChange(e)}>
                             {/* ('Pending', 'In Progress', 'Cancelled', 'Completed') */}

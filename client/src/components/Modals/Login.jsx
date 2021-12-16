@@ -77,9 +77,9 @@ useEffect(() => {
     if (user && allUsers.length > 0) {
         let cartToParce = cart;
         let found = allUsers.find((element) => element.id === user.id);
-        if (found) {
-            let parcedCart = JSON.parse(found.cart);
-            if (JSON.stringify(cartToParce) !== found.cart && parcedCart.length > 0) {
+        if (found && found.cart) {
+            let parcedCart = JSON.parse(found?.cart);
+            if (JSON.stringify(cartToParce) !== found?.cart && parcedCart.length > 0) {
                 dispatch(clearCart());
                 parcedCart?.forEach((element) => {
                     cartToParce.forEach((cartElement) => {
@@ -102,7 +102,7 @@ useEffect(() => {
                     );
                 });
             }
-            if (JSON.stringify(cart) !== found.cart && parcedCart.length < 1) {
+            if (JSON.stringify(cart) !== found?.cart && parcedCart.length < 1) {
                 parcedCart?.forEach((shoe) => {
                     dispatch(
                         addToCart({
@@ -117,7 +117,7 @@ useEffect(() => {
                     );
                 });
             }
-            if (JSON.stringify(cartToParce) === found.cart && parcedCart.length < 1) {
+            if (JSON.stringify(cartToParce) === found?.cart && parcedCart.length < 1) {
                 cartToParce.forEach((shoe) => {
                     dispatch(
                         addToCart({
@@ -143,6 +143,7 @@ useEffect(() => {
                 backgroundColor: "rgba(0,0,0,0.65)",
                 zIndex: 10000,
                 height: "100%",
+                color: "black",
                 display: "grid",
                 alignItems: "center",
                 width: "100%",

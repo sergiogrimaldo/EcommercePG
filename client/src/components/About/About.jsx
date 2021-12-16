@@ -30,7 +30,7 @@ function About() {
             <div className={s.teamsContainer}>
                 <div className={s.box}>
                     <div>
-                        <img className={s.imgBox} alt="team" src="fotos-portfolio1.jpg" style={{ width: "110px", height: "130px" }} />
+                        <img className={s.imgBox} alt="team" src="alan.jpg" />
                     </div>
                     <div className={s.infoBox}>
                         <h3>Alan Castillo</h3>
@@ -42,6 +42,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/AlanMauricioCastillo" target="_blank">
@@ -50,6 +51,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://www.twitter.com/@AlanCas94011193" target="_blank">
@@ -58,6 +60,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -77,6 +80,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/frann11" target="_blank">
@@ -85,6 +89,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -105,6 +110,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/sergiogrimaldo" target="_blank">
@@ -113,6 +119,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -137,6 +144,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/FernandoRuizParietti" target="_blank">
@@ -145,6 +153,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -169,6 +178,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/elmaruz" target="_blank">
@@ -177,6 +187,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -201,6 +212,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/florlodosa" target="_blank">
@@ -209,6 +221,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -233,6 +246,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/JoacoTrovato" target="_blank">
@@ -241,6 +255,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>
@@ -265,6 +280,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                             <a href="https://github.com/careyesp95" target="_blank">
@@ -273,6 +289,7 @@ function About() {
                                     alt=""
                                     width="20px"
                                     height="20px"
+                                    className={s.icon}
                                 />
                             </a>
                         </span>

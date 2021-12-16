@@ -82,6 +82,7 @@ export default function Card({ shoe }) {
 				{/*boton*/}
 
 				{!user.email && (
+
 				
 						<FontAwesomeIcon style={{right:200, cursor: 'pointer',position:'absolute',left:135, top:5, border: 'none', lineHeight: '60' }} size='2x' color='red' icon={icon} onClick={e => handleDeleteFav(e)} />
 					
@@ -96,6 +97,7 @@ export default function Card({ shoe }) {
 				
 						<FontAwesomeIcon style={{right:200, cursor: 'pointer',position:'absolute',left:135, top:5, border: 'none', lineHeight: '60' }} size='2x' color='red' icon={icon} onClick={e => handleAddFav(e)} />
 				
+
 				)}
 			</div>
 			<div style={{ position: 'relative' }}>

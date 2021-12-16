@@ -100,6 +100,11 @@
 	/* margin-top: 10px; */
 }
 
+.selected{
+	background-color: rgb(148, 148, 148);
+	color:white;
+}
+
 .color {
 	margin-top: 10px;
 }
