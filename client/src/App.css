@@ -10,6 +10,7 @@ body {
 	font-family: 'Poppins', sans-serif;
 	color: white;
 	background: rgb(86,86,88);
+	color:white;
 	background: radial-gradient(circle, rgba(86,86,88,1) 0%, rgba(0,0,0,1) 100%);
 }
 body::-webkit-scrollbar {

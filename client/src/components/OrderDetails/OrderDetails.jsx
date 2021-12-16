@@ -22,7 +22,7 @@ export default function OrderDetails({id}){
                         <h1>#{orderDetails?.orderId?.split('-')[0]}</h1>
                         <h2>Status: {orderDetails.status}</h2>
                     </div>
-                    <div style={{backgroundColor:'white' , width:'70vw', borderRadius:'15px', boxShadow:'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'}}>
+                    <div style={{backgroundColor:'white' ,color:'black', width:'70vw', borderRadius:'15px', boxShadow:'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'}}>
                         {
                             //console.log(orderDetails)
                         }
@@ -34,12 +34,14 @@ export default function OrderDetails({id}){
                                 width="300px"    
                                 />
                                 <div>
-                                <h2 style={{gridColumn:'2', margin:0}}>{shoe.shoeName}</h2>
-                                {/* <h3 style={{gridColumn:'2', color: 'black', margin:0}}>{shoe.Order_Shoes.color}</h3> */}
-                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Price: US${shoe.price}</h3>
-                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Size: {shoe.size}</h3>
-                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Cuantity: {shoe.cuantity}</h3>
-                                <h3 style={{gridColumn:'2', color: 'black', margin:0}}>Sub total: US${shoe.price*shoe.cuantity}</h3>
+
+                                <h2 style={{gridColumn:'2', margin:0, color:'black'}}>{shoe.shoeName}</h2>
+                                {/* <h3 style={{gridColumn:'2', margin:0}}>{shoe.Order_Shoes.color}</h3> */}
+                                <h3 style={{gridColumn:'2', margin:0, color:'black'}}>Price: US${shoe.price}</h3>
+                                <h3 style={{gridColumn:'2', margin:0, color:'black'}}>Size: {shoe.size}</h3>
+                                <h3 style={{gridColumn:'2', margin:0, color:'black'}}>Cuantity: {shoe.cuantity}</h3>
+                                <h3 style={{gridColumn:'2', margin:0, color:'black'}}>Sub total: US${shoe.price*shoe.cuantity}</h3>
+
                                 </div>
                             </Link>
                             )
