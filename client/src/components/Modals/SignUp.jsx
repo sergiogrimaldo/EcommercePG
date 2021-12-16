@@ -66,14 +66,6 @@ export default function SignUp(){
             }
         }
         if(e.target.id==="email"){
-            if(!e.target.value){
-                setErrors(
-                    {...errors,
-                    email : 'Please enter an email',
-                    }
-
-                )
-            }
             if(allUsers.some(user => user.email === e.target.value)){
                 //console.log(errors)
                 setErrors(
@@ -88,6 +80,14 @@ export default function SignUp(){
                     ...errors,
                     email: "",
                 }
+                )
+            }
+            if(!e.target.value){
+                setErrors(
+                    {...errors,
+                    email : 'Please enter an email',
+                    }
+
                 )
             }
         }
@@ -118,6 +118,7 @@ export default function SignUp(){
             display:'grid',
             alignItems:'center',
             width:'100%',
+            color: "black",
             justifyItems:'center'}}>
 
             <div style={{
@@ -133,7 +134,9 @@ export default function SignUp(){
     <h1 style={{marginTop:0}}>REGISTER</h1>
         <form onSubmit={e => handleSubmit(e)}>
             <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',}}>
+            
                 <label style={{textAlign:"center"}} for='email'>Email:</label>
+                    <div style={{display:'flex', flexDirection:'column'}}>
                     <input 
                     type='text' 
                     id='email' 
@@ -142,8 +145,10 @@ export default function SignUp(){
                     onChange={e => handleChange(e)}></input>
                     {errors.email && (
                         <p className={s.error}>{errors.email}</p>
-                    )}            
+                    )}
+                    </div>            
                 <label style={{textAlign:"center"}} for='name'>Username:</label>
+                <div style={{display:'flex', flexDirection:'column'}}>
                     <input 
                     id='name' 
                     placeholder='type your username'
@@ -153,7 +158,9 @@ export default function SignUp(){
                     {errors.name && (
                         <p className={s.error}>{errors.name}</p>
                     )}
+                </div>
                 <label style={{textAlign:"center"}} for='password'>Password:</label>
+                <div style={{display:'flex', flexDirection:'column'}}>
                     <input 
                     type='password' 
                     id='password' 
@@ -164,6 +171,7 @@ export default function SignUp(){
                         <p className={s.error}>{errors.password
                         }</p>
                     )}
+                </div>
             </div>
             <div style={{marginTop:25, display:'flex', width:'100%',justifyContent:'space-around'  }}>
                 <button style={{padding:10,backgroundColor:'black',color:'white',borderRadius:5 ,border:'1px solid black'}} 
