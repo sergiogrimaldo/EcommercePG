@@ -13,7 +13,6 @@ export default function OrderDetails({id}){
         dispach(getOrderDetails({email: user.email, id:id}))
         
     }, [])
-    console.log(orderDetails)
     return (
         <div style={{display:'grid', alignItems:'center', marginTop:20, alignContent:'center', justifyContent:'center', width:'100vw'}}>
             {
