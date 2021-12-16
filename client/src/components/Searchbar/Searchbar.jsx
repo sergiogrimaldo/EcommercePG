@@ -11,8 +11,8 @@ import s from './Searchbar.styles.module.css'
 
 
 const AutocompleteItem = ({id, shoeName, thumbnail, price,i}) => {
-	return <li className={s.li} >
-		<Link to={`/shoe/${id}`}><div style={{display:'flex'}}>
+	return <li className={s.li} style={{zIndex:30}}>
+		<Link to={`/shoe/${id}`}><div style={{display:'flex', width:'286px',zIndex:300}}>
 			<img alt='alt' src={thumbnail} height='50px'/> <div>
 				<h5 className={s.h5}>{shoeName}</h5>
 				<h6>US${price.retailPrice}</h6></div>
@@ -99,7 +99,7 @@ export default function Searchbar(props) {
 				</form>
 				{
 					autocompleteState.isOpen && 
-					<div ref={panelRef} {...autocomplete.getPanelProps()}>
+					<div style={{position:'absolute'}}ref={panelRef} {...autocomplete.getPanelProps()}>
 						{autocompleteState.collections.map((collection, index) => {
 							//console.log(collection,'collection')
 							const {items} = collection

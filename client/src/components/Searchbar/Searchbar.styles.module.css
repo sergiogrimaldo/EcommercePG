@@ -5,9 +5,9 @@
 }
 
 .h5:hover{
-    
     color:red
 }
+
 
 @media screen and (max-width: 1024px){
 	.buscar{

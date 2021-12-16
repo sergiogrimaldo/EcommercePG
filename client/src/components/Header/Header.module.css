@@ -11,6 +11,10 @@
 	align-items: center;
 	flex-direction: row;
 }
+.card{
+	max-width:300px;
+	z-Index:30;
+}
 .btns{
 	justify-content: space-evenly;
 }
