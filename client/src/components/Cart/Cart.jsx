@@ -163,7 +163,7 @@ export default function Cart() {
                             ) : null
                         )
                     ) : (
-                        <div style={{ gridRow: "1/6", gridColumn: "1/6" }}>
+                        <div style={{ gridRow: "1/7", gridColumn: "1/7" }}>
                             <h1 style={{ margin: 0 }}>No items in cart!</h1>{" "}
                             <Link className={style.Link} to="/catalogue">
                                 <h3 style={{ margin: 0, textAlign: "center", color: "grey" }}>Go check our store!</h3>

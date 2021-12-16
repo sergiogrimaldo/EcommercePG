@@ -3,7 +3,6 @@ import {getOrderDetails, getOrders, setOrderStatus, deleteUser, changeRol, getUs
 import {useEffect, useState} from 'react'
 import jwt from 'jsonwebtoken';
 import { Link } from 'react-router-dom';
-import s from './AdminControlPanel.module.css';
 
 export default function AdminControlPanel(){
     const dispatch = useDispatch()
@@ -14,11 +13,8 @@ export default function AdminControlPanel(){
     const [localOrders, setLocalOrders] = useState('')
     const [allUsers, setAllUsers] = useState('')
     const [button, setButton] = useState(false)
-    const [status, setStatus] = useState('')
-
-
     
-    
+
     useEffect( () =>{ dispatch(getOrders({email:user?.email}))},[])
 
     useEffect( async () => {
@@ -34,11 +30,6 @@ export default function AdminControlPanel(){
          setAllUsers(users)
      },[JSON.stringify(users)])
 
-     useEffect(()=>{
-        dispatch(getOrders({email:user?.email}))
-         console.log('Me renderizo de nuevo')
-     },[status])
-
 
     function toDate(string){
         const date = new Date(string)
@@ -46,21 +37,11 @@ export default function AdminControlPanel(){
         const formattedDate = parseDate.split(' ').slice(0,5).join(' ')
         return formattedDate
     }
-    
-    const handleOrderStatusChange = async function(e){
-        
-        let result = window.confirm('Are you sure you want to change the order status?')
-    
-        if(result){
-            await dispatch(getOrders({email:user?.email}))
-            await dispatch(setOrderStatus({email:user?.email ,id:e.target.id,status:e.target.value}))
-            setStatus(true)
-        
-        }else{
-            
-            setStatus(false)
-        }
 
+
+    const handleOrderStatusChange = async function(e){
+        await dispatch(setOrderStatus({email:user?.email ,id:e.target.id,status:e.target.value}))
+        await dispatch(getOrders({email:user?.email}))
     }
 
     const handleClick = async function(e){
@@ -72,17 +53,12 @@ export default function AdminControlPanel(){
 
     }
 
-    const onclickDelete = (e) => {
-        let result = window.confirm('Are you sure you want to delete the user?')
-        if(result){
-            dispatch(deleteUser(e.target.id))
-        }
-    }
+
 
     return (
-        <div className={s.card__father} style={{height: '100%',overflowX:'hidden'}}>
-        <div className={s.card__father} style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
-            <h1 className={s.card}>Admin Control Panel</h1>
+        <div style={{height: '100%',overflowX:'hidden'}}>
+        <div style={{marginTop:15,height:'100%',display:'grid', justifyContent:'center', alignItems:'center', justifyItems:'center'}}>
+            <h1>Admin Control Panel</h1>
             <br/>
             <h2>My account</h2>
             <h3>{user?.name}</h3>
@@ -93,35 +69,35 @@ export default function AdminControlPanel(){
             
             </div>
 
-            <ul className={s.card__father} style={{listStyle:'none'}}>
+            <ul style={{listStyle:'none'}}>
             <li>
-                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  
-                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}
+                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', width:'100%'}}>  */}
+                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr', width:'100%'}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> # </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Rol </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Name </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Email </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Activated? </div> 
+                        {/* <div style={{display:'flex',justifyContent:'center'}}> Activated? </div> */}
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         </div>
                    </li>
 
                 { allUsers && allUsers.length && allUsers.sort((a,b) => b.createdAt > a.createdAt? -1 : 1).map((users,i) => 
                <li id={users.id} style={{marginTop:10}}>
-                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}> 
-                   {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr ', columnGap:5}}> */}
+                   {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr', columnGap:5}}> */}
+                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr 1fr ', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>{i+1}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.roleId === 2 ? 'admin' : 'user'}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.name}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{users.email}</p>
-                       <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p>
+                       {/* <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{users.activated ? 'yes' : 'no '}</p> */}
                        <p style={{display:'flex',justifyContent:'center', minWidth:'3ch'}}>{toDate(users.createdAt)}</p>
                        {user.email === users.email ? null : 
                        <div style={{display:'flex', justifyContent:'center', gap:10}}>
                         <button 
                         id={(users.id)} 
                         style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}} 
-                        onClick={(e)=>onclickDelete(e)}>Delete</button>
+                        onClick={(e) => dispatch(deleteUser(e.target.id))}>Delete</button>
                         <button
                         style={{cursor:'pointer',border:'1px solid black', borderRadius:5,backgroundColor:'white', width:'40%'}}
                         id={(users.id)}
@@ -152,16 +128,10 @@ export default function AdminControlPanel(){
 
             <ul style={{marginTop:25, listStyle:'none'}}>
             <li>
-                        {/* <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 0.7fr 1fr 1.5fr 1.3fr 1fr', width:'100%'}}>  */}
-                        <div style={{display:'grid', gridTemplateColumns:'1fr 0.8fr 0.8fr 0.2fr 0.8fr 0.6fr 1fr 1fr 1fr 1fr', width:'100vw', columnGap:5}}> 
+                        <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', width:'100%'}}> 
                         <div style={{display:'flex',justifyContent:'center'}}> Order </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Product </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Total </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Select</div>
                         <div style={{display:'flex',justifyContent:'center'}}> Status </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Name </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Shipping Adress </div>
-                        <div style={{display:'flex',justifyContent:'center'}}> Email </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Created </div>
                         <div style={{display:'flex',justifyContent:'center'}}> Last Update </div>
                         </div>
@@ -173,30 +143,23 @@ export default function AdminControlPanel(){
                 {orders && orders.length > 0 && localOrders && localOrders.length > 0 ? localOrders.map((order,i) => 
                <li style={{marginTop:10}} key={order.id}>
                    
-                   <div style={{display:'grid', gridTemplateColumns:'1fr 0.8fr 1fr 0.2fr 0.8fr 0.6fr 1fr 1fr 1fr 1fr', width:'100vw', columnGap:5}}> 
+                   <div style={{display:'grid', gridTemplateColumns:'0.5fr 1.5fr 1fr 1fr 1fr ', columnGap:5}}>
                        <p style={{display:'flex',justifyContent:'center'}}>
                        <Link to={`./orders/${order.id}`} 
-                       style={{textDecoration: 'none'}}>
-                       <strong>#{order.id?.split('-')[0]}</strong></Link></p>
-                       <p style={{display:'flex',justifyContent:'center'}}>{order.shoes?.length == 1 ? order.shoes[0]?.shoeName : order.shoes[0]?.shoeName+'...' }</p>
-
-                       <p style={{display:'flex',justifyContent:'center'}}>US${order.total}</p>
+                       style={{textDecoration: 'none', color:'white'}}>
+                       <strong>#{order.id.split('-')[0]}</strong></Link></p>
+                       <p style={{display:'flex',justifyContent:'center'}}>{order.shoes.length == 1 ? order.shoes[0].shoeName : order.shoes[0].shoeName+'...' }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{
-                            <select id={order.id} style={{height:'80%'}} onChange={(e) => handleOrderStatusChange(e)}>
+                            <select id={order.id} onChange={(e) => handleOrderStatusChange(e)}>
                             {/* ('Pending', 'In Progress', 'Cancelled', 'Completed') */}
-                                <option  value='In Progress'> Select</option>
-                                <option  value='In Progress'> In Progress</option>
-                                <option   value='Pending'>Pending</option>
-                                <option  value='Cancelled'> Cancelled</option>
-                                <option  value='Completed'> Completed</option>
-                                
+                                <option selected={order.status === 'In Progress'} value='In Progress'> In Progress</option>
+                                <option selected={order.status === 'Pending'}  value='Pending'>Pending</option>
+                                <option selected={order.status === 'Cancelled'} value='Cancelled'> Cancelled</option>
+                                <option selected={order.status === 'Completed'} value='Completed'> Completed</option>
                             </select>
-                       } </p>
-                       <p>{order.status}</p>
-                      
-                       <p style={{display:'flex',justifyContent:'center'}}>{order.name} {order.lastName}</p>
-                       <p style={{display:'flex',justifyContent:'center'}}>{order.adress}</p>
-                       <p style={{display:'flex',justifyContent:'center'}}>{order.email}</p>
+
+
+                       }</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.createdAt)}</p>
                        <p style={{display:'flex',justifyContent:'center'}}>{toDate(order.updatedAt)}</p>
                        
