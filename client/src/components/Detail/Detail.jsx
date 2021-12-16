@@ -133,7 +133,7 @@ export default function Detail({ id }) {
 										.filter(elem => elem[0] !== 'id')
 										.sort((a, b) => Number(a[0].includes(',') ? a[0].replace(',', '.') : a[0]) - Number(b[0].includes(',') ? b[0].replace(',', '.') : b[0]))
 										.map(elem => (
-											<button className={`${s.size_btn}`} value={elem[0]} onClick={onClickHandler} className={`${s.btn_size}`}>
+											<button  value={elem[0]} onClick={onClickHandler} className={`${s.btn_size} ${elem[0] == selectSize? s.selected : null} `}>
 												{elem[0].includes(',') ? elem[0].replace(',', '.') : elem[0]}
 											</button>
 										))}
