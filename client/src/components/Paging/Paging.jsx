@@ -7,9 +7,9 @@ function Paging({ shoes, shoesPerPage }) {
     shoes = shoes || [];
 
     const page = useSelector((state) => state.currentPage);
-    const [pageNumberLimit, setPageNumberLimit] = useState(5);
+    const [pageNumberLimit, setPageNumberLimit] = useState(6);
     const [maxPageLimit, setMaxPageLimit] = useState(5);
-    const [minPageLimit, setMinPageLimit] = useState(1);
+    const [minPageLimit, setMinPageLimit] = useState(0);
 
 
     const dispach = useDispatch();
@@ -19,11 +19,11 @@ function Paging({ shoes, shoesPerPage }) {
 
     
     
-    for (let i = 1; i <= Math.ceil(shoes.length / shoesPerPage); i++) {
+    for (let i = 0; i <= Math.ceil(shoes.length / shoesPerPage); i++) {
         pageNumber.push(i);
     }
     //pageNumber.push([">>"]);
-    let pageN = pageNumber.pop();
+    pageNumber.pop();
 
 
     const handleClick = function(e){
@@ -41,7 +41,7 @@ function Paging({ shoes, shoesPerPage }) {
 
     const handleButtonPrev = function (){
         dispach(setPage(page - 1));
-        if((page - 1) % pageNumberLimit == 0){
+        if(page - 1 < minPageLimit){
             setMaxPageLimit(maxPageLimit - pageNumberLimit);
             setMinPageLimit(minPageLimit - pageNumberLimit);
         }
@@ -53,7 +53,7 @@ function Paging({ shoes, shoesPerPage }) {
             return (
                 <div key={e}>
                     <button key={"button" + e} className={page == e ? style.active:style.containerBTN} onClick={() => handleClick(e)}>
-                        { e }
+                        { e + 1 }
                     </button>
                 </div>
             );

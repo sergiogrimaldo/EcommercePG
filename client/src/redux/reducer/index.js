@@ -19,7 +19,7 @@ const initialState = {
 	currentPage: 0,
 	filterBrands: [],
 	filterSizes: [],
-	filterPrice: 0,
+	filterPrice: 1,
 	textToSearch: '',
 	cart: [],
 	user: {},
