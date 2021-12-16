@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .container{
     width:50%;
-    heigth:50%;
 }
 
 .title{
@@ -50,4 +49,8 @@ h4{
     margin: 5px;
     font-size: 110%;
     color: aliceblue;
+}
+
+.icon{
+    margin:3px;
 }
