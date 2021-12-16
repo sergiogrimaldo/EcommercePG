@@ -9,12 +9,16 @@ import styles from './Header.module.css';
 export default function Header({ data }) {
 	return (
 		<div className={`${styles.container}`}>
-			<FilterPrice data={data} />
-			<Searchbar />
 			<div className={`${styles.btns}`}>
 			<FilterBrand data={data} />
 			<FilterSize data={data} />
 			</div>
+		
+			<div className={`styles.card`}>
+			<Searchbar />
+			</div>
+			<FilterPrice data={data} />
+			
 			
 			{/* <FilterColor data={data} /> */}
 			
