@@ -48,7 +48,7 @@ export default function Detail({ id }) {
 		} else {
 			setIcon(farHeart);
 		}
-	}, [wishlist, wishlist?.shoes, page, details.id]);
+	}, [wishlist, wishlist?.shoes, page, details?.id]);
 
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
