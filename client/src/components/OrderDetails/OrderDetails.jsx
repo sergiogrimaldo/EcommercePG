@@ -14,7 +14,7 @@ export default function OrderDetails({id}){
         
     }, [])
     return (
-        <div style={{display:'grid', alignItems:'center', marginTop:20, alignContent:'center', justifyContent:'center', width:'100vw'}}>
+        <div style={{display:'grid', alignItems:'center', marginTop:20, alignContent:'center', justifyContent:'center', width:'100vw', overFlownX:'hidden'}}>
             {
                 user && orderDetails && JSON.stringify(orderDetails).length > 2 && 
                 <>               
@@ -47,7 +47,7 @@ export default function OrderDetails({id}){
                             )
                         }
                     </div>
-                    <h2 style={{position:'fixed', bottom:'0', width:'100vw', textAlign:'center', borderTop:'1px solid black'}}>Total: US${orderDetails.total}</h2>
+                    <h2 style={{position:'fixed', bottom:'0', width:'100vw', textAlign:'center', borderTop:'1px solid black', backgroundColor:'white',color:'black'}}>Total: US${orderDetails.total}</h2>
                 </>}
         </div>
     )

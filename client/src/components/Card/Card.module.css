@@ -81,9 +81,21 @@
 	display: flex;
 }
 .h3 {
-	
+
 	color: black;
 }
+
+
+
+  .name {
+	white-space: nowrap; 
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+	color: black;
+}
+
+
 
 .hearth{
 	right:200;
