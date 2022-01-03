@@ -13,6 +13,7 @@ function Paging({ shoes, shoesPerPage }) {
     //const pageNumber = ["<<"];
     const pageNumber  = []
 
+
     for (let i = 1; i <= Math.ceil(shoes.length / shoesPerPage); i++) {
         pageNumber.push(i);
     }
@@ -30,9 +31,12 @@ function Paging({ shoes, shoesPerPage }) {
             }
         } else {
             dispach(setPage(e - 1));
+
+    
         }
     };
 //console.log(window.screen.width)
+
 return (
     <nav className={style.nav}>
         <div className={style.containerPage}>
@@ -55,6 +59,7 @@ return (
         </div>
     </nav>
 );
+
 }
 
 
