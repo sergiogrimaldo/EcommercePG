@@ -2,7 +2,6 @@
     <img src='https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp' </img>
 </p>
 
-
 # Henry Group Programming 
 
 ## Objetivos del Proyecto
@@ -32,6 +31,7 @@ Vamos a usar **GIT** para gestionar el código y **Trello** para gestionar el pr
 - Mover la Card de trello a `Review`.
 - Asignar a otro equipo de dos para que revise el `PR`.
 - Iterar hasta que no haya más comentarios:
+
     + Si hay un comentario, el equipo original debe codear de nuevo la solución y volver a subir el código a github.
     + Si no hay comentarios, se aprueba el `PR` y se mergea a master
 - Mergear el `PR` a master.
